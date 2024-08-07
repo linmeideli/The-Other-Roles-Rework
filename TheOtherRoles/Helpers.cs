@@ -47,7 +47,7 @@ namespace TheOtherRoles {
                 if (!cache) return sprite;
                 return CachedSprites[path + pixelsPerUnit] = sprite;
             } catch {
-                System.Console.WriteLine("Error loading sprite from path: " + path);
+                System.Console.WriteLine("加载路径时出错: " + path);
             }
             return null;
         }
@@ -60,13 +60,13 @@ namespace TheOtherRoles {
                 var length = stream.Length;
                 var byteTexture = new Il2CppStructArray<byte>(length);
                 stream.Read(new Span<byte>(IntPtr.Add(byteTexture.Pointer, IntPtr.Size * 4).ToPointer(), (int) length));
-                if (path.Contains("HorseHats")) {
+                if (path.Contains("马帽子")) {
                     byteTexture = new Il2CppStructArray<byte>(byteTexture.Reverse().ToArray());
                 }
                 ImageConversion.LoadImage(texture, byteTexture, false);
                 return texture;
             } catch {
-                System.Console.WriteLine("Error loading texture from resources: " + path);
+                System.Console.WriteLine("加载资源时出错: " + path);
             }
             return null;
         }
@@ -80,7 +80,7 @@ namespace TheOtherRoles {
                     return texture;
                 }
             } catch {
-                TheOtherRolesPlugin.Logger.LogError("Error loading texture from disk: " + path);
+                TheOtherRolesPlugin.Logger.LogError("从磁盘加载纹理时出错: " + path);
             }
             return null;
         }
@@ -105,7 +105,7 @@ namespace TheOtherRoles {
                 audioClip.SetData(samples, 0);
                 return audioClip;
             } catch {
-                System.Console.WriteLine("Error loading AudioClip from resources: " + path);
+                System.Console.WriteLine("从资源加载AudioClip时出错: " + path);
             }
             return null;
 
@@ -183,7 +183,7 @@ namespace TheOtherRoles {
 
             // Add TextTask for remaining RoleInfos
             foreach (string title in taskTexts) {
-                var task = new GameObject("RoleTask").AddComponent<ImportantTextTask>();
+                var task = new GameObject("职业任务").AddComponent<ImportantTextTask>();
                 task.transform.SetParent(player.transform, false);
                 task.Text = title;
                 player.myTasks.Insert(0, task);
@@ -192,13 +192,13 @@ namespace TheOtherRoles {
 
         internal static string getRoleString(RoleInfo roleInfo)
         {
-            if (roleInfo.name == "Jackal") 
+            if (roleInfo.name == "豺狼") 
             {
-                var getSidekickText = Jackal.canCreateSidekick ? " and recruit a Sidekick" : "";
-                return cs(roleInfo.color, $"{roleInfo.name}: Kill everyone{getSidekickText}");  
+                var getSidekickText = Jackal.canCreateSidekick ? " 招募一个跟班" : "";
+                return cs(roleInfo.color, $"{roleInfo.name}: 杀死所有人{getSidekickText}");  
             }
 
-            if (roleInfo.name == "Invert") 
+            if (roleInfo.name == "醉鬼") 
             {
                 return cs(roleInfo.color, $"{roleInfo.name}: {roleInfo.shortDescription} ({Invert.meetings})");
             }
@@ -357,7 +357,7 @@ namespace TheOtherRoles {
             if (Helpers.MushroomSabotageActive()) {
                 var instance = ShipStatus.Instance.CastFast<FungleShipStatus>().specialSabotage;
                 MushroomMixupSabotageSystem.CondensedOutfit condensedOutfit = instance.currentMixups[target.PlayerId];
-                GameData.PlayerOutfit playerOutfit = instance.ConvertToPlayerOutfit(condensedOutfit);
+                NetworkedPlayerInfo.PlayerOutfit playerOutfit = instance.ConvertToPlayerOutfit(condensedOutfit);
                 target.MixUpOutfit(playerOutfit);
             } else
                 target.setLook(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId, enforceNightVisionUpdate);
@@ -450,7 +450,7 @@ namespace TheOtherRoles {
             return roleCouldUse;
         }
 
-        public static MurderAttemptResult checkMuderAttempt(PlayerControl killer, PlayerControl target, bool blockRewind = false, bool ignoreBlank = false, bool ignoreIfKillerIsDead = false) {
+        public static MurderAttemptResult checkMuderAttempt(PlayerControl killer, PlayerControl target, bool blockRewind = false, bool ignoreBlank = false, bool ignoreIfKillerIsDead = false, bool ignoreMedic = false) {
             var targetRole = RoleInfo.getRoleInfoForPlayer(target, false).FirstOrDefault();
 
             // Modified vanilla checks
@@ -474,7 +474,7 @@ namespace TheOtherRoles {
             }
 
             // Block impostor shielded kill
-            if (Medic.shielded != null && Medic.shielded == target) {
+            if (!ignoreMedic && Medic.shielded != null && Medic.shielded == target) {
                 MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(killer.NetId, (byte)CustomRPC.ShieldedMurderAttempt, Hazel.SendOption.Reliable, -1);
                 AmongUsClient.Instance.FinishRpcImmediately(writer);
                 RPCProcedure.shieldedMurderAttempt();
@@ -606,10 +606,15 @@ namespace TheOtherRoles {
                 if (cam != null && cam.gameObject.name == "UI Camera") cam.orthographicSize = orthographicSize;  // The UI is scaled too, else we cant click the buttons. Downside: map is super small.
             }
 
-            if (HudManagerStartPatch.zoomOutButton != null) {
-                HudManagerStartPatch.zoomOutButton.Sprite = zoomOutStatus ? Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PlusButton.png", 75f) : Helpers.loadSpriteFromResources("TheOtherRoles.Resources.MinusButton.png", 150f);
-                HudManagerStartPatch.zoomOutButton.PositionOffset = zoomOutStatus ? new Vector3(0f, 3f, 0) : new Vector3(0.4f, 2.8f, 0);
+            var tzGO = GameObject.Find("TOGGLEZOOMBUTTON");
+            if (tzGO != null) {
+                var rend = tzGO.transform.Find("Inactive").GetComponent<SpriteRenderer>();
+                var rendActive = tzGO.transform.Find("Active").GetComponent<SpriteRenderer>();
+                rend.sprite = zoomOutStatus ? Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Plus_Button.png", 100f) : Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Minus_Button.png", 100f);
+                rendActive.sprite = zoomOutStatus ? Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Plus_ButtonActive.png", 100f) : Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Minus_ButtonActive.png", 100f);
+                tzGO.transform.localScale = new Vector3(1.2f, 1.2f, 1f) * (zoomOutStatus ? 4 : 1);
             }
+
             ResolutionManager.ResolutionChanged.Invoke((float)Screen.width / Screen.height, Screen.width, Screen.height, Screen.fullScreen); // This will move button positions to the correct position.
         }
 
@@ -654,7 +659,7 @@ namespace TheOtherRoles {
             }
         }
 
-        public static bool hasImpVision(GameData.PlayerInfo player) {
+        public static bool hasImpVision(NetworkedPlayerInfo player) {
             return player.Role.IsImpostor
                 || ((Jackal.jackal != null && Jackal.jackal.PlayerId == player.PlayerId || Jackal.formerJackals.Any(x => x.PlayerId == player.PlayerId)) && Jackal.hasImpostorVision)
                 || (Sidekick.sidekick != null && Sidekick.sidekick.PlayerId == player.PlayerId && Sidekick.hasImpostorVision)

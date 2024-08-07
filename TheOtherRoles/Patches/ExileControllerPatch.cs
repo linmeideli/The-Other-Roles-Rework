@@ -13,8 +13,8 @@ namespace TheOtherRoles.Patches {
     [HarmonyPatch(typeof(ExileController), nameof(ExileController.Begin))]
     [HarmonyPriority(Priority.First)]
     class ExileControllerBeginPatch {
-        public static GameData.PlayerInfo lastExiled;
-        public static void Prefix(ExileController __instance, [HarmonyArgument(0)]ref GameData.PlayerInfo exiled, [HarmonyArgument(1)]bool tie) {
+        public static NetworkedPlayerInfo lastExiled;
+        public static void Prefix(ExileController __instance, [HarmonyArgument(0)]ref NetworkedPlayerInfo exiled, [HarmonyArgument(1)]bool tie) {
             lastExiled = exiled;
 
             // Medic shield
@@ -158,7 +158,7 @@ namespace TheOtherRoles.Patches {
             }
         }
 
-        static void WrapUpPostfix(GameData.PlayerInfo exiled) {
+        static void WrapUpPostfix(NetworkedPlayerInfo exiled) {
             // Prosecutor win condition
             if (exiled != null && Lawyer.lawyer != null && Lawyer.target != null && Lawyer.isProsecutor && Lawyer.target.PlayerId == exiled.PlayerId && !Lawyer.lawyer.Data.IsDead)
                 Lawyer.triggerProsecutorWin = true;
@@ -294,13 +294,13 @@ namespace TheOtherRoles.Patches {
                     if (player == null) return;
                     // Exile role text
                     if (id == StringNames.ExileTextPN || id == StringNames.ExileTextSN || id == StringNames.ExileTextPP || id == StringNames.ExileTextSP) {
-                        __result = player.Data.PlayerName + " was The " + String.Join(" ", RoleInfo.getRoleInfoForPlayer(player, false).Select(x => x.name).ToArray());
+                        __result = player.Data.PlayerName + " 的职业是 " + String.Join(" ", RoleInfo.getRoleInfoForPlayer(player, false).Select(x => x.name).ToArray());
                     }
                     // Hide number of remaining impostors on Jester win
                     if (id == StringNames.ImpostorsRemainP || id == StringNames.ImpostorsRemainS) {
                         if (Jester.jester != null && player.PlayerId == Jester.jester.PlayerId) __result = "";
                     }
-                    if (Tiebreaker.isTiebreak) __result += " (Tiebreaker)";
+                    if (Tiebreaker.isTiebreak) __result += " (决胜局)";
                     Tiebreaker.isTiebreak = false;
                 }
             } catch {

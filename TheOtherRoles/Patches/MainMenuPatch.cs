@@ -49,14 +49,13 @@ namespace TheOtherRoles.Modules {
             passiveButtonDiscord.OnClick = new Button.ButtonClickedEvent();
             passiveButtonDiscord.OnClick.AddListener((System.Action)(() => Application.OpenURL("https://discord.gg/77RkMJHWsM")));
 
-
             var buttonQQ = UnityEngine.Object.Instantiate(template, template.transform.parent);
             buttonQQ.transform.localScale = new Vector3(0.42f, 0.84f, 0.84f);
-            buttonQQ.GetComponent<AspectPosition>().anchorPoint = new Vector2(1.382f, 0.5f);
+            buttonQQ.GetComponent<AspectPosition>().anchorPoint = new Vector2(0.962f, 0.6f);
 
             var textQQ = buttonQQ.transform.GetComponentInChildren<TMPro.TMP_Text>();
             __instance.StartCoroutine(Effects.Lerp(0.5f, new System.Action<float>((p) => {
-                textQQ.SetText("TOR-R QQ");
+                textQQ.SetText("TORR QQ");
             })));
             PassiveButton passiveButtonQQ = buttonQQ.GetComponent<PassiveButton>();
 
@@ -74,7 +73,7 @@ namespace TheOtherRoles.Modules {
 
             var textCreditsButton = creditsButton.transform.GetComponentInChildren<TMPro.TMP_Text>();
             __instance.StartCoroutine(Effects.Lerp(0.5f, new System.Action<float>((p) => {
-                textCreditsButton.SetText("TOR Credits");
+                textCreditsButton.SetText("创作者");
             })));
             PassiveButton passiveCreditsButton = creditsButton.GetComponent<PassiveButton>();
 
@@ -97,6 +96,9 @@ Mallöris    K3ndo    Bavari    Gendelo
 <b>Former Team Members:</b>
 Eisbison (GOAT)    Thunderstorm584    EndOfFile
 
+<b>The Other Roles Rework:</b>
+ELinmei    Eighth    (Welcome you join us :))
+
 <b>Additional Devs:</b>
 EnoPM    twix    NesTT
 
@@ -104,15 +106,9 @@ EnoPM    twix    NesTT
 Alex2911    amsyarasyiq    MaximeGillot
 Psynomit    probablyadnf    JustASysAdmin
 
-<b>TOR-R Credits</b>
-ELinmei    Eighth    Maybe Hot
-
 <b>[https://discord.gg/77RkMJHWsM]Discord[] Moderators:</b>
 Draco Cordraconis    Streamblox (formerly)
 Thanks to all our discord helpers!
-
-<b>[https://qm.qq.com/cgi-bin/qm/qr?authKey=Dn8MKDZAadw0VHyaPg43rRuSNIK9fOpzmI%2BfZA1%2F6%2BCx2QpqZH1vzHlB6QwVKv3Q&k=qDktOeGaUnZHnx0_U6kBoQ9d0ip8_Myp&noverify=0]TOR-R QQ Chat[]</b>
-
 
 Thanks to miniduikboot & GD for hosting modded servers (and so much more)
 
@@ -143,8 +139,8 @@ ugackMiner53 - Idea and core code for the Prop Hunt game mode</size>";
                     Id = "torCredits",
                     Language = 0,
                     Number = 500,
-                    Title = "The Other Roles Rework\nCredits & Resources",
-                    ShortTitle = "TOR-R Credits",
+                    Title = "The Other Roles\nCredits & Resources",
+                    ShortTitle = "TOR Credits",
                     SubTitle = "",
                     PinState = false,
                     Date = "01.07.2021",
@@ -210,9 +206,9 @@ ugackMiner53 - Idea and core code for the Prop Hunt game mode</size>";
                 }));
 
                 template.StartCoroutine(Effects.Lerp(0.1f, new System.Action<float>((p) => {
-                    guesserButtonText.SetText("TOR Guesser");
-                    HideNSeekButtonText.SetText("TOR Hide N Seek");
-                    PropHuntButtonText.SetText("TOR Prop Hunt");
+                    guesserButtonText.SetText("赌怪模式");
+                    HideNSeekButtonText.SetText("模组躲猫猫");
+                    PropHuntButtonText.SetText("变形躲猫猫");
                 })));
             }));
         }

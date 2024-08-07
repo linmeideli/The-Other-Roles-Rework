@@ -1929,7 +1929,7 @@ namespace TheOtherRoles
         public static void clearAndReload()
         {
             lighterln = new List<PlayerControl>();
-            vision = CustomOptionHolder.modifierLighterlnVision.getSelection() + 1;
+            vision = CustomOptionHolder.modifierLighterlnVision.getSelection() - 1;
         }
     }
     public static class Mini {

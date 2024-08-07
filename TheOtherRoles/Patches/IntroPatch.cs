@@ -27,7 +27,7 @@ namespace TheOtherRoles.Patches {
                 bottomLeft = new Vector3(xpos / 2, ypos/2, -61f);
 
                 foreach (PlayerControl p in CachedPlayer.AllPlayers) {
-                    GameData.PlayerInfo data = p.Data;
+                    NetworkedPlayerInfo data = p.Data;
                     PoolablePlayer player = UnityEngine.Object.Instantiate<PoolablePlayer>(__instance.PlayerPrefab, FastDestroyableSingleton<HudManager>.Instance.transform);
                     playerPrefab = __instance.PlayerPrefab;
                     p.SetPlayerMaterialColors(player.cosmetics.currentBodySprite.BodySprite);
@@ -178,7 +178,7 @@ namespace TheOtherRoles.Patches {
             if (roleInfo.isNeutral) {
                 var neutralColor = new Color32(76, 84, 78, 255);
                 __instance.BackgroundBar.material.color = neutralColor;
-                __instance.TeamTitle.text = "Neutral";
+                __instance.TeamTitle.text = "中立";
                 __instance.TeamTitle.color = neutralColor;
             }
         }
@@ -230,18 +230,17 @@ namespace TheOtherRoles.Patches {
                         __instance.RoleBlurbText.text += Helpers.cs(modifierInfo.color, $"\n{modifierInfo.introDescription}");
                     else {
                         PlayerControl otherLover = CachedPlayer.LocalPlayer.PlayerControl == Lovers.lover1 ? Lovers.lover2 : Lovers.lover1;
-                        __instance.RoleBlurbText.text += Helpers.cs(Lovers.color, $"\n♥ You are in love with {otherLover?.Data?.PlayerName ?? ""} ♥");
+                        __instance.RoleBlurbText.text += Helpers.cs(Lovers.color, $"\n♥ 你爱上了 {otherLover?.Data?.PlayerName ?? ""} ♥");
                     }
                 }
                 if (Deputy.knowsSheriff && Deputy.deputy != null && Sheriff.sheriff != null) {
                     if (infos.Any(info => info.roleId == RoleId.Sheriff))
-                        __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color, $"\nYour Deputy is {Deputy.deputy?.Data?.PlayerName ?? ""}");
+                        __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color, $"\n你的捕快是 {Deputy.deputy?.Data?.PlayerName ?? ""}");
                     else if (infos.Any(info => info.roleId == RoleId.Deputy))
-                        __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color, $"\nYour Sheriff is {Sheriff.sheriff?.Data?.PlayerName ?? ""}");
+                        __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color, $"\n你的警长是 {Sheriff.sheriff?.Data?.PlayerName ?? ""}");
                 }
             }
             public static bool Prefix(IntroCutscene __instance) {
-                if (!CustomOptionHolder.activateRoles.getBool()) return true;
                 seed = rnd.Next(5000);
                 FastDestroyableSingleton<HudManager>.Instance.StartCoroutine(Effects.Lerp(1f, new Action<float>((p) => {
                     SetRoleTexts(__instance);

@@ -25,7 +25,7 @@ using static TheOtherRoles.Modules.ModUpdater;
 
 namespace TheOtherRoles
 {
-    [BepInPlugin(Id, "The Other Roles Rework", VersionString)]
+    [BepInPlugin(Id, "The Other Roles", VersionString)]
     [BepInDependency(SubmergedCompatibility.SUBMERGED_GUID, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInProcess("Among Us.exe")]
     [ReactorModFlags(Reactor.Networking.ModFlags.RequireOnAllClients)]
@@ -33,8 +33,8 @@ namespace TheOtherRoles
     public class TheOtherRolesPlugin : BasePlugin
     {
         public const string Id = "me.eisbison.theotherroles";
-        public const string VersionString = "4.5.3";
-        public const string TheOtherRolesReworkVer = "1.0.1 beta";
+        public const string VersionString = "4.6.0";
+        public const string TORRVersionString = "1.0.1-BETA3";
         public static uint betaDays = 0;  // amount of days for the build to be usable (0 for infinite!)
 
         public static Version Version = Version.Parse(VersionString);
@@ -55,6 +55,8 @@ namespace TheOtherRoles
         public static ConfigEntry<bool> EnableSoundEffects { get; set; }
         public static ConfigEntry<bool> EnableHorseMode { get; set; }
         public static ConfigEntry<bool> ShowVentsOnMap { get; set; }
+        public static ConfigEntry<bool> ShowChatNotifications { get; set; }
+        public static ConfigEntry<bool> AddServer { get; set; }
         public static ConfigEntry<string> Ip { get; set; }
         public static ConfigEntry<ushort> Port { get; set; }
         public static ConfigEntry<string> ShowPopUpVersion { get; set; }
@@ -98,25 +100,28 @@ namespace TheOtherRoles
             _ = Helpers.checkBeta(); // Exit if running an expired beta
             _ = Patches.CredentialsPatch.MOTD.loadMOTDs();
 
-            DebugMode = Config.Bind("Custom", "Enable Debug Mode", "false");
-            GhostsSeeInformation = Config.Bind("Custom", "Ghosts See Remaining Tasks", true);
-            GhostsSeeRoles = Config.Bind("Custom", "Ghosts See Roles", true);
-            GhostsSeeModifier = Config.Bind("Custom", "Ghosts See Modifier", true);
-            GhostsSeeVotes = Config.Bind("Custom", "Ghosts See Votes", true);
-            ShowRoleSummary = Config.Bind("Custom", "Show Role Summary", true);
-            ShowLighterDarker = Config.Bind("Custom", "Show Lighter / Darker", true);
-            EnableSoundEffects = Config.Bind("Custom", "Enable Sound Effects", true);
-            EnableHorseMode = Config.Bind("Custom", "Enable Horse Mode", false);
-            ShowPopUpVersion = Config.Bind("Custom", "Show PopUp", "0");
-            ShowVentsOnMap = Config.Bind("Custom", "Show vent positions on minimap", false);
-            
-            Ip = Config.Bind("Custom", "Custom Server IP", "127.0.0.1");
-            Port = Config.Bind("Custom", "Custom Server Port", (ushort)22023);
-            defaultRegions = ServerManager.DefaultRegions;
+            DebugMode = Config.Bind("自定义", "启用Debug模式", "false");
+            GhostsSeeInformation = Config.Bind("自定义", "鬼魂可见剩余任务数量", true);
+            GhostsSeeRoles = Config.Bind("自定义", "鬼魂可见职业", true);
+            GhostsSeeModifier = Config.Bind("自定义", "鬼魂可见附加职业", true);
+            GhostsSeeVotes = Config.Bind("自定义", "鬼魂非匿名投票", true);
+            ShowRoleSummary = Config.Bind("自定义", "显示复盘结果", true);
+            ShowLighterDarker = Config.Bind("自定义", "显示 亮/暗", true);
+            EnableSoundEffects = Config.Bind("自定义", "启用音效", true);
+            EnableHorseMode = Config.Bind("自定义", "启用马模式", false);
+            ShowPopUpVersion = Config.Bind("自定义", "启用多服装模式", "0");
+            ShowVentsOnMap = Config.Bind("自定义", "在小地图上显示通风口位置", false);
+            ShowChatNotifications = Config.Bind("自定义", "显示聊天通知", true);
+            AddServer = Config.Bind("自定义", "添加私服（大饼+1）", false);
 
+            Ip = Config.Bind("自定义", "自定义服务器IP", "127.0.0.1");
+            Port = Config.Bind("自定义", "自定义服务器Port", (ushort)22023);
+            defaultRegions = ServerManager.DefaultRegions;
+            // Removes vanilla Servers
+            ServerManager.DefaultRegions = new Il2CppReferenceArray<IRegionInfo>(new IRegionInfo[0]);
             UpdateRegions();
 
-            DebugMode = Config.Bind("Custom", "Enable Debug Mode", "false");
+            DebugMode = Config.Bind("自定义", "Enable Debug Mode", "false");
             Harmony.PatchAll();
             
             CustomOptionHolder.Load();
@@ -135,7 +140,7 @@ namespace TheOtherRoles
             MainMenuPatch.addSceneChangeCallbacks();
             _ = RoleInfo.loadReadme();
             AddToKillDistanceSetting.addKillDistance();
-            TheOtherRolesPlugin.Logger.LogInfo("Loading TOR-R completed!");
+            TheOtherRolesPlugin.Logger.LogInfo("加载TORR完成！");
         }
     }
 
@@ -179,12 +184,12 @@ namespace TheOtherRoles
 
 
             // Spawn dummys
-            if (Input.GetKeyDown(KeyCode.F)) {
+            /*if (Input.GetKeyDown(KeyCode.F)) {
                 var playerControl = UnityEngine.Object.Instantiate(AmongUsClient.Instance.PlayerPrefab);
                 var i = playerControl.PlayerId = (byte) GameData.Instance.GetAvailableId();
 
                 bots.Add(playerControl);
-                GameData.Instance.AddPlayer(playerControl);
+                GameData.Instance.AddPlayer(playerControl, new InnerNet.ClientData(0));
                 AmongUsClient.Instance.Spawn(playerControl, -2, InnerNet.SpawnFlags.None);
                 
                 playerControl.transform.position = CachedPlayer.LocalPlayer.transform.position;
@@ -192,8 +197,8 @@ namespace TheOtherRoles
                 playerControl.NetTransform.enabled = false;
                 playerControl.SetName(RandomString(10));
                 playerControl.SetColor((byte) random.Next(Palette.PlayerColors.Length));
-                GameData.Instance.RpcSetTasks(playerControl.PlayerId, new byte[0]);
-            }
+                playerControl.Data.RpcSetTasks(new byte[0]);
+            }*/
 
             // Terminate round
             if(Input.GetKeyDown(KeyCode.L)) {

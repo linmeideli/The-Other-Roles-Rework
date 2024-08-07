@@ -24,6 +24,7 @@ namespace TheOtherRoles.Patches {
                 if (CachedPlayer.LocalPlayer != null) {
                     Helpers.shareGameVersion();
                 }
+                GameStartManagerUpdatePatch.sendGamemode = true;
             }
         }
 
@@ -49,6 +50,7 @@ namespace TheOtherRoles.Patches {
             private static bool update = false;
             private static string currentText = "";
             private static GameObject copiedStartButton;
+            public static bool sendGamemode = true;
 
             public static void Prefix(GameStartManager __instance) {
                 if (!GameData.Instance ) return; // No instance
@@ -63,66 +65,63 @@ namespace TheOtherRoles.Patches {
                     Helpers.shareGameVersion();
                 }
 
-                // Check version handshake infos
 
+                // Check version handshake infos
                 bool versionMismatch = false;
                 string message = "";
                 foreach (InnerNet.ClientData client in AmongUsClient.Instance.allClients.ToArray()) {
                     if (client.Character == null) continue;
-                    var dummyComponent = client.Character.GetComponent<DummyBehaviour>();
-                    if (dummyComponent != null && dummyComponent.enabled)
-                        continue;
                     else if (!playerVersions.ContainsKey(client.Id))  {
                         versionMismatch = true;
-                        message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} has a different or no version of The Other Roles\n</color><color=#FFFFFF>(��ǰʹ�õ�TORRΪ��ɰ汾\n�ƺ����޸İ�)</color>";
+                        message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} 拥有不同版本的TORR 或 TOR\n</color>";
                     } else {
                         PlayerVersion PV = playerVersions[client.Id];
                         int diff = TheOtherRolesPlugin.Version.CompareTo(PV.version);
                         if (diff > 0) {
-                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} has an older version of The Other Roles Rework (v{playerVersions[client.Id].version.ToString()})\n</color>";
+                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} 有老版本的TORR或TOR (v{playerVersions[client.Id].version.ToString()})\n</color>";
                             versionMismatch = true;
                         } else if (diff < 0) {
-                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} has a newer version of The Other Roles Rework���� (v{playerVersions[client.Id].version.ToString()})\n</color>";
+                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} 有新版本的TORP或TOR (v{playerVersions[client.Id].version.ToString()})\n</color>";
                             versionMismatch = true;
                         } else if (!PV.GuidMatches()) { // version presumably matches, check if Guid matches
-                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} has a modified version of TOR-R v{playerVersions[client.Id].version.ToString()} <size=30%>({PV.guid.ToString()})</size>\n</color>";
+                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} 拥有有修改的TORR 或 TOR v{playerVersions[client.Id].version.ToString()} <size=30%>({PV.guid.ToString()})</size>\n</color>";
                             versionMismatch = true;
                         }
                     }
                 }
-
                 // Display message to the host
                 if (AmongUsClient.Instance.AmHost) {
                     if (versionMismatch) {
-                        __instance.StartButton.color = __instance.startLabelText.color = Palette.DisabledClear;
                         __instance.GameStartText.text = message;
-                        __instance.GameStartText.transform.localPosition = __instance.StartButton.transform.localPosition + Vector3.up * 2;
+                        __instance.GameStartText.transform.localPosition = __instance.StartButton.transform.localPosition + Vector3.up * 5;
+                        __instance.GameStartText.transform.localScale = new Vector3(2f, 2f, 1f);
+                        __instance.GameStartTextParent.SetActive(true);
                     } else {
-                        __instance.StartButton.color = __instance.startLabelText.color = ((__instance.LastPlayerCount >= __instance.MinPlayers) ? Palette.EnabledColor : Palette.DisabledClear);
-                        __instance.GameStartText.transform.localPosition = __instance.StartButton.transform.localPosition;
+                        __instance.GameStartText.transform.localPosition = Vector3.zero;
+                        __instance.GameStartText.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
+                        if (!__instance.GameStartText.text.StartsWith("开始中")) {
+                            __instance.GameStartText.text = String.Empty;
+                            __instance.GameStartTextParent.SetActive(false);
+                        }
                     }
 
                     if (__instance.startState != GameStartManager.StartingStates.Countdown)
                         copiedStartButton?.Destroy();
-
                     // Make starting info available to clients:
                     if (startingTimer <= 0 && __instance.startState == GameStartManager.StartingStates.Countdown) {
                         MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.SetGameStarting, Hazel.SendOption.Reliable, -1);
                         AmongUsClient.Instance.FinishRpcImmediately(writer);
                         RPCProcedure.setGameStarting();
-
                         // Activate Stop-Button
                         copiedStartButton = GameObject.Instantiate(__instance.StartButton.gameObject, __instance.StartButton.gameObject.transform.parent);
                         copiedStartButton.transform.localPosition = __instance.StartButton.transform.localPosition;
-                        copiedStartButton.GetComponent<SpriteRenderer>().sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.StopClean.png", 180f);
                         copiedStartButton.SetActive(true);
                         var startButtonText = copiedStartButton.GetComponentInChildren<TMPro.TextMeshPro>();
-                        startButtonText.text = "STOP";
+                        startButtonText.text = "";
                         startButtonText.fontSize *= 0.8f;
                         startButtonText.fontSizeMax = startButtonText.fontSize;
                         startButtonText.gameObject.transform.localPosition = Vector3.zero;
                         PassiveButton startButtonPassiveButton = copiedStartButton.GetComponent<PassiveButton>();
-
                         void StopStartFunc() {
                             __instance.ResetStartState();
                             copiedStartButton.Destroy();
@@ -130,14 +129,13 @@ namespace TheOtherRoles.Patches {
                         }
                         startButtonPassiveButton.OnClick.AddListener((Action)(() => StopStartFunc()));
                         __instance.StartCoroutine(Effects.Lerp(.1f, new System.Action<float>((p) => {
-                            startButtonText.text = "STOP";
+                            startButtonText.text = "";
                         })));
+                        
 
                     }
-                    if (__instance.startState == GameStartManager.StartingStates.Countdown)
-                        __instance.GameStartText.transform.localPosition = __instance.StartButton.transform.localPosition + Vector3.up * 0.6f;
                 }
-
+                
                 // Client update with handshake infos
                 else {
                     if (!playerVersions.ContainsKey(AmongUsClient.Instance.HostId) || TheOtherRolesPlugin.Version.CompareTo(playerVersions[AmongUsClient.Instance.HostId].version) != 0) {
@@ -145,31 +143,37 @@ namespace TheOtherRoles.Patches {
                         if (kickingTimer > 10) {
                             kickingTimer = 0;
 			                AmongUsClient.Instance.ExitGame(DisconnectReasons.ExitGame);
-                            SceneChanger.ChangeScene("MainMenu");
+                            SceneChanger.ChangeScene("主界面");
                         }
 
-                        __instance.GameStartText.text = $"<color=#FF0000FF>The host has no or a different version of The Other Roles Rework\nYou will be kicked in {Math.Round(10 - kickingTimer)}s</color>";
-                        __instance.GameStartText.transform.localPosition = __instance.StartButton.transform.localPosition + Vector3.up * 2;
+                        __instance.GameStartText.text = $"<color=#FF0000FF>房主有不同版本的TORR 或 TOR 或没有模组 你会在 {Math.Round(10 - kickingTimer)}秒后被踢出</color>";
+                        __instance.GameStartText.transform.localPosition = __instance.StartButton.transform.localPosition + Vector3.up * 5;
+                        __instance.GameStartText.transform.localScale = new Vector3(2f, 2f, 1f);
+                        __instance.GameStartTextParent.SetActive(true);
                     } else if (versionMismatch) {
-                        __instance.GameStartText.text = $"<color=#FF0000FF>Players With Different Versions:\n</color>" + message;
-                        __instance.GameStartText.transform.localPosition = __instance.StartButton.transform.localPosition + Vector3.up * 2;
+                        __instance.GameStartText.text = $"<color=#FF0000FF>拥有不同版本:\n</color>" + message;
+                        __instance.GameStartText.transform.localPosition = __instance.StartButton.transform.localPosition + Vector3.up * 5;
+                        __instance.GameStartText.transform.localScale = new Vector3(2f, 2f, 1f);
+                        __instance.GameStartTextParent.SetActive(true);
                     } else {
-                        __instance.GameStartText.transform.localPosition = __instance.StartButton.transform.localPosition;
-                        if (!__instance.GameStartText.text.StartsWith("Starting"))
+                        __instance.GameStartText.transform.localPosition = Vector3.zero;
+                        __instance.GameStartText.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
+                        if (!__instance.GameStartText.text.StartsWith("开始中")) {
                             __instance.GameStartText.text = String.Empty;
+                            __instance.GameStartTextParent.SetActive(false);
+                        }
                     }
 
-                    if (!__instance.GameStartText.text.StartsWith("Starting") || !CustomOptionHolder.anyPlayerCanStopStart.getBool())
+                    if (!__instance.GameStartText.text.StartsWith("开始中") || !CustomOptionHolder.anyPlayerCanStopStart.getBool())
                         copiedStartButton?.Destroy();
-                    if (CustomOptionHolder.anyPlayerCanStopStart.getBool() && copiedStartButton == null && __instance.GameStartText.text.StartsWith("Starting")) {
+                    if (CustomOptionHolder.anyPlayerCanStopStart.getBool() && copiedStartButton == null && __instance.GameStartText.text.StartsWith("开始中")) {
 
                         // Activate Stop-Button
                         copiedStartButton = GameObject.Instantiate(__instance.StartButton.gameObject, __instance.StartButton.gameObject.transform.parent);
                         copiedStartButton.transform.localPosition = __instance.StartButton.transform.localPosition;
-                        copiedStartButton.GetComponent<SpriteRenderer>().sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.StopClean.png", 180f);
                         copiedStartButton.SetActive(true);
                         var startButtonText = copiedStartButton.GetComponentInChildren<TMPro.TextMeshPro>();
-                        startButtonText.text = "STOP";
+                        startButtonText.text = "";
                         startButtonText.fontSize *= 0.8f;
                         startButtonText.fontSizeMax = startButtonText.fontSize;
                         startButtonText.gameObject.transform.localPosition = Vector3.zero;
@@ -185,20 +189,16 @@ namespace TheOtherRoles.Patches {
                         }
                         startButtonPassiveButton.OnClick.AddListener((Action)(() => StopStartFunc()));
                         __instance.StartCoroutine(Effects.Lerp(.1f, new System.Action<float>((p) => {
-                            startButtonText.text = "STOP";
+                            startButtonText.text = "";
                         })));
-
                     }
-                    if (__instance.GameStartText.text.StartsWith("Starting") && CustomOptionHolder.anyPlayerCanStopStart.getBool())
-                        __instance.GameStartText.transform.localPosition = __instance.StartButton.transform.localPosition + Vector3.up * 0.6f;
                 }
-
                 // Start Timer
                 if (startingTimer > 0) {
                     startingTimer -= Time.deltaTime;
                 }
                 // Lobby timer
-                if (!GameData.Instance) return; // No instance
+                if (!GameData.Instance || !__instance.PlayerCounter) return; // No instance
 
                 if (update) currentText = __instance.PlayerCounter.text;
 
@@ -207,14 +207,14 @@ namespace TheOtherRoles.Patches {
                 int seconds = (int)timer % 60;
                 string suffix = $" ({minutes:00}:{seconds:00})";
 
-                __instance.PlayerCounter.text = currentText + suffix;
-                __instance.PlayerCounter.autoSizeTextContainer = true;
+                if (!AmongUsClient.Instance) return;
 
-                if (AmongUsClient.Instance.AmHost) {
+                if (AmongUsClient.Instance.AmHost && sendGamemode && CachedPlayer.LocalPlayer != null) {
                     MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.ShareGamemode, Hazel.SendOption.Reliable, -1);
                     writer.Write((byte) TORMapOptions.gameMode);
                     AmongUsClient.Instance.FinishRpcImmediately(writer);
                     RPCProcedure.shareGamemode((byte) TORMapOptions.gameMode);
+                    sendGamemode = false;
                 }
             }
         }
@@ -262,13 +262,15 @@ namespace TheOtherRoles.Patches {
                         // 4 = Airship
                         // 5 = Submerged
                         byte chosenMapId = 0;
-                        List<float> probabilities = new List<float>();
-                        probabilities.Add(CustomOptionHolder.dynamicMapEnableSkeld.getSelection() / 10f);
-                        probabilities.Add(CustomOptionHolder.dynamicMapEnableMira.getSelection() / 10f);
-                        probabilities.Add(CustomOptionHolder.dynamicMapEnablePolus.getSelection() / 10f);
-                        probabilities.Add(CustomOptionHolder.dynamicMapEnableAirShip.getSelection() / 10f);
-                        probabilities.Add(CustomOptionHolder.dynamicMapEnableFungle.getSelection() / 10f);
-                        probabilities.Add(CustomOptionHolder.dynamicMapEnableSubmerged.getSelection() / 10f);
+                        List<float> probabilities =
+                        [
+                            CustomOptionHolder.dynamicMapEnableSkeld.getSelection() / 10f,
+                            CustomOptionHolder.dynamicMapEnableMira.getSelection() / 10f,
+                            CustomOptionHolder.dynamicMapEnablePolus.getSelection() / 10f,
+                            CustomOptionHolder.dynamicMapEnableAirShip.getSelection() / 10f,
+                            CustomOptionHolder.dynamicMapEnableFungle.getSelection() / 10f,
+                            CustomOptionHolder.dynamicMapEnableSubmerged.getSelection() / 10f,
+                        ];
 
                         // if any map is at 100%, remove all maps that are not!
                         if (probabilities.Contains(1.0f)) {

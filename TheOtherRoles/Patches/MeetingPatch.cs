@@ -17,7 +17,7 @@ namespace TheOtherRoles.Patches {
     class MeetingHudPatch {
         static bool[] selections;
         static SpriteRenderer[] renderers;
-        private static GameData.PlayerInfo target = null;
+        private static NetworkedPlayerInfo target = null;
         private const float scale = 0.65f;
         private static TMPro.TextMeshPro meetingExtraButtonText;
         private static PassiveButton[] swapperButtonList;
@@ -79,10 +79,10 @@ namespace TheOtherRoles.Patches {
 			        Dictionary<byte, int> self = CalculateVotes(__instance);
                     bool tie;
 			        KeyValuePair<byte, int> max = self.MaxPair(out tie);
-                    GameData.PlayerInfo exiled = GameData.Instance.AllPlayers.ToArray().FirstOrDefault(v => !tie && v.PlayerId == max.Key && !v.IsDead);
+                    NetworkedPlayerInfo exiled = GameData.Instance.AllPlayers.ToArray().FirstOrDefault(v => !tie && v.PlayerId == max.Key && !v.IsDead);
 
                     // TieBreaker 
-                    List<GameData.PlayerInfo> potentialExiled = new List<GameData.PlayerInfo>();
+                    List<NetworkedPlayerInfo> potentialExiled = new List<NetworkedPlayerInfo>();
                     bool skipIsTie = false;
                     if (self.Count > 0) {
                         Tiebreaker.isTiebreak = false;
@@ -138,7 +138,7 @@ namespace TheOtherRoles.Patches {
 
         [HarmonyPatch(typeof(MeetingHud), nameof(MeetingHud.BloopAVoteIcon))]
         class MeetingHudBloopAVoteIconPatch {
-            public static bool Prefix(MeetingHud __instance, GameData.PlayerInfo voterPlayer, int index, Transform parent) {
+            public static bool Prefix(MeetingHud __instance, NetworkedPlayerInfo voterPlayer, int index, Transform parent) {
                 var spriteRenderer = UnityEngine.Object.Instantiate<SpriteRenderer>(__instance.PlayerVotePrefab);
                 var showVoteColors = !GameManager.Instance.LogicOptions.GetAnonymousVotes() ||
                                       (CachedPlayer.LocalPlayer.Data.IsDead && TORMapOptions.ghostsSeeVotes) || 
@@ -200,7 +200,7 @@ namespace TheOtherRoles.Patches {
                     bool mayorFirstVoteDisplayed = false;
                     for (int j = 0; j < states.Length; j++) {
                         MeetingHud.VoterState voterState = states[j];
-                        GameData.PlayerInfo playerById = GameData.Instance.GetPlayerById(voterState.VoterId);
+                        NetworkedPlayerInfo playerById = GameData.Instance.GetPlayerById(voterState.VoterId);
                         if (playerById == null) {
                             Debug.LogError(string.Format("Couldn't find player info for voter: {0}", voterState.VoterId));
                         } else if (i == 0 && voterState.SkippedVote && !playerById.IsDead) {
@@ -225,7 +225,7 @@ namespace TheOtherRoles.Patches {
 
         [HarmonyPatch(typeof(MeetingHud), nameof(MeetingHud.VotingComplete))]
         class MeetingHudVotingCompletedPatch {
-            static void Postfix(MeetingHud __instance, [HarmonyArgument(0)]byte[] states, [HarmonyArgument(1)]GameData.PlayerInfo exiled, [HarmonyArgument(2)]bool tie)
+            static void Postfix(MeetingHud __instance, [HarmonyArgument(0)]byte[] states, [HarmonyArgument(1)]NetworkedPlayerInfo exiled, [HarmonyArgument(2)]bool tie)
             {
                 // Reset swapper values
                 Swapper.playerId1 = Byte.MaxValue;
@@ -267,13 +267,13 @@ namespace TheOtherRoles.Patches {
                 } else {
                     selections[i] = true;
                     renderer.color = Color.yellow;
-                    meetingExtraButtonLabel.text = Helpers.cs(Color.yellow, "Confirm Swap");
+                    meetingExtraButtonLabel.text = Helpers.cs(Color.yellow, "确认交换");
                 }
             } else if (selectedCount == 2) {
                 if (selections[i]) {
                     renderer.color = Color.red;
                     selections[i] = false;
-                    meetingExtraButtonLabel.text = Helpers.cs(Color.red, "Confirm Swap");
+                    meetingExtraButtonLabel.text = Helpers.cs(Color.red, "确认交换");
                 }
             }
         }
@@ -306,9 +306,9 @@ namespace TheOtherRoles.Patches {
                 AmongUsClient.Instance.FinishRpcImmediately(writer);
 
                 RPCProcedure.swapperSwap((byte)firstPlayer.TargetPlayerId, (byte)secondPlayer.TargetPlayerId);
-                meetingExtraButtonLabel.text = Helpers.cs(Color.green, "Swapping!");
+                meetingExtraButtonLabel.text = Helpers.cs(Color.green, "交换!");
                 Swapper.charges--;
-                meetingExtraButtonText.text = $"Swaps: {Swapper.charges}";
+                meetingExtraButtonText.text = $"交换: {Swapper.charges}";
             }
         }
 
@@ -347,8 +347,8 @@ namespace TheOtherRoles.Patches {
                 swapperButtonList[i].OnClick.RemoveAllListeners();
                 swapperButtonList[i].OnClick.AddListener((System.Action)(() => swapperOnClick(copyI, __instance)));
             }
-            meetingExtraButtonText.text = $"Swaps: {Swapper.charges}";
-            meetingExtraButtonLabel.text = Helpers.cs(Color.red, "Confirm Swap");
+            meetingExtraButtonText.text = $"交换: {Swapper.charges}";
+            meetingExtraButtonLabel.text = Helpers.cs(Color.red, "确认交换");
 
         }
 
@@ -369,7 +369,7 @@ namespace TheOtherRoles.Patches {
             writer.Write(Mayor.voteTwice);
             AmongUsClient.Instance.FinishRpcImmediately(writer);
 
-            meetingExtraButtonLabel.text = Helpers.cs(Mayor.color, "Double Vote: " + (Mayor.voteTwice ? Helpers.cs(Color.green, "On ") : Helpers.cs(Color.red, "Off")));
+            meetingExtraButtonLabel.text = Helpers.cs(Mayor.color, "两次投票: " + (Mayor.voteTwice ? Helpers.cs(Color.green, "开启 ") : Helpers.cs(Color.red, "关闭")));
         }
 
         public static GameObject guesserUI;
@@ -422,7 +422,7 @@ namespace TheOtherRoles.Patches {
                 if (roleData.neutralSettings.ContainsKey((byte)roleInfo.roleId) && roleData.neutralSettings[(byte)roleInfo.roleId] == 0) continue;
                 else if (roleData.impSettings.ContainsKey((byte)roleInfo.roleId) && roleData.impSettings[(byte)roleInfo.roleId] == 0) continue;
                 else if (roleData.crewSettings.ContainsKey((byte)roleInfo.roleId) && roleData.crewSettings[(byte)roleInfo.roleId] == 0) continue;
-                else if (new List<RoleId>() { RoleId.Janitor, RoleId.Godfather, RoleId.Mafioso }.Contains(roleInfo.roleId) && CustomOptionHolder.mafiaSpawnRate.getSelection() == 0) continue;
+                else if (new List<RoleId>() { RoleId.Janitor, RoleId.Godfather, RoleId.Mafioso }.Contains(roleInfo.roleId) && (CustomOptionHolder.mafiaSpawnRate.getSelection() == 0 || GameOptionsManager.Instance.currentGameOptions.NumImpostors < 3)) continue;
                 else if (roleInfo.roleId == RoleId.Sidekick && (!CustomOptionHolder.jackalCanCreateSidekick.getBool() || CustomOptionHolder.jackalSpawnRate.getSelection() == 0)) continue;
                 if (roleInfo.roleId == RoleId.Deputy && (CustomOptionHolder.deputySpawnRate.getSelection() == 0 || CustomOptionHolder.sheriffSpawnRate.getSelection() == 0)) continue;
                 if (roleInfo.roleId == RoleId.Pursuer && CustomOptionHolder.lawyerSpawnRate.getSelection() == 0) continue;
@@ -654,7 +654,7 @@ namespace TheOtherRoles.Patches {
 
         [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.StartMeeting))]
         class StartMeetingPatch {
-            public static void Prefix(PlayerControl __instance, [HarmonyArgument(0)]GameData.PlayerInfo meetingTarget) {
+            public static void Prefix(PlayerControl __instance, [HarmonyArgument(0)]NetworkedPlayerInfo meetingTarget) {
                 RoomTracker roomTracker = FastDestroyableSingleton<HudManager>.Instance?.roomTracker;
                 byte roomId = Byte.MinValue;
                 if (roomTracker != null && roomTracker.LastRoom != null) {
@@ -697,7 +697,7 @@ namespace TheOtherRoles.Patches {
                         foreach (var entry in Portal.teleportedPlayers) {
                             float timeBeforeMeeting = ((float)(DateTime.UtcNow - entry.time).TotalMilliseconds) / 1000;
                             msg += Portalmaker.logShowsTime ? $"{(int)timeBeforeMeeting}s ago: " : "";
-                            msg = msg + $"{entry.name} used the teleporter\n";
+                            msg = msg + $"{entry.name} 使用了传送门\n";
                         }
                         FastDestroyableSingleton<HudManager>.Instance.Chat.AddChat(Portalmaker.portalmaker, $"{msg}");
                     }

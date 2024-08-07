@@ -14,31 +14,24 @@ namespace TheOtherRoles.Patches {
     {
         [HarmonyPrefix]
         [HarmonyPatch(typeof(ShipStatus), nameof(ShipStatus.CalculateLightRadius))]
-        public static bool Prefix(ref float __result, ShipStatus __instance, [HarmonyArgument(0)] GameData.PlayerInfo player)
-        {
+        public static bool Prefix(ref float __result, ShipStatus __instance, [HarmonyArgument(0)] NetworkedPlayerInfo player) {
             if ((!__instance.Systems.ContainsKey(SystemTypes.Electrical) && !Helpers.isFungle()) || GameOptionsManager.Instance.currentGameOptions.GameMode == GameModes.HideNSeek) return true;
 
             // If Game Mode is PropHunt:
-            if (PropHunt.isPropHuntGM)
-            {
-                if (!PropHunt.timerRunning)
-                {
+            if (PropHunt.isPropHuntGM) {
+                if (!PropHunt.timerRunning) {
                     float progress = (PropHunt.blackOutTimer > 0f && PropHunt.blackOutTimer < 1f) ? 1 - PropHunt.blackOutTimer : 0f;
                     float minVision = __instance.MaxLightRadius * (PropHunt.propBecomesHunterWhenFound ? 0.25f : PropHunt.propVision);
                     __result = Mathf.Lerp(minVision, __instance.MaxLightRadius * PropHunt.propVision, progress); // For future start animation
-                }
-                else
-                {
+                } else {
                     __result = __instance.MaxLightRadius * (PlayerControl.LocalPlayer.Data.Role.IsImpostor ? PropHunt.hunterVision : PropHunt.propVision);
                 }
                 return false;
             }
 
-            if (!HideNSeek.isHideNSeekGM || (HideNSeek.isHideNSeekGM && !Hunter.lightActive.Contains(player.PlayerId)))
-            {
+            if (!HideNSeek.isHideNSeekGM || (HideNSeek.isHideNSeekGM && !Hunter.lightActive.Contains(player.PlayerId))) {
                 // If player is a role which has Impostor vision
-                if (Helpers.hasImpVision(player))
-                {
+                if (Helpers.hasImpVision(player)) {
                     //__result = __instance.MaxLightRadius * GameOptionsManager.Instance.currentNormalGameOptions.ImpostorLightMod;
                     __result = GetNeutralLightRadius(__instance, true);
                     return false;
@@ -46,30 +39,24 @@ namespace TheOtherRoles.Patches {
             }
 
             // If player is Lighter with ability active
-            if (Lighter.lighter != null && Lighter.lighter.PlayerId == player.PlayerId)
-            {
+            if (Lighter.lighter != null && Lighter.lighter.PlayerId == player.PlayerId) {
                 float unlerped = Mathf.InverseLerp(__instance.MinLightRadius, __instance.MaxLightRadius, GetNeutralLightRadius(__instance, false));
                 __result = Mathf.Lerp(__instance.MaxLightRadius * Lighter.lighterModeLightsOffVision, __instance.MaxLightRadius * Lighter.lighterModeLightsOnVision, unlerped);
             }
 
             // If Game mode is Hide N Seek and hunter with ability active
-            else if (HideNSeek.isHideNSeekGM && Hunter.isLightActive(player.PlayerId))
-            {
+            else if (HideNSeek.isHideNSeekGM && Hunter.isLightActive(player.PlayerId)) {
                 float unlerped = Mathf.InverseLerp(__instance.MinLightRadius, __instance.MaxLightRadius, GetNeutralLightRadius(__instance, false));
                 __result = Mathf.Lerp(__instance.MaxLightRadius * Hunter.lightVision, __instance.MaxLightRadius * Hunter.lightVision, unlerped);
                 return false;
             }
 
             // If there is a Trickster with their ability active
-            else if (Trickster.trickster != null && Trickster.lightsOutTimer > 0f)
-            {
+            else if (Trickster.trickster != null && Trickster.lightsOutTimer > 0f) {
                 float lerpValue = 1f;
-                if (Trickster.lightsOutDuration - Trickster.lightsOutTimer < 0.5f)
-                {
+                if (Trickster.lightsOutDuration - Trickster.lightsOutTimer < 0.5f) {
                     lerpValue = Mathf.Clamp01((Trickster.lightsOutDuration - Trickster.lightsOutTimer) * 2);
-                }
-                else if (Trickster.lightsOutTimer < 0.5)
-                {
+                } else if (Trickster.lightsOutTimer < 0.5) {
                     lerpValue = Mathf.Clamp01(Trickster.lightsOutTimer * 2);
                 }
 
@@ -77,24 +64,21 @@ namespace TheOtherRoles.Patches {
             }
 
             // If player is Lawyer, apply Lawyer vision modifier
-            else if (Lawyer.lawyer != null && Lawyer.lawyer.PlayerId == player.PlayerId)
-            {
+            else if (Lawyer.lawyer != null && Lawyer.lawyer.PlayerId == player.PlayerId) {
                 float unlerped = Mathf.InverseLerp(__instance.MinLightRadius, __instance.MaxLightRadius, GetNeutralLightRadius(__instance, false));
                 __result = Mathf.Lerp(__instance.MinLightRadius, __instance.MaxLightRadius * Lawyer.vision, unlerped);
                 return false;
             }
 
             // Default light radius
-            else
-            {
+            else {
                 __result = GetNeutralLightRadius(__instance, false);
             }
             if (Sunglasses.sunglasses.FindAll(x => x.PlayerId == player.PlayerId).Count > 0) // Sunglasses
                 __result *= 1f - Sunglasses.vision * 0.1f;
 
             return false;
-
-        }   
+        }
 
         public static float GetNeutralLightRadius(ShipStatus shipStatus, bool isImpostor) {
             if (SubmergedCompatibility.IsSubmerged) {
