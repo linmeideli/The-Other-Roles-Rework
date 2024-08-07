@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using System;
 using System.Collections.Generic;
 using TheOtherRoles.Players;
@@ -48,7 +48,7 @@ namespace TheOtherRoles
         public static RoleInfo trickster = new RoleInfo("骗术师", Trickster.color, "利用惊喜盒把船员们击杀", "恐吓船员", RoleId.Trickster);
         public static RoleInfo cleaner = new RoleInfo("清理者", Cleaner.color, "击杀所有人并且隐藏尸体", "隐藏尸体", RoleId.Cleaner);
         public static RoleInfo warlock = new RoleInfo("术士", Warlock.color, "诅咒船员", "诅咒船员", RoleId.Warlock);
-        public static RoleInfo bountyHunter = new RoleInfo("赏金猎人", BountyHunter.color, "击杀目标以减少冷却", $"击杀目标\n击杀正确冷却时间 {BountyHunter.bountyKillCooldown}s 击杀错误冷却时间 {BountyHunter.punishmentTime}s \n（可能不准仅供参考哈）", RoleId.BountyHunter);
+        public static RoleInfo bountyHunter = new RoleInfo("赏金猎人", BountyHunter.color, "击杀目标以减少冷却", $"击杀目标", RoleId.BountyHunter);
         public static RoleInfo detective = new RoleInfo("侦探", Detective.color, "寻找<color=#FF1919FF>伪装者</color> 的足迹", "观察足迹", RoleId.Detective);
         public static RoleInfo timeMaster = new RoleInfo("时间之主", TimeMaster.color, "用时间之盾保全自己", "合理运用时间之盾", RoleId.TimeMaster);
         public static RoleInfo medic = new RoleInfo("医生", Medic.color, "给予船员保护", "保护船员", RoleId.Medic);
@@ -249,7 +249,7 @@ namespace TheOtherRoles
             roleName = String.Join(" ", getRoleInfoForPlayer(p, showModifier).Select(x => useColors ? Helpers.cs(x.color, x.name) : x.name).ToArray());
             if (Lawyer.target != null && p.PlayerId == Lawyer.target.PlayerId && CachedPlayer.LocalPlayer.PlayerControl != Lawyer.target) 
                 roleName += (useColors ? Helpers.cs(Pursuer.color, " §") : " §");
-            if (HandleGuesser.isGuesserGm && HandleGuesser.isGuesser(p.PlayerId)) roleName += " (被赌)";
+            if (HandleGuesser.isGuesserGm && HandleGuesser.isGuesser(p.PlayerId)) roleName += " (赌怪)";
 
             if (!suppressGhostInfo && p != null) {
                 if (p == Shifter.shifter && (CachedPlayer.LocalPlayer.PlayerControl == Shifter.shifter || Helpers.shouldShowGhostInfo()) && Shifter.futureShift != null)
@@ -257,12 +257,12 @@ namespace TheOtherRoles
                 if (p == Vulture.vulture && (CachedPlayer.LocalPlayer.PlayerControl == Vulture.vulture || Helpers.shouldShowGhostInfo()))
                     roleName = roleName + Helpers.cs(Vulture.color, $" (剩余{Vulture.vultureNumberToWin - Vulture.eatenBodies} 个尸体)");
                 if (p == BountyHunter.bountyHunter && (CachedPlayer.LocalPlayer.PlayerControl == BountyHunter.bountyHunter || Helpers.shouldShowGhostInfo()))
-                    roleName = roleName + Helpers.cs(BountyHunter.color, $" (正确击杀：{BountyHunter.bountyKillCooldown} 击杀错误：{BountyHunter.punishmentTime})");
+                    roleName = roleName + Helpers.cs(BountyHunter.color, $" (正确击杀：{BountyHunter.bountyKillCooldown}秒 击杀错误：{BountyHunter.punishmentTime}秒)");
                 if (Helpers.shouldShowGhostInfo()) {
                     if (Eraser.futureErased.Contains(p))
                         roleName = Helpers.cs(Color.gray, "(被抹除) ") + roleName;
                     if (Vampire.vampire != null && !Vampire.vampire.Data.IsDead && Vampire.bitten == p && !p.Data.IsDead)
-                        roleName = Helpers.cs(Vampire.color, $"(已咬: {(int)HudManagerStartPatch.vampireKillButton.Timer + 1}) ") + roleName;
+                        roleName = Helpers.cs(Vampire.color, $"(吸血: {(int)HudManagerStartPatch.vampireKillButton.Timer + 1}) ") + roleName;
                     if (Deputy.handcuffedPlayers.Contains(p.PlayerId))
                         roleName = Helpers.cs(Color.gray, "(拷住) ") + roleName;
                     if (Deputy.handcuffedKnows.ContainsKey(p.PlayerId))  // Active cuff
@@ -321,7 +321,7 @@ namespace TheOtherRoles
                                     deathReasonString = $" - {Helpers.cs(Lovers.color, "殉情")}";
                                     break;
                                 case DeadPlayer.CustomDeathReason.LawyerSuicide:
-                                    deathReasonString = $" - {Helpers.cs(Lawyer.color, "坏律师")}";
+                                    deathReasonString = $" - {Helpers.cs(Lawyer.color, "死亡律师")}";
                                     break;
                                 case DeadPlayer.CustomDeathReason.Bomb:
                                     deathReasonString = $" - 被炸于 {Helpers.cs(killerColor, deadPlayer.killerIfExisting.Data.PlayerName)}";

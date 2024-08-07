@@ -17,7 +17,7 @@ namespace TheOtherRoles.Patches
     public static class CredentialsPatch
     {
         public static string fullCredentialsVersion =
-$@"<size=130%><color=#ff351f>TheOtherRoles</color></size> v{TheOtherRolesPlugin.TORRVersionString.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
+$@"<size=130%><color=#ff351f>TheOtherRolesRework</color></size> v{TheOtherRolesPlugin.TORRVersionString.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
         public static string fullCredentials =
         $@"<size=60%>Modded by <color=#FCCE03FF>Eisbison</color>, <color=#FCCE03FF>EndOfFile</color>
 <color=#FCCE03FF>Thunderstorm584</color>, <color=#FCCE03FF>Mallöris</color> & <color=#FCCE03FF>Gendelo</color>
