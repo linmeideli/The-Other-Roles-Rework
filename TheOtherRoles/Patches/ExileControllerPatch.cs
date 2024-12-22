@@ -14,7 +14,7 @@ namespace TheOtherRoles.Patches {
     [HarmonyPriority(Priority.First)]
     class ExileControllerBeginPatch {
         public static NetworkedPlayerInfo lastExiled;
-        public static void Prefix(ExileController __instance, [HarmonyArgument(0)]ref NetworkedPlayerInfo exiled, [HarmonyArgument(1)]bool tie) {
+        public static void Prefix(ExileController __instance, [HarmonyArgument(0)]ref NetworkedPlayerInfo exiled) {
             lastExiled = exiled;
 
             // Medic shield
@@ -128,14 +128,14 @@ namespace TheOtherRoles.Patches {
         [HarmonyPatch(typeof(ExileController), nameof(ExileController.WrapUp))]
         class BaseExileControllerPatch {
             public static void Postfix(ExileController __instance) {
-                WrapUpPostfix(__instance.exiled);
+                WrapUpPostfix(__instance.initData.networkedPlayer);
             }
         }
 
         [HarmonyPatch(typeof(AirshipExileController), nameof(AirshipExileController.WrapUpAndSpawn))]
         class AirshipExileControllerPatch {
             public static void Postfix(AirshipExileController __instance) {
-                WrapUpPostfix(__instance.exiled);
+                WrapUpPostfix(__instance.initData.networkedPlayer);
             }
         }
 
@@ -289,8 +289,8 @@ namespace TheOtherRoles.Patches {
     class ExileControllerMessagePatch {
         static void Postfix(ref string __result, [HarmonyArgument(0)]StringNames id) {
             try {
-                if (ExileController.Instance != null && ExileController.Instance.exiled != null) {
-                    PlayerControl player = Helpers.playerById(ExileController.Instance.exiled.Object.PlayerId);
+                if (ExileController.Instance != null && ExileController.Instance.initData.networkedPlayer != null) {
+                    PlayerControl player = Helpers.playerById(ExileController.Instance.initData.networkedPlayer.Object.PlayerId);
                     if (player == null) return;
                     // Exile role text
                     if (id == StringNames.ExileTextPN || id == StringNames.ExileTextSN || id == StringNames.ExileTextPP || id == StringNames.ExileTextSP) {
