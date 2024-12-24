@@ -84,7 +84,7 @@ namespace TheOtherRoles {
         }
 
         public static CustomOption Create(int id, CustomOptionType type, string name, bool defaultValue, CustomOption parent = null, bool isHeader = false, Action onChange = null, string heading = "") {
-            return new CustomOption(id, type, name, new string[]{"Off", "On"}, defaultValue ? "On" : "Off", parent, isHeader, onChange, heading);
+            return new CustomOption(id, type, name, new string[]{"关闭", "开启"}, defaultValue ? "开启" : "关闭", parent, isHeader, onChange, heading);
         }
 
         // Static behaviour
@@ -275,9 +275,9 @@ namespace TheOtherRoles {
                 string vanillaSettingsSub = settingsSplit[2];
                 torOptionsFine = deserializeOptions(Convert.FromBase64String(torSettings));
                 ShareOptionSelections();
-                if (TheOtherRolesPlugin.Version > versionInfo && versionInfo < Version.Parse("4.6.0")) {
+                if (TheOtherRolesPlugin.Version > versionInfo && versionInfo < Version.Parse(TheOtherRolesPlugin.VersionString)) {
                     vanillaOptionsFine = false;
-                    FastDestroyableSingleton<HudManager>.Instance.Chat.AddChat(PlayerControl.LocalPlayer, "Host Info: Pasting vanilla settings failed, TOR Options applied!");
+                    FastDestroyableSingleton<HudManager>.Instance.Chat.AddChat(PlayerControl.LocalPlayer, "房主信息: 应用原版设置失败，TORR设置已应用！");
                 } else {
                     vanillaSettings.Value = vanillaSettingsSub;
                     vanillaOptionsFine = loadVanillaOptions();
@@ -285,7 +285,7 @@ namespace TheOtherRoles {
             } catch (Exception e) {
                 TheOtherRolesPlugin.Logger.LogWarning($"{e}: tried to paste invalid settings!\n{allSettings}");
                 string errorStr = allSettings.Length > 2 ? allSettings.Substring(0, 3) : "(empty clipboard) ";
-                FastDestroyableSingleton<HudManager>.Instance.Chat.AddChat(PlayerControl.LocalPlayer, $"Host Info: You tried to paste invalid settings: \"{errorStr}...\"");
+                FastDestroyableSingleton<HudManager>.Instance.Chat.AddChat(PlayerControl.LocalPlayer, $"房主信息: 错误预设: \"{errorStr}...\"");
                 SoundEffectsManager.Load();
                 SoundEffectsManager.play("fail");
             }
@@ -459,10 +459,10 @@ namespace TheOtherRoles {
                     categoryHeaderMasked.SetHeader(StringNames.ImpostorsCategory, 61);
                     categoryHeaderMasked.Title.text = option.heading != "" ? option.heading : option.name;
                     if ((int)optionType == 99)
-                        categoryHeaderMasked.Title.text = new Dictionary<CustomOptionType, string>() { { CustomOptionType.Impostor, "Impostor Roles" }, { CustomOptionType.Neutral, "Neutral Roles" },
-                            { CustomOptionType.Crewmate, "Crewmate Roles" }, { CustomOptionType.Modifier, "Modifiers" } }[curType];
+                        categoryHeaderMasked.Title.text = new Dictionary<CustomOptionType, string>() { { CustomOptionType.Impostor, "伪装者职业" }, { CustomOptionType.Neutral, "中立职业" },
+                            { CustomOptionType.Crewmate, "船员职业" }, { CustomOptionType.Modifier, "附加职业" } }[curType];
                     categoryHeaderMasked.Title.outlineColor = Color.white;
-                    categoryHeaderMasked.Title.outlineWidth = 0.2f;
+                    categoryHeaderMasked.Title.outlineWidth = -1;
                     categoryHeaderMasked.transform.SetParent(__instance.settingsContainer);
                     categoryHeaderMasked.transform.localScale = Vector3.one;
                     categoryHeaderMasked.transform.localPosition = new Vector3(-9.77f, num, -2f);
@@ -489,11 +489,11 @@ namespace TheOtherRoles {
                 viewSettingsInfoPanel.SetInfo(StringNames.ImpostorsCategory, option.selections[value].ToString(), 61);
                 viewSettingsInfoPanel.titleText.text = option.name;
                 if (option.isHeader && (int)optionType != 99 && option.heading == "" && (option.type == CustomOptionType.Neutral || option.type == CustomOptionType.Crewmate || option.type == CustomOptionType.Impostor || option.type == CustomOptionType.Modifier)) {
-                    viewSettingsInfoPanel.titleText.text = "Spawn Chance";
+                    viewSettingsInfoPanel.titleText.text = "生成概率";
                 }
                 if ((int)optionType == 99) {
                     viewSettingsInfoPanel.titleText.outlineColor = Color.white;
-                    viewSettingsInfoPanel.titleText.outlineWidth = 0.2f;
+                    viewSettingsInfoPanel.titleText.outlineWidth = -1;
                     if (option.type == CustomOptionType.Modifier)
                         viewSettingsInfoPanel.settingText.text = viewSettingsInfoPanel.settingText.text + GameOptionsDataPatch.buildModifierExtras(option);
                 }
@@ -512,26 +512,26 @@ namespace TheOtherRoles {
             if (TORMapOptions.gameMode == CustomGamemodes.Guesser || TORMapOptions.gameMode == CustomGamemodes.Classic) {
 
                 // create TOR settings
-                createCustomButton(__instance, next++, "TORSettings", "TOR Settings", CustomOptionType.General);
+                createCustomButton(__instance, next++, "TORSettings", "TORR模组设置", CustomOptionType.General);
                    // create TOR settings
-                createCustomButton(__instance, next++, "RoleOverview", "Role Overview", (CustomOptionType)99);
+                createCustomButton(__instance, next++, "RoleOverview", "职业总览", (CustomOptionType)99);
                 // IMp
-                createCustomButton(__instance, next++, "ImpostorSettings", "Impostor Roles", CustomOptionType.Impostor);
+                createCustomButton(__instance, next++, "ImpostorSettings", "伪装者职业设置", CustomOptionType.Impostor);
 
                 // Neutral
-                createCustomButton(__instance, next++, "NeutralSettings", "Neutral Roles", CustomOptionType.Neutral);
+                createCustomButton(__instance, next++, "NeutralSettings", "中立职业设置", CustomOptionType.Neutral);
                 // Crew
-                createCustomButton(__instance, next++, "CrewmateSettings", "Crewmate Roles", CustomOptionType.Crewmate);
+                createCustomButton(__instance, next++, "CrewmateSettings", "船员职业设置", CustomOptionType.Crewmate);
                 // Modifier
-                createCustomButton(__instance, next++, "ModifierSettings", "Modifiers", CustomOptionType.Modifier);
+                createCustomButton(__instance, next++, "ModifierSettings", "附加职业设置", CustomOptionType.Modifier);
 
             } else if (TORMapOptions.gameMode == CustomGamemodes.HideNSeek) {
                 // create Main HNS settings
-                createCustomButton(__instance, next++, "HideNSeekMain", "Hide 'N' Seek", CustomOptionType.HideNSeekMain);
+                createCustomButton(__instance, next++, "HideNSeekMain", "捉迷藏设置", CustomOptionType.HideNSeekMain);
                 // create HNS Role settings
-                createCustomButton(__instance, next++, "HideNSeekRoles", "Hide 'N' Seek Roles", CustomOptionType.HideNSeekRoles);
+                createCustomButton(__instance, next++, "HideNSeekRoles", "捉迷藏职业设置", CustomOptionType.HideNSeekRoles);
             } else if (TORMapOptions.gameMode == CustomGamemodes.PropHunt) {
-                createCustomButton(__instance, next++, "PropHunt", "Prop Hunt", CustomOptionType.PropHunt);
+                createCustomButton(__instance, next++, "PropHunt", "变形狩猎设置", CustomOptionType.PropHunt);
             }
         }
     }
@@ -636,7 +636,7 @@ namespace TheOtherRoles {
                     categoryHeaderMasked.SetHeader(StringNames.ImpostorsCategory, 20);
                     categoryHeaderMasked.Title.text = option.heading != "" ? option.heading : option.name;
                     categoryHeaderMasked.Title.outlineColor = Color.white;
-                    categoryHeaderMasked.Title.outlineWidth = 0.2f;
+                    categoryHeaderMasked.Title.outlineWidth = -1;
                     categoryHeaderMasked.transform.localScale = Vector3.one * 0.63f;
                     categoryHeaderMasked.transform.localPosition = new Vector3(-0.903f, num, -2f);
                     num -= 0.63f;
@@ -659,7 +659,7 @@ namespace TheOtherRoles {
                 stringOption.OnValueChanged = new Action<OptionBehaviour>((o) => { });
                 stringOption.TitleText.text = option.name;
                 if (option.isHeader && option.heading == "" && (option.type == CustomOptionType.Neutral || option.type == CustomOptionType.Crewmate || option.type == CustomOptionType.Impostor || option.type == CustomOptionType.Modifier)) {
-                    stringOption.TitleText.text = "Spawn Chance";
+                    stringOption.TitleText.text = "生成概率";
                 }
                 if (stringOption.TitleText.text.Length > 25)
                     stringOption.TitleText.fontSize = 2.2f;
@@ -742,36 +742,36 @@ namespace TheOtherRoles {
             if (TORMapOptions.gameMode == CustomGamemodes.Guesser || TORMapOptions.gameMode == CustomGamemodes.Classic) {
 
                 // create TOR settings
-                createCustomButton(__instance, next++, "TORSettings", "TOR Settings");
+                createCustomButton(__instance, next++, "TORSettings", "TORR模组设置");
                 createGameOptionsMenu(__instance, CustomOptionType.General, "TORSettings");
                 // Guesser if applicable
                 if (TORMapOptions.gameMode == CustomGamemodes.Guesser) {
-                    createCustomButton(__instance, next++, "GuesserSettings", "Guesser Settings");
+                    createCustomButton(__instance, next++, "GuesserSettings", "赌怪设置");
                     createGameOptionsMenu(__instance, CustomOptionType.Guesser, "GuesserSettings");
                 }
                 // IMp
-                createCustomButton(__instance, next++, "ImpostorSettings", "Impostor Roles");
+                createCustomButton(__instance, next++, "ImpostorSettings", "伪装者职业");
                 createGameOptionsMenu(__instance, CustomOptionType.Impostor, "ImpostorSettings");
 
                 // Neutral
-                createCustomButton(__instance, next++, "NeutralSettings", "Neutral Roles");
+                createCustomButton(__instance, next++, "NeutralSettings", "中立职业");
                 createGameOptionsMenu(__instance, CustomOptionType.Neutral, "NeutralSettings");
                 // Crew
-                createCustomButton(__instance, next++, "CrewmateSettings", "Crewmate Roles");
+                createCustomButton(__instance, next++, "CrewmateSettings", "船员职业");
                 createGameOptionsMenu(__instance, CustomOptionType.Crewmate, "CrewmateSettings");
                 // Modifier
-                createCustomButton(__instance, next++, "ModifierSettings", "Modifiers");
+                createCustomButton(__instance, next++, "ModifierSettings", "附加职业");
                 createGameOptionsMenu(__instance, CustomOptionType.Modifier, "ModifierSettings");
 
             } else if (TORMapOptions.gameMode == CustomGamemodes.HideNSeek) {
                 // create Main HNS settings
-                createCustomButton(__instance, next++, "HideNSeekMain", "Hide 'N' Seek");
+                createCustomButton(__instance, next++, "HideNSeekMain", "捉迷藏");
                 createGameOptionsMenu(__instance, CustomOptionType.HideNSeekMain, "HideNSeekMain");
                 // create HNS Role settings
-                createCustomButton(__instance, next++, "HideNSeekRoles", "Hide 'N' Seek Roles");
+                createCustomButton(__instance, next++, "HideNSeekRoles", "捉迷藏职业");
                 createGameOptionsMenu(__instance, CustomOptionType.HideNSeekRoles, "HideNSeekRoles");
             } else if (TORMapOptions.gameMode == CustomGamemodes.PropHunt) {
-                createCustomButton(__instance, next++, "PropHunt", "Prop Hunt");
+                createCustomButton(__instance, next++, "PropHunt", "变形狩猎");
                 createGameOptionsMenu(__instance, CustomOptionType.PropHunt, "PropHunt");
             }
         }
@@ -884,7 +884,7 @@ namespace TheOtherRoles {
             if (customOption.getSelection() == 0) return "";
             if (quantity.Count == 1) return $" ({quantity[0].getQuantity()})";
             if (customOption == CustomOptionHolder.modifierLover) {
-                return $" (1 Evil: {CustomOptionHolder.modifierLoverImpLoverRate.getSelection() * 10}%)";
+                return $" (1 邪恶概率: {CustomOptionHolder.modifierLoverImpLoverRate.getSelection() * 10}%)";
             }
             return "";
         }
@@ -912,11 +912,11 @@ namespace TheOtherRoles {
                 }
                 else if (option.parent.getSelection() > 0) {
                     if (option.id == 103) //Deputy
-                        sb.AppendLine($"- {Helpers.cs(Deputy.color, "Deputy")}: {option.selections[option.selection].ToString()}");
+                        sb.AppendLine($"- {Helpers.cs(Deputy.color, "捕快")}: {option.selections[option.selection].ToString()}");
                     else if (option.id == 224) //Sidekick
-                        sb.AppendLine($"- {Helpers.cs(Sidekick.color, "Sidekick")}: {option.selections[option.selection].ToString()}");
+                        sb.AppendLine($"- {Helpers.cs(Sidekick.color, "跟班")}: {option.selections[option.selection].ToString()}");
                     else if (option.id == 358) //Prosecutor
-                        sb.AppendLine($"- {Helpers.cs(Lawyer.color, "Prosecutor")}: {option.selections[option.selection].ToString()}");
+                        sb.AppendLine($"- {Helpers.cs(Lawyer.color, "起诉人")}: {option.selections[option.selection].ToString()}");
                 }
             }
             if (headerOnly) return sb.ToString();
@@ -933,7 +933,7 @@ namespace TheOtherRoles {
                     sb.AppendLine(Helpers.cs(c, $"{option.name}: {option.selections[option.selection].ToString()}"));
                 } else {
                     if (option == CustomOptionHolder.crewmateRolesCountMin) {
-                        var optionName = CustomOptionHolder.cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "Crewmate Roles");
+                        var optionName = CustomOptionHolder.cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "船员职业");
                         var min = CustomOptionHolder.crewmateRolesCountMin.getSelection();
                         var max = CustomOptionHolder.crewmateRolesCountMax.getSelection();
                         string optionValue = "";
@@ -946,20 +946,20 @@ namespace TheOtherRoles {
                             max = crewCount - minNeutral;
                             if (min < 0) min = 0;
                             if (max < 0) max = 0;
-                            optionValue = "Fill: ";
+                            optionValue = "填充数: ";
                         }
                         if (min > max) min = max;
                         optionValue += (min == max) ? $"{max}" : $"{min} - {max}";
                         sb.AppendLine($"{optionName}: {optionValue}");
                     } else if (option == CustomOptionHolder.neutralRolesCountMin) {
-                        var optionName = CustomOptionHolder.cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "Neutral Roles");
+                        var optionName = CustomOptionHolder.cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "中立职业");
                         var min = CustomOptionHolder.neutralRolesCountMin.getSelection();
                         var max = CustomOptionHolder.neutralRolesCountMax.getSelection();
                         if (min > max) min = max;
                         var optionValue = (min == max) ? $"{max}" : $"{min} - {max}";
                         sb.AppendLine($"{optionName}: {optionValue}");
                     } else if (option == CustomOptionHolder.impostorRolesCountMin) {
-                        var optionName = CustomOptionHolder.cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "Impostor Roles");
+                        var optionName = CustomOptionHolder.cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "伪装者职业");
                         var min = CustomOptionHolder.impostorRolesCountMin.getSelection();
                         var max = CustomOptionHolder.impostorRolesCountMax.getSelection();
                         if (max > GameOptionsManager.Instance.currentGameOptions.NumImpostors) max = GameOptionsManager.Instance.currentGameOptions.NumImpostors;
@@ -967,7 +967,7 @@ namespace TheOtherRoles {
                         var optionValue = (min == max) ? $"{max}" : $"{min} - {max}";
                         sb.AppendLine($"{optionName}: {optionValue}");
                     } else if (option == CustomOptionHolder.modifiersCountMin) {
-                        var optionName = CustomOptionHolder.cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "Modifiers");
+                        var optionName = CustomOptionHolder.cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "附加职业");
                         var min = CustomOptionHolder.modifiersCountMin.getSelection();
                         var max = CustomOptionHolder.modifiersCountMax.getSelection();
                         if (min > max) min = max;
@@ -995,7 +995,7 @@ namespace TheOtherRoles {
                 if (TheOtherRolesPlugin.optionsPage > 1) TheOtherRolesPlugin.optionsPage = 0;
                 maxPage = 2;
                 switch (counter) {
-                    case 0:
+                    case 0:// 翻译不动了自己滚过来搞
                         hudString += "Page 1: Hide N Seek Settings \n\n" + buildOptionsOfType(CustomOption.CustomOptionType.HideNSeekMain, false);
                         break;
                     case 1:
@@ -1178,8 +1178,7 @@ namespace TheOtherRoles {
     //This class is taken and adapted from Town of Us Reactivated, https://github.com/eDonnes124/Town-Of-Us-R/blob/master/source/Patches/CustomOption/Patches.cs, Licensed under GPLv3
     [HarmonyPatch(typeof(HudManager), nameof(HudManager.Update))]
     public class HudManagerUpdate {
-        private static GameObject GameSettingsObject;
-        private static TextMeshPro GameSettings;
+        private static TextMeshPro GameSettings = null;
         public static float
             MinX,/*-5.3F*/
             OriginalY = 2.9F,
