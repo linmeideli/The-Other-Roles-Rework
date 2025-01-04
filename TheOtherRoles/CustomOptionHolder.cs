@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static TheOtherRoles.TheOtherRoles;
 using Types = TheOtherRoles.CustomOption.CustomOptionType;
+using TheOtherRoles.Modules;
 
 namespace TheOtherRoles {
     public class CustomOptionHolder {
@@ -81,6 +82,7 @@ namespace TheOtherRoles {
         public static CustomOption bountyHunterPunishmentTime;
         public static CustomOption bountyHunterShowArrow;
         public static CustomOption bountyHunterArrowUpdateIntervall;
+        public static CustomOption bountyHunterShowCooldownForGhosts;
 
         public static CustomOption witchSpawnRate;
         public static CustomOption witchCooldown;
@@ -409,6 +411,15 @@ namespace TheOtherRoles {
         public static CustomOption propHuntFindCooldown;
         public static CustomOption propHuntFindDuration;
 
+        //Add Settings
+        public static CustomOption AddVents;
+        public static CustomOption addPolusVents;
+        public static CustomOption addAirShipVents;
+        public static CustomOption enableAirShipModify;
+        public static CustomOption enableBetterPolus;
+
+
+
         internal static Dictionary<byte, byte[]> blockedRolePairings = new Dictionary<byte, byte[]>();
 
         public static string cs(Color c, string s) {
@@ -435,8 +446,8 @@ namespace TheOtherRoles {
             if (Utilities.EventUtility.canBeEnabled) enableEventMode = CustomOption.Create(10423, Types.General, cs(Color.green, "Enable 特别模式"), true, null, true);
 
             // Using new id's for the options to not break compatibilty with older versions
-            crewmateRolesCountMin = CustomOption.Create(300, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最少船员数量"), 15f, 0f, 15f, 1f, null, true, heading: "Min/Max Roles");
-            crewmateRolesCountMax = CustomOption.Create(301, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最大 船员数量"), 15f, 0f, 15f, 1f);            
+            crewmateRolesCountMin = CustomOption.Create(300, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最小船员数量"), 15f, 0f, 15f, 1f, null, true, heading: "Min/Max Roles");
+            crewmateRolesCountMax = CustomOption.Create(301, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最大船员数量"), 15f, 0f, 15f, 1f);            
             neutralRolesCountMin = CustomOption.Create(302, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最少中立数量"), 15f, 0f, 15f, 1f);
             neutralRolesCountMax = CustomOption.Create(303, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最大中立数量"), 15f, 0f, 15f, 1f);
             impostorRolesCountMin = CustomOption.Create(304, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最少伪装者数量"), 15f, 0f, 15f, 1f);
@@ -482,9 +493,10 @@ namespace TheOtherRoles {
             bountyHunterReducedCooldown = CustomOption.Create(322, Types.Impostor, "正确击杀后冷却时间", 2.5f, 0f, 30f, 2.5f, bountyHunterSpawnRate);
             bountyHunterPunishmentTime = CustomOption.Create(323, Types.Impostor, "错误击杀后冷却时间", 20f, 0f, 60f, 2.5f, bountyHunterSpawnRate);
             bountyHunterShowArrow = CustomOption.Create(324, Types.Impostor, "显示箭头→赏金目标", true, bountyHunterSpawnRate);
-            bountyHunterArrowUpdateIntervall = CustomOption.Create(325, Types.Impostor, "剪头更新频率", 15f, 2.5f, 60f, 2.5f, bountyHunterShowArrow);
+            bountyHunterArrowUpdateIntervall = CustomOption.Create(325, Types.Impostor, "箭头更新频率", 15f, 2.5f, 60f, 2.5f, bountyHunterShowArrow);
+            bountyHunterShowCooldownForGhosts = CustomOption.Create(4399, Types.Impostor, "向鬼魂展示赏金猎人冷却时间", true, bountyHunterSpawnRate);
 
-            witchSpawnRate = CustomOption.Create(370, Types.Impostor, cs(Witch.color, "女巫"), rates, null, true);
+                witchSpawnRate = CustomOption.Create(370, Types.Impostor, cs(Witch.color, "女巫"), rates, null, true);
             witchCooldown = CustomOption.Create(371, Types.Impostor, "下咒冷却时间", 30f, 10f, 120f, 5f, witchSpawnRate);
             witchAdditionalCooldown = CustomOption.Create(372, Types.Impostor, "女巫额外冷却时间", 10f, 0f, 60f, 5f, witchSpawnRate);
             witchCanSpellAnyone = CustomOption.Create(373, Types.Impostor, "可以下咒给所有人", false, witchSpawnRate);
@@ -537,7 +549,7 @@ namespace TheOtherRoles {
             jackalSpawnRate = CustomOption.Create(220, Types.Neutral, cs(Jackal.color, "豺狼"), rates, null, true);
             jackalKillCooldown = CustomOption.Create(221, Types.Neutral, "击杀冷却时间", 30f, 10f, 60f, 2.5f, jackalSpawnRate);
             jackalCreateSidekickCooldown = CustomOption.Create(222, Types.Neutral, "招募冷却时间", 30f, 10f, 60f, 2.5f, jackalSpawnRate);
-            jackalCanUseVents = CustomOption.Create(223, Types.Neutral, "豺狼可以使用通风管道", true, jackalSpawnRate);
+            jackalCanUseVents = CustomOption.Create(223, Types.Neutral, "豺狼可使用通风管道", true, jackalSpawnRate);
             jackalCanSabotageLights = CustomOption.Create(431, Types.Neutral, "豺狼拥有伪装者视野", true, jackalSpawnRate);
             jackalCanCreateSidekick = CustomOption.Create(224, Types.Neutral, "豺狼可以招募跟班", false, jackalSpawnRate);
             sidekickPromotesToJackal = CustomOption.Create(225, Types.Neutral, "豺狼死后跟班继位", false, jackalCanCreateSidekick);
@@ -614,7 +626,7 @@ namespace TheOtherRoles {
             swapperCanCallEmergency = CustomOption.Create(151, Types.Crewmate, "可以开启紧急会议", false, swapperSpawnRate);
             swapperCanOnlySwapOthers = CustomOption.Create(152, Types.Crewmate, "只能交换非换票师的玩家", false, swapperSpawnRate);
 
-            swapperSwapsNumber = CustomOption.Create(153, Types.Crewmate, "单词补充次数", 1f, 0f, 5f, 1f, swapperSpawnRate);
+            swapperSwapsNumber = CustomOption.Create(153, Types.Crewmate, "单次补充次数", 1f, 0f, 5f, 1f, swapperSpawnRate);
             swapperRechargeTasksNumber = CustomOption.Create(154, Types.Crewmate, "充值所需任务数", 2f, 1f, 10f, 1f, swapperSpawnRate);
 
 
@@ -673,6 +685,8 @@ namespace TheOtherRoles {
             mediumOneTimeUse = CustomOption.Create(363, Types.Crewmate, "每个灵魂只能提问一次", false, mediumSpawnRate);
             mediumChanceAdditionalInfo = CustomOption.Create(364, Types.Crewmate, "答案包含附加信息的可能性", rates, mediumSpawnRate);
 
+            //Investigator Settings...
+
             thiefSpawnRate = CustomOption.Create(400, Types.Neutral, cs(Thief.color, "身份窃贼"), rates, null, true);
             thiefCooldown = CustomOption.Create(401, Types.Neutral, "偷窃冷却时间", 30f, 5f, 120f, 5f, thiefSpawnRate);
             thiefCanKillSheriff = CustomOption.Create(402, Types.Neutral, "可以击杀警长", true, thiefSpawnRate);
@@ -716,9 +730,9 @@ namespace TheOtherRoles {
             modifierSunglassesQuantity = CustomOption.Create(1051, Types.Modifier, cs(Color.yellow, "失明者数量"), ratesModifier, modifierSunglasses);
             modifierSunglassesVision = CustomOption.Create(1052, Types.Modifier, "减少视野数", new string[] { "-10%", "-20%", "-30%", "-40%", "-50%" }, modifierSunglasses);
 
-            modifierLighterln = CustomOption.Create(5000, Types.Modifier, cs(Color.yellow, "火炬"), rates, null, true);
-            modifierLighterlnQuantity = CustomOption.Create(5001, Types.Modifier, cs(Color.yellow, "火炬数量"), ratesModifier, modifierLighterln);
-            modifierLighterlnVision = CustomOption.Create(5002, Types.Modifier, "增加视野数", new string[] { "+10%", "+20%", "+30%", "+40%", "+50%" }, modifierLighterln);
+            modifierLighterln = CustomOption.Create(40180, Types.Modifier, cs(Color.yellow, "Torch"), rates, null, true);
+            modifierLighterlnQuantity = CustomOption.Create(40181, Types.Modifier, cs(Color.yellow, "modifierTorchQuantity"), ratesModifier , modifierLighterln);
+            modifierLighterlnVision = CustomOption.Create(40182, Types.Modifier, "modifierTorchVision", 1.5f, 1f, 3f, 0.125f, modifierLighterln);
 
             modifierMini = CustomOption.Create(1061, Types.Modifier, cs(Color.yellow, "迷你船员"), rates, null, true);
             modifierMiniGrowingUpDuration = CustomOption.Create(1062, Types.Modifier, "迷你船员成长时间", 400f, 100f, 1500f, 100f, modifierMini);
@@ -782,7 +796,7 @@ namespace TheOtherRoles {
             hunterArrowDuration = CustomOption.Create(3013, Types.HideNSeekRoles, cs(Color.red, "猎人导航箭头持续时间"), 5f, 0f, 60f, 1f);
             hunterArrowPunish = CustomOption.Create(3014, Types.HideNSeekRoles, cs(Color.red, "猎人在分钟内导航键头惩罚"), 5f, 0f, 30f, 1f);
 
-            huntedShieldCooldown = CustomOption.Create(3015, Types.HideNSeekRoles, cs(Color.gray, "躲藏者护盾冷却时间"), 30f, 5f, 60f, 1f, null, true, heading: "躲藏者护盾设置。");
+            huntedShieldCooldown = CustomOption.Create(3015, Types.HideNSeekRoles, cs(Color.gray, "躲藏者护盾冷却时间"), 30f, 5f, 60f, 1f, null, true, heading: "躲藏者护盾设置");
             huntedShieldDuration = CustomOption.Create(3016, Types.HideNSeekRoles, cs(Color.gray, "躲藏者护盾持续时间"), 5f, 1f, 60f, 1f);
             huntedShieldRewindTime = CustomOption.Create(3018, Types.HideNSeekRoles, cs(Color.gray, "躲藏者回溯时间"), 3f, 1f, 10f, 1f);
             huntedShieldNumber = CustomOption.Create(3026, Types.HideNSeekRoles, cs(Color.gray, "躲藏者护盾数量"), 3f, 1f, 15f, 1f);
@@ -828,7 +842,7 @@ namespace TheOtherRoles {
             finishTasksBeforeHauntingOrZoomingOut = CustomOption.Create(9, Types.General, "在出现困扰或缩小之前完成任务", true);
             deadImpsBlockSabotage = CustomOption.Create(13, Types.General, "禁止破坏胜利", false, null, false);
             camsNightVision = CustomOption.Create(11, Types.General, "如果灯光关闭，摄像机将切换到夜视功能", false, null, true, heading: "Night Vision Cams");
-            camsNoNightVisionIfImpVision = CustomOption.Create(12, Types.General, "伪装者视野忽略夜视摄像头", false, camsNightVision, false);
+
 
 
 
@@ -839,7 +853,17 @@ namespace TheOtherRoles {
             dynamicMapEnableAirShip = CustomOption.Create(504, Types.General, "Airship", rates, dynamicMap, false);
             dynamicMapEnableFungle = CustomOption.Create(506, Types.General, "Fungle", rates, dynamicMap, false);
             dynamicMapEnableSubmerged = CustomOption.Create(505, Types.General, "Submerged", rates, dynamicMap, false);
-            dynamicMapSeparateSettings = CustomOption.Create(509, Types.General, "使用随机地图设置预设", false, dynamicMap, false);
+            dynamicMapSeparateSettings = CustomOption.Create(509, Types.General, "使用随机地图设置预设", false, dynamicMap, true);
+            camsNoNightVisionIfImpVision = CustomOption.Create(12, Types.General, "伪装者视野忽略夜视摄像头", false, camsNightVision, false);
+
+            AddVents = CustomOption.Create(114513, Types.General, "添加通风管道", false, null, true, heading: "添加通风管道");
+            addPolusVents = CustomOption.Create(114514, Types.General, "在Polus增加额外的通风管道", false, enableBetterPolus);
+            addAirShipVents = CustomOption.Create(114515, Types.General, "在AriShip增加额外的通风管道", false, enableAirShipModify);
+            enableAirShipModify = CustomOption.Create(114516, Types.General, cs(Color.yellow, "AirShip"), false, null);
+            enableBetterPolus = CustomOption.Create(114517, Types.General, "启用Polus追加", false, null);
+
+
+
 
             blockedRolePairings.Add((byte)RoleId.Vampire, new [] { (byte)RoleId.Warlock});
             blockedRolePairings.Add((byte)RoleId.Warlock, new [] { (byte)RoleId.Vampire});

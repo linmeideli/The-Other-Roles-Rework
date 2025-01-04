@@ -18,6 +18,7 @@ using BepInEx.Unity.IL2CPP;
 using BepInEx;
 using static ShipStatus;
 using TMPro;
+using TheOtherRoles.Modules;
 
 namespace TheOtherRoles {
     public class CustomOption {
@@ -172,6 +173,20 @@ namespace TheOtherRoles {
             return selection + 1;
         }
 
+        public string getString()
+        {
+            var sel = selections[selection].ToString();
+
+            if (sel is "optionOn")
+                return "<color=#FFFF00FF>" + sel.Translate() + "</color>";
+            else if (sel == "optionOff")
+            {
+                return "<color=#CCCCCCFF>" + sel.Translate() + "</color>";
+            }
+
+            return sel.Translate();
+        }
+
 
         public void updateSelection(int newSelection, bool notifyUsers = true) {
             newSelection = Mathf.Clamp((newSelection + selections.Length) % selections.Length, 0, selections.Length - 1);
@@ -261,7 +276,7 @@ namespace TheOtherRoles {
 
         // Copy to or paste from clipboard (as string)
         public static void copyToClipboard() {
-            GUIUtility.systemCopyBuffer = $"{TheOtherRolesPlugin.VersionString}!{Convert.ToBase64String(serializeOptions())}!{vanillaSettings.Value}";
+            GUIUtility.systemCopyBuffer = $"{TheOtherRolesPlugin.TORRVersionString}!{Convert.ToBase64String(serializeOptions())}!{vanillaSettings.Value}";
         }
 
         public static int pasteFromClipboard() {
@@ -275,7 +290,7 @@ namespace TheOtherRoles {
                 string vanillaSettingsSub = settingsSplit[2];
                 torOptionsFine = deserializeOptions(Convert.FromBase64String(torSettings));
                 ShareOptionSelections();
-                if (TheOtherRolesPlugin.Version > versionInfo && versionInfo < Version.Parse(TheOtherRolesPlugin.VersionString)) {
+                if (TheOtherRolesPlugin.Version > versionInfo && versionInfo < Version.Parse(TheOtherRolesPlugin.TORRVersionString)) {
                     vanillaOptionsFine = false;
                     FastDestroyableSingleton<HudManager>.Instance.Chat.AddChat(PlayerControl.LocalPlayer, "房主信息: 应用原版设置失败，TORR设置已应用！");
                 } else {
@@ -996,7 +1011,7 @@ namespace TheOtherRoles {
                 maxPage = 2;
                 switch (counter) {
                     case 0:// 翻译不动了自己滚过来搞
-                        hudString += "Page 1: Hide N Seek Settings \n\n" + buildOptionsOfType(CustomOption.CustomOptionType.HideNSeekMain, false);
+                        hudString += (!hideExtras ? "" : "page1".Translate()) + buildOptionsOfType(CustomOption.CustomOptionType.HideNSeekMain, false);
                         break;
                     case 1:
                         hudString += "Page 2: Hide N Seek Role Settings \n\n" + buildOptionsOfType(CustomOption.CustomOptionType.HideNSeekRoles, false);

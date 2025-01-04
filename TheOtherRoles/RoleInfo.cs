@@ -12,7 +12,8 @@ using System.Net.Http;
 
 namespace TheOtherRoles
 {
-    public class RoleInfo {
+    public class RoleInfo
+    {
         public Color color;
         public string name;
         public string introDescription;
@@ -21,7 +22,8 @@ namespace TheOtherRoles
         public bool isNeutral;
         public bool isModifier;
 
-        public RoleInfo(string name, Color color, string introDescription, string shortDescription, RoleId roleId, bool isNeutral = false, bool isModifier = false) {
+        public RoleInfo(string name, Color color, string introDescription, string shortDescription, RoleId roleId, bool isNeutral = false, bool isModifier = false)
+        {
             this.color = color;
             this.name = name;
             this.introDescription = introDescription;
@@ -34,7 +36,7 @@ namespace TheOtherRoles
         public static RoleInfo jester = new RoleInfo("小丑", Jester.color, "被票出去", "被投出以获得胜利", RoleId.Jester, true);
         public static RoleInfo mayor = new RoleInfo("市长", Mayor.color, "你可以票人两次", "你可以票人两次", RoleId.Mayor);
         public static RoleInfo portalmaker = new RoleInfo("守门人", Portalmaker.color, "你可以创建传送门", "你可以创建传送门", RoleId.Portalmaker);
-        public static RoleInfo engineer = new RoleInfo("工程师",  Engineer.color, "观察<color=#FF0000>伪装者</color>并修理破坏", "修理飞船", RoleId.Engineer);
+        public static RoleInfo engineer = new RoleInfo("工程师", Engineer.color, "观察<color=#FF0000>伪装者</color>并修理破坏", "修理飞船", RoleId.Engineer);
         public static RoleInfo sheriff = new RoleInfo("警长", Sheriff.color, "击毙<color=#FF1919FF>伪装者</color>", "击毙伪装者", RoleId.Sheriff);
         public static RoleInfo deputy = new RoleInfo("捕快", Sheriff.color, "拷住<color=#FF1919FF>伪装者</color>", "拷住伪装者", RoleId.Deputy);
         public static RoleInfo lighter = new RoleInfo("执灯人", Lighter.color, "光明倾向着你", "你的视野会是明亮的", RoleId.Lighter);
@@ -161,12 +163,14 @@ namespace TheOtherRoles
             shifter
         };
 
-        public static List<RoleInfo> getRoleInfoForPlayer(PlayerControl p, bool showModifier = true) {
+        public static List<RoleInfo> getRoleInfoForPlayer(PlayerControl p, bool showModifier = true)
+        {
             List<RoleInfo> infos = new List<RoleInfo>();
             if (p == null) return infos;
 
             // Modifier
-            if (showModifier) {
+            if (showModifier)
+            {
                 // after dead modifier
                 if (!CustomOptionHolder.modifiersAreHidden.getBool() || PlayerControl.LocalPlayer.Data.IsDead || AmongUsClient.Instance.GameState == InnerNet.InnerNetClient.GameStates.Ended)
                 {
@@ -234,7 +238,8 @@ namespace TheOtherRoles
             if (p == Thief.thief) infos.Add(thief);
 
             // Default roles (just impostor, just crewmate, or hunter / hunted for hide n seek, prop hunt prop ...
-            if (infos.Count == count) {
+            if (infos.Count == count)
+            {
                 if (p.Data.Role.IsImpostor)
                     infos.Add(TORMapOptions.gameMode == CustomGamemodes.HideNSeek || TORMapOptions.gameMode == CustomGamemodes.PropHunt ? RoleInfo.hunter : RoleInfo.impostor);
                 else
@@ -244,21 +249,27 @@ namespace TheOtherRoles
             return infos;
         }
 
-        public static String GetRolesString(PlayerControl p, bool useColors, bool showModifier = true, bool suppressGhostInfo = false) {
+        public static String GetRolesString(PlayerControl p, bool useColors, bool showModifier = true, bool suppressGhostInfo = false)
+        {
             string roleName;
             roleName = String.Join(" ", getRoleInfoForPlayer(p, showModifier).Select(x => useColors ? Helpers.cs(x.color, x.name) : x.name).ToArray());
-            if (Lawyer.target != null && p.PlayerId == Lawyer.target.PlayerId && CachedPlayer.LocalPlayer.PlayerControl != Lawyer.target) 
+            if (Lawyer.target != null && p.PlayerId == Lawyer.target.PlayerId && CachedPlayer.LocalPlayer.PlayerControl != Lawyer.target)
                 roleName += (useColors ? Helpers.cs(Pursuer.color, " §") : " §");
             if (HandleGuesser.isGuesserGm && HandleGuesser.isGuesser(p.PlayerId)) roleName += " (赌怪)";
 
-            if (!suppressGhostInfo && p != null) {
+            if (!suppressGhostInfo && p != null)
+            {
                 if (p == Shifter.shifter && (CachedPlayer.LocalPlayer.PlayerControl == Shifter.shifter || Helpers.shouldShowGhostInfo()) && Shifter.futureShift != null)
                     roleName += Helpers.cs(Color.yellow, " ← " + Shifter.futureShift.Data.PlayerName);
                 if (p == Vulture.vulture && (CachedPlayer.LocalPlayer.PlayerControl == Vulture.vulture || Helpers.shouldShowGhostInfo()))
                     roleName = roleName + Helpers.cs(Vulture.color, $" (剩余{Vulture.vultureNumberToWin - Vulture.eatenBodies} 个尸体)");
-                if (p == BountyHunter.bountyHunter && (CachedPlayer.LocalPlayer.PlayerControl == BountyHunter.bountyHunter || Helpers.shouldShowGhostInfo()))
-                    roleName = roleName + Helpers.cs(BountyHunter.color, $" (正确击杀：{BountyHunter.bountyKillCooldown}秒 击杀错误：{BountyHunter.punishmentTime}秒)");
-                if (Helpers.shouldShowGhostInfo()) {
+                if (BountyHunter.bountyHunterShowCooldownForGhosts)
+                {
+                    if (p == BountyHunter.bountyHunter && (CachedPlayer.LocalPlayer.PlayerControl == BountyHunter.bountyHunter || Helpers.shouldShowGhostInfo()))
+                        roleName = roleName + Helpers.cs(BountyHunter.color, $" (正确击杀：{BountyHunter.bountyKillCooldown}秒 错误击杀：{BountyHunter.punishmentTime}秒)");
+                }
+                if (Helpers.shouldShowGhostInfo())
+                {
                     if (Eraser.futureErased.Contains(p))
                         roleName = Helpers.cs(Color.gray, "(被抹除) ") + roleName;
                     if (Vampire.vampire != null && !Vampire.vampire.Data.IsDead && Vampire.bitten == p && !p.Data.IsDead)
@@ -285,17 +296,21 @@ namespace TheOtherRoles
                         roleName = Helpers.cs(Sidekick.color, $" (假跟班)") + roleName;
 
                     // Death Reason on Ghosts
-                    if (p.Data.IsDead) {
+                    if (p.Data.IsDead)
+                    {
                         string deathReasonString = "";
                         var deadPlayer = GameHistory.deadPlayers.FirstOrDefault(x => x.player.PlayerId == p.PlayerId);
 
                         Color killerColor = new();
-                        if (deadPlayer != null && deadPlayer.killerIfExisting != null) {
+                        if (deadPlayer != null && deadPlayer.killerIfExisting != null)
+                        {
                             killerColor = RoleInfo.getRoleInfoForPlayer(deadPlayer.killerIfExisting, false).FirstOrDefault().color;
                         }
 
-                        if (deadPlayer != null) {
-                            switch (deadPlayer.deathReason) {
+                        if (deadPlayer != null)
+                        {
+                            switch (deadPlayer.deathReason)
+                            {
                                 case DeadPlayer.CustomDeathReason.Disconnect:
                                     deathReasonString = " - 断连";
                                     break;
@@ -340,8 +355,10 @@ namespace TheOtherRoles
 
 
         static string ReadmePage = "";
-        public static async Task loadReadme() {
-            if (ReadmePage == "") {
+        public static async Task loadReadme()
+        {
+            if (ReadmePage == "")
+            {
                 HttpClient client = new HttpClient();
                 HttpResponseMessage response = await client.GetAsync("https://raw.githubusercontent.com/TheOtherRolesAU/TheOtherRoles/main/README.md");
                 response.EnsureSuccessStatusCode();
@@ -349,14 +366,17 @@ namespace TheOtherRoles
                 ReadmePage = httpres;
             }
         }
-        public static string GetRoleDescription(RoleInfo roleInfo) {
-            while (ReadmePage == "") {
+        public static string GetRoleDescription(RoleInfo roleInfo)
+        {
+            while (ReadmePage == "")
+            {
             }
-                
+
             int index = ReadmePage.IndexOf($"## {roleInfo.name}");
             int endindex = ReadmePage.Substring(index).IndexOf("### 复盘:");
             return ReadmePage.Substring(index, endindex);
 
         }
+
     }
 }

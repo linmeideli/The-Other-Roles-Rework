@@ -25,7 +25,7 @@ using static TheOtherRoles.Modules.ModUpdater;
 
 namespace TheOtherRoles
 {
-    [BepInPlugin(Id, "The Other Roles", VersionString)]
+    [BepInPlugin(Id, "The Other Roles", TORRVersionString)]
     [BepInDependency(SubmergedCompatibility.SUBMERGED_GUID, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInProcess("Among Us.exe")]
     [ReactorModFlags(Reactor.Networking.ModFlags.RequireOnAllClients)]
@@ -34,10 +34,10 @@ namespace TheOtherRoles
     {
         public const string Id = "me.eisbison.theotherroles";
         public const string VersionString = "4.6.0";
-        public const string TORRVersionString = "1.0.1-BETA3";
+        public const string TORRVersionString = "1.0.2";
         public static uint betaDays = 0;  // amount of days for the build to be usable (0 for infinite!)
 
-        public static Version Version = Version.Parse(VersionString);
+        public static Version Version = Version.Parse(TORRVersionString);
         internal static BepInEx.Logging.ManualLogSource Logger;
          
         public Harmony Harmony { get; } = new Harmony(Id);
