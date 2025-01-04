@@ -22,12 +22,12 @@ $@"<size=130%><color=#ff351f>TheOtherRolesRework</color></size> v{TheOtherRolesP
         $@"<size=60%>Modded by <color=#FCCE03FF>Eisbison</color>, <color=#FCCE03FF>EndOfFile</color>
 <color=#FCCE03FF>Thunderstorm584</color>, <color=#FCCE03FF>Mallöris</color> & <color=#FCCE03FF>Gendelo</color>
 Design by <color=#FCCE03FF>Bavari</color>
-Reworked by <color=#00FFFF>ELinmei</color></size>";
+Reworked by <color=#00FFFF>ELinmei & FangKuai</color></size>";
 
         public static string mainMenuCredentials =
     $@"Modded by <color=#FCCE03FF>Eisbison</color>, <color=#FCCE03FF>Thunderstorm584</color>, <color=#FCCE03FF>EndOfFile</color>, <color=#FCCE03FF>Mallöris</color> & <color=#FCCE03FF>Gendelo</color>
 Design by <color=#FCCE03FF>Bavari</color>
-Reworked by <color=#00FFFF>ELinmei</color>";
+Reworked by <color=#00FFFF>ELinme & ,FangKuai</color> ";
 
         public static string contributorsCredentials =
 $@"<size=60%> <color=#FCCE03FF>Special thanks to Smeggy & <color=#00FFFF>FangKuai</color></color></size>";

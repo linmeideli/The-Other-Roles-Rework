@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <Version>4.6.0</Version>
-        <Description>TheOtherRoles</Description>
-        <Authors>Eisbison</Authors>
+        <Version>1.0.2</Version>
+        <Description>TheOtherRolesRework</Description>
+        <Authors>ELinmeiNFangKuai</Authors>
 		<LangVersion>latest</LangVersion>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>

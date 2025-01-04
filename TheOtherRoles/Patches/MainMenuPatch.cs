@@ -48,21 +48,33 @@ namespace TheOtherRoles.Modules {
             
             passiveButtonDiscord.OnClick = new Button.ButtonClickedEvent();
             passiveButtonDiscord.OnClick.AddListener((System.Action)(() => Application.OpenURL("https://discord.gg/77RkMJHWsM")));
-
+            
             var buttonQQ = UnityEngine.Object.Instantiate(template, template.transform.parent);
             buttonQQ.transform.localScale = new Vector3(0.42f, 0.84f, 0.84f);
-            buttonQQ.GetComponent<AspectPosition>().anchorPoint = new Vector2(0.962f, 0.6f);
+            buttonQQ.GetComponent<AspectPosition>().anchorPoint = new Vector2(0.2f, 0.38f);
 
             var textQQ = buttonQQ.transform.GetComponentInChildren<TMPro.TMP_Text>();
             __instance.StartCoroutine(Effects.Lerp(0.5f, new System.Action<float>((p) => {
-                textQQ.SetText("TORR QQ");
+                textQQ.SetText("QQ");
             })));
             PassiveButton passiveButtonQQ = buttonQQ.GetComponent<PassiveButton>();
 
             passiveButtonQQ.OnClick = new Button.ButtonClickedEvent();
             passiveButtonQQ.OnClick.AddListener((System.Action)(() => Application.OpenURL("https://qm.qq.com/cgi-bin/qm/qr?authKey=Dn8MKDZAadw0VHyaPg43rRuSNIK9fOpzmI%2BfZA1%2F6%2BCx2QpqZH1vzHlB6QwVKv3Q&k=qDktOeGaUnZHnx0_U6kBoQ9d0ip8_Myp&noverify=0")));
 
+            var buttonGithub = UnityEngine.Object.Instantiate(template, template.transform.parent);
+            buttonGithub.transform.localScale = new Vector3(0.42f, 0.84f, 0.84f);
+            buttonGithub.GetComponent<AspectPosition>().anchorPoint = new Vector2(0.7f, 0.38f);
 
+            var textGithub = buttonGithub.transform.GetComponentInChildren<TMPro.TMP_Text>();
+            __instance.StartCoroutine(Effects.Lerp(0.5f, new System.Action<float>((p) => {
+                textGithub.SetText("Github");
+            })));
+            PassiveButton passiveButtonGIthub = buttonGithub.GetComponent<PassiveButton>();
+
+            passiveButtonGIthub.OnClick = new Button.ButtonClickedEvent();
+            passiveButtonGIthub.OnClick.AddListener((System.Action)(() => Application.OpenURL("https://discord.gg/77RkMJHWsM")));
+            
 
             // TOR credits button
             if (template == null) return;
@@ -97,7 +109,7 @@ Mallöris    K3ndo    Bavari    Gendelo
 Eisbison (GOAT)    Thunderstorm584    EndOfFile
 
 <b>The Other Roles Rework:</b>
-ELinmei    Eighth    (Welcome you join us :))
+ELinmei    FangKuai    (Welcome you join us :))
 
 <b>Additional Devs:</b>
 EnoPM    twix    NesTT

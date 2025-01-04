@@ -1315,6 +1315,7 @@ namespace TheOtherRoles
         public static float bountyKillCooldown = 0f;
         public static float punishmentTime = 15f;
         public static float arrowUpdateIntervall = 10f;
+        public static bool bountyHunterShowCooldownForGhosts = true;
 
         public static float arrowUpdateTimer = 0f;
         public static float bountyUpdateTimer = 0f;
@@ -1459,46 +1460,46 @@ namespace TheOtherRoles
                 var selectedInfo = infos[rnd.Next(infos.Count)];
                 switch (selectedInfo) {
                     case SpecialMediumInfo.SheriffSuicide:
-                        msg = "Yikes, that Sheriff shot backfired.";
+                        msg = "哎，警长因公殉职适得其反啊！";
                         break;
                     case SpecialMediumInfo.WarlockSuicide:
-                        msg = "MAYBE I cursed the person next to me and killed myself. Oops.";
+                        msg = "也许我诅咒了我旁边的人，然后自杀了。哎呀。";
                         break;
                     case SpecialMediumInfo.ThiefSuicide:
-                        msg = "I tried to steal the gun from their pocket, but they were just happy to see me.";
+                        msg = "我试图从他们的口袋里偷枪，但是他们就把枪口指向了我，很晦气的一次偷窃。";
                         break;
                     case SpecialMediumInfo.ActiveLoverDies:
-                        msg = "I wanted to get out of this toxic relationship anyways.";
+                        msg = "无论如何，我都想摆脱这种有毒的爱情。";
                         break;
                     case SpecialMediumInfo.PassiveLoverSuicide:
-                        msg = "The love of my life died, thus with a kiss I die.";
+                        msg = "我一生的挚爱死了，因此我殉情死了。";
                         break;
                     case SpecialMediumInfo.LawyerKilledByClient:
-                        msg = "My client killed me. Do I still get paid?";
+                        msg = "我的客户杀了我。我还会收到报酬吗？";
                         break;
                     case SpecialMediumInfo.JackalKillsSidekick:
-                        msg = "First they sidekicked me, then they killed me. At least I don't need to do tasks anymore.";
+                        msg = "他们先是招募我，然后杀了我。至少我不需要再做任务了。";
                         break;
                     case SpecialMediumInfo.ImpostorTeamkill:
-                        msg = "I guess they confused me for the Spy, is there even one?";
+                        msg = "我猜他们把我和间谍搞混了，但愿吧。";
                         break;
                     case SpecialMediumInfo.BodyCleaned:
-                        msg = "Is my dead body some kind of art now or... aaand it's gone.";
+                        msg = "我的尸体现在是某种艺术吗，还是......啊，它已经被清理了。";
                         break;
                 }
             } else {
                 int randomNumber = rnd.Next(4);
-                string typeOfColor = Helpers.isLighterColor(Medium.target.killerIfExisting) ? "lighter" : "darker";
+                string typeOfColor = Helpers.isLighterColor(Medium.target.killerIfExisting) ? "浅" : "深";
                 float timeSinceDeath = ((float)(Medium.meetingStartTime - Medium.target.timeOfDeath).TotalMilliseconds);
                 var roleString = RoleInfo.GetRolesString(Medium.target.player, false);
                 if (randomNumber == 0) {
                     if (!roleString.Contains("Impostor") && !roleString.Contains("Crewmate"))
-                        msg = "If my role hasn't been saved, there's no " + roleString + " in the game anymore.";
+                        msg = "如果我的角色尚未保存，则没有 " + roleString + " 出现在游戏中。";
                     else
-                        msg = "I was a " + roleString + " without another role."; 
-                } else if (randomNumber == 1) msg = "I'm not sure, but I guess a " + typeOfColor + " color killed me.";
-                else if (randomNumber == 2) msg = "If I counted correctly, I died " + Math.Round(timeSinceDeath / 1000) + "s before the next meeting started.";
-                else msg = "It seems like my killer is the " + RoleInfo.GetRolesString(Medium.target.killerIfExisting, false, false, true) + ".";
+                        msg = "我是一名" + roleString + "而伴随着一些职业。"; 
+                } else if (randomNumber == 1) msg = "我肯定是" + typeOfColor + " 颜色的人杀了我。";
+                else if (randomNumber == 2) msg = "如果我没算错，我死在直至会议开启前的" + Math.Round(timeSinceDeath / 1000) + "秒前";
+                else msg = "杀死我的人应该是一名" + RoleInfo.GetRolesString(Medium.target.killerIfExisting, false, false, true) + "。";
             }
 
             if (rnd.NextDouble() < chanceAdditionalInfo) {
@@ -1923,13 +1924,13 @@ namespace TheOtherRoles
     }
     public static class Lighterln
     {
-        public static List<PlayerControl> lighterln = new List<PlayerControl>();
-        public static int vision = 1;
+        public static List<PlayerControl> lighterln = new();
+        public static float vision = 1;
 
         public static void clearAndReload()
         {
-            lighterln = new List<PlayerControl>();
-            vision = CustomOptionHolder.modifierLighterlnVision.getSelection() - 1;
+            lighterln.Clear();
+            vision = CustomOptionHolder.modifierLighterlnVision.getFloat();
         }
     }
     public static class Mini {
