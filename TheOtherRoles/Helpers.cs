@@ -16,6 +16,8 @@ using TheOtherRoles.CustomGameModes;
 using Reactor.Utilities.Extensions;
 using AmongUs.GameOptions;
 using TheOtherRoles.Patches;
+using TheOtherRoles.Objects;
+using System.Data;
 
 namespace TheOtherRoles {
 
@@ -32,6 +34,16 @@ namespace TheOtherRoles {
         HideNSeek,
         PropHunt
     }
+    public enum SabatageTypes
+    {
+        Comms,
+        O2,
+        Reactor,
+        OxyMask,
+        Lights,
+        None
+    }
+
     public static class Helpers
     {
 
@@ -287,6 +299,39 @@ namespace TheOtherRoles {
             var sabSystem = ShipStatus.Instance.Systems[SystemTypes.Sabotage].CastFast<SabotageSystemType>();
             return sabSystem.Timer;
         }
+       /* public static SabatageTypes GetActiveSabo()
+        {
+            foreach (var task in CachedPlayer.LocalPlayer.PlayerControl.myTasks.GetFastEnumerator())
+                if (task.TaskType == TaskTypes.FixLights)
+                    return SabatageTypes.Lights;
+                else if (task.TaskType == TaskTypes.RestoreOxy)
+                    return SabatageTypes.O2;
+                else if (task.TaskType is TaskTypes.ResetReactor or TaskTypes.StopCharles or TaskTypes.StopCharles)
+                    return SabatageTypes.Reactor;
+                else if (task.TaskType == TaskTypes.FixComms)
+                    return SabatageTypes.Comms;
+                else if (SubmergedCompatibility.IsSubmerged && task.TaskType == SubmergedCompatibility.RetrieveOxygenMask)
+                    return SabatageTypes.OxyMask;
+            return SabatageTypes.None;
+        }
+        public static bool isLightsActive => GetActiveSabo() == SabatageTypes.Lights;
+
+        public static bool isCommsActive => GetActiveSabo() == SabatageTypes.Comms;
+
+        public static bool isReactor => GetActiveSabo() is SabatageTypes.Reactor or SabatageTypes.O2;
+
+        public static bool isCamoComms => isCommsActive && ModOption.camoComms;
+
+        public static bool isActiveCamoComms => isCamoComms && Camouflager.camoComms;
+
+        public static bool wasActiveCamoComms => !isCamoComms && Camouflager.camoComms;
+
+        public static bool sabotageActive => ShipStatus.Instance.Systems[SystemTypes.Sabotage].CastFast<SabotageSystemType>().AnyActive;
+
+        public static float sabotageTimer => ShipStatus.Instance.Systems[SystemTypes.Sabotage].CastFast<SabotageSystemType>().Timer;
+
+        public static bool MushroomSabotageActive => PlayerControl.LocalPlayer.myTasks.ToArray().Any(x => x.TaskType == TaskTypes.MushroomMixupSabotage);
+       */
         public static bool canUseSabotage() {
             var sabSystem = ShipStatus.Instance.Systems[SystemTypes.Sabotage].CastFast<SabotageSystemType>();
             ISystemType systemType;
@@ -296,7 +341,39 @@ namespace TheOtherRoles {
             }
             return GameManager.Instance.SabotagesEnabled() && sabSystem.Timer <= 0f && !sabSystem.AnyActive && !(doors != null && doors.IsActive);
         }
+        /*
+        public static void showTargetNameOnButton(PlayerControl target, CustomButton button, string defaultText)
+        {
+            if (CustomOptionHolder.showButtonTarget.getBool())
+            {
+                // Should the button show the target name option
+                string text;
+                // set text to default if camo is on
+                if (Camouflager.camouflageTimer >= 0.1f || isCamoComms) text = defaultText;
+                // set to default if lights are out
+                else if (Hunter.isLightActive) text = defaultText;
+                // set to default if trickster ability is active
+                else if (Trickster.trickster != null && Trickster.lightsOutTimer > 0f) text = defaultText;
+                // set to morphed player
+                else if (Morphling.morphling != null && Morphling.morphTarget != null && target == Morphling.morphling && Morphling.morphTimer > 0)
+                    text = Morphling.morphTarget.Data.PlayerName;
+                else if (target == Ninja.ninja && Ninja.isInvisble) text = defaultText;
+                else if (Jackal.jackal.Any(p => p == target) && Jackal.) text = defaultText;
+                //else if (target == PhantomRole.phantomRole) text = defaultText;
+                else if (target == null) text = defaultText; // Set text to defaultText if no target
+                else text = target.Data.PlayerName; // Set text to playername
+                showTargetNameOnButtonExplicit(null, button, text);
+            }
+        }
 
+        public static void showTargetNameOnButtonExplicit(PlayerControl target, CustomButton button, string defaultText)
+        {
+            var text = defaultText;
+            if (target == null) text = defaultText; // Set text to defaultText if no target
+            else text = target.Data.PlayerName; // Set text to playername
+            button.actionButton.OverrideText(text);
+            button.showButtonText = true;
+        }*/
         public static void setSemiTransparent(this PoolablePlayer player, bool value, float alpha=0.25f) {
             alpha = value ? alpha : 1f;
             foreach (SpriteRenderer r in player.gameObject.GetComponentsInChildren<SpriteRenderer>())
