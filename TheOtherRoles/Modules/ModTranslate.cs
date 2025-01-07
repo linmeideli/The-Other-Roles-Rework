@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 using TheOtherRoles.Patches;
 using UnityEngine;
 
-namespace TheOtherRoles
+namespace TheOtherRoles.Modules
 {
     public class ModTranslation
     {

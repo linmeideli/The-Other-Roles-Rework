@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine.Events;
 using static UnityEngine.UI.Button;
 using Object = UnityEngine.Object;
+using TheOtherRoles.Modules;
 
 namespace TheOtherRoles.Patches 
 {

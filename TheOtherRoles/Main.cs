@@ -36,6 +36,7 @@ namespace TheOtherRoles
 
 
         public const string Id = "me.eisbison.theotherroles";
+        public const string VersionString = "4.6.0";
         public const string TORRVersionString = "1.0.2";
         public static uint betaDays = 0;  // amount of days for the build to be usable (0 for infinite!)
 
@@ -100,7 +101,7 @@ namespace TheOtherRoles
         public override void Load() {
 
             ModTranslation.Load();
-            TheOtherRolesPlugin.Logger.LogInfo("TORR ModTranslation was Loaded");
+            TheOtherRolesPlugin.Logger.LogInfo("TORR ModTranslation was Loaded\nTORR ModTranslation已被加载");
   
             _ = Helpers.checkBeta(); // Exit if running an expired beta
             _ = Patches.CredentialsPatch.MOTD.loadMOTDs();
