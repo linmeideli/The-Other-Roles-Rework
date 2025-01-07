@@ -36,7 +36,7 @@ namespace TheOtherRoles
 
         public static RoleInfo jester = new RoleInfo("小丑", Jester.color, "被票出去", "被投出以获得胜利", RoleId.Jester, true);
         public static RoleInfo mayor = new RoleInfo("市长", Mayor.color, "你可以票人两次", "你可以票人两次", RoleId.Mayor);
-        public static RoleInfo portalmaker = new RoleInfo(ModTranslation.GetString("Portalmaker"), Portalmaker.color, "你可以创建传送门", "你可以创建传送门", RoleId.Portalmaker);
+        public static RoleInfo portalmaker = new RoleInfo("Portalmaker", Portalmaker.color, "你可以创建传送门", "你可以创建传送门", RoleId.Portalmaker);
         public static RoleInfo engineer = new RoleInfo("工程师", Engineer.color, "观察<color=#FF0000>伪装者</color>并修理破坏", "修理飞船", RoleId.Engineer);
         public static RoleInfo sheriff = new RoleInfo("警长", Sheriff.color, "击毙<color=#FF1919FF>伪装者</color>", "击毙伪装者", RoleId.Sheriff);
         public static RoleInfo deputy = new RoleInfo("捕快", Sheriff.color, "拷住<color=#FF1919FF>伪装者</color>", "拷住伪装者", RoleId.Deputy);

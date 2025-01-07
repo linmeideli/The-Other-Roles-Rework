@@ -173,19 +173,7 @@ namespace TheOtherRoles {
             return selection + 1;
         }
 
-        public string getString()
-        {
-            var sel = selections[selection].ToString();
-
-            if (sel is "optionOn")
-                return "<color=#FFFF00FF>" + sel.Translate() + "</color>";
-            else if (sel == "optionOff")
-            {
-                return "<color=#CCCCCCFF>" + sel.Translate() + "</color>";
-            }
-
-            return sel.Translate();
-        }
+       
 
 
         public void updateSelection(int newSelection, bool notifyUsers = true) {
@@ -527,7 +515,7 @@ namespace TheOtherRoles {
             if (TORMapOptions.gameMode == CustomGamemodes.Guesser || TORMapOptions.gameMode == CustomGamemodes.Classic) {
 
                 // create TOR settings
-                createCustomButton(__instance, next++, "TORSettings", "TORR模组设置", CustomOptionType.General);
+                createCustomButton(__instance, next++, "TORSettings", ModTranslation.getString("torSettings"), CustomOptionType.General);
                    // create TOR settings
                 createCustomButton(__instance, next++, "RoleOverview", "职业总览", (CustomOptionType)99);
                 // IMp
@@ -1011,7 +999,7 @@ namespace TheOtherRoles {
                 maxPage = 2;
                 switch (counter) {
                     case 0:// 翻译不动了自己滚过来搞
-                        hudString += (!hideExtras ? "" : "page1".Translate()) + buildOptionsOfType(CustomOption.CustomOptionType.HideNSeekMain, false);
+                        hudString +="Page1 \n\n" + buildOptionsOfType(CustomOption.CustomOptionType.HideNSeekMain, false);
                         break;
                     case 1:
                         hudString += "Page 2: Hide N Seek Role Settings \n\n" + buildOptionsOfType(CustomOption.CustomOptionType.HideNSeekRoles, false);

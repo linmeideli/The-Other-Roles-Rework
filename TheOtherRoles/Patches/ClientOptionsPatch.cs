@@ -25,13 +25,18 @@ namespace TheOtherRoles.Patches
             new("显示聊天通知", () => TORMapOptions.ShowChatNotifications = TheOtherRolesPlugin.ShowChatNotifications.Value = !TheOtherRolesPlugin.ShowChatNotifications.Value, TheOtherRolesPlugin.ShowChatNotifications.Value),
             new("添加私服（大饼+1）", () => TORMapOptions.AddServer = TheOtherRolesPlugin.AddServer.Value = !TheOtherRolesPlugin.AddServer.Value, TheOtherRolesPlugin.AddServer.Value),
         };
-        
+
         private static GameObject popUp;
         private static TextMeshPro titleText;
 
+        private static ToggleButtonBehaviour moreOptions;
+        private static TextMeshPro titleTextTitle;
+        private static List<ToggleButtonBehaviour> modButtons = new();
+        private static int page = 1;
+
         private static ToggleButtonBehaviour buttonPrefab;
         private static Vector3? _origin;
-        
+
         [HarmonyPostfix]
         [HarmonyPatch(typeof(MainMenuManager), nameof(MainMenuManager.Start))]
         public static void MainMenuManager_StartPostfix(MainMenuManager __instance)
@@ -52,11 +57,12 @@ namespace TheOtherRoles.Patches
         public static void OptionsMenuBehaviour_StartPostfix(OptionsMenuBehaviour __instance)
         {
             if (!__instance.CensorChatButton) return;
-            
+
             if (!popUp)
             {
                 CreateCustom(__instance);
             }
+
             if (!buttonPrefab)
             {
                 buttonPrefab = Object.Instantiate(__instance.CensorChatButton);
@@ -74,7 +80,7 @@ namespace TheOtherRoles.Patches
             Object.DontDestroyOnLoad(popUp);
             var transform = popUp.transform;
             var pos = transform.localPosition;
-            pos.z = -810f; 
+            pos.z = -810f;
             transform.localPosition = pos;
 
             Object.Destroy(popUp.GetComponent<OptionsMenuBehaviour>());
@@ -83,13 +89,13 @@ namespace TheOtherRoles.Patches
                 if (gObj.name != "Background" && gObj.name != "CloseButton")
                     Object.Destroy(gObj);
             }
-            
+
             popUp.SetActive(false);
         }
 
         private static void InitializeMoreButton(OptionsMenuBehaviour __instance)
         {
-            var moreOptions = Object.Instantiate(buttonPrefab, __instance.CensorChatButton.transform.parent);
+            moreOptions = Object.Instantiate(buttonPrefab, __instance.CensorChatButton.transform.parent);
             var transform = __instance.CensorChatButton.transform;
             __instance.CensorChatButton.Text.transform.localScale = new Vector3(1 / 0.66f, 1, 1);
             _origin ??= transform.localPosition;
@@ -104,11 +110,11 @@ namespace TheOtherRoles.Patches
             moreOptions.transform.localScale = new Vector3(0.66f, 1, 1);
 
             moreOptions.gameObject.SetActive(true);
-            moreOptions.Text.text = "模组设置...";
+            moreOptions.Text.text = ModTranslation.getString("modOptionsText");
             moreOptions.Text.transform.localScale = new Vector3(1 / 0.66f, 1, 1);
             var moreOptionsButton = moreOptions.GetComponent<PassiveButton>();
             moreOptionsButton.OnClick = new ButtonClickedEvent();
-            moreOptionsButton.OnClick.AddListener((Action) (() =>
+            moreOptionsButton.OnClick.AddListener((Action)(() =>
             {
                 bool closeUnderlying = false;
                 if (!popUp) return;
@@ -124,11 +130,11 @@ namespace TheOtherRoles.Patches
                     popUp.transform.SetParent(null);
                     Object.DontDestroyOnLoad(popUp);
                 }
-                
+
                 CheckSetTitle();
                 RefreshOpen();
                 if (closeUnderlying)
-                    __instance.Close();                    
+                    __instance.Close();
             }));
         }
 
@@ -205,7 +211,21 @@ namespace TheOtherRoles.Patches
                 yield return Go.transform.GetChild(i).gameObject;
             }
         }
-        
+        public static void updateTranslations()
+        {
+            if (titleTextTitle)
+                titleTextTitle.text = ModTranslation.getString("moreOptionsText");
+
+            if (moreOptions)
+                moreOptions.Text.text = ModTranslation.getString("modOptionsText");
+
+            for (int i = 0; i < AllOptions.Length; i++)
+            {
+                if (i >= modButtons.Count) break;
+                modButtons[i].Text.text = ModTranslation.getString(AllOptions[i].Title);
+            }
+        }
+
         public class SelectionBehaviour
         {
             public string Title;

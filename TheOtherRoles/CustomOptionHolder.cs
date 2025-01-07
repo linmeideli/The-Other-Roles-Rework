@@ -662,7 +662,7 @@ namespace TheOtherRoles {
             spyCanEnterVents = CustomOption.Create(243, Types.Crewmate, "卧底可以使用通风管道", false, spySpawnRate);
             spyHasImpostorVision = CustomOption.Create(244, Types.Crewmate, "卧底拥有伪装者视野", false, spySpawnRate);
 
-            portalmakerSpawnRate = CustomOption.Create(390, Types.Crewmate, cs(Portalmaker.color, "守门人"), rates, null, true);
+            portalmakerSpawnRate = CustomOption.Create(390, Types.Crewmate, cs(Portalmaker.color, "Portalmaker"), rates, null, true);
             portalmakerCooldown = CustomOption.Create(391, Types.Crewmate, "制造传送门冷却时间", 30f, 10f, 60f, 2.5f, portalmakerSpawnRate);
             portalmakerUsePortalCooldown = CustomOption.Create(392, Types.Crewmate, "使用传送门冷却时间", 30f, 10f, 60f, 2.5f, portalmakerSpawnRate);
             portalmakerLogOnlyColorType = CustomOption.Create(393, Types.Crewmate, "日志仅显示颜色类型", true, portalmakerSpawnRate);
