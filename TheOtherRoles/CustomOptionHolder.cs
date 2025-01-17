@@ -443,18 +443,18 @@ namespace TheOtherRoles {
             presetSelection = CustomOption.Create(0, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "预设"), presets, null, true);
 
             
-            if (Utilities.EventUtility.canBeEnabled) enableEventMode = CustomOption.Create(10423, Types.General, cs(Color.green, "Enable 特别模式"), true, null, true);
+            if (Utilities.EventUtility.canBeEnabled) enableEventMode = CustomOption.Create(10423, Types.General, cs(Color.green, ModTranslation.GetString("enableEventMode")), true, null, true);
 
             // Using new id's for the options to not break compatibilty with older versions
-            crewmateRolesCountMin = CustomOption.Create(300, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最小船员数量"), 15f, 0f, 15f, 1f, null, true, heading: "Min/Max Roles");
-            crewmateRolesCountMax = CustomOption.Create(301, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最大船员数量"), 15f, 0f, 15f, 1f);            
-            neutralRolesCountMin = CustomOption.Create(302, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最少中立数量"), 15f, 0f, 15f, 1f);
-            neutralRolesCountMax = CustomOption.Create(303, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最大中立数量"), 15f, 0f, 15f, 1f);
-            impostorRolesCountMin = CustomOption.Create(304, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最少伪装者数量"), 15f, 0f, 15f, 1f);
-            impostorRolesCountMax = CustomOption.Create(305, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最大伪装者数量"), 15f, 0f, 15f, 1f);
-            modifiersCountMin = CustomOption.Create(306, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最少附加职业数量"), 15f, 0f, 15f, 1f);
-            modifiersCountMax = CustomOption.Create(307, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "最大附加职业数量"), 15f, 0f, 15f, 1f);
-            crewmateRolesFill = CustomOption.Create(308, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "Fill Crewmate Roles\n(Ignores Min/Max)"), false);
+            crewmateRolesCountMin = CustomOption.Create(300, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), ModTranslation.GetString("crewmateRolesCountMin")), 15f, 0f, 15f, 1f, null, true, heading: "Min/Max Roles");
+            crewmateRolesCountMax = CustomOption.Create(301, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), ModTranslation.GetString("crewmateRolesCountMax")), 15f, 0f, 15f, 1f);            
+            neutralRolesCountMin = CustomOption.Create(302, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), ModTranslation.GetString("neutralRolesCountMin")), 15f, 0f, 15f, 1f);
+            neutralRolesCountMax = CustomOption.Create(303, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), ModTranslation.GetString("neutralRolesCountMax")), 15f, 0f, 15f, 1f);
+            impostorRolesCountMin = CustomOption.Create(304, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), ModTranslation.GetString("impostorRolesCountMin")), 15f, 0f, 15f, 1f);
+            impostorRolesCountMax = CustomOption.Create(305, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), ModTranslation.GetString("impostorRolesCountMax")), 15f, 0f, 15f, 1f);
+            modifiersCountMin = CustomOption.Create(306, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), ModTranslation.GetString("modifiersCountMin")), 15f, 0f, 15f, 1f);
+            modifiersCountMax = CustomOption.Create(307, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), ModTranslation.GetString("modifiersCountMax")), 15f, 0f, 15f, 1f);
+            crewmateRolesFill = CustomOption.Create(308, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), ModTranslation.GetString("crewmateRolesFill")), false);
 
             mafiaSpawnRate = CustomOption.Create(18, Types.Impostor, cs(Janitor.color, "黑手党"), rates, null, true);
             janitorCooldown = CustomOption.Create(19, Types.Impostor, "清洁工冷却时间", 30f, 10f, 60f, 2.5f, mafiaSpawnRate);
@@ -662,7 +662,7 @@ namespace TheOtherRoles {
             spyCanEnterVents = CustomOption.Create(243, Types.Crewmate, "卧底可以使用通风管道", false, spySpawnRate);
             spyHasImpostorVision = CustomOption.Create(244, Types.Crewmate, "卧底拥有伪装者视野", false, spySpawnRate);
 
-            portalmakerSpawnRate = CustomOption.Create(390, Types.Crewmate, cs(Portalmaker.color, "Portalmaker"), rates, null, true);
+            portalmakerSpawnRate = CustomOption.Create(390, Types.Crewmate, cs(Portalmaker.color, "守门人"), rates, null, true);
             portalmakerCooldown = CustomOption.Create(391, Types.Crewmate, "制造传送门冷却时间", 30f, 10f, 60f, 2.5f, portalmakerSpawnRate);
             portalmakerUsePortalCooldown = CustomOption.Create(392, Types.Crewmate, "使用传送门冷却时间", 30f, 10f, 60f, 2.5f, portalmakerSpawnRate);
             portalmakerLogOnlyColorType = CustomOption.Create(393, Types.Crewmate, "日志仅显示颜色类型", true, portalmakerSpawnRate);
@@ -832,35 +832,35 @@ namespace TheOtherRoles {
 
 
             // Other options
-            maxNumberOfMeetings = CustomOption.Create(3, Types.General, "会议数量（不包括市长会议）", 10, 0, 15, 1, null, true, heading: "游戏内设置");
-            anyPlayerCanStopStart = CustomOption.Create(2, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "任何玩家都可以停止开始"), false, null, false);
-            blockSkippingInEmergencyMeetings = CustomOption.Create(4, Types.General, "阻止在紧急会议中跳过", false);
-            noVoteIsSelfVote = CustomOption.Create(5, Types.General, "弃票的同于自票", false, blockSkippingInEmergencyMeetings);
-            hidePlayerNames = CustomOption.Create(6, Types.General, "隐藏玩家名称", false);
-            allowParallelMedBayScans = CustomOption.Create(7, Types.General, "允许同时扫描", false);
-            shieldFirstKill = CustomOption.Create(8, Types.General, "给予上把首刀护盾", false);
-            finishTasksBeforeHauntingOrZoomingOut = CustomOption.Create(9, Types.General, "在出现困扰或缩小之前完成任务", true);
-            deadImpsBlockSabotage = CustomOption.Create(13, Types.General, "禁止破坏胜利", false, null, false);
-            camsNightVision = CustomOption.Create(11, Types.General, "如果灯光关闭，摄像机将切换到夜视功能", false, null, true, heading: "Night Vision Cams");
+            maxNumberOfMeetings = CustomOption.Create(3, Types.General, ModTranslation.GetString("maxNumberOfMeetings"), 10, 0, 15, 1, null, true, heading: ModTranslation.GetString("inGameSettings"));
+            anyPlayerCanStopStart = CustomOption.Create(2, Types.General, cs(new Color(204f / 255f, 204f / 255f, 0, 1f), ModTranslation.GetString("anyPlayerCanStopStart")), false, null, false);
+            blockSkippingInEmergencyMeetings = CustomOption.Create(4, Types.General, ModTranslation.GetString("blockSkippingInEmergencyMeetings"), false);
+            noVoteIsSelfVote = CustomOption.Create(5, Types.General, ModTranslation.GetString("noVoteIsSelfVote"), false, blockSkippingInEmergencyMeetings);
+            hidePlayerNames = CustomOption.Create(6, Types.General, ModTranslation.GetString("hidePlayerNames"), false);
+            allowParallelMedBayScans = CustomOption.Create(7, Types.General, ModTranslation.GetString("allowParallelMedBayScans"), false);
+            shieldFirstKill = CustomOption.Create(8, Types.General, ModTranslation.GetString("shieldFirstKill"), false);
+            finishTasksBeforeHauntingOrZoomingOut = CustomOption.Create(9, Types.General, ModTranslation.GetString("finishTasksBeforeHauntingOrZoomingOut"), true);
+            deadImpsBlockSabotage = CustomOption.Create(13, Types.General, ModTranslation.GetString("deadImpsBlockSabotage"), false, null, false);
+            camsNightVision = CustomOption.Create(11, Types.General, ModTranslation.GetString("camsNightVision"), false, null, true, heading: ModTranslation.GetString("camsNightVisionSettings"));
 
 
 
 
-            dynamicMap = CustomOption.Create(500, Types.General, "游玩随机地图", false, null, true, heading: "随机地图");
+            dynamicMap = CustomOption.Create(500, Types.General, "dynamicMap".Translate(), false, null, true, heading: "dynamicMap".Translate());
             dynamicMapEnableSkeld = CustomOption.Create(501, Types.General, "Skeld", rates, dynamicMap, false);
             dynamicMapEnableMira = CustomOption.Create(502, Types.General, "Mira", rates, dynamicMap, false);
             dynamicMapEnablePolus = CustomOption.Create(503, Types.General, "Polus", rates, dynamicMap, false);
             dynamicMapEnableAirShip = CustomOption.Create(504, Types.General, "Airship", rates, dynamicMap, false);
             dynamicMapEnableFungle = CustomOption.Create(506, Types.General, "Fungle", rates, dynamicMap, false);
             dynamicMapEnableSubmerged = CustomOption.Create(505, Types.General, "Submerged", rates, dynamicMap, false);
-            dynamicMapSeparateSettings = CustomOption.Create(509, Types.General, "使用随机地图设置预设", false, dynamicMap, true);
-            camsNoNightVisionIfImpVision = CustomOption.Create(12, Types.General, "伪装者视野忽略夜视摄像头", false, camsNightVision, false);
+            dynamicMapSeparateSettings = CustomOption.Create(509, Types.General, "dynamicMapSeparateSettings".Translate(), false, dynamicMap, true);
+            camsNoNightVisionIfImpVision = CustomOption.Create(12, Types.General, "camsNoNightVisionIfImpVision".Translate(), false, camsNightVision, false);
 
-            AddVents = CustomOption.Create(114513, Types.General, "添加通风管道", false, null, true, heading: "添加通风管道");
-            addPolusVents = CustomOption.Create(114514, Types.General, "在Polus增加额外的通风管道", false, enableBetterPolus);
-            addAirShipVents = CustomOption.Create(114515, Types.General, "在AriShip增加额外的通风管道", false, enableAirShipModify);
-            enableAirShipModify = CustomOption.Create(114516, Types.General, cs(Color.yellow, "AirShip"), false, null);
-            enableBetterPolus = CustomOption.Create(114517, Types.General, "启用Polus追加", false, null);
+            AddVents = CustomOption.Create(114513, Types.General, "AddVents".Translate(), false, null, true, heading: "AddVents".Translate());
+            addPolusVents = CustomOption.Create(114514, Types.General, "addPolusVents".Translate(), false, enableBetterPolus);
+            addAirShipVents = CustomOption.Create(114515, Types.General, "addAirShipVents".Translate(), false, enableAirShipModify);
+            enableAirShipModify = CustomOption.Create(114516, Types.General, cs(Color.yellow, "enableAirShipModify".Translate()), false, null);
+            enableBetterPolus = CustomOption.Create(114517, Types.General, "enableBetterPolus".Translate(), false, null);
 
 
 

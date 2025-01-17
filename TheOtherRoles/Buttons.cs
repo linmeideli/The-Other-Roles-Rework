@@ -185,16 +185,6 @@ namespace TheOtherRoles
             zoomOutButton.MaxTimer = 0f;
         }
 
-        /*public static void showTargetNameOnButton(PlayerControl target, CustomButton button, string defaultText)
-        {
-            Helpers.showTargetNameOnButton(target, button, defaultText);
-        }
-
-        public static void showTargetNameOnButtonExplicit(PlayerControl target, CustomButton button, string defaultText)
-        {
-            Helpers.showTargetNameOnButtonExplicit(target, button, defaultText);
-        }*/
-
         public static void resetTimeMasterButton() {
             timeMasterShieldButton.Timer = timeMasterShieldButton.MaxTimer;
             timeMasterShieldButton.isEffectActive = false;

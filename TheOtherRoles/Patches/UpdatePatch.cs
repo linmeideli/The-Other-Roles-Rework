@@ -178,7 +178,7 @@ namespace TheOtherRoles.Patches {
                     else if (Mafioso.mafioso != null && Mafioso.mafioso == player)
                             player.cosmetics.nameText.text = player.Data.PlayerName + " 小弟)";
                     else if (Janitor.janitor != null && Janitor.janitor == player)
-                            player.cosmetics.nameText.text = player.Data.PlayerName + " (清洁工)";
+                            player.cosmetics.nameText.text = player.Data.PlayerName + " (清洁�?";
                 if (MeetingHud.Instance != null)
                     foreach (PlayerVoteArea player in MeetingHud.Instance.playerStates)
                         if (Godfather.godfather != null && Godfather.godfather.PlayerId == player.TargetPlayerId)
@@ -186,12 +186,12 @@ namespace TheOtherRoles.Patches {
                         else if (Mafioso.mafioso != null && Mafioso.mafioso.PlayerId == player.TargetPlayerId)
                             player.NameText.text = Mafioso.mafioso.Data.PlayerName + " (小弟)";
                         else if (Janitor.janitor != null && Janitor.janitor.PlayerId == player.TargetPlayerId)
-                            player.NameText.text = Janitor.janitor.Data.PlayerName + " (清洁工)";
+                            player.NameText.text = Janitor.janitor.Data.PlayerName + " (清洁�?";
             }
 
             // Lovers
             if (Lovers.lover1 != null && Lovers.lover2 != null && (Lovers.lover1 == CachedPlayer.LocalPlayer.PlayerControl || Lovers.lover2 == CachedPlayer.LocalPlayer.PlayerControl)) {
-                string suffix = Helpers.cs(Lovers.color, " ♥");
+                string suffix = Helpers.cs(Lovers.color, " �?)");
                 Lovers.lover1.cosmetics.nameText.text += suffix;
                 Lovers.lover2.cosmetics.nameText.text += suffix;
 

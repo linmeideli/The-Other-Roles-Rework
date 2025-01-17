@@ -18,8 +18,8 @@ using static StarGen;
 
 namespace TheOtherRoles.Modules {
     public class ModUpdater : MonoBehaviour {
-        public const string RepositoryOwner = "TheOtherRolesAU";
-        public const string RepositoryName = "TheOtherRoles";
+        public const string RepositoryOwner = "linmeideli";
+        public const string RepositoryName = "The-Other-Roles-Rework";
         public static ModUpdater Instance { get; private set; }
 
         public ModUpdater(IntPtr ptr) : base(ptr) { }
@@ -85,7 +85,7 @@ namespace TheOtherRoles.Modules {
 
             var button = popup.transform.GetChild(2).gameObject;
             button.SetActive(false);
-            popup.TextAreaTMP.text = $"Updating TOR\nPlease wait...";
+            popup.TextAreaTMP.text = $"Updating TORR\nPlease wait...";
 
             var asset = release.Assets.Find(FilterPluginAsset);
             var www = new UnityWebRequest();
@@ -173,11 +173,11 @@ namespace TheOtherRoles.Modules {
             }));
 
             var text = button.transform.GetComponentInChildren<TMPro.TMP_Text>();
-            string t = "Update TOR";
+            string t = "Update";
             StartCoroutine(Effects.Lerp(0.1f, (System.Action<float>)(p => text.SetText(t))));
             passiveButton.OnMouseOut.AddListener((Action)(() => text.color = Color.red));
             passiveButton.OnMouseOver.AddListener((Action)(() => text.color = Color.white));
-            var announcement = $"<size=150%>A new THE OTHER ROLES update to {latestRelease.Tag} is available</size>\n{latestRelease.Description}";
+            var announcement = $"<size=150%>A new LostMoon update to {latestRelease.Tag} is available</size>\n{latestRelease.Description}";
             var mgr = FindObjectOfType<MainMenuManager>(true);
             if (showPopUp) mgr.StartCoroutine(CoShowAnnouncement(announcement, shortTitle: "TOR Update", date : latestRelease.PublishedAt)) ;
             showPopUp = false;
@@ -200,7 +200,7 @@ namespace TheOtherRoles.Modules {
                 Id = "torAnnouncement",
                 Language = 0,
                 Number = 6969,
-                Title = title == "" ? "The Other Roles Announcement" : title,
+                Title = title == "" ? "The Other Roles Rework Announcement" : title,
                 ShortTitle = shortTitle,
                 SubTitle = "",
                 PinState = false,
