@@ -13,6 +13,7 @@ using TheOtherRoles.Objects;
 using TheOtherRoles.CustomGameModes;
 using Reactor.Utilities.Extensions;
 using AmongUs.GameOptions;
+using TheOtherRoles.Modules;
 
 namespace TheOtherRoles.Patches {
 
@@ -244,7 +245,11 @@ namespace TheOtherRoles.Patches {
                 statusText = "律师不能开启会议";
                 if (Lawyer.isProsecutor) statusText = "检察官不能召开紧急会议";
             }
-
+            if (Investigator.investigator != null && Investigator.investigator == CachedPlayer.LocalPlayer.PlayerControl && !Investigator.canCallEmergency)
+            {
+                roleCanCallEmergency = false;
+                statusText = ModTranslation.GetString("prophetMeetingButton");
+            }
             if (!roleCanCallEmergency) {
                 __instance.StatusText.text = statusText;
                 __instance.NumberText.text = string.Empty;

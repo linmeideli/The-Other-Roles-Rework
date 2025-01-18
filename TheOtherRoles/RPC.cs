@@ -41,6 +41,7 @@ namespace TheOtherRoles
         Tracker,
         Vampire,
         Snitch,
+        Investigator,
         Jackal,
         Sidekick,
         Eraser,
@@ -153,6 +154,7 @@ namespace TheOtherRoles
         ShareRoom,
         YoyoMarkLocation,
         YoyoBlink,
+        ProphetExamine,
 
         // Gamemode
         SetGuesserGm,
@@ -321,7 +323,10 @@ namespace TheOtherRoles
                     case RoleId.Snitch:
                         Snitch.snitch = player;
                         break;
-                    case RoleId.Jackal:
+                    case RoleId.Investigator:
+                        Investigator.investigator = player;
+                        break;
+                        case RoleId.Jackal:
                         Jackal.jackal = player;
                         break;
                     case RoleId.Sidekick:
@@ -647,6 +652,15 @@ namespace TheOtherRoles
                         Vampire.bitten = player;
                 }
             }
+        }
+        public static void prophetExamine(byte targetId)
+        {
+            var target = Helpers.playerById(targetId);
+            if (target == null) return;
+            if (Investigator.examined.ContainsKey(target)) Investigator.examined.Remove(target);
+            Investigator.examined.Add(target, Investigator.IsRed(target));
+            Investigator.examinesLeft--;
+            
         }
 
         public static void placeGarlic(byte[] buff) {

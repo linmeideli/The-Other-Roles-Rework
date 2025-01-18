@@ -268,7 +268,12 @@ namespace TheOtherRoles {
         public static CustomOption yoyoAdminTableCooldown;
         public static CustomOption yoyoSilhouetteVisibility;
 
-
+        public static CustomOption prophetSpawnRate;
+        public static CustomOption prophetCooldown;
+        public static CustomOption prophetNumExamines;
+        public static CustomOption prophetKillCrewAsRed;
+        public static CustomOption NeutralAsRed;
+        public static CustomOption prophetCanCallEmergency;
 
         public static CustomOption modifiersAreHidden;
 
@@ -686,6 +691,12 @@ namespace TheOtherRoles {
             mediumChanceAdditionalInfo = CustomOption.Create(364, Types.Crewmate, "答案包含附加信息的可能性", rates, mediumSpawnRate);
 
             //Investigator Settings...
+            prophetSpawnRate = CustomOption.Create(111222333, Types.Crewmate, cs(Investigator.color, ModTranslation.GetString("Prophet")), rates, null, true);
+            prophetCooldown = CustomOption.Create(222333444, Types.Crewmate, ModTranslation.GetString("prophetCooldown"), 30f, 5f, 120f, 5f, prophetSpawnRate);
+            prophetNumExamines = CustomOption.Create(333444555, Types.Crewmate, ModTranslation.GetString("prophetNumExamines"), 7f, 1f, 15f, 1f, prophetSpawnRate);
+            prophetKillCrewAsRed = CustomOption.Create(444555666, Types.Crewmate, "prophetKillCrewAsRed".Translate (), false, prophetSpawnRate);
+            NeutralAsRed = CustomOption.Create(30367, Types.Crewmate, "prophetBenignNeutralAsRed".Translate(), false, prophetSpawnRate);
+            prophetCanCallEmergency = CustomOption.Create(30363, Types.Crewmate, "prophetCanCallEmergency".Translate(), true, prophetSpawnRate);
 
             thiefSpawnRate = CustomOption.Create(400, Types.Neutral, cs(Thief.color, "身份窃贼"), rates, null, true);
             thiefCooldown = CustomOption.Create(401, Types.Neutral, "偷窃冷却时间", 30f, 5f, 120f, 5f, thiefSpawnRate);

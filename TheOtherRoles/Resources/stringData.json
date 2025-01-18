@@ -104,6 +104,10 @@
         "0": "Very Short",
         "13": "非常短"
     },
+    "SpawnChange": {
+        "0": "Spawn Change",
+        "13": "生成概率"
+    },
     "theOtherRolesSettings": {
         "0": "TORR Settings",
         "13": "模组设置"
@@ -3833,13 +3837,13 @@
     },
     "Prophet": {
         "0": "Prophet",
-        "13": "预言家"
+        "13": "调查员"
     },
     "ProphetIntroDesc": {
-        "13": "或许我从来没看透了你的心"
+        "13": "盒武器.png"
     },
     "ProphetShortDesc": {
-        "13": "通过预言揭示对方阵营"
+        "13": "通过调查揭示对方阵营"
     },
     "InfoSleuth": {
         "0": "infoSleuth",

@@ -26,7 +26,7 @@ namespace TheOtherRoles.Patches
         public static string SvettyScribbles = "<color=#FCCE03FF>SvettyScribbles</color>";
         public static string LuanMa = "<color=#9932CC>乱码</color>";
         public static string ELinmei = "<color=#00FFFF>ELinmei</color>";
-        public static string mxyx = "<color=#FFFF00>mxyx (TheOtherUs-Edited)</color>";
+        public static string mxyx = "<color=#FFFF00>mxyx</color>";
 
         //        public static string contributorsCredentials =
         //$@"<size=60%> <color=#FCCE03FF>Special thanks to <color=#00FFFF>FangKuai<color=#FCCE03FF> & Smeggy</color></size>";
@@ -102,7 +102,7 @@ namespace TheOtherRoles.Patches
 
                 renderer = torLogo.AddComponent<SpriteRenderer>();
                 loadSprites();
-                renderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 300f);
+                renderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.NewBanner.png", 1145141919810);
                 //这些先不删了
                 instance = __instance;
                 loadSprites();
@@ -135,7 +135,7 @@ namespace TheOtherRoles.Patches
 
             public static void loadSprites()
             {
-                if (bannerSprite == null) bannerSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 300f);
+                if (bannerSprite == null) bannerSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 1145141919810);
                 if (banner2Sprite == null) banner2Sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner2.png", 300f);
                 if (horseBannerSprite == null) horseBannerSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.bannerTheHorseRoles.png", 300f);
             }

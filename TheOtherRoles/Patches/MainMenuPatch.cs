@@ -362,7 +362,7 @@ TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes/size>";
             AULogo.transform.localScale = new Vector3(0.66f, 0.67f, 1f);
             AULogo.transform.position += new Vector3(0f, 0.1f, 0f);
             var logoRenderer = AULogo.GetComponent<SpriteRenderer>();
-            logoRenderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 80f);
+            logoRenderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.NewBanner.png", 80f);
 
             if (!(BottomButtonBounds = GameObject.Find("BottomButtonBounds"))) return;
             BottomButtonBounds.transform.localPosition -= new Vector3(0f, 0.1f, 0f);

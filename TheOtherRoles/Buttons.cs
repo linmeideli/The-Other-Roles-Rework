@@ -10,6 +10,9 @@ using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using TheOtherRoles.CustomGameModes;
 using TheOtherRoles.Patches;
+using static TheOtherRoles.Objects.CustomButton;
+using TMPro;
+using TheOtherRoles.Modules;
 
 namespace TheOtherRoles
 {
@@ -37,6 +40,7 @@ namespace TheOtherRoles
         private static CustomButton trackerTrackCorpsesButton;
         public static CustomButton vampireKillButton;
         public static CustomButton garlicButton;
+        public static CustomButton prophetButton;
         public static CustomButton jackalKillButton;
         public static CustomButton sidekickKillButton;
         private static CustomButton jackalSidekickButton;
@@ -86,6 +90,7 @@ namespace TheOtherRoles
         public static TMPro.TMP_Text hackerAdminTableChargesText;
         public static TMPro.TMP_Text hackerVitalsChargesText;
         public static TMPro.TMP_Text trapperChargesText;
+        public static TMP_Text prophetButtonText;
         public static TMPro.TMP_Text portalmakerButtonText1;
         public static TMPro.TMP_Text portalmakerButtonText2;
         public static TMPro.TMP_Text huntedShieldCountText;
@@ -888,6 +893,42 @@ namespace TheOtherRoles
                 null,
                 true
             );
+            prophetButton = new CustomButton(
+                () =>
+                {
+                    if (Investigator.currentTarget != null)
+                    {
+                        var writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.ProphetExamine, SendOption.Reliable, -1);
+                        writer.Write(Investigator.currentTarget.PlayerId);
+                        AmongUsClient.Instance.FinishRpcImmediately(writer);
+                        RPCProcedure.prophetExamine(Investigator.currentTarget.PlayerId);
+                        prophetButton.Timer = prophetButton.MaxTimer;
+                    }
+                },
+                () => { return Investigator.investigator != null && CachedPlayer.LocalPlayer.PlayerControl == Investigator.investigator && !CachedPlayer.LocalPlayer.PlayerControl.Data.IsDead && Investigator.examinesLeft > 0; },
+                () =>
+                {
+                    if (prophetButtonText != null)
+                    {
+                        if (Investigator.examinesLeft > 0)
+                            prophetButtonText.text = $"{Investigator.examinesLeft}";
+                        else
+                            prophetButtonText.text = "";
+                    }
+                    return Investigator.currentTarget != null && CachedPlayer.LocalPlayer.PlayerControl.CanMove;
+                },
+                () => { prophetButton.Timer = prophetButton.MaxTimer; },
+                Investigator.buttonSprite,
+                ButtonPositions.lowerRowRight,
+                __instance,
+                ModInputManager.abilityInput.keyCode,
+                buttonText: ModTranslation.GetString("ProphetText")
+            );
+            prophetButtonText = UnityEngine.Object.Instantiate(prophetButton.actionButton.cooldownTimerText, prophetButton.actionButton.cooldownTimerText.transform.parent);
+            prophetButtonText.text = "";
+            prophetButtonText.enableWordWrapping = false;
+            prophetButtonText.transform.localScale = Vector3.one * 0.5f;
+            prophetButtonText.transform.localPosition += new Vector3(-0.05f, 0.55f, -1f);
 
             portalmakerPlacePortalButton = new CustomButton(
                 () => {

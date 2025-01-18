@@ -392,7 +392,22 @@ namespace TheOtherRoles.Patches {
                 }
             }
         }
+        private static void prophetSetTarget()
+        {
+            if (Investigator .investigator  == null || CachedPlayer.LocalPlayer.PlayerControl != Investigator.investigator) return;
+            Investigator.currentTarget = setTarget();
+            if (Investigator.examinesLeft > 0) setPlayerOutline(Investigator.currentTarget, Investigator.color);
+        }
 
+        private static void prophetUpdate()
+        {
+
+            if (Investigator.investigator == null || Investigator.investigator.Data.IsDead) return;
+
+            var local = CachedPlayer.LocalPlayer.PlayerControl;
+
+            
+        }
         static void trackerUpdate() {
             // Handle player tracking
             if (Tracker.arrow?.arrow != null) {

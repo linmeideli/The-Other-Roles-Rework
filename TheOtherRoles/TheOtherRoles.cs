@@ -11,6 +11,9 @@ using static TheOtherRoles.TheOtherRoles;
 using AmongUs.Data;
 using Hazel;
 using Reactor.Utilities.Extensions;
+using TheOtherRoles.Modules;
+using TheOtherRoles .Helper;
+using static Il2CppSystem.Globalization.CultureInfo;
 
 namespace TheOtherRoles
 {
@@ -37,6 +40,7 @@ namespace TheOtherRoles
             Swapper.clearAndReload();
             Lovers.clearAndReload();
             Seer.clearAndReload();
+            Investigator.clearAndReload();
             Morphling.clearAndReload();
             Camouflager.clearAndReload();
             Hacker.clearAndReload();
@@ -1844,6 +1848,47 @@ namespace TheOtherRoles
 
             markedLocation = null;
             
+        }
+    }
+
+    public static class Investigator
+    {
+        public static PlayerControl investigator;
+        public static Color32 color = new(255, 204, 127, byte.MaxValue);
+
+        public static float cooldown = 25f;
+        public static bool killCrewAsRed;
+        public static bool NeutralAsRed;
+        public static bool canCallEmergency;
+        public static int examineNum = 3;
+        public static int examinesLeft;
+
+        public static Dictionary<PlayerControl, bool> examined = new();
+        public static PlayerControl currentTarget;
+
+        public static ResourceSprite buttonSprite = new("TheOtherRoles.Resources.SearchButton.png");
+        public static bool IsRed(PlayerControl p)
+        {
+            if (p.Data.Role.IsImpostor) return true;
+
+            if (killCrewAsRed && (p == Sheriff.sheriff || p == Deputy.deputy)) return true;
+
+            if (NeutralAsRed && (p == Jackal.jackal )|| (p == Jackal.jackal) || (p == Sidekick.sidekick) || (p == Shifter.shifter) || (p == Pursuer.pursuer) || (p == Lawyer.lawyer)) return true;
+
+            return Helpers.isNeutral(p);
+        }
+
+        public static void clearAndReload()
+        {
+            investigator = null;
+            currentTarget = null;
+            examined.Clear();
+            cooldown = CustomOptionHolder.prophetCooldown.getFloat();
+            examineNum = CustomOptionHolder.prophetNumExamines.getInt();
+            killCrewAsRed = CustomOptionHolder.prophetKillCrewAsRed.getBool();
+
+            examinesLeft = examineNum;//Button
+           
         }
     }
 

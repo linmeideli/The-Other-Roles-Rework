@@ -9,6 +9,7 @@ using TheOtherRoles.CustomGameModes;
 using TheOtherRoles;
 using System.Threading.Tasks;
 using System.Net.Http;
+using TheOtherRoles.Modules;
 
 namespace TheOtherRoles
 {
@@ -59,6 +60,7 @@ namespace TheOtherRoles
         public static RoleInfo hacker = new RoleInfo("黑客", Hacker.color, "黑进管理地图从而发现<color=#FF1919FF>伪装者</color>", "黑入伪装者", RoleId.Hacker);
         public static RoleInfo tracker = new RoleInfo("追踪者", Tracker.color, "追踪<color=#FF1919FF>伪装者</color>", "追踪伪装者", RoleId.Tracker);
         public static RoleInfo snitch = new RoleInfo("告密者", Snitch.color, "完成任务以发现<color=#FF1919FF>伪装者</color>", "完成所有任务", RoleId.Snitch);
+        public static RoleInfo investigator = new("Prophet", Investigator.color, ModTranslation.GetString("ProphetIntroDesc") , ModTranslation.GetString("ProphetShortDesc") , RoleId.Investigator);
         public static RoleInfo jackal = new RoleInfo("豺狼", Jackal.color, "杀死 船员 和 <color=#FF1919FF>伪装者</color>", "击杀所有人", RoleId.Jackal, true);
         public static RoleInfo sidekick = new RoleInfo("跟班", Sidekick.color, "帮助豺狼杀死所有人", "帮助豺狼杀死所有人", RoleId.Sidekick, true);
         public static RoleInfo spy = new RoleInfo("卧底", Spy.color, "在伪装者眼中你也是<color=#FF1919FF>伪装者</color>", "潜伏入伪装者", RoleId.Spy);
@@ -93,7 +95,7 @@ namespace TheOtherRoles
         public static RoleInfo tiebreaker = new RoleInfo("破平者", Color.yellow, "你打破了平局", "你参与的投票不会有平局", RoleId.Tiebreaker, false, true);
         public static RoleInfo bait = new RoleInfo("诱饵", Color.yellow, "钓鱼执法", "凶手会自动报告你的尸体", RoleId.Bait, false, true);
         public static RoleInfo sunglasses = new RoleInfo("失明者", Color.yellow, "你失明了", "你的视野很小", RoleId.Sunglasses, false, true);
-        public static RoleInfo lighterln = new RoleInfo("光明者", Color.yellow, "普罗米修斯", "你的视野很大", RoleId.Lighterln, false, true);
+        public static RoleInfo lighterln = new RoleInfo("TORCH", Color.yellow, "普罗米修斯", "你的视野很大", RoleId.Lighterln, false, true);
         public static RoleInfo lover = new RoleInfo("恋人", Lovers.color, "$你坠入了爱河与", $"你爱上了", RoleId.Lover, false, true);
         public static RoleInfo mini = new RoleInfo("迷你船员", Color.yellow, "没人能在你成年后杀了你", "没人能在你成年后杀了你", RoleId.Mini, false, true);
         public static RoleInfo vip = new RoleInfo("会员", Color.yellow, "你有特权", "每人都会在你死时得知你的阵营", RoleId.Vip, false, true);
@@ -221,6 +223,7 @@ namespace TheOtherRoles
             if (p == Hacker.hacker) infos.Add(hacker);
             if (p == Tracker.tracker) infos.Add(tracker);
             if (p == Snitch.snitch) infos.Add(snitch);
+            if (p == Investigator.investigator) infos.Add(investigator);
             if (p == Jackal.jackal || (Jackal.formerJackals != null && Jackal.formerJackals.Any(x => x.PlayerId == p.PlayerId))) infos.Add(jackal);
             if (p == Sidekick.sidekick) infos.Add(sidekick);
             if (p == Spy.spy) infos.Add(spy);

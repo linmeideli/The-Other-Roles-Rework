@@ -91,7 +91,18 @@ namespace TheOtherRoles.Patches {
                 if (Sheriff.sheriff != null && Deputy.knowsSheriff) {
                     setPlayerNameColor(Sheriff.sheriff, Sheriff.color);
                 }
-            } /*else if (Portalmaker.portalmaker != null && Portalmaker.portalmaker == localPlayer)
+            }
+            if (Investigator.investigator != null && Investigator.investigator == localPlayer)
+            {
+                setPlayerNameColor(Investigator.investigator, Investigator.color);
+                if (Investigator.examined != null && !localPlayer.Data.IsDead) // Reset the name tags when Prophet is dead
+                {
+                    foreach (var p in Investigator.examined)
+                    {
+                        setPlayerNameColor(p.Key, p.Value ? Palette.ImpostorRed : Color.green);
+                    }
+                }
+            }/*else if (Portalmaker.portalmaker != null && Portalmaker.portalmaker == localPlayer)
                 setPlayerNameColor(Portalmaker.portalmaker, Portalmaker.color);
             else if (Lighter.lighter != null && Lighter.lighter == localPlayer)
                 setPlayerNameColor(Lighter.lighter, Lighter.color);
