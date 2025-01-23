@@ -203,9 +203,9 @@ TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes/size>";
         private static TextMeshPro VisitText;
         private static void Postfix(VersionShower __instance)
         {
-            string credentialsText = "<color=#00ffff>Xtreme(ELinmei)</color> © 2025";
+            string credentialsText = "<color=#00ffff>ELinmei </color>&<color=#00ffff>FangKuai</color>";
             credentialsText += "\t\t\t";
-            string versionText = $"<color=#ff351f>TORR</color> - {TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
+            string versionText = $"<color=#8470FF>TORR</color></color> - {TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
             credentialsText += versionText;
             var friendCode = GameObject.Find("FriendCode");
             if (friendCode != null && VersionShower1 == null)
@@ -228,7 +228,7 @@ TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes/size>";
                 VisitText.transform.localPosition = new Vector3(-3.92f, -2.9f, 0f);
                 VisitText.enabled = GameObject.Find("TOR Background") != null;
 
-                __instance.text.text = $"<color=#ff351f>The Other Roles Rework</color> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
+                __instance.text.text = $"<color=#C1FFC1>Among Us<color=#FF0000>The Other Roles Rework</color></color> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
                 __instance.text.alignment = TextAlignmentOptions.Left;
                 OVersionShower.transform.localPosition = new Vector3(-4.92f, -3.3f, 0f);
 

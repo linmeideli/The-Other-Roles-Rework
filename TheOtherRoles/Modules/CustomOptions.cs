@@ -1382,6 +1382,8 @@ namespace TheOtherRoles {
             toggleZoomButtonObject.SetActive(zoomButtonActive);
             var posOffset = Helpers.zoomOutStatus ? new Vector3(-1.27f, -7.92f, -52f) : new Vector3(0, -1.6f, -52f);
             toggleZoomButtonObject.transform.localPosition = HudManager.Instance.MapButton.transform.localPosition + posOffset;
+
+         
         }
     }
 }

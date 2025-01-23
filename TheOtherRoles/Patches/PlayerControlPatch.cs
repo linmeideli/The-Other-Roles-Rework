@@ -394,15 +394,15 @@ namespace TheOtherRoles.Patches {
         }
         private static void prophetSetTarget()
         {
-            if (Investigator .investigator  == null || CachedPlayer.LocalPlayer.PlayerControl != Investigator.investigator) return;
-            Investigator.currentTarget = setTarget();
-            if (Investigator.examinesLeft > 0) setPlayerOutline(Investigator.currentTarget, Investigator.color);
+            if (Prophet .prophet  == null || CachedPlayer.LocalPlayer.PlayerControl != Prophet.prophet) return;
+            Prophet.currentTarget = setTarget();
+            if (Prophet.examinesLeft > 0) setPlayerOutline(Prophet.currentTarget, Prophet.color);
         }
 
         private static void prophetUpdate()
         {
 
-            if (Investigator.investigator == null || Investigator.investigator.Data.IsDead) return;
+            if (Prophet.prophet == null || Prophet.prophet.Data.IsDead) return;
 
             var local = CachedPlayer.LocalPlayer.PlayerControl;
 

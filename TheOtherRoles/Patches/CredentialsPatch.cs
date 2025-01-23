@@ -19,14 +19,14 @@ namespace TheOtherRoles.Patches
     {
         //        public static string fullCredentialsVersion =
         //$@"<size=130%><color=#ff351f>TheOtherRolesCE</color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
-        public static string ModName = $"<size=130%><color=#ff351f>TheOtherRoles Rework</color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
+        public static string ModName = $"<size=130%><color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Rework</color></color></color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
         public static string JustASysAdmin = "<color=#FCCE03FF>JustASysAdmin</color>";
         public static string FangKuai = "<color=#00FFFF>FangKuai</color>";
         public static string TOREisbison = "TheOtherRoles by <color=#FCCE03FF>Eisbison</color>";
         public static string SvettyScribbles = "<color=#FCCE03FF>SvettyScribbles</color>";
         public static string LuanMa = "<color=#9932CC>乱码</color>";
         public static string ELinmei = "<color=#00FFFF>ELinmei</color>";
-        public static string mxyx = "<color=#FFFF00>mxyx</color>";
+        public static string mxyx = "<color=#FFB793>mxyx</color>";
 
         //        public static string contributorsCredentials =
         //$@"<size=60%> <color=#FCCE03FF>Special thanks to <color=#00FFFF>FangKuai<color=#FCCE03FF> & Smeggy</color></size>";

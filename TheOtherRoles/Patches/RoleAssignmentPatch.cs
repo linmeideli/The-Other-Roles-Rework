@@ -624,8 +624,8 @@ namespace TheOtherRoles.Patches {
                     if (multiplyQuantity) selection *= CustomOptionHolder.modifierSunglassesQuantity.getQuantity();
                     break;
                 case RoleId.Lighterln:
-                    selection = CustomOptionHolder.modifierSunglasses.getSelection();
-                    if (multiplyQuantity) selection *= CustomOptionHolder.modifierLighterlnQuantity.getQuantity();
+                    selection = CustomOptionHolder.modifierLighterln.getSelection();
+                    //
                     break;
                 case RoleId.Vip:
                     selection = CustomOptionHolder.modifierVip.getSelection();

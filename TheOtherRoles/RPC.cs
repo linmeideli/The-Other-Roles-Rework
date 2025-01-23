@@ -324,7 +324,7 @@ namespace TheOtherRoles
                         Snitch.snitch = player;
                         break;
                     case RoleId.Investigator:
-                        Investigator.investigator = player;
+                            Prophet.prophet = player;
                         break;
                         case RoleId.Jackal:
                         Jackal.jackal = player;
@@ -657,9 +657,9 @@ namespace TheOtherRoles
         {
             var target = Helpers.playerById(targetId);
             if (target == null) return;
-            if (Investigator.examined.ContainsKey(target)) Investigator.examined.Remove(target);
-            Investigator.examined.Add(target, Investigator.IsRed(target));
-            Investigator.examinesLeft--;
+            if (Prophet.examined.ContainsKey(target)) Prophet.examined.Remove(target);
+            Prophet.examined.Add(target, Prophet.IsRed(target));
+            Prophet.examinesLeft--;
             
         }
 

@@ -92,12 +92,12 @@ namespace TheOtherRoles.Patches {
                     setPlayerNameColor(Sheriff.sheriff, Sheriff.color);
                 }
             }
-            if (Investigator.investigator != null && Investigator.investigator == localPlayer)
+            if (Prophet.prophet != null && Prophet.prophet == localPlayer)
             {
-                setPlayerNameColor(Investigator.investigator, Investigator.color);
-                if (Investigator.examined != null && !localPlayer.Data.IsDead) // Reset the name tags when Prophet is dead
+                setPlayerNameColor(Prophet.prophet, Prophet.color);
+                if (Prophet.examined != null && !localPlayer.Data.IsDead) // Reset the name tags when Prophet is dead
                 {
-                    foreach (var p in Investigator.examined)
+                    foreach (var p in Prophet.examined)
                     {
                         setPlayerNameColor(p.Key, p.Value ? Palette.ImpostorRed : Color.green);
                     }

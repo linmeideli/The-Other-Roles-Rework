@@ -40,7 +40,7 @@ namespace TheOtherRoles
             Swapper.clearAndReload();
             Lovers.clearAndReload();
             Seer.clearAndReload();
-            Investigator.clearAndReload();
+            Prophet.clearAndReload();
             Morphling.clearAndReload();
             Camouflager.clearAndReload();
             Hacker.clearAndReload();
@@ -1851,9 +1851,9 @@ namespace TheOtherRoles
         }
     }
 
-    public static class Investigator
+    public static class Prophet
     {
-        public static PlayerControl investigator;
+        public static PlayerControl prophet;
         public static Color32 color = new(255, 204, 127, byte.MaxValue);
 
         public static float cooldown = 25f;
@@ -1865,8 +1865,14 @@ namespace TheOtherRoles
 
         public static Dictionary<PlayerControl, bool> examined = new();
         public static PlayerControl currentTarget;
-
-        public static ResourceSprite buttonSprite = new("TheOtherRoles.Resources.SearchButton.png");
+        public static Sprite prophetButtonSprite;
+        public static Sprite getProphetButtonSprite()
+        {
+            if (prophetButtonSprite) return prophetButtonSprite;
+            prophetButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SearchButton.png", 115f);
+            return prophetButtonSprite;
+        }
+        //public static ResourceSprite buttonSprite = new("TheOtherRoles.Resources.SearchButton.png");
         public static bool IsRed(PlayerControl p)
         {
             if (p.Data.Role.IsImpostor) return true;
@@ -1880,7 +1886,7 @@ namespace TheOtherRoles
 
         public static void clearAndReload()
         {
-            investigator = null;
+            prophet = null;
             currentTarget = null;
             examined.Clear();
             cooldown = CustomOptionHolder.prophetCooldown.getFloat();
@@ -1969,13 +1975,14 @@ namespace TheOtherRoles
     }
     public static class Lighterln
     {
-        public static List<PlayerControl> lighterln = new();
-        public static float vision = 1;
+        public static List<PlayerControl> lighterln = new List<PlayerControl>();
+        public static float vision = 1 + 9;
+        public static bool hasImpostorVision;
 
         public static void clearAndReload()
         {
             lighterln.Clear();
-            vision = CustomOptionHolder.modifierLighterlnVision.getFloat();
+            
         }
     }
     public static class Mini {

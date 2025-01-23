@@ -245,7 +245,7 @@ namespace TheOtherRoles.Patches {
                 statusText = "律师不能开启会议";
                 if (Lawyer.isProsecutor) statusText = "检察官不能召开紧急会议";
             }
-            if (Investigator.investigator != null && Investigator.investigator == CachedPlayer.LocalPlayer.PlayerControl && !Investigator.canCallEmergency)
+            if (Prophet.prophet != null && Prophet.prophet == CachedPlayer.LocalPlayer.PlayerControl && !Prophet.canCallEmergency)
             {
                 roleCanCallEmergency = false;
                 statusText = ModTranslation.GetString("prophetMeetingButton");

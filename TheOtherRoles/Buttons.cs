@@ -896,33 +896,42 @@ namespace TheOtherRoles
             prophetButton = new CustomButton(
                 () =>
                 {
-                    if (Investigator.currentTarget != null)
+
+                    if (Prophet.currentTarget != null)
                     {
-                        var writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.ProphetExamine, SendOption.Reliable, -1);
-                        writer.Write(Investigator.currentTarget.PlayerId);
-                        AmongUsClient.Instance.FinishRpcImmediately(writer);
-                        RPCProcedure.prophetExamine(Investigator.currentTarget.PlayerId);
-                        prophetButton.Timer = prophetButton.MaxTimer;
+                        if (Prophet.examineNum != 0)
+                        {
+                            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.ProphetExamine, SendOption.Reliable, -1);
+                            writer.Write(Prophet.currentTarget.PlayerId);
+                            AmongUsClient.Instance.FinishRpcImmediately(writer);
+                            RPCProcedure.prophetExamine(Prophet.currentTarget.PlayerId);
+                            prophetButton.Timer = prophetButton.MaxTimer;
+                        }
                     }
                 },
-                () => { return Investigator.investigator != null && CachedPlayer.LocalPlayer.PlayerControl == Investigator.investigator && !CachedPlayer.LocalPlayer.PlayerControl.Data.IsDead && Investigator.examinesLeft > 0; },
+                () => { return Prophet.prophet != null && CachedPlayer.LocalPlayer.PlayerControl == Prophet.prophet && !CachedPlayer.LocalPlayer.PlayerControl.Data.IsDead && Prophet.examinesLeft > 0; },
                 () =>
                 {
+                    //var text = "调查";
                     if (prophetButtonText != null)
                     {
-                        if (Investigator.examinesLeft > 0)
-                            prophetButtonText.text = $"{Investigator.examinesLeft}";
+                        if (Prophet.examinesLeft > 0)
+                            prophetButtonText.text = $"{Prophet.examinesLeft}";
                         else
-                            prophetButtonText.text = "";
+                            prophetButtonText.text = "0";
                     }
-                    return Investigator.currentTarget != null && CachedPlayer.LocalPlayer.PlayerControl.CanMove;
+                    return Prophet.currentTarget != null && CachedPlayer.LocalPlayer.PlayerControl.CanMove;
                 },
                 () => { prophetButton.Timer = prophetButton.MaxTimer; },
-                Investigator.buttonSprite,
-                ButtonPositions.lowerRowRight,
+                Prophet.getProphetButtonSprite(),
+                CustomButton.ButtonPositions.upperRowLeft,
                 __instance,
-                ModInputManager.abilityInput.keyCode,
-                buttonText: ModTranslation.GetString("ProphetText")
+                KeyCode.F,
+                true,
+                0f,
+                () => { },
+                false,
+                "ProphetText"
             );
             prophetButtonText = UnityEngine.Object.Instantiate(prophetButton.actionButton.cooldownTimerText, prophetButton.actionButton.cooldownTimerText.transform.parent);
             prophetButtonText.text = "";
