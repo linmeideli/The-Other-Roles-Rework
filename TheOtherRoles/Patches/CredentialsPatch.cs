@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using TheOtherRoles;
 using TheOtherRoles.CustomGameModes;
+using TheOtherRoles.Modules;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using TMPro;
@@ -16,65 +17,70 @@ namespace TheOtherRoles.Patches
     [HarmonyPatch]
     public static class CredentialsPatch
     {
-        public static string fullCredentialsVersion =
-$@"<size=130%><color=#ff351f>TheOtherRolesRework</color></size> v{TheOtherRolesPlugin.TORRVersionString.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
-        public static string fullCredentials =
-        $@"<size=60%>Modded by <color=#FCCE03FF>Eisbison</color>, <color=#FCCE03FF>EndOfFile</color>
-<color=#FCCE03FF>Thunderstorm584</color>, <color=#FCCE03FF>Mallöris</color> & <color=#FCCE03FF>Gendelo</color>
-Design by <color=#FCCE03FF>Bavari</color>
-Reworked by <color=#00FFFF>ELinmei & FangKuai</color></size>";
+        //        public static string fullCredentialsVersion =
+        //$@"<size=130%><color=#ff351f>TheOtherRolesCE</color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
+        public static string ModName = $"<size=130%><color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Rework</color></color></color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
+        public static string JustASysAdmin = "<color=#FCCE03FF>JustASysAdmin</color>";
+        public static string TOREisbison = "TheOtherRoles by <color=#FCCE03FF>Eisbison</color>";
+        public static string SvettyScribbles = "<color=#FCCE03FF>SvettyScribbles</color>";
+        public static string LuanMa = "<color=#9932CC>乱码</color>";
+        public static string ELinmei = "<color=#00FFFF>ELinmei</color>";
+        public static string mxyx = "<color=#FFB793>mxyx</color>";
 
-        public static string mainMenuCredentials =
-    $@"Modded by <color=#FCCE03FF>Eisbison</color>, <color=#FCCE03FF>Thunderstorm584</color>, <color=#FCCE03FF>EndOfFile</color>, <color=#FCCE03FF>Mallöris</color> & <color=#FCCE03FF>Gendelo</color>
-Design by <color=#FCCE03FF>Bavari</color>
-Reworked by <color=#00FFFF>ELinme & ,FangKuai</color> ";
-
-        public static string contributorsCredentials =
-$@"<size=60%> <color=#FCCE03FF>Special thanks to Smeggy & <color=#00FFFF>FangKuai</color></color></size>";
-
+        //        public static string contributorsCredentials =
+        //$@"<size=60%> <color=#FCCE03FF>Special thanks to <color=#00FFFF>FangKuai<color=#FCCE03FF> & Smeggy</color></size>";
+        private static float deltaTime;
         [HarmonyPatch(typeof(PingTracker), nameof(PingTracker.Update))]
         internal static class PingTrackerPatch
         {
-
             static void Postfix(PingTracker __instance)
             {
-                __instance.text.alignment = TextAlignmentOptions.Top;
+                var ping = AmongUsClient.Instance.Ping;
+                string PingColor = "#ff4500";
+                if (ping < 50) PingColor = "#44dfcc";
+                else if (ping < 100) PingColor = "#7bc690";
+                else if (ping < 200) PingColor = "#f3920e";
+                else if (ping < 400) PingColor = "#ff146e";
+
+                deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+                float fps = Mathf.Ceil(1.0f / deltaTime);
+
+                __instance.text.alignment = AmongUsClient.Instance.GameState == InnerNet.InnerNetClient.GameStates.Started ? TextAlignmentOptions.Top : TextAlignmentOptions.TopLeft;
                 var position = __instance.GetComponent<AspectPosition>();
-                position.Alignment = AspectPosition.EdgeAlignments.Top;
+                position.Alignment = AmongUsClient.Instance.GameState == InnerNet.InnerNetClient.GameStates.Started ? AspectPosition.EdgeAlignments.Top : AspectPosition.EdgeAlignments.LeftTop;
                 if (AmongUsClient.Instance.GameState == InnerNet.InnerNetClient.GameStates.Started)
                 {
                     string gameModeText = $"";
-                    if (HideNSeek.isHideNSeekGM) gameModeText = $"模组躲猫猫";
-                    else if (HandleGuesser.isGuesserGm) gameModeText = $"赌场博弈";
-                    else if (PropHunt.isPropHuntGM) gameModeText = "变形躲猫猫";
+                    if (HideNSeek.isHideNSeekGM) gameModeText = ModTranslation.GetString("isHideNSeekGM");
+                    else if (HandleGuesser.isGuesserGm) gameModeText = ModTranslation.GetString("isGuesserGm");
+                    else if (PropHunt.isPropHuntGM) gameModeText = ModTranslation.GetString("isPropHuntGM");
                     if (gameModeText != "") gameModeText = Helpers.cs(Color.yellow, gameModeText) + "\n";
-                    __instance.text.text = $"<size=130%><color=#ff351f>TheOtherRolesRework</color></size> v{TheOtherRolesPlugin.TORRVersionString.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}\n{gameModeText}" + __instance.text.text;
-                    position.DistanceFromEdge = new Vector3(2.25f, 0.11f, 0);
+                    __instance.text.text = $"<size=130%><color=#ff351f>TheOtherRoles Rework</color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
+                    position.DistanceFromEdge = new Vector3(1.5f, 0.11f, 0);
                 }
                 else
                 {
                     string gameModeText = $"";
-                    if (TORMapOptions.gameMode == CustomGamemodes.HideNSeek) gameModeText = $"模组躲猫猫";
-                    else if (TORMapOptions.gameMode == CustomGamemodes.Guesser) gameModeText = $"赌场博弈";
-                    else if (TORMapOptions.gameMode == CustomGamemodes.PropHunt) gameModeText = $"变形躲猫猫";
+                    if (TORMapOptions.gameMode == CustomGamemodes.HideNSeek) gameModeText = ModTranslation.GetString("isHideNSeekGM");
+                    else if (TORMapOptions.gameMode == CustomGamemodes.Guesser) gameModeText = ModTranslation.GetString("isGuesserGm");
+                    else if (TORMapOptions.gameMode == CustomGamemodes.PropHunt) gameModeText = ModTranslation.GetString("isPropHuntGM");
                     if (gameModeText != "") gameModeText = Helpers.cs(Color.yellow, gameModeText);
 
-                    __instance.text.text = $"{fullCredentialsVersion}\n{fullCredentials}\n {__instance.text.text}";
-                    position.DistanceFromEdge = new Vector3(0f, 0.1f, 0);
+                    __instance.text.text = $"{ModName}<br><size=70%>{ModTranslation.GetString("PingText1")} {ELinmei}<br>{ModTranslation.GetString("PingText2")} {TOREisbison}<br>{ModTranslation.GetString("PingText3")} {SvettyScribbles}<br>{ModTranslation.GetString("PingText4")}{mxyx} & {ELinmei}<br></size>";
+                    position.DistanceFromEdge = new Vector3(0.5f, 0.11f);
 
                     try
                     {
                         var GameModeText = GameObject.Find("GameModeText")?.GetComponent<TextMeshPro>();
-                        GameModeText.text = gameModeText == "" ? (GameOptionsManager.Instance.currentGameOptions.GameMode == GameModes.HideNSeek ? "Van. HideNSeek" : "Classic") : gameModeText;
+                        GameModeText.text = gameModeText == "" ? (GameOptionsManager.Instance.currentGameOptions.GameMode == GameModes.HideNSeek ? ModTranslation.GetString("LobbyText4") : ModTranslation.GetString("LobbyText5")) : gameModeText;
                         var ModeLabel = GameObject.Find("ModeLabel")?.GetComponentInChildren<TextMeshPro>();
-                        ModeLabel.text = "Game Mode";
+                        ModeLabel.text = ModTranslation.GetString("LobbyText6");
                     }
                     catch { }
                 }
                 position.AdjustPosition();
             }
         }
-
         [HarmonyPatch(typeof(MainMenuManager), nameof(MainMenuManager.Start))]
         public static class LogoPatch
         {
@@ -95,15 +101,14 @@ $@"<size=60%> <color=#FCCE03FF>Special thanks to Smeggy & <color=#00FFFF>FangKua
 
                 renderer = torLogo.AddComponent<SpriteRenderer>();
                 loadSprites();
-                renderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 300f);
-
+                renderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.NewBanner.png", 1145141919810);
+                //这些先不删了
                 instance = __instance;
                 loadSprites();
                 // renderer.sprite = TORMapOptions.enableHorseMode ? horseBannerSprite : bannerSprite;
                 renderer.sprite = EventUtility.isEnabled ? banner2Sprite : bannerSprite;
                 var credentialObject = new GameObject("credentialsTOR");
                 var credentials = credentialObject.AddComponent<TextMeshPro>();
-                credentials.SetText($"v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}\n<size=30f%>\n</size>{mainMenuCredentials}\n<size=30%>\n</size>{contributorsCredentials}");
                 credentials.alignment = TMPro.TextAlignmentOptions.Center;
                 credentials.fontSize *= 0.05f;
 
@@ -129,7 +134,7 @@ $@"<size=60%> <color=#FCCE03FF>Special thanks to Smeggy & <color=#00FFFF>FangKua
 
             public static void loadSprites()
             {
-                if (bannerSprite == null) bannerSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 300f);
+                if (bannerSprite == null) bannerSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 1145141919810);
                 if (banner2Sprite == null) banner2Sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner2.png", 300f);
                 if (horseBannerSprite == null) horseBannerSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.bannerTheHorseRoles.png", 300f);
             }
@@ -153,7 +158,9 @@ $@"<size=60%> <color=#FCCE03FF>Special thanks to Smeggy & <color=#00FFFF>FangKua
                 }
             }
         }
-
+        /// <summary>
+        /// 666
+        /// </summary>
         [HarmonyPatch(typeof(MainMenuManager), nameof(MainMenuManager.LateUpdate))]
         public static class MOTD
         {

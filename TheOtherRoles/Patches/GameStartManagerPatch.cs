@@ -9,6 +9,7 @@ using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using System.Linq;
 using Reactor.Utilities.Extensions;
+using TheOtherRoles.Modules;
 
 namespace TheOtherRoles.Patches {
     public class GameStartManagerPatch  {
@@ -73,18 +74,17 @@ namespace TheOtherRoles.Patches {
                     if (client.Character == null) continue;
                     else if (!playerVersions.ContainsKey(client.Id))  {
                         versionMismatch = true;
-                        message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} 拥有不同版本的TORR 或 TOR\n</color>";
+                        message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} </color>" + "errorNotInstalled".Translate() +  "\n";
                     } else {
                         PlayerVersion PV = playerVersions[client.Id];
                         int diff = TheOtherRolesPlugin.Version.CompareTo(PV.version);
                         if (diff > 0) {
-                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} 有老版本的TORR或TOR (v{playerVersions[client.Id].version.ToString()})\n</color>";
+                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} </color>" + "errorOlderVersion".Translate() + playerVersions[client.Id].version.ToString() +  "\n";
                             versionMismatch = true;
                         } else if (diff < 0) {
-                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} 有新版本的TORP或TOR (v{playerVersions[client.Id].version.ToString()})\n</color>";
-                            versionMismatch = true;
+                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName}  </color>" + "errorNewerVersion".Translate() + playerVersions[client.Id].version.ToString() + "\n";
                         } else if (!PV.GuidMatches()) { // version presumably matches, check if Guid matches
-                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} 拥有有修改的TORR 或 TOR v{playerVersions[client.Id].version.ToString()} <size=30%>({PV.guid.ToString()})</size>\n</color>";
+                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName}</color>" + "errorWrongVersion".Translate() + playerVersions[client.Id].version.ToString() + PV.guid.ToString() + "\n";
                             versionMismatch = true;
                         }
                     }
@@ -99,7 +99,7 @@ namespace TheOtherRoles.Patches {
                     } else {
                         __instance.GameStartText.transform.localPosition = Vector3.zero;
                         __instance.GameStartText.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
-                        if (!__instance.GameStartText.text.StartsWith("开始中")) {
+                        if (!__instance.GameStartText.text.StartsWith("STARTING")) {
                             __instance.GameStartText.text = String.Empty;
                             __instance.GameStartTextParent.SetActive(false);
                         }
@@ -146,19 +146,19 @@ namespace TheOtherRoles.Patches {
                             SceneChanger.ChangeScene("主界面");
                         }
 
-                        __instance.GameStartText.text = $"<color=#FF0000FF>房主有不同版本的TORR 或 TOR 或没有模组 你会在 {Math.Round(10 - kickingTimer)}秒后被踢出</color>";
+                        __instance.GameStartText.text = $"<color=#FF0000FF>errorWrongVersion".Translate() + "{Math.Round(10 - kickingTimer)}" + "adderrorHostNoVersion".Translate() + "</color>";
                         __instance.GameStartText.transform.localPosition = __instance.StartButton.transform.localPosition + Vector3.up * 5;
                         __instance.GameStartText.transform.localScale = new Vector3(2f, 2f, 1f);
                         __instance.GameStartTextParent.SetActive(true);
                     } else if (versionMismatch) {
-                        __instance.GameStartText.text = $"<color=#FF0000FF>拥有不同版本:\n</color>" + message;
+                        __instance.GameStartText.text = $"<color=#FF0000FF>" + "errorDifferentVersion".Translate() + ": \n </color>" + message;
                         __instance.GameStartText.transform.localPosition = __instance.StartButton.transform.localPosition + Vector3.up * 5;
                         __instance.GameStartText.transform.localScale = new Vector3(2f, 2f, 1f);
                         __instance.GameStartTextParent.SetActive(true);
                     } else {
                         __instance.GameStartText.transform.localPosition = Vector3.zero;
                         __instance.GameStartText.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
-                        if (!__instance.GameStartText.text.StartsWith("开始中")) {
+                        if (!__instance.GameStartText.text.StartsWith("STARTING")) {
                             __instance.GameStartText.text = String.Empty;
                             __instance.GameStartTextParent.SetActive(false);
                         }

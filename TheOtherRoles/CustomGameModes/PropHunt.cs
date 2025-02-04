@@ -12,6 +12,7 @@ using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Video;
 using static TheOtherRoles.Snitch;
 using static UnityEngine.GraphicsBuffer;
 
@@ -323,29 +324,29 @@ namespace TheOtherRoles.CustomGameModes {
 
         public static Sprite getUnstuckButtonSprite() {
             if (unstuckButtonSprite) return unstuckButtonSprite;
-            unstuckButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.UnStuck.png", 115f);
+            unstuckButtonSprite = CustomMain.customZips.UnStuck;
             return unstuckButtonSprite;
         }
         public static Sprite getRevealButtonSprite() {
             if (revealButtonSprite) return revealButtonSprite;
-            revealButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Reveal.png", 115f);
+            revealButtonSprite = CustomMain.customZips.Reveal;
             return revealButtonSprite;
         }
 
         public static Sprite getInvisButtonSprite() {
             if (invisButtonSprite) return invisButtonSprite;
-            invisButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.InvisButton.png", 115f);
+            invisButtonSprite = CustomMain.customZips.InvisButton;
             return invisButtonSprite;
         }
 
         public static Sprite getFindButtonSprite() {
             if (findButtonSprite) return findButtonSprite;
-            findButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.FindButton.png", 115f);
+            findButtonSprite = CustomMain.customZips.FindButton;
             return findButtonSprite;
         }
         public static Sprite getSpeedboostButtonSprite() {
             if (speedboostButtonSprite) return speedboostButtonSprite;
-            speedboostButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SpeedboostButton.png", 115f);
+            speedboostButtonSprite = CustomMain.customZips.SpeedboostButton;
             return speedboostButtonSprite;
         }
 
@@ -406,54 +407,72 @@ namespace TheOtherRoles.CustomGameModes {
 
         [HarmonyPatch(typeof(IntroCutscene), nameof(IntroCutscene.OnDestroy))]
         [HarmonyPostfix]
-        public static void IntroCutsceneDestroyPatch(IntroCutscene __instance) {
+        public static void IntroCutsceneDestroyPatch(IntroCutscene __instance)
+        {
             if (!isPropHuntGM || !PlayerControl.LocalPlayer.Data.Role.IsImpostor) return;
             PlayerControl.LocalPlayer.moveable = false;
-            MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.PropHuntStartTimer, Hazel.SendOption.Reliable, -1);
+            MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.PropHuntStartTimer, Hazel.SendOption.Reliable, -1);
             writer2.Write(true);
             AmongUsClient.Instance.FinishRpcImmediately(writer2);
             RPCProcedure.propHuntStartTimer(true);
-            introObject = new GameObject("introrenderer");
-            introObject.layer = HudManager.Instance.FullScreen.gameObject.layer;
-            introObject.transform.SetParent(HudManager.Instance.FullScreen.transform);
-            introObject.transform.localPosition = new Vector3(0, 0, -1f);
-            SpriteRenderer introRenderer = introObject.AddComponent<SpriteRenderer>();
-            introObject.SetActive(true);
-            introRenderer.enabled = true;
-            int nFrames = 25 * (int)initialBlackoutTime + 10;
-            FastDestroyableSingleton<HudManager>.Instance.StartCoroutine(Effects.Lerp(initialBlackoutTime, new Action<float>((p) => {
-                if (p == 1f) {
+
+
+            // Play mp4 video in Full Screen:
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            string[] resourceNames = assembly.GetManifestResourceNames();
+            var resourceBundle = assembly.GetManifestResourceStream("TheOtherRoles.Resources.IntroAnimation.intro");
+            var assetBundle = AssetBundle.LoadFromMemory(resourceBundle.ReadFully());
+            VideoClip introVid = assetBundle.LoadAsset<VideoClip>("Assets/Video/intro.webm");
+            GameObject camera = GameObject.Find("Main Camera");
+            var videoPlayer = camera.AddComponent<UnityEngine.Video.VideoPlayer>();
+            videoPlayer.playOnAwake = false;
+            videoPlayer.renderMode = UnityEngine.Video.VideoRenderMode.CameraNearPlane;
+            videoPlayer.targetCameraAlpha = 1F;
+            videoPlayer.source = VideoSource.VideoClip;
+            videoPlayer.clip = introVid;
+            videoPlayer.aspectRatio = VideoAspectRatio.FitVertically;
+            // Skip the first 100 frames.
+            videoPlayer.frame = (21 - (int)initialBlackoutTime) * 25;
+            videoPlayer.isLooping = false;
+            videoPlayer.Play();
+
+
+            FastDestroyableSingleton<HudManager>.Instance.StartCoroutine(Effects.Lerp(initialBlackoutTime + 10f / 25, new Action<float>((p) => {
+                if (p == 1f)
+                {
                     // start timer
-                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.PropHuntStartTimer, Hazel.SendOption.Reliable, -1);
+                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.PropHuntStartTimer, Hazel.SendOption.Reliable, -1);
                     writer.Write(false);
                     AmongUsClient.Instance.FinishRpcImmediately(writer);
                     RPCProcedure.propHuntStartTimer();
                     PlayerControl.LocalPlayer.moveable = true;
                     HudManager.Instance.FullScreen.enabled = false;
+                    videoPlayer.Destroy();
+                    assetBundle.Unload(false);
                     introObject.Destroy();
-                } else {
+                }
+                else
+                {
                     HudManager.Instance.FullScreen.enabled = true;
                     HudManager.Instance.FullScreen.gameObject.SetActive(true);
-                    HudManager.Instance.FullScreen.color = new Color(0, 0, 0, 1);
-                    introRenderer.sprite?.Destroy();
-                    introRenderer.sprite = getIntroSprite(510 - nFrames + (int)(p * nFrames));
-                    Resources.UnloadUnusedAssets();  // Needed so that the last sprite gets unloaded
                 }
-            })));            
+            })));
         }
 
         [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.FixedUpdate))]
         [HarmonyPostfix]
-        public static void PlayerControlFixedUpdatePatch(PlayerControl __instance) {
+        public static void PlayerControlFixedUpdatePatch(PlayerControl __instance)
+        {
             if (!PropHunt.isPropHuntGM) return;
-                if (__instance.Data.Role.IsImpostor) {
-                    __instance.GetComponent<CircleCollider2D>().radius = 0.2234f;
-                    return;
-                }
-                if (__instance.GetComponent<SpriteRenderer>() != null || __instance.Data.IsDead) return;
+            if (__instance.Data.Role.IsImpostor)
+            {
+                __instance.GetComponent<CircleCollider2D>().radius = 0.2234f;
+                return;
+            }
+            if (__instance.GetComponent<SpriteRenderer>() != null || __instance.Data.IsDead) return;
 
-                __instance.gameObject.AddComponent<SpriteRenderer>();
-                __instance.GetComponent<CircleCollider2D>().radius = 0.00001f;
+            __instance.gameObject.AddComponent<SpriteRenderer>();
+            __instance.GetComponent<CircleCollider2D>().radius = 0.00001f;
         }
 
 

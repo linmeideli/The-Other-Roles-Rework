@@ -3,6 +3,7 @@ using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TheOtherRoles.Modules;
 using UnityEngine;
 using static UnityEngine.UI.Button;
 
@@ -21,13 +22,13 @@ namespace TheOtherRoles.Patches {
             __instance.SetGameMode(GameModes.Normal);
             CustomGamemodes gm = (CustomGamemodes)((int) mode - 2);
             if (gm == CustomGamemodes.Guesser) {
-                __instance.GameModeText.text = "赌怪模式";
+                __instance.GameModeText.text = "isGuesserGm".Translate();
                 TORMapOptions.gameMode = CustomGamemodes.Guesser;
             } else if (gm == CustomGamemodes.HideNSeek) {
-                __instance.GameModeText.text = "模组躲猫猫";
+                __instance.GameModeText.text = "isHideNSeekGM".Translate();
                 TORMapOptions.gameMode = CustomGamemodes.HideNSeek;
             } else if (gm == CustomGamemodes.PropHunt) {
-                __instance.GameModeText.text = "变形躲猫猫";
+                __instance.GameModeText.text = "isPropHuntGM".Translate();
                 TORMapOptions.gameMode = CustomGamemodes.PropHunt;
             }
             return false;
@@ -37,12 +38,12 @@ namespace TheOtherRoles.Patches {
         [HarmonyPatch(typeof(CreateOptionsPicker), nameof(CreateOptionsPicker.Refresh))]
         public static void Postfix(CreateOptionsPicker __instance) {
             if (TORMapOptions.gameMode == CustomGamemodes.Guesser) {
-                __instance.GameModeText.text = "赌怪模式";
+                __instance.GameModeText.text = "isGuesserGm".Translate();
             }
             else if (TORMapOptions.gameMode == CustomGamemodes.HideNSeek) {
-                __instance.GameModeText.text = "模组躲猫猫";
+                __instance.GameModeText.text = "isHideNSeekGM".Translate();
             } else if (TORMapOptions.gameMode == CustomGamemodes.PropHunt) {
-                __instance.GameModeText.text = "变形躲猫猫";
+                __instance.GameModeText.text = "isPropHuntGM".Translate();
             }
         }
     }
@@ -64,9 +65,9 @@ namespace TheOtherRoles.Patches {
                     if (i <= 2)
                         chatLanguageButton.Text.text = DestroyableSingleton<TranslationController>.Instance.GetString(GameModesHelpers.ModeToName[entry], new Il2CppReferenceArray<Il2CppSystem.Object>(0));
                     else {
-                        chatLanguageButton.Text.text = i == 3 ? "赌怪模式" : "模组躲猫猫";
+                        chatLanguageButton.Text.text = i == 3 ? "isGuesserGm".Translate() : "isHideNSeekGM".Translate();
                         if (i == 5)
-                            chatLanguageButton.Text.text = "变形躲猫猫";
+                            chatLanguageButton.Text.text = "isPropHuntGM".Translate();
                     }
                     chatLanguageButton.Button.OnClick.RemoveAllListeners();
                     chatLanguageButton.Button.OnClick.AddListener((System.Action)delegate {

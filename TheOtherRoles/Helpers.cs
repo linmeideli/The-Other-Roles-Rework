@@ -114,7 +114,7 @@ namespace TheOtherRoles {
             if (Constants.ShouldPlaySfx()) SoundManager.Instance.PlaySound(exampleClip, false, 0.8f);
             */
         }
-
+      
         public static string readTextFromResources(string path) {
             Assembly assembly = Assembly.GetExecutingAssembly();
             Stream stream = assembly.GetManifestResourceStream(path);
@@ -581,6 +581,7 @@ namespace TheOtherRoles {
             return false;
         }
 
+
         public static bool isKiller(PlayerControl player) {
             return player.Data.Role.IsImpostor || 
                 (isNeutral(player) && 
@@ -666,7 +667,7 @@ namespace TheOtherRoles {
                 || (Spy.spy != null && Spy.spy.PlayerId == player.PlayerId && Spy.hasImpostorVision)
                 || (Jester.jester != null && Jester.jester.PlayerId == player.PlayerId && Jester.hasImpostorVision)
                 || (Thief.thief != null && Thief.thief.PlayerId == player.PlayerId && Thief.hasImpostorVision)
-                ;
+                || (Lighterln.lighterln != null && Lighterln.hasImpostorVision);
         }
         
         public static object TryCast(this Il2CppObjectBase self, Type type)

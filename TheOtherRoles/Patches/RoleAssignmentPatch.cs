@@ -146,6 +146,7 @@ namespace TheOtherRoles.Patches {
             crewSettings.Add((byte)RoleId.Snitch, CustomOptionHolder.snitchSpawnRate.getSelection());
             crewSettings.Add((byte)RoleId.Medium, CustomOptionHolder.mediumSpawnRate.getSelection());
             crewSettings.Add((byte)RoleId.Trapper, CustomOptionHolder.trapperSpawnRate.getSelection());
+            crewSettings.Add((byte)RoleId.Investigator, CustomOptionHolder.prophetSpawnRate.getSelection());
             if (impostors.Count > 1) {
                 // Only add Spy if more than 1 impostor as the spy role is otherwise useless
                 crewSettings.Add((byte)RoleId.Spy, CustomOptionHolder.spySpawnRate.getSelection());
@@ -623,8 +624,8 @@ namespace TheOtherRoles.Patches {
                     if (multiplyQuantity) selection *= CustomOptionHolder.modifierSunglassesQuantity.getQuantity();
                     break;
                 case RoleId.Lighterln:
-                    selection = CustomOptionHolder.modifierSunglasses.getSelection();
-                    if (multiplyQuantity) selection *= CustomOptionHolder.modifierLighterlnQuantity.getQuantity();
+                    selection = CustomOptionHolder.modifierLighterln.getSelection();
+                    //
                     break;
                 case RoleId.Vip:
                     selection = CustomOptionHolder.modifierVip.getSelection();

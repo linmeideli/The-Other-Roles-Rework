@@ -392,6 +392,13 @@ namespace TheOtherRoles.Patches {
                 }
             }
         }
+        static void prophetSetTarget()
+        {
+            if (Prophet.prophet == null || CachedPlayer.LocalPlayer.PlayerControl != Prophet.prophet) return;
+            Prophet.currentTarget = setTarget();
+            if (Prophet.examinesLeft > 0) setPlayerOutline(Prophet.currentTarget, Prophet.color);
+        }
+
 
         static void trackerUpdate() {
             // Handle player tracking

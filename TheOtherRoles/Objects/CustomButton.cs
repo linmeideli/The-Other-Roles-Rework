@@ -8,9 +8,11 @@ using UnityEngine.UI;
 using static TheOtherRoles.TheOtherRoles;
 
 namespace TheOtherRoles.Objects {
-    public class CustomButton {
-        public static List<CustomButton> buttons = new List<CustomButton>();
+    public class CustomButton
+    {
+        public static List<CustomButton> buttons = new();
         public ActionButton actionButton;
+        public Vector3 LocalScale = Vector3.one;
         public GameObject actionButtonGameObject;
         public SpriteRenderer actionButtonRenderer;
         public Material actionButtonMat;
@@ -26,6 +28,7 @@ namespace TheOtherRoles.Objects {
         public Func<bool> CouldUse;
         private Action OnEffectEnds;
         public bool HasEffect;
+        public bool effectCancellable = false;
         public bool isEffectActive = false;
         public bool showButtonText = false;
         public float EffectDuration;
@@ -33,21 +36,33 @@ namespace TheOtherRoles.Objects {
         public HudManager hudManager;
         public bool mirror;
         public KeyCode? hotkey;
-        public string buttonText;
+        public string buttonText = "";
+        public string actionName = null;
+        public bool shakeOnEnd = true;
+        public bool isSuicide = false;
         public bool isHandcuffed = false;
         private static readonly int Desat = Shader.PropertyToID("_Desat");
 
-        public static class ButtonPositions {
-            public static readonly Vector3 lowerRowRight = new Vector3(-2f, -0.06f, 0);  // Not usable for imps beacuse of new button positions!
-            public static readonly Vector3 lowerRowCenter = new Vector3(-3f, -0.06f, 0);
-            public static readonly Vector3 lowerRowLeft = new Vector3(-4f, -0.06f, 0);
-            public static readonly Vector3 upperRowRight = new Vector3(0f, 1f, 0f);  // Not usable for imps beacuse of new button positions!
-            public static readonly Vector3 upperRowCenter = new Vector3(-1f, 1f, 0f);  // Not usable for imps beacuse of new button positions!
-            public static readonly Vector3 upperRowLeft = new Vector3(-2f, 1f, 0f);
-            public static readonly Vector3 upperRowFarLeft = new Vector3(-3f, 1f, 0f);
+        public static class ButtonPositions
+        {
+            public static readonly Vector3 lowerRowRight = new(-2f, -0.06f, 0);  // Not usable for imps beacuse of new button positions!
+            public static readonly Vector3 lowerRowCenter = new(-3f, -0.06f, 0);
+            public static readonly Vector3 lowerRowLeft = new(-4f, -0.06f, 0);
+            public static readonly Vector3 upperRowRight = new(0f, 1f, 0f);  // Not usable for imps beacuse of new button positions!
+            public static readonly Vector3 upperRowCenter = new(-1f, 1f, 0f);  // Not usable for imps beacuse of new button positions!
+            public static readonly Vector3 upperRowLeft = new(-2f, 1f, 0f);
+            public static readonly Vector3 upperRowFarLeft = new(-3f, 1f, 0f);
         }
 
-        public CustomButton(Action OnClick, Func<bool> HasButton, Func<bool> CouldUse, Action OnMeetingEnds, Sprite Sprite, Vector3 PositionOffset, HudManager hudManager, KeyCode? hotkey, bool HasEffect, float EffectDuration, Action OnEffectEnds, bool mirror = false, string buttonText = "")
+        public enum ButtonLabelType
+        {
+            UseButton,
+            AdminButton,
+            KillButton,
+            HauntButton
+        }
+        public CustomButton(Action OnClick, Func<bool> HasButton, Func<bool> CouldUse, Action OnMeetingEnds, Sprite Sprite, Vector3 PositionOffset, HudManager hudManager, KeyCode? hotkey, bool HasEffect, float EffectDuration, Action OnEffectEnds, bool mirror = false, string buttonText = "", ButtonLabelType abilityTexture = ButtonLabelType.KillButton, string actionName = null, bool shakeOnEnd = true,
+             bool isSuicide = false)
         {
             this.hudManager = hudManager;
             this.OnClick = OnClick;
@@ -63,6 +78,9 @@ namespace TheOtherRoles.Objects {
             this.mirror = mirror;
             this.hotkey = hotkey;
             this.buttonText = buttonText;
+            this.actionName = actionName;
+            this.shakeOnEnd = shakeOnEnd;
+            this.isSuicide = isSuicide;
             Timer = 16.2f;
             buttons.Add(this);
             actionButton = UnityEngine.Object.Instantiate(hudManager.KillButton, hudManager.KillButton.transform.parent);
@@ -71,15 +89,14 @@ namespace TheOtherRoles.Objects {
             actionButtonMat = actionButtonRenderer.material;
             actionButtonLabelText = actionButton.buttonLabelText;
             PassiveButton button = actionButton.GetComponent<PassiveButton>();
-            this.showButtonText = (actionButtonRenderer.sprite == Sprite || buttonText != "");
+            showButtonText = actionButtonRenderer.sprite == Sprite || buttonText != "";
             button.OnClick = new Button.ButtonClickedEvent();
             button.OnClick.AddListener((UnityEngine.Events.UnityAction)onClickEvent);
-
             setActive(false);
         }
 
-        public CustomButton(Action OnClick, Func<bool> HasButton, Func<bool> CouldUse, Action OnMeetingEnds, Sprite Sprite, Vector3 PositionOffset, HudManager hudManager, KeyCode? hotkey, bool mirror = false, string buttonText = "")
-        : this(OnClick, HasButton, CouldUse, OnMeetingEnds, Sprite, PositionOffset, hudManager, hotkey, false, 0f, () => {}, mirror, buttonText) { }
+        public CustomButton(Action OnClick, Func<bool> HasButton, Func<bool> CouldUse, Action OnMeetingEnds, Sprite Sprite, Vector3 PositionOffset, HudManager hudManager, KeyCode? hotkey, bool mirror = false, string buttonText = "", ButtonLabelType abilityTexture = ButtonLabelType.KillButton, string actionName = null, bool shakeOnEnd = true, bool isSuicide = false)
+        : this(OnClick, HasButton, CouldUse, OnMeetingEnds, Sprite, PositionOffset, hudManager, hotkey, false, 0f, () => { }, mirror, buttonText, abilityTexture, actionName, shakeOnEnd, isSuicide) { }
 
         public void onClickEvent()
         {

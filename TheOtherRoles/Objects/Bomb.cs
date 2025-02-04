@@ -18,7 +18,7 @@ namespace TheOtherRoles.Objects {
 
         public static Sprite getBombSprite() {
             if (bombSprite) return bombSprite;
-            bombSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Bomb.png", 300f);
+            bombSprite = CustomMain.customZips.Bomber;
             return bombSprite;
         }
         public static Sprite getBackgroundSprite() {
@@ -29,7 +29,7 @@ namespace TheOtherRoles.Objects {
 
         public static Sprite getDefuseSprite() {
             if (defuseSprite) return defuseSprite;
-            defuseSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Bomb_Button_Defuse.png", 115f);
+            defuseSprite = CustomMain.customZips.Bomb_Button_Defuse;
             return defuseSprite;
         }
 

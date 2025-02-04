@@ -34,7 +34,7 @@ namespace TheOtherRoles
     {
         public const string Id = "me.eisbison.theotherroles";
         public const string VersionString = "4.6.0";
-        public const string TORRVersionString = "1.0.2";
+        public const string TORRVersionString = "1.0.3";
         public static uint betaDays = 0;  // amount of days for the build to be usable (0 for infinite!)
 
         public static Version Version = Version.Parse(TORRVersionString);
@@ -56,7 +56,7 @@ namespace TheOtherRoles
         public static ConfigEntry<bool> EnableHorseMode { get; set; }
         public static ConfigEntry<bool> ShowVentsOnMap { get; set; }
         public static ConfigEntry<bool> ShowChatNotifications { get; set; }
-        public static ConfigEntry<bool> AddServer { get; set; }
+
         public static ConfigEntry<string> Ip { get; set; }
         public static ConfigEntry<ushort> Port { get; set; }
         public static ConfigEntry<string> ShowPopUpVersion { get; set; }
@@ -94,28 +94,29 @@ namespace TheOtherRoles
         }
 
         public override void Load() {
+            ZipsLoad.Load();
+            ModTranslation.Load();
             Logger = Log;
             Instance = this;
   
             _ = Helpers.checkBeta(); // Exit if running an expired beta
             _ = Patches.CredentialsPatch.MOTD.loadMOTDs();
 
-            DebugMode = Config.Bind("自定义", "启用Debug模式", "false");
-            GhostsSeeInformation = Config.Bind("自定义", "鬼魂可见剩余任务数量", true);
-            GhostsSeeRoles = Config.Bind("自定义", "鬼魂可见职业", true);
-            GhostsSeeModifier = Config.Bind("自定义", "鬼魂可见附加职业", true);
-            GhostsSeeVotes = Config.Bind("自定义", "鬼魂非匿名投票", true);
-            ShowRoleSummary = Config.Bind("自定义", "显示复盘结果", true);
-            ShowLighterDarker = Config.Bind("自定义", "显示 亮/暗", true);
-            EnableSoundEffects = Config.Bind("自定义", "启用音效", true);
-            EnableHorseMode = Config.Bind("自定义", "启用马模式", false);
-            ShowPopUpVersion = Config.Bind("自定义", "启用多服装模式", "0");
-            ShowVentsOnMap = Config.Bind("自定义", "在小地图上显示通风口位置", false);
-            ShowChatNotifications = Config.Bind("自定义", "显示聊天通知", true);
-            AddServer = Config.Bind("自定义", "添加私服（大饼+1）", false);
+            DebugMode = Config.Bind("Custom", ModTranslation.GetString("DebugMode"), "false");
+            GhostsSeeInformation = Config.Bind("Custom", "鬼魂可见剩余任务数量", true);
+            GhostsSeeRoles = Config.Bind("Custom", "鬼魂可见职业", true);
+            GhostsSeeModifier = Config.Bind("Custom", "鬼魂可见附加职业", true);
+            GhostsSeeVotes = Config.Bind("Custom", "鬼魂非匿名投票", true);
+            ShowRoleSummary = Config.Bind("Custom", "显示复盘结果", true);
+            ShowLighterDarker = Config.Bind("Custom", "显示 亮/暗", true);
+            EnableSoundEffects = Config.Bind("Custom", "启用音效", true);
+            EnableHorseMode = Config.Bind("Custom", "启用马模式", false);
+            ShowPopUpVersion = Config.Bind("Custom", "启用多服装模式", "0");
+            ShowVentsOnMap = Config.Bind("Custom", "在小地图上显示通风口位置", false);
+            ShowChatNotifications = Config.Bind("Custom", "显示聊天通知", true);
 
-            Ip = Config.Bind("自定义", "自定义服务器IP", "127.0.0.1");
-            Port = Config.Bind("自定义", "自定义服务器Port", (ushort)22023);
+            Ip = Config.Bind("Custom", "自定义服务器IP", "127.0.0.1");
+            Port = Config.Bind("Custom", "自定义服务器Port", (ushort)22023);
             defaultRegions = ServerManager.DefaultRegions;
             // Removes vanilla Servers
             ServerManager.DefaultRegions = new Il2CppReferenceArray<IRegionInfo>(new IRegionInfo[0]);
@@ -123,7 +124,8 @@ namespace TheOtherRoles
 
             DebugMode = Config.Bind("自定义", "Enable Debug Mode", "false");
             Harmony.PatchAll();
-            
+
+           
             CustomOptionHolder.Load();
             CustomColors.Load();
             CustomHatManager.LoadHats();
@@ -214,5 +216,10 @@ namespace TheOtherRoles
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+
+    }
+    public static class CustomMain
+    {
+        public static CustomZip customZips = new CustomZip();
     }
 }
