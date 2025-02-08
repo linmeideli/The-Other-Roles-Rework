@@ -56,7 +56,12 @@ namespace TheOtherRoles
         public static ConfigEntry<bool> EnableHorseMode { get; set; }
         public static ConfigEntry<bool> ShowVentsOnMap { get; set; }
         public static ConfigEntry<bool> ShowChatNotifications { get; set; }
+<<<<<<< Updated upstream
         public static ConfigEntry<bool> AddServer { get; set; }
+=======
+
+        public static ConfigEntry<bool> ShowFPS { get; set; }
+>>>>>>> Stashed changes
         public static ConfigEntry<string> Ip { get; set; }
         public static ConfigEntry<ushort> Port { get; set; }
         public static ConfigEntry<string> ShowPopUpVersion { get; set; }
@@ -102,6 +107,7 @@ namespace TheOtherRoles
             _ = Helpers.checkBeta(); // Exit if running an expired beta
             _ = Patches.CredentialsPatch.MOTD.loadMOTDs();
 
+<<<<<<< Updated upstream
             DebugMode = Config.Bind("自定义", "启用Debug模式", "false");
             GhostsSeeInformation = Config.Bind("自定义", "鬼魂可见剩余任务数量", true);
             GhostsSeeRoles = Config.Bind("自定义", "鬼魂可见职业", true);
@@ -115,6 +121,21 @@ namespace TheOtherRoles
             ShowVentsOnMap = Config.Bind("自定义", "在小地图上显示通风口位置", false);
             ShowChatNotifications = Config.Bind("自定义", "显示聊天通知", true);
             AddServer = Config.Bind("自定义", "添加私服（大饼+1）", false);
+=======
+            DebugMode = Config.Bind("Custom", ModTranslation.GetString("DebugMode"), "false");
+            GhostsSeeInformation = Config.Bind("Custom", "鬼魂可见剩余任务数量", true);
+            GhostsSeeRoles = Config.Bind("Custom", "鬼魂可见职业", true);
+            GhostsSeeModifier = Config.Bind("Custom", "鬼魂可见附加职业", true);
+            GhostsSeeVotes = Config.Bind("Custom", "鬼魂非匿名投票", true);
+            ShowRoleSummary = Config.Bind("Custom", "显示复盘结果", true);
+            ShowLighterDarker = Config.Bind("Custom", "显示 亮/暗", true);
+            EnableSoundEffects = Config.Bind("Custom", "启用音效", true);
+            EnableHorseMode = Config.Bind("Custom", "启用马模式", false);
+            ShowPopUpVersion = Config.Bind("Custom", "启用多服装模式", "0");
+            ShowVentsOnMap = Config.Bind("Custom", "在小地图上显示通风口位置", false);
+            ShowChatNotifications = Config.Bind("Custom", "显示聊天通知", true);
+            ShowFPS = Config.Bind("Custom", "显示帧率", true);
+>>>>>>> Stashed changes
 
             Ip = Config.Bind("自定义", "自定义服务器IP", "127.0.0.1");
             Port = Config.Bind("自定义", "自定义服务器Port", (ushort)22023);

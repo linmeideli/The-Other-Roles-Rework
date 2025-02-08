@@ -51,6 +51,21 @@ namespace TheOtherRoles {
             }
             return null;
         }
+        /*
+        public static bool checkAndDoVetKill(PlayerControl target)
+        {
+            var shouldVetKill = Veteran.veteran == target && Veteran.alertActive;
+            if (shouldVetKill)
+            {
+                var writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId,
+                    (byte)CustomRPC.VeteranKill, SendOption.Reliable);
+                writer.Write(CachedPlayer.LocalPlayer.PlayerControl.PlayerId);
+                AmongUsClient.Instance.FinishRpcImmediately(writer);
+                RPCProcedure.veteranKill(CachedPlayer.LocalPlayer.PlayerControl.PlayerId);
+            }
+
+            return shouldVetKill;//老兵反弹
+        }*/
 
         public static unsafe Texture2D loadTextureFromResources(string path) {
             try {

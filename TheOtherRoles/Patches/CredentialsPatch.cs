@@ -56,7 +56,8 @@ namespace TheOtherRoles.Patches
                     else if (HandleGuesser.isGuesserGm) gameModeText = ModTranslation.GetString("isGuesserGm");
                     else if (PropHunt.isPropHuntGM) gameModeText = ModTranslation.GetString("isPropHuntGM");
                     if (gameModeText != "") gameModeText = Helpers.cs(Color.yellow, gameModeText) + "\n";
-                    __instance.text.text = $"<size=130%><color=#ff351f>TheOtherRoles Rework</color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
+                    __instance.text.text = $"<size=130%><color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Rework</color></color></color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "") + "\n" + $"{gameModeText}" + $"<color={PingColor}>PING: <b>{AmongUsClient.Instance.Ping}</b> MS</color>" + $"  {(TORMapOptions.showFPS ? $"  <color=#00a4ff>FPS: {fps}</color>" : "")}"}";
+
                     position.DistanceFromEdge = new Vector3(1.5f, 0.11f, 0);
                 }
                 else
@@ -67,7 +68,11 @@ namespace TheOtherRoles.Patches
                     else if (TORMapOptions.gameMode == CustomGamemodes.PropHunt) gameModeText = ModTranslation.GetString("isPropHuntGM");
                     if (gameModeText != "") gameModeText = Helpers.cs(Color.yellow, gameModeText);
 
+<<<<<<< Updated upstream
                     __instance.text.text = $"{ModName}<br><size=70%>{ModTranslation.GetString("PingText1")} {ELinmei} & {FangKuai}<br>{ModTranslation.GetString("PingText2")} {TOREisbison}<br>{ModTranslation.GetString("PingText3")} {SvettyScribbles}<br>{ModTranslation.GetString("PingText4")}{mxyx} & {ELinmei}<br></size>";
+=======
+                    __instance.text.text = $"{ModName}<br><size=70%>{ModTranslation.GetString("PingText1")} {ELinmei}<br>{ModTranslation.GetString("PingText2")} {TOREisbison}<br>{ModTranslation.GetString("PingText3")} {SvettyScribbles}<br>{ModTranslation.GetString("PingText4")}{mxyx} & {ELinmei}<br></size>" + $"<color={PingColor}>PING: <b>{AmongUsClient.Instance.Ping}</b> MS</color>" + $"  {(TORMapOptions.showFPS ? $"  <color=#00a4ff>FPS: {fps}</color>" : "")}";
+>>>>>>> Stashed changes
                     position.DistanceFromEdge = new Vector3(0.5f, 0.11f);
 
                     try
@@ -204,6 +209,7 @@ namespace TheOtherRoles.Patches
                     MOTD.motds.Add(line);
                 }
             }
+
         }
     }
 }

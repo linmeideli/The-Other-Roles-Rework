@@ -271,9 +271,17 @@ namespace TheOtherRoles {
         public static CustomOption prophetSpawnRate;
         public static CustomOption prophetCooldown;
         public static CustomOption prophetNumExamines;
-        public static CustomOption prophetKillCrewAsRed;
-        public static CustomOption NeutralAsRed;
+        public static CustomOption prophetAccuracy;
         public static CustomOption prophetCanCallEmergency;
+<<<<<<< Updated upstream
+=======
+        public static CustomOption prophetIsRevealed;
+        public static CustomOption prophetExaminesToBeRevealed;
+
+        public static CustomOption fraudsterSpawnRate;
+        public static CustomOption fraudstercooldown;
+
+>>>>>>> Stashed changes
 
         public static CustomOption modifiersAreHidden;
 
@@ -533,6 +541,8 @@ namespace TheOtherRoles {
             yoyoAdminTableCooldown = CustomOption.Create(475, Types.Impostor, "使用管理地图冷却时间", 20f, 2.5f, 120f, 2.5f, yoyoHasAdminTable);
             yoyoSilhouetteVisibility = CustomOption.Create(476, Types.Impostor, "轮廓可见性", new string[] { "0%", "10%", "20%", "30%", "40%", "50%" }, yoyoSpawnRate);
 
+            fraudsterSpawnRate = CustomOption.Create(480, Types.Impostor, cs(Fraudster.color, ModTranslation.GetString("Fraudster")), rates, null, true);
+            fraudstercooldown = CustomOption.Create(481, Types.Impostor, ModTranslation.GetString("fraudstercooldown"), 20f, 2.5f, 120f, 2.5f, fraudsterSpawnRate);
 
             guesserSpawnRate = CustomOption.Create(310, Types.Neutral, cs(Guesser.color, "赌怪"), rates, null, true);
             guesserIsImpGuesserRate = CustomOption.Create(311, Types.Neutral, "赌怪为伪装者几率", rates, guesserSpawnRate);
@@ -690,6 +700,7 @@ namespace TheOtherRoles {
             mediumOneTimeUse = CustomOption.Create(363, Types.Crewmate, "每个灵魂只能提问一次", false, mediumSpawnRate);
             mediumChanceAdditionalInfo = CustomOption.Create(364, Types.Crewmate, "答案包含附加信息的可能性", rates, mediumSpawnRate);
 
+<<<<<<< Updated upstream
             //Investigator Settings...
             prophetSpawnRate = CustomOption.Create(111222333, Types.Crewmate, cs(Investigator.color, ModTranslation.GetString("Prophet")), rates, null, true);
             prophetCooldown = CustomOption.Create(222333444, Types.Crewmate, ModTranslation.GetString("prophetCooldown"), 30f, 5f, 120f, 5f, prophetSpawnRate);
@@ -697,6 +708,15 @@ namespace TheOtherRoles {
             prophetKillCrewAsRed = CustomOption.Create(444555666, Types.Crewmate, "prophetKillCrewAsRed".Translate (), false, prophetSpawnRate);
             NeutralAsRed = CustomOption.Create(30367, Types.Crewmate, "prophetBenignNeutralAsRed".Translate(), false, prophetSpawnRate);
             prophetCanCallEmergency = CustomOption.Create(30363, Types.Crewmate, "prophetCanCallEmergency".Translate(), true, prophetSpawnRate);
+=======
+            prophetSpawnRate = CustomOption.Create(9005, Types.Crewmate, cs(Prophet.color, "prophet".Translate()), rates, null, true);
+            prophetCooldown = CustomOption.Create(9011, Types.Crewmate, "prophetCooldown".Translate(), 30f, 5f, 60f, 1f, prophetSpawnRate, false);
+            prophetNumExamines = CustomOption.Create(9006, Types.Crewmate, "prophetNumExamines".Translate(), 4f, 1f, 10f, 1f, prophetSpawnRate, false);
+            prophetCanCallEmergency = CustomOption.Create(9007, Types.Crewmate, "prophetCanCallEmergency".Translate(), false, prophetSpawnRate);
+            prophetIsRevealed = CustomOption.Create(9012, Types.Crewmate, "prophetIsRevealed".Translate(), true, prophetSpawnRate);
+            prophetExaminesToBeRevealed = CustomOption.Create(9008, Types.Crewmate, "prophetExaminesToBeRevealed".Translate(), 3f, 1f, 10f, 1f, prophetIsRevealed, false);
+            prophetAccuracy = CustomOption.Create(9009, Types.Crewmate, "prophetAccuracy".Translate(), 30f, 0f, 100f, 10f, prophetSpawnRate);
+>>>>>>> Stashed changes
 
             thiefSpawnRate = CustomOption.Create(400, Types.Neutral, cs(Thief.color, "身份窃贼"), rates, null, true);
             thiefCooldown = CustomOption.Create(401, Types.Neutral, "偷窃冷却时间", 30f, 5f, 120f, 5f, thiefSpawnRate);

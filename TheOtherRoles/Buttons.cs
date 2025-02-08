@@ -64,6 +64,7 @@ namespace TheOtherRoles
         public static CustomButton bomberButton;
         public static CustomButton yoyoButton;
         public static CustomButton yoyoAdminTableButton;
+        public static CustomButton fraudsterButton;
         public static CustomButton defuseButton;
         public static CustomButton zoomOutButton;
         private static CustomButton hunterLighterButton;
@@ -90,10 +91,11 @@ namespace TheOtherRoles
         public static TMPro.TMP_Text hackerAdminTableChargesText;
         public static TMPro.TMP_Text hackerVitalsChargesText;
         public static TMPro.TMP_Text trapperChargesText;
-        public static TMP_Text prophetButtonText;
+        public static TMPro.TMP_Text prophetButtonText;
         public static TMPro.TMP_Text portalmakerButtonText1;
         public static TMPro.TMP_Text portalmakerButtonText2;
         public static TMPro.TMP_Text huntedShieldCountText;
+        public static TMPro.TMP_Text FraudsterButtonText;
 
         public static void setCustomButtonCooldowns() {
             if (!initialized) {
@@ -146,6 +148,7 @@ namespace TheOtherRoles
             bomberButton.MaxTimer = Bomber.bombCooldown;
             yoyoButton.MaxTimer = Yoyo.markCooldown;
             yoyoAdminTableButton.MaxTimer = Yoyo.adminCooldown;
+            fraudsterButton.MaxTimer = Fraudster.cooldown;
             yoyoAdminTableButton.EffectDuration = 10f;
             hunterLighterButton.MaxTimer = Hunter.lightCooldown;
             hunterAdminTableButton.MaxTimer = Hunter.AdminCooldown;
@@ -894,6 +897,7 @@ namespace TheOtherRoles
                 true
             );
             prophetButton = new CustomButton(
+<<<<<<< Updated upstream
                 () =>
                 {
 
@@ -938,6 +942,46 @@ namespace TheOtherRoles
             prophetButtonText.enableWordWrapping = false;
             prophetButtonText.transform.localScale = Vector3.one * 0.5f;
             prophetButtonText.transform.localPosition += new Vector3(-0.05f, 0.55f, -1f);
+=======
+               () =>
+               {
+                   if (Prophet.currentTarget != null)
+                   {
+                      
+                       MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.ProphetExamine, Hazel.SendOption.Reliable, -1);
+                       writer.Write(Prophet.currentTarget.PlayerId);
+                       AmongUsClient.Instance.FinishRpcImmediately(writer);
+                       RPCProcedure.prophetExamine(Prophet.currentTarget.PlayerId);
+                      
+                       prophetButton.Timer = prophetButton.MaxTimer;
+                   }
+               },
+               () => { return Prophet.prophet != null && CachedPlayer.LocalPlayer.PlayerControl == Prophet.prophet && !CachedPlayer.LocalPlayer.PlayerControl.Data.IsDead && Prophet.examinesLeft > 0; },
+               () =>
+               {
+                   if (prophetButtonText != null)
+                   {
+                       if (Prophet.examinesLeft > 0)
+                           prophetButtonText.text = $"{Prophet.examinesLeft}";
+                       else
+                           prophetButtonText.text = "";
+                   }
+                   return Prophet.currentTarget != null && CachedPlayer.LocalPlayer.PlayerControl.CanMove;
+               },
+               () => { prophetButton.Timer = prophetButton.MaxTimer; },
+               Prophet.getButtonSprite(),
+               CustomButton.ButtonPositions.lowerRowRight,
+               __instance,
+               KeyCode.F,
+               buttonText: ModTranslation.GetString("ProphetText")
+               
+           );
+            //prophetButtonText = UnityEngine.Object.Instantiate(prophetButton.actionButton.cooldownTimerText, prophetButton.actionButton.cooldownTimerText.transform.parent);
+           // prophetButtonText.text = "";
+            //prophetButtonText.enableWordWrapping = false;
+            //prophetButtonText.transform.localScale = Vector3.one * 0.5f;
+            //prophetButtonText.transform.localPosition += new Vector3(-0.05f, 0.55f, -1f);
+>>>>>>> Stashed changes
 
             portalmakerPlacePortalButton = new CustomButton(
                 () => {
@@ -962,6 +1006,37 @@ namespace TheOtherRoles
                 __instance,
                 KeyCode.F
             );
+            fraudsterButton = new CustomButton(
+               () =>
+               {
+                   if (Fraudster.currentTarget != null)
+                   {
+                       MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.SerialKillerSuicide, Hazel.SendOption.Reliable, -1);
+                       writer.Write(Fraudster.currentTarget.PlayerId);
+                       AmongUsClient.Instance.FinishRpcImmediately(writer);
+                       RPCProcedure.serialKillerSuicide(Fraudster.currentTarget.PlayerId);
+                   }
+               },
+               () => { return Fraudster.fraudster != null && CachedPlayer.LocalPlayer.PlayerControl == Fraudster.fraudster && !CachedPlayer.LocalPlayer.PlayerControl.Data.IsDead; },
+               () =>
+               {
+                   if (fraudsterButton != null)
+                   {
+                       if (fraudsterButton != null)
+                           FraudsterButtonText.text = $"{Fraudster.currentTarget.PlayerId}";
+                       else
+                           FraudsterButtonText.text = "";
+                   }
+                   return Fraudster.currentTarget != null && CachedPlayer.LocalPlayer.PlayerControl.CanMove;
+               },
+               () => { fraudsterButton.Timer = fraudsterButton.MaxTimer; },
+               Fraudster.getButtonSprite(),
+               CustomButton.ButtonPositions.upperRowLeft,
+               __instance,
+               KeyCode.F,
+               buttonText: ModTranslation.GetString("FraudsterText")
+              
+           );
 
             usePortalButton = new CustomButton(
                 () => {

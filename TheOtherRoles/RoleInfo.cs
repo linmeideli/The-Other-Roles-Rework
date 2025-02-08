@@ -60,7 +60,7 @@ namespace TheOtherRoles
         public static RoleInfo hacker = new RoleInfo("Hacker", Hacker.color, "HackerIntroDesc", "HackerShortDesc", RoleId.Hacker);
         public static RoleInfo tracker = new RoleInfo("Tracker", Tracker.color, "TrackerIntroDesc", "TrackerShortDesc", RoleId.Tracker);
         public static RoleInfo snitch = new RoleInfo("Snitch", Snitch.color, "SnitchIntroDesc", "SnitchShortDesc", RoleId.Snitch);
-        public static RoleInfo investigator = new("Prophet", Prophet.color, "ProphetIntroDesc" , "ProphetShortDesc", RoleId.Investigator);
+        public static RoleInfo investigator = new("Prophet", Prophet.color, "ProphetIntroDesc" , "ProphetShortDesc", RoleId.Prophet);
         public static RoleInfo jackal = new RoleInfo("Jackal", Jackal.color, "JackalIntroDesc", "JackalShortDesc", RoleId.Jackal, true);
         public static RoleInfo sidekick = new RoleInfo("Sidekick", Sidekick.color, "SidekickIntroDesc", "SidekickShortDesc", RoleId.Sidekick, true);
         public static RoleInfo spy = new RoleInfo("Spy", Spy.color, "SpyIntroDesc", "SpyShortDesc", RoleId.Spy);
@@ -81,6 +81,8 @@ namespace TheOtherRoles
         public static RoleInfo thief = new RoleInfo("Thief", Thief.color, "ThiefIntroDesc", "ThiefShortDesc", RoleId.Thief, true);
         public static RoleInfo bomber = new RoleInfo("Bomber", Bomber.color, "BomberIntroDesc", "BomberShortDesc", RoleId.Bomber);
         public static RoleInfo yoyo = new RoleInfo("Yoyo", Yoyo.color, "YoyoIntroDesc", "YoyoShortDesc", RoleId.Yoyo);
+        public static RoleInfo fraudster = new RoleInfo("Fraudster", Fraudster.color, "FraudsterIntroDesc", "FraudsterShortDesc", RoleId.Fraudster);
+
 
         public static RoleInfo hunter = new RoleInfo("Hunter", Palette.ImpostorRed, Helpers.cs(Palette.ImpostorRed, "HunterIntroDesc"), "HunterShortDesc", RoleId.Impostor);
         public static RoleInfo hunted = new RoleInfo("Hunted", Color.white, "HuntedIntroDesc", "HuntedShortDesc", RoleId.Crewmate);
@@ -239,6 +241,7 @@ namespace TheOtherRoles
             if (p == Trapper.trapper) infos.Add(trapper);
             if (p == Pursuer.pursuer) infos.Add(pursuer);
             if (p == Thief.thief) infos.Add(thief);
+            if (p == Fraudster.fraudster) infos.Add(fraudster);
 
             // Default roles (just impostor, just crewmate, or hunter / hunted for hide n seek, prop hunt prop ...
             if (infos.Count == count)

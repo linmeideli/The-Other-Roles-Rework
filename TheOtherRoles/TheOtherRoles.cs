@@ -67,6 +67,7 @@ namespace TheOtherRoles
             Trapper.clearAndReload();
             Bomber.clearAndReload();
             Yoyo.clearAndReload();
+            Fraudster.clearAndReload();
 
             // Modifier
             Bait.clearAndReload();
@@ -315,8 +316,21 @@ namespace TheOtherRoles
             public static Sprite getHandcuffedButtonSprite()
             {
                 if (handcuffedSprite) return handcuffedSprite;
+<<<<<<< Updated upstream
                 handcuffedSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.DeputyHandcuffed.png", 115f);
                 return handcuffedSprite;
+=======
+                if (RPCProcedure.isChineseAfter())
+                {
+                    handcuffedSprite = CustomMain.customZips.DeputyHandcuffedCN;
+                    return handcuffedSprite;
+                }
+                else
+                {
+                    handcuffedSprite = CustomMain.customZips.DeputyHandcuffedEN;
+                    return handcuffedSprite;
+                }
+>>>>>>> Stashed changes
             }
 
             // Can be used to enable / disable the handcuff effect on the target's buttons
@@ -1856,50 +1870,92 @@ namespace TheOtherRoles
         public static PlayerControl prophet;
         public static Color32 color = new(255, 204, 127, byte.MaxValue);
 
-        public static float cooldown = 25f;
-        public static bool killCrewAsRed;
-        public static bool NeutralAsRed;
-        public static bool canCallEmergency;
+        public static float cooldown = 30f;
+        public static float accuracy = 20f;
+        public static bool canCallEmergency = false;
         public static int examineNum = 3;
+        public static int examinesToBeRevealed = 1;
         public static int examinesLeft;
+        public static bool revealProphet = true;
+        public static bool isRevealed = false;
+        public static List<Arrow> arrows = new();
 
         public static Dictionary<PlayerControl, bool> examined = new();
         public static PlayerControl currentTarget;
-        public static Sprite prophetButtonSprite;
-        public static Sprite getProphetButtonSprite()
-        {
-            if (prophetButtonSprite) return prophetButtonSprite;
-            prophetButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SearchButton.png", 115f);
-            return prophetButtonSprite;
-        }
-        //public static ResourceSprite buttonSprite = new("TheOtherRoles.Resources.SearchButton.png");
-        public static bool IsRed(PlayerControl p)
-        {
-            if (p.Data.Role.IsImpostor) return true;
+       
 
+<<<<<<< Updated upstream
             if (killCrewAsRed && (p == Sheriff.sheriff || p == Deputy.deputy)) return true;
 
             if (NeutralAsRed && (p == Jackal.jackal )|| (p == Jackal.jackal) || (p == Sidekick.sidekick) || (p == Shifter.shifter) || (p == Pursuer.pursuer) || (p == Lawyer.lawyer)) return true;
 
             return Helpers.isNeutral(p);
+=======
+        
+        private static Sprite buttonSprite;
+        public static Sprite getButtonSprite()
+        {
+            if (buttonSprite) return buttonSprite;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SeerButton.png", 115f);
+            return buttonSprite;
+>>>>>>> Stashed changes
+        }
+
+        public static bool isKiller(PlayerControl p)
+        {
+            var rand = rnd.Next(1, 101);
+            return (Helpers.isEvil(p) && rand <= accuracy) || (!Helpers.isEvil(p) && rand > accuracy);
         }
 
         public static void clearAndReload()
         {
             prophet = null;
             currentTarget = null;
-            examined.Clear();
+            isRevealed = false;
+            examined = new Dictionary<PlayerControl, bool>();
+            revealProphet = CustomOptionHolder.prophetIsRevealed.getBool();
             cooldown = CustomOptionHolder.prophetCooldown.getFloat();
-            examineNum = CustomOptionHolder.prophetNumExamines.getInt();
-            killCrewAsRed = CustomOptionHolder.prophetKillCrewAsRed.getBool();
-
-            examinesLeft = examineNum;//Button
-           
+            examineNum = Mathf.RoundToInt(CustomOptionHolder.prophetNumExamines.getFloat());
+            accuracy = CustomOptionHolder.prophetAccuracy.getFloat();
+            canCallEmergency = CustomOptionHolder.prophetCanCallEmergency.getBool();
+            examinesToBeRevealed = Math.Min(examineNum, Mathf.RoundToInt(CustomOptionHolder.prophetExaminesToBeRevealed.getFloat()));
+            examinesLeft = examineNum;
+            if (arrows != null)
+            {
+                foreach (Arrow arrow in arrows)
+                    if (arrow?.arrow != null)
+                        UnityEngine.Object.Destroy(arrow.arrow);
+            }
+            arrows = new List<Arrow>();
         }
     }
+    public static class Fraudster
+    {
+        public static PlayerControl fraudster;
+        public static PlayerControl currentTarget;
+        public static Color color = new Color32(255, 165, 0, byte.MaxValue);
 
-    // Modifier
-    public static class Bait {
+        public static float cooldown = 15f;
+        
+        private static Sprite buttonSprite;
+        public static Sprite getButtonSprite()
+        {
+            if (buttonSprite) return buttonSprite;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SuicideButton.png", 115f);
+            return buttonSprite;
+        }
+
+        public static void clearAndReload()
+        {
+            Fraudster.fraudster = null;
+            Fraudster.cooldown = CustomOptionHolder.fraudstercooldown.getFloat();
+            
+        }
+
+    }
+
+        // Modifier
+        public static class Bait {
         public static List<PlayerControl> bait = new List<PlayerControl>();
         public static Dictionary<DeadPlayer, float> active = new Dictionary<DeadPlayer, float>();
         public static Color color = new Color32(0, 247, 255, byte.MaxValue);

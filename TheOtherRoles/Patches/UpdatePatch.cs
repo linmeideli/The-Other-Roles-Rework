@@ -92,7 +92,7 @@ namespace TheOtherRoles.Patches {
                     setPlayerNameColor(Sheriff.sheriff, Sheriff.color);
                 }
             }
-            if (Prophet.prophet != null && Prophet.prophet == localPlayer)
+            else if (Prophet.prophet != null && Prophet.prophet == localPlayer)
             {
                 setPlayerNameColor(Prophet.prophet, Prophet.color);
                 if (Prophet.examined != null && !localPlayer.Data.IsDead) // Reset the name tags when Prophet is dead
@@ -102,7 +102,8 @@ namespace TheOtherRoles.Patches {
                         setPlayerNameColor(p.Key, p.Value ? Palette.ImpostorRed : Color.green);
                     }
                 }
-            }/*else if (Portalmaker.portalmaker != null && Portalmaker.portalmaker == localPlayer)
+            }
+            /*else if (Portalmaker.portalmaker != null && Portalmaker.portalmaker == localPlayer)
                 setPlayerNameColor(Portalmaker.portalmaker, Portalmaker.color);
             else if (Lighter.lighter != null && Lighter.lighter == localPlayer)
                 setPlayerNameColor(Lighter.lighter, Lighter.color);
@@ -185,19 +186,19 @@ namespace TheOtherRoles.Patches {
             if (CachedPlayer.LocalPlayer != null && CachedPlayer.LocalPlayer.Data.Role.IsImpostor) {
                 foreach (PlayerControl player in CachedPlayer.AllPlayers)
                     if (Godfather.godfather != null && Godfather.godfather == player)
-                            player.cosmetics.nameText.text = player.Data.PlayerName + " (教父)";
+                            player.cosmetics.nameText.text = player.Data.PlayerName + " (G)";
                     else if (Mafioso.mafioso != null && Mafioso.mafioso == player)
-                            player.cosmetics.nameText.text = player.Data.PlayerName + " 小弟)";
+                            player.cosmetics.nameText.text = player.Data.PlayerName + " (M)";
                     else if (Janitor.janitor != null && Janitor.janitor == player)
-                            player.cosmetics.nameText.text = player.Data.PlayerName + " (清洁�?";
+                            player.cosmetics.nameText.text = player.Data.PlayerName + " (J)";
                 if (MeetingHud.Instance != null)
                     foreach (PlayerVoteArea player in MeetingHud.Instance.playerStates)
                         if (Godfather.godfather != null && Godfather.godfather.PlayerId == player.TargetPlayerId)
-                            player.NameText.text = Godfather.godfather.Data.PlayerName + " (教父)";
+                            player.NameText.text = Godfather.godfather.Data.PlayerName + " (G)";
                         else if (Mafioso.mafioso != null && Mafioso.mafioso.PlayerId == player.TargetPlayerId)
-                            player.NameText.text = Mafioso.mafioso.Data.PlayerName + " (小弟)";
+                            player.NameText.text = Mafioso.mafioso.Data.PlayerName + " (M)";
                         else if (Janitor.janitor != null && Janitor.janitor.PlayerId == player.TargetPlayerId)
-                            player.NameText.text = Janitor.janitor.Data.PlayerName + " (清洁�?";
+                            player.NameText.text = Janitor.janitor.Data.PlayerName + " (J)";
             }
 
             // Lovers

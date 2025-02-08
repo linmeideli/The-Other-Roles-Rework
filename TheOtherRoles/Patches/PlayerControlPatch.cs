@@ -399,8 +399,30 @@ namespace TheOtherRoles.Patches {
             if (Prophet.examinesLeft > 0) setPlayerOutline(Prophet.currentTarget, Prophet.color);
         }
 
+<<<<<<< Updated upstream
         private static void prophetUpdate()
         {
+=======
+        static void prophetUpdate()
+        {
+            if (Prophet.arrows == null) return;
+
+            foreach (var arrow in Prophet.arrows) arrow.arrow.SetActive(false);
+
+            if (Prophet.prophet == null || Prophet.prophet.Data.IsDead) return;
+
+            if (Prophet.isRevealed && Helpers.isKiller(CachedPlayer.LocalPlayer.PlayerControl))
+            {
+                if (Prophet.arrows.Count == 0) Prophet.arrows.Add(new Arrow(Prophet.color));
+                if (Prophet.arrows.Count != 0 && Prophet.arrows[0] != null)
+                {
+                    Prophet.arrows[0].arrow.SetActive(true);
+                    Prophet.arrows[0].Update(Prophet.prophet.transform.position);
+                }
+            }
+        }
+
+>>>>>>> Stashed changes
 
             if (Prophet.prophet == null || Prophet.prophet.Data.IsDead) return;
 
