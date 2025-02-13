@@ -232,18 +232,18 @@ namespace TheOtherRoles.Patches {
             // Deactivate emergency button for Swapper
             if (Swapper.swapper != null && Swapper.swapper == CachedPlayer.LocalPlayer.PlayerControl && !Swapper.canCallEmergency) {
                 roleCanCallEmergency = false;
-                statusText = ModTranslation.GetString("swapperMeetingButton");
+                statusText = "swapperMeetingButton".Translate();
             }
             // Potentially deactivate emergency button for Jester
             if (Jester.jester != null && Jester.jester == CachedPlayer.LocalPlayer.PlayerControl && !Jester.canCallEmergency) {
                 roleCanCallEmergency = false;
-                statusText = ModTranslation.GetString("jesterMeetingButton");
+                statusText = "jesterMeetingButton".Translate();
             }
             // Potentially deactivate emergency button for Lawyer/Prosecutor
             if (Lawyer.lawyer != null && Lawyer.lawyer == CachedPlayer.LocalPlayer.PlayerControl && !Lawyer.canCallEmergency) {
                 roleCanCallEmergency = false;
-                statusText = ModTranslation.GetString("lawyerMeetingButton");
-                if (Lawyer.isProsecutor) statusText = ModTranslation.GetString("ProsecutorMeetingButton");
+                statusText = "lawyerMeetingButton".Translate();
+                if (Lawyer.isProsecutor) statusText = "prosecutorMeetingButton".Translate();
             }
             if (Prophet.prophet != null && Prophet.prophet == CachedPlayer.LocalPlayer.PlayerControl && !Prophet.canCallEmergency)
             {
@@ -264,7 +264,7 @@ namespace TheOtherRoles.Patches {
                 int localRemaining = CachedPlayer.LocalPlayer.PlayerControl.RemainingEmergencies;
                 int teamRemaining = Mathf.Max(0, maxNumberOfMeetings - meetingsCount);
                 int remaining = Mathf.Min(localRemaining, (Mayor.mayor != null && Mayor.mayor == CachedPlayer.LocalPlayer.PlayerControl) ? 1 : teamRemaining);
-                __instance.NumberText.text = $"{localRemaining.ToString()} MEETING: {teamRemaining.ToString()}";
+                __instance.NumberText.text = $"{localRemaining.ToString()} TOTAL: {teamRemaining.ToString()}";
                 __instance.ButtonActive = remaining > 0;
                 __instance.ClosedLid.gameObject.SetActive(!__instance.ButtonActive);
                 __instance.OpenLid.gameObject.SetActive(__instance.ButtonActive);

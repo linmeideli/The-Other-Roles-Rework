@@ -76,6 +76,8 @@ namespace TheOtherRoles.Patches {
             }
             if (Sunglasses.sunglasses.FindAll(x => x.PlayerId == player.PlayerId).Count > 0) // Sunglasses
                 __result *= 1f - Sunglasses.vision * 0.1f;
+            if (Lighterln.lighterln.FindAll(x => x.PlayerId == player.PlayerId).Count > 0) // Torch
+                __result = __instance.MaxLightRadius * GameOptionsManager.Instance.currentNormalGameOptions.CrewLightMod * Lighterln.vision;
 
             return false;
         }

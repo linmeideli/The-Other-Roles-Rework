@@ -5,6 +5,7 @@ namespace TheOtherRoles;
 public class CustomZip
 {
 
+
     //Sprite
     public Sprite RightPanelCloseButton;
     public Sprite Alert;
@@ -108,4 +109,4 @@ public class CustomZip
     public AudioClip vultureEat;
     public AudioClip warlockCurse;
     public AudioClip witchSpell;
-}//CE的骨灰盒
+}

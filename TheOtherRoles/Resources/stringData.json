@@ -4142,6 +4142,303 @@
     "bomberBombActiveAfter": {
         "0": "Bomber Bomb Active After",
         "13": "炸弹激活时间"
+    },
+    "FraudsterText": {
+        "0": "Suicide",
+        "13": "自杀"
+    },
+    "Fraudster": {
+        "0": "Fraudster",
+        "13": "伪证师"
+    },
+    "fraudstercooldown": {
+        "0": "Fraudster Cooldown",
+        "13": "自杀冷却时间"
+    },
+    "FraudsterIntroDesc": {
+        "0": "Act Sheriff Kill-Self",
+        "13": "给队友做警长走火的伪证"
+    },
+    "FraudsterShortDesc": {
+        "0": "Suicide To Safe Others Impostor",
+        "13": "必要时自杀保全其他伪装者"
+    },
+    "TORR103Title": {
+        "0": "★★★★Language & Roles★★★★",
+        "13": "★★★★多语言 & 职业★★★★"
+    },
+    "TORR103Text": {
+        "0": "\n[Disclaimer] - This mod is not affiliated with Among Us or Innersloth LLC and the content contained therein is not endorsed by or otherwise sponsored by Innersloth LLC Some of the materials contained herein are the property of Innersloth LLC \n\nWelcome Crewmates!</size>\n\nOur Mod Updates to Among Us v11.26s，BepInEx6.0.0-729，Reactor 2.3.1 Base onTheOtherRoles-v4.6.0\n\nNew Role - Prophet:\nProphet can search others type\n\nWe followed up with an update to TheOtherRoles to add the ability to press Shift to enter the lobby\n\nIn addition, we've added a language system to ensure that players from other countries can play our mods as usual\n\nFinally, we have reduced the size of the dll file thanks to Fangkuai, the author of TheOtherRolesCE\n\nHave a good game!\n\n\nELinmei-XtremeWave",
+        "13": "\n【声明】- 本模组不隶属于 Among Us 或 Innersloth LLC 其中包含的内容未得到 Innersloth LLC 的认可或以其他方式赞助 此模组包含的部分材料是 Innersloth LLC的财产 \n\n好久不见啦！\n\n本次更新我们适配到了Among Us v11.26，BepInEx6.0.0 - be.729，Reactor 2.3.1  基于TheOtherRoles-v4.6.0 部分代码源自于TheOtherRolesCE-Next、TheOTherRolesGMIA、TheOtherUsEdited  在此表示感谢\n\n新职业 - 预言家：\n可以通过调查来查看他人阵营\n\n我们跟进了TheOtherRoles的更新，添加了按Shift进入大厅的功能\n\n此外，我们添加了语言系统，保证了其他国家的玩家可以基本正常的游玩我们的Mod\n\n最后，我们减小了dll文件的体积，这一点要感谢TheOtherRolesCE的作者Fangkuai\n\n尽情游玩吧！\n\n\nELinmei - XtremeWave"
+    },
+    "TORR1031Title": {
+        "0": "★★★★FixHot & Role★★★★",
+        "13": "★★★★修复bug & 职业★★★★"
+    },
+    "TORR1031Text": {
+        "0": "\nHello there quickly!\n\nA little Bugs Fixed (EG: Prophet prophecy button error, torch vision error, button text, button cascading)\n\nNew Role - Fraudster:\nCan suicide\n\nAdd Mod Option: ShowFPS\n\nHave a Good Game!\n\n\nXtreme - ELinmei",
+        "13": "\n你好，这么快又见面了，今天有没有认真休息？\n\n 修复了一些错误（例如：预言家预言按钮错误，火炬视野错误，按钮文字，按钮层叠）\n\n新角色 - 伪证师：\n可以自杀\n\n添加模组选项：ShowFPS\n\n生活愉快，玩的开心！\n\n\nXtreme - ELinmei"
+    },
+    "prophetAccuracy": {
+        "0": "Prophet Accruacy",
+        "13": "预言准确性"
+    },
+    "LShift": {
+        "0": "Last Lobby",
+        "13": "上一个大厅"
+    },
+    "RShift": {
+        "0": "Pasteborad",
+        "13": "剪切板大厅"
+    },
+    "anotherDecTextLover": {
+        "0": "You Fall In Love With",
+        "13": "你爱上了"
+    },
+    "anotherDecTextDeputy": {
+        "0": "Sheriff was",
+        "13": "你的上司是"
+    },
+    "anotherDecTextSheriff": {
+        "0": "Deputy was",
+        "13": "你的下属是"
+    },
+    "ServerWithoutTORR": {
+        "0": "Cannot Play On AmongUs Server",
+        "13": "不能在官方服务器上游玩本模组"
+    },
+    "ACamoPlayer": {
+        "0": "A camouflaged player",
+        "13": "一名匿名玩家"
+    },
+    "PortalAPlayer": {
+        "0": "A player",
+        "13": ""
+    },
+    "ButtonRepair": {
+        "0": "Repair",
+        "13": "修理"
+    },
+    "ButtonClean": {
+        "0": "Clean",
+        "13": "清理"
+    },
+    "ButtondeputyHandcuff": {
+        "0": "Handcuff",
+        "13": "手铐"
+    },
+    "ButtontimemasterShield": {
+        "0": "TimeShield",
+        "13": "时间之盾"
+    },
+    "ButtonmedicShield": {
+        "0": "Shield",
+        "13": "保护"
+    },
+    "ButtonshifterShift": {
+        "0": "Shift",
+        "13": "交换"
+    },
+    "ButtonmorphlingMorph": {
+        "0": "Morph",
+        "13": "化形"
+    },
+    "ButtonCamouflager": {
+        "0": "Camo",
+        "13": "隐蔽"
+    },
+    "ButtonhackerHack": {
+        "0": "Hack",
+        "13": "黑入"
+    },
+    "DOORLOG": {
+        "0": "DOORLOG",
+        "13": "门日志"
+    },
+    "VITALS": {
+        "0": "VITALS",
+        "13": "心电图"
+    },
+    "ButtontrackerTrackPlayer": {
+        "0": "Track",
+        "13": "追踪"
+    },
+    "ButtontrackerTrackCorpses": {
+        "0": "TrackCorpses",
+        "13": "寻尸"
+    },
+    "ButtonvampireBite": {
+        "0": "Bite",
+        "13": "吸血"
+    },
+    "Buttongarlic": {
+        "0": "Garlic",
+        "13": "大蒜"
+    },
+    "ButtonPlace": {
+        "0": "Place",
+        "13": "放置"
+    },
+    "ButtonTP": {
+        "0": "TP",
+        "13": "传送"
+    },
+    "ButtonjackalSidekick": {
+        "0": "Sidekick",
+        "13": "招募"
+    },
+    "ButtonLightOut": {
+        "0": "LightOut",
+        "13": "熄灯"
+    },
+    "ButtoneraserErase": {
+        "0": "Eraser",
+        "13": "抹除"
+    },
+    "ButtonwarlockCurse": {
+        "0": "Curse",
+        "13": "咒杀"
+    },
+    "ButtonarsonistDouse": {
+        "0": "Douse",
+        "13": "浇油"
+    },
+    "ButtonvultureEat": {
+        "0": "Eat",
+        "13": "吞噬"
+    },
+    "ButtonmediumAsk": {
+        "0": "Ask",
+        "13": "通灵"
+    },
+    "ButtonpursuerBlank": {
+        "0": "Blank",
+        "13": "空包弹"
+    },
+    "ButtonwitchSpell": {
+        "0": "Spell",
+        "13": "下咒"
+    },
+    "ButtonNinja": {
+        "0": "Ninjutsu",
+        "13": "忍术"
+    },
+    "Emergency": {
+        "0": "Emergency",
+        "13": "紧急会议"
+    },
+    "Buttondefuse": {
+        "0": "Defuse",
+        "13": "化解"
+    },
+    "ButtonMark": {
+        "0": "Mark",
+        "13": "标记"
+    },
+    "ButtonBlink": {
+        "0": "Blink",
+        "13": "瞬移"
+    },
+    "ButtonAdmin": {
+        "0": "Admin",
+        "13": "管理地图"
+    },
+    "ButtonlighterLight": {
+        "0": "Light",
+        "13": "照明"
+    },
+    "ButtonArrow": {
+        "0": "Arrow",
+        "13": "指引"
+    },
+    "ButtonhunterShield": {
+        "0": "Shield",
+        "13": "护盾"
+    },
+    "ButtonUnstuck": {
+        "0": "Unstuck",
+        "13": "解除"
+    },
+    "ButtonReveal": {
+        "0": "Reveal",
+        "13": "揭示"
+    },
+    "ButtonInvis": {
+        "0": "Invis",
+        "13": "隐身"
+    },
+    "ButtonBoost": {
+        "0": "Boost",
+        "13": "加速"
+    },
+    "ButtonFind": {
+        "0": "Find",
+        "13": "寻找"
+    },
+    "DeadReasonDisconnect": {
+        "0": " - Disconnect",
+        "13": " - 断连"
+    },
+    "VultrueLeft": {
+        "0": " (Left ",
+        "13": " （剩余 "
+    },
+    "VultrueLeft2": {
+        "0": " )",
+        "13": " 个）"
+    },
+    "FakeSidekick": {
+        "0": " (Fade Sidekick)",
+        "13": " （假跟班）"
+    },
+    "DeadReasonExile": {
+        "0": " - Exile",
+        "13": " - 驱逐"
+    },
+    "DeadReasonKill": {
+        "0": " - Kill by ",
+        "13": " - 被击杀于 "
+    },
+    "DeadReasonFailGuess": {
+        "0": " - FailGuess",
+        "13": " - 猜测错误"
+    },
+    "DeadReasonGuess": {
+        "0": " - Guessed by ",
+        "13": " - 被 "
+    },
+    "DeadReasonthief": {
+        "0": "theft by ",
+        "13": "被偷盗于 "
+    },
+    "DeadReasonLawyerSuicide": {
+        "0": "Lawyer Suicide",
+        "13": "律师自杀"
+    },
+    "DeadReasonLoverSuicide": {
+        "0": "Lover Suicide",
+        "13": "殉情"
+    },
+    "DeadReasonWitchExile1": {
+        "0": "Exile",
+        "13": "诅咒"
+    },
+    "DeadReasonWitchExile2": {
+        "0": " by ",
+        "13": " 于 "
+    },
+    "DeadReasonBomb": {
+        "0": " - Bomb by ",
+        "13": " - 爆炸于 "
+    },
+    "DeadReasonArson": {
+        "0": " - Arson by ",
+        "13": " - 烧死于 "
+    },
+    "GameReason": {
+        "0": "### Review:",
+        "13": "### 复盘："
     }
 
 }
+

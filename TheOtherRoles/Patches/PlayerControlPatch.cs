@@ -399,7 +399,29 @@ namespace TheOtherRoles.Patches {
             if (Prophet.examinesLeft > 0) setPlayerOutline(Prophet.currentTarget, Prophet.color);
         }
 
+        static void prophetUpdate()
+        {
+            if (Prophet.arrows == null) return;
 
+            foreach (var arrow in Prophet.arrows) arrow.arrow.SetActive(false);
+
+            if (Prophet.prophet == null || Prophet.prophet.Data.IsDead) return;
+
+            if (Prophet.isRevealed && Helpers.isKiller(CachedPlayer.LocalPlayer.PlayerControl))
+            {
+                if (Prophet.arrows.Count == 0) Prophet.arrows.Add(new Arrow(Prophet.color));
+                if (Prophet.arrows.Count != 0 && Prophet.arrows[0] != null)
+                {
+                    Prophet.arrows[0].arrow.SetActive(true);
+                    Prophet.arrows[0].Update(Prophet.prophet.transform.position);
+                }
+            }
+        }
+        static void FraudsterSetTarget()
+        {
+            if (Fraudster.fraudster == null || CachedPlayer.LocalPlayer.PlayerControl != Fraudster.fraudster) return;
+            Fraudster.currentTarget = setTarget();
+        }
         static void trackerUpdate() {
             // Handle player tracking
             if (Tracker.arrow?.arrow != null) {
@@ -1089,6 +1111,11 @@ namespace TheOtherRoles.Patches {
                 thiefSetTarget();
                 // yoyo
                 Silhouette.UpdateAll();
+                //prophet
+                prophetSetTarget();
+                prophetUpdate();
+                //fraudster
+                FraudsterSetTarget();
 
                 hackerUpdate();
                 swapperUpdate();

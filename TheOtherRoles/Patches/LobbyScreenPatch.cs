@@ -67,13 +67,13 @@ namespace TheOtherRoles.Patches
                     if (code != "")
                     {
                         code = DataManager.Settings.Gameplay.StreamerMode ? "****" : code;
-                        LobbyText.GetComponent<TMPro.TextMeshPro>().text = $"{ModTranslation.GetString("ReturnLast")} {code}   [LShift]";
+                        LobbyText.GetComponent<TMPro.TextMeshPro>().text = "LShift".Translate()+$":{code}" +" [LShift]";
 
                     }
                 }
                 if (code2 != "")
                 {
-                    LobbyText.GetComponent<TMPro.TextMeshPro>().text += $"\n {ModTranslation.GetString("JoinParse")} {code2Disp}  [RShift]";
+                    LobbyText.GetComponent<TMPro.TextMeshPro>().text += "\n"+"RShift".Translate()+$": {code2Disp}  [RShift]";
                 }
             }
         }

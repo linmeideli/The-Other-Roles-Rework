@@ -51,6 +51,21 @@ namespace TheOtherRoles {
             }
             return null;
         }
+        /*
+        public static bool checkAndDoVetKill(PlayerControl target)
+        {
+            var shouldVetKill = Veteran.veteran == target && Veteran.alertActive;
+            if (shouldVetKill)
+            {
+                var writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId,
+                    (byte)CustomRPC.VeteranKill, SendOption.Reliable);
+                writer.Write(CachedPlayer.LocalPlayer.PlayerControl.PlayerId);
+                AmongUsClient.Instance.FinishRpcImmediately(writer);
+                RPCProcedure.veteranKill(CachedPlayer.LocalPlayer.PlayerControl.PlayerId);
+            }
+
+            return shouldVetKill;//老兵反弹
+        }*/
 
         public static unsafe Texture2D loadTextureFromResources(string path) {
             try {
@@ -114,7 +129,7 @@ namespace TheOtherRoles {
             if (Constants.ShouldPlaySfx()) SoundManager.Instance.PlaySound(exampleClip, false, 0.8f);
             */
         }
-      
+
         public static string readTextFromResources(string path) {
             Assembly assembly = Assembly.GetExecutingAssembly();
             Stream stream = assembly.GetManifestResourceStream(path);
@@ -581,7 +596,6 @@ namespace TheOtherRoles {
             return false;
         }
 
-
         public static bool isKiller(PlayerControl player) {
             return player.Data.Role.IsImpostor || 
                 (isNeutral(player) && 
@@ -666,8 +680,8 @@ namespace TheOtherRoles {
                 || (Sidekick.sidekick != null && Sidekick.sidekick.PlayerId == player.PlayerId && Sidekick.hasImpostorVision)
                 || (Spy.spy != null && Spy.spy.PlayerId == player.PlayerId && Spy.hasImpostorVision)
                 || (Jester.jester != null && Jester.jester.PlayerId == player.PlayerId && Jester.hasImpostorVision)
-                || (Thief.thief != null && Thief.thief.PlayerId == player.PlayerId && Thief.hasImpostorVision)
-                || (Lighterln.lighterln != null && Lighterln.hasImpostorVision);
+                || (Thief.thief != null && Thief.thief.PlayerId == player.PlayerId && Thief.hasImpostorVision);
+
         }
         
         public static object TryCast(this Il2CppObjectBase self, Type type)

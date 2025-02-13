@@ -203,7 +203,7 @@ TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes/size>";
         private static TextMeshPro VisitText;
         private static void Postfix(VersionShower __instance)
         {
-            string credentialsText = "<color=#CAFFFF>XtremeWave </color>©2025-<color=#00ffff>ELinmei </color>";
+            string credentialsText = "<color=#BBFFFF>XtremeWave © 2025</color> - <color=#00ffff>ELinmei</color>";
             credentialsText += "\t\t\t";
             string versionText = $"<color=#8470FF>TORR</color></color> - {TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
             credentialsText += versionText;
@@ -228,7 +228,7 @@ TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes/size>";
                 VisitText.transform.localPosition = new Vector3(-3.92f, -2.9f, 0f);
                 VisitText.enabled = GameObject.Find("TOR Background") != null;
 
-                __instance.text.text = $"<color=#C1FFC1>Among Us<color=#8470FF>The Other Roles Rework</color></color> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
+                __instance.text.text = $"<color=#C1FFC1>Among Us<color=#FF0000>The Other Roles Rework</color></color> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
                 __instance.text.alignment = TextAlignmentOptions.Left;
                 OVersionShower.transform.localPosition = new Vector3(-4.92f, -3.3f, 0f);
 
@@ -263,7 +263,7 @@ TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes/size>";
             TOR_Background = new GameObject("TOR Background");
             TOR_Background.transform.position = new Vector3(0, 0, 520f);
             var bgRenderer = TOR_Background.AddComponent<SpriteRenderer>();
-            bgRenderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.paintingbyarcaea.jpg", 333f);
+            bgRenderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.paintingbyarcaea.jpg", 320f);
 
             if (!(Ambience = GameObject.Find("Ambience"))) return;
             if (!(Starfield = Ambience.transform.FindChild("starfield").gameObject)) return;

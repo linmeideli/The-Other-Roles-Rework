@@ -29,6 +29,7 @@ using UnityEngine.UI;
 using System;
 using TheOtherRoles.Utilities;
 using UnityEngine.Events;
+using TheOtherRoles.Modules;
 
 namespace TheOtherRoles.Patches {
     [HarmonyPatch(typeof(RegionMenu), nameof(RegionMenu.Open))]
@@ -151,7 +152,7 @@ namespace TheOtherRoles.Patches {
                 comp.fontSizeMax = 2;
                 serverWarning.transform.localPosition = new Vector3(0f, -3f, -10f);
                 __instance.StartCoroutine(Effects.Lerp(0.1f, new Action<float>((p) => {
-                    comp.text = Helpers.cs(Color.red, "普通服务器目前与TOR不兼容");
+                    comp.text = Helpers.cs(Color.red, $"{ModTranslation.GetString("ServerWithoutTORR")}" );
                 })));
                 serverWarning.SetActive(true);
             }

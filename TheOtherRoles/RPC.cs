@@ -41,7 +41,7 @@ namespace TheOtherRoles
         Tracker,
         Vampire,
         Snitch,
-        Investigator,
+        Prophet,
         Jackal,
         Sidekick,
         Eraser,
@@ -65,6 +65,7 @@ namespace TheOtherRoles
         Thief,
         Bomber,
         Yoyo,
+        Fraudster,
         Crewmate,
         Impostor,
         // Modifier ---
@@ -155,6 +156,7 @@ namespace TheOtherRoles
         YoyoMarkLocation,
         YoyoBlink,
         ProphetExamine,
+        SerialKillerSuicide,
 
         // Gamemode
         SetGuesserGm,
@@ -323,7 +325,7 @@ namespace TheOtherRoles
                     case RoleId.Snitch:
                         Snitch.snitch = player;
                         break;
-                    case RoleId.Investigator:
+                    case RoleId.Prophet:
                             Prophet.prophet = player;
                         break;
                         case RoleId.Jackal:
@@ -396,6 +398,9 @@ namespace TheOtherRoles
                     case RoleId.Yoyo:
                         Yoyo.yoyo = player;
                         break;
+                    case RoleId.Fraudster:
+                        Fraudster.fraudster = player;
+                        break;
                     }
                     if (AmongUsClient.Instance.AmHost && Helpers.roleCanUseVents(player) && !player.Data.Role.IsImpostor) {
                         player.RpcSetRole(RoleTypes.Engineer);
@@ -456,6 +461,43 @@ namespace TheOtherRoles
                 ver = new System.Version(major, minor, build, revision);
             GameStartManagerPatch.playerVersions[clientId] = new GameStartManagerPatch.PlayerVersion(ver, guid);
         }
+
+        public static bool isChineseBefore()
+        {
+            bool result;
+            try
+            {
+                string name = System.Globalization.CultureInfo.CurrentCulture.Name;
+                if (name.StartsWith("zh"))
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+            catch
+            {
+                result = false;
+            }
+            return result;
+        }
+        public static bool isChineseAfter()
+        {
+            bool yes;
+            int lang = (int)AmongUs.Data.DataManager.Settings.Language.CurrentLanguage;
+            if (lang == 13)
+            {
+                yes = true;
+            }
+            else
+            {
+                yes = false; ;
+            }
+            return yes;
+        }
+
 
         public static void useUncheckedVent(int ventId, byte playerId, byte isEnter) {
             PlayerControl player = Helpers.playerById(playerId);
@@ -653,15 +695,25 @@ namespace TheOtherRoles
                 }
             }
         }
+
         public static void prophetExamine(byte targetId)
         {
             var target = Helpers.playerById(targetId);
             if (target == null) return;
             if (Prophet.examined.ContainsKey(target)) Prophet.examined.Remove(target);
-            Prophet.examined.Add(target, Prophet.IsRed(target));
+            Prophet.examined.Add(target, Prophet.isKiller(target));
             Prophet.examinesLeft--;
-            
+            if ((Prophet.examineNum - Prophet.examinesLeft >= Prophet.examinesToBeRevealed) && Prophet.revealProphet) Prophet.isRevealed = true;
         }
+
+        public static void serialKillerSuicide(byte fraudsterId)
+        {
+            PlayerControl fraudster = Helpers.playerById(fraudsterId);
+            if (fraudster == null) return;
+            fraudster.MurderPlayer(fraudster, MurderResultFlags.Succeeded);
+            GameHistory.overrideDeathReasonAndKiller(fraudster, DeadPlayer.CustomDeathReason.Kill);
+        }
+
 
         public static void placeGarlic(byte[] buff) {
             Vector3 position = Vector3.zero;
@@ -774,6 +826,8 @@ namespace TheOtherRoles
             if (player == Ninja.ninja) Ninja.clearAndReload();
             if (player == Bomber.bomber) Bomber.clearAndReload();
             if (player == Yoyo.yoyo) Yoyo.clearAndReload();
+            if (player == Fraudster.fraudster) Fraudster.clearAndReload();
+
 
             // Other roles
             if (player == Jester.jester) Jester.clearAndReload();
@@ -1140,6 +1194,7 @@ namespace TheOtherRoles
                 Yoyo.yoyo = thief;
                 Yoyo.markedLocation = null;
             }
+            if(target == Fraudster.fraudster) Fraudster.fraudster = thief;
             if (target.Data.Role.IsImpostor) {
                 RoleManager.Instance.SetRole(Thief.thief, RoleTypes.Impostor);
                 FastDestroyableSingleton<HudManager>.Instance.KillButton.SetCoolDown(Thief.thief.killTimer, GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown);
@@ -1614,6 +1669,9 @@ namespace TheOtherRoles
                     break;
                 case (byte)CustomRPC.YoyoBlink:
                     RPCProcedure.yoyoBlink(reader.ReadByte() == byte.MaxValue, reader.ReadBytesAndSize());
+                    break;
+                case (byte)CustomRPC.SerialKillerSuicide:
+                    RPCProcedure.serialKillerSuicide(reader.ReadByte());
                     break;
 
                 // Game mode

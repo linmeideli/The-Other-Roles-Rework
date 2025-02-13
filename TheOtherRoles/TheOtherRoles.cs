@@ -67,6 +67,7 @@ namespace TheOtherRoles
             Trapper.clearAndReload();
             Bomber.clearAndReload();
             Yoyo.clearAndReload();
+            Fraudster.clearAndReload();
 
             // Modifier
             Bait.clearAndReload();
@@ -308,15 +309,15 @@ namespace TheOtherRoles
             public static Sprite getButtonSprite()
             {
                 if (buttonSprite) return buttonSprite;
-                buttonSprite = CustomMain.customZips.DeputyHandcuffButton;
+                buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.DeputyHandcuffButton.png", 115f);
                 return buttonSprite;
             }
 
             public static Sprite getHandcuffedButtonSprite()
             {
                 if (handcuffedSprite) return handcuffedSprite;
-                int lang = (int)AmongUs.Data.DataManager.Settings.Language.CurrentLanguage;
-                if (lang == 13)
+ 
+                if (RPCProcedure.isChineseAfter())
                 {
                     handcuffedSprite = CustomMain.customZips.DeputyHandcuffedCN;
                     return handcuffedSprite;
@@ -326,6 +327,7 @@ namespace TheOtherRoles
                     handcuffedSprite = CustomMain.customZips.DeputyHandcuffedEN;
                     return handcuffedSprite;
                 }
+ 
             }
 
             // Can be used to enable / disable the handcuff effect on the target's buttons
@@ -777,7 +779,7 @@ namespace TheOtherRoles
         public static Sprite getTrackCorpsesButtonSprite()
         {
             if (trackCorpsesButtonSprite) return trackCorpsesButtonSprite;
-            trackCorpsesButtonSprite = CustomMain.customZips.FindButton;
+            trackCorpsesButtonSprite = CustomMain.customZips.PathfindButton;
             return trackCorpsesButtonSprite;
         }
 
@@ -1472,47 +1474,47 @@ namespace TheOtherRoles
             if (infos.Count > 0) {
                 var selectedInfo = infos[rnd.Next(infos.Count)];
                 switch (selectedInfo) {
-                    case SpecialMediumInfo.SheriffSuicide:
-                        msg = "SheriffSuicide".Translate();
-                        break;
-                    case SpecialMediumInfo.WarlockSuicide:
-                        msg = "WarlockSuicide".Translate();
-                        break;
-                    case SpecialMediumInfo.ThiefSuicide:
-                        msg = "ThiefSuicide".Translate();
-                        break;
-                    case SpecialMediumInfo.ActiveLoverDies:
-                        msg = "ActiveLoverDies".Translate();
-                        break;
-                    case SpecialMediumInfo.PassiveLoverSuicide:
-                        msg = "PassiveLoverSuicide".Translate();
-                        break;
-                    case SpecialMediumInfo.LawyerKilledByClient:
-                        msg = "LawyerKilledByClient".Translate();
-                        break;
-                    case SpecialMediumInfo.JackalKillsSidekick:
-                        msg = "JackalKillsSidekick".Translate();
-                        break;
-                    case SpecialMediumInfo.ImpostorTeamkill:
-                        msg = "ImpostorTeamkill".Translate();
-                        break;
-                    case SpecialMediumInfo.BodyCleaned:
-                        msg = "BodyCleaned".Translate();
-                        break;
+                  case Medium.SpecialMediumInfo.SheriffSuicide:
+					msg = "SheriffSuicide".Translate();
+					break;
+				case Medium.SpecialMediumInfo.ThiefSuicide:
+					msg = "ThiefSuicide".Translate();
+					break;
+				case Medium.SpecialMediumInfo.ActiveLoverDies:
+					msg = "ActiveLoverDies".Translate();
+					break;
+				case Medium.SpecialMediumInfo.PassiveLoverSuicide:
+					msg = "PassiveLoverSuicide".Translate();
+					break;
+				case Medium.SpecialMediumInfo.LawyerKilledByClient:
+					msg = "LawyerKilledByClient".Translate();
+					break;
+				case Medium.SpecialMediumInfo.JackalKillsSidekick:
+					msg = "JackalKillsSidekick".Translate();
+					break;
+				case Medium.SpecialMediumInfo.ImpostorTeamkill:
+					msg = "ImpostorTeamkill".Translate();
+					break;
+				case Medium.SpecialMediumInfo.WarlockSuicide:
+					msg = "WarlockSuicide".Translate();
+					break;
+				case Medium.SpecialMediumInfo.BodyCleaned:
+					msg = "BodyCleaned".Translate();
+					break;
                 }
             } else {
                 int randomNumber = rnd.Next(4);
-                string typeOfColor = Helpers.isLighterColor(Medium.target.killerIfExisting) ? "浅" : "深";
+                string typeOfColor = Helpers.isLighterColor(Medium.target.killerIfExisting) ? "L" : "D";
                 float timeSinceDeath = ((float)(Medium.meetingStartTime - Medium.target.timeOfDeath).TotalMilliseconds);
                 var roleString = RoleInfo.GetRolesString(Medium.target.player, false);
                 if (randomNumber == 0) {
                     if (!roleString.Contains("Impostor") && !roleString.Contains("Crewmate"))
-                        msg = "SaveRoles".Translate() + roleString + " SaveRolesAdd".Translate();
+                        msg = "如果我的角色尚未保存，则没有 " + roleString + " 出现在游戏中。";
                     else
-                        msg = "AmRole".Translate() + roleString; 
-                } else if (randomNumber == 1) msg = "KillerColor".Translate() + typeOfColor ;
-                else if (randomNumber == 2) msg = "BeforeMeetingStartDead".Translate() + Math.Round(timeSinceDeath / 1000) + "second".Translate();
-                else msg = "KillerRole".Translate() + RoleInfo.GetRolesString(Medium.target.killerIfExisting, false, false, true) + "";
+                        msg = "我是一名" + roleString + "而伴随着一些职业。"; 
+                } else if (randomNumber == 1) msg = "我肯定是" + typeOfColor + " 颜色的人杀了我。";
+                else if (randomNumber == 2) msg = "如果我没算错，我死在直至会议开启前的" + Math.Round(timeSinceDeath / 1000) + "秒前";
+                else msg = "杀死我的人应该是一名" + RoleInfo.GetRolesString(Medium.target.killerIfExisting, false, false, true) + "。";
             }
 
             if (rnd.NextDouble() < chanceAdditionalInfo) {
@@ -1536,10 +1538,10 @@ namespace TheOtherRoles
                         //count = alivePlayersList.Where(pc =>
                         break;               
                 }
-                msg += $"\nWhen you asked, {count} " + condition + (count == 1 ? " 是".Translate() : " 是2".Translate()) + " still alive";
+                msg += $"\nWhen you asked, {count} " + condition + (count == 1 ? " was" : " were") + " still alive";
             }
 
-            return Medium.target.player.Data.PlayerName + "'sSoul".Translate() + ":\n" + msg;
+            return Medium.target.player.Data.PlayerName + "'s Soul:\n" + msg;
         }
     }
 
@@ -1832,7 +1834,7 @@ namespace TheOtherRoles
 
         public static Sprite getMarkButtonSprite() {
             if (markButtonSprite) return markButtonSprite;
-            markButtonSprite =  CustomMain.customZips.YoyoMarkButtonSprite;
+            markButtonSprite = CustomMain.customZips.YoyoMarkButtonSprite;
             return markButtonSprite;
         }
         private static Sprite blinkButtonSprite;
@@ -1865,57 +1867,85 @@ namespace TheOtherRoles
         public static PlayerControl prophet;
         public static Color32 color = new(255, 204, 127, byte.MaxValue);
 
-        public static float cooldown = 25f;
-        public static bool killCrewAsRed;
-        public static bool NeutralAsRed;
-        public static bool canCallEmergency;
+        public static float cooldown = 30f;
+        public static float accuracy = 20f;
+        public static bool canCallEmergency = false;
         public static int examineNum = 3;
+        public static int examinesToBeRevealed = 1;
         public static int examinesLeft;
+        public static bool revealProphet = true;
+        public static bool isRevealed = false;
+        public static List<Arrow> arrows = new();
 
         public static Dictionary<PlayerControl, bool> examined = new();
         public static PlayerControl currentTarget;
-        public static Sprite prophetButtonSprite;
-        public static Sprite getProphetButtonSprite()
-        {
-            if (prophetButtonSprite) return prophetButtonSprite;
-            prophetButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SearchButton.png", 115f);
-            return prophetButtonSprite;
-        }
-        //public static ResourceSprite buttonSprite = new("TheOtherRoles.Resources.SearchButton.png");
-        public static bool IsRed(PlayerControl p)
-        {
-            if (p.Data.Role.IsImpostor) return true;
 
-            if (killCrewAsRed && (p == Sheriff.sheriff || p == Deputy.deputy)) return true;
+       
 
-            if (NeutralAsRed && (p == Jackal.jackal )|| (p == Jackal.jackal) || (p == Sidekick.sidekick) || (p == Shifter.shifter) || (p == Pursuer.pursuer) || (p == Lawyer.lawyer)) return true;
-
-            return Helpers.isNeutral(p);
-        }
         private static Sprite buttonSprite;
         public static Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
             buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SeerButton.png", 115f);
             return buttonSprite;
+ 
+        }
+
+        public static bool isKiller(PlayerControl p)
+        {
+            var rand = rnd.Next(1, 101);
+            return (Helpers.isEvil(p) && rand <= accuracy) || (!Helpers.isEvil(p) && rand > accuracy);
         }
 
         public static void clearAndReload()
         {
             prophet = null;
             currentTarget = null;
-            examined.Clear();
+            isRevealed = false;
+            examined = new Dictionary<PlayerControl, bool>();
+            revealProphet = CustomOptionHolder.prophetIsRevealed.getBool();
             cooldown = CustomOptionHolder.prophetCooldown.getFloat();
-            examineNum = CustomOptionHolder.prophetNumExamines.getInt();
-            killCrewAsRed = CustomOptionHolder.prophetKillCrewAsRed.getBool();
-
-            examinesLeft = examineNum;//Button
-           
+            examineNum = Mathf.RoundToInt(CustomOptionHolder.prophetNumExamines.getFloat());
+            accuracy = CustomOptionHolder.prophetAccuracy.getFloat();
+            canCallEmergency = CustomOptionHolder.prophetCanCallEmergency.getBool();
+            examinesToBeRevealed = Math.Min(examineNum, Mathf.RoundToInt(CustomOptionHolder.prophetExaminesToBeRevealed.getFloat()));
+            examinesLeft = examineNum;
+            if (arrows != null)
+            {
+                foreach (Arrow arrow in arrows)
+                    if (arrow?.arrow != null)
+                        UnityEngine.Object.Destroy(arrow.arrow);
+            }
+            arrows = new List<Arrow>();
         }
     }
+    public static class Fraudster
+    {
+        public static PlayerControl fraudster;
+        public static PlayerControl currentTarget;
+        public static Color color = new Color32(255, 165, 0, byte.MaxValue);
 
-    // Modifier
-    public static class Bait {
+        public static float cooldown = 15f;
+        
+        private static Sprite buttonSprite;
+        public static Sprite getButtonSprite()
+        {
+            if (buttonSprite) return buttonSprite;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SuicideButton.png", 115f);
+            return buttonSprite;
+        }
+
+        public static void clearAndReload()
+        {
+            Fraudster.fraudster = null;
+            Fraudster.cooldown = CustomOptionHolder.fraudstercooldown.getFloat();
+            
+        }
+
+    }
+
+        // Modifier
+        public static class Bait {
         public static List<PlayerControl> bait = new List<PlayerControl>();
         public static Dictionary<DeadPlayer, float> active = new Dictionary<DeadPlayer, float>();
         public static Color color = new Color32(0, 247, 255, byte.MaxValue);
@@ -1992,13 +2022,12 @@ namespace TheOtherRoles
     public static class Lighterln
     {
         public static List<PlayerControl> lighterln = new List<PlayerControl>();
-        public static float vision = 1 + 9;
-        public static bool hasImpostorVision;
+        public static float vision = 2;
 
         public static void clearAndReload()
         {
             lighterln.Clear();
-            
+            lighterln = new List<PlayerControl>();
         }
     }
     public static class Mini {

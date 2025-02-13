@@ -22,13 +22,13 @@ namespace TheOtherRoles.Patches {
             __instance.SetGameMode(GameModes.Normal);
             CustomGamemodes gm = (CustomGamemodes)((int) mode - 2);
             if (gm == CustomGamemodes.Guesser) {
-                __instance.GameModeText.text = "isGuesserGm".Translate();
+                __instance.GameModeText.text = "CreateGameModeText1".Translate();
                 TORMapOptions.gameMode = CustomGamemodes.Guesser;
             } else if (gm == CustomGamemodes.HideNSeek) {
-                __instance.GameModeText.text = "isHideNSeekGM".Translate();
+                __instance.GameModeText.text = "CreateGameModeText2".Translate();
                 TORMapOptions.gameMode = CustomGamemodes.HideNSeek;
             } else if (gm == CustomGamemodes.PropHunt) {
-                __instance.GameModeText.text = "isPropHuntGM".Translate();
+                __instance.GameModeText.text = "CreateGameModeText3".Translate();
                 TORMapOptions.gameMode = CustomGamemodes.PropHunt;
             }
             return false;
@@ -38,12 +38,12 @@ namespace TheOtherRoles.Patches {
         [HarmonyPatch(typeof(CreateOptionsPicker), nameof(CreateOptionsPicker.Refresh))]
         public static void Postfix(CreateOptionsPicker __instance) {
             if (TORMapOptions.gameMode == CustomGamemodes.Guesser) {
-                __instance.GameModeText.text = "isGuesserGm".Translate();
+                __instance.GameModeText.text = "CreateGameModeText1".Translate();
             }
             else if (TORMapOptions.gameMode == CustomGamemodes.HideNSeek) {
-                __instance.GameModeText.text = "isHideNSeekGM".Translate();
+                __instance.GameModeText.text = "CreateGameModeText2".Translate();
             } else if (TORMapOptions.gameMode == CustomGamemodes.PropHunt) {
-                __instance.GameModeText.text = "isPropHuntGM".Translate();
+                __instance.GameModeText.text = "CreateGameModeText3".Translate();
             }
         }
     }
@@ -65,9 +65,9 @@ namespace TheOtherRoles.Patches {
                     if (i <= 2)
                         chatLanguageButton.Text.text = DestroyableSingleton<TranslationController>.Instance.GetString(GameModesHelpers.ModeToName[entry], new Il2CppReferenceArray<Il2CppSystem.Object>(0));
                     else {
-                        chatLanguageButton.Text.text = i == 3 ? "isGuesserGm".Translate() : "isHideNSeekGM".Translate();
+                        chatLanguageButton.Text.text = i == 3 ? "CreateGameModeText1".Translate() : "CreateGameModeText2".Translate();
                         if (i == 5)
-                            chatLanguageButton.Text.text = "isPropHuntGM".Translate();
+                            chatLanguageButton.Text.text = "CreateGameModeText3".Translate();
                     }
                     chatLanguageButton.Button.OnClick.RemoveAllListeners();
                     chatLanguageButton.Button.OnClick.AddListener((System.Action)delegate {

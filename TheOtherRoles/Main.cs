@@ -25,7 +25,7 @@ using static TheOtherRoles.Modules.ModUpdater;
 
 namespace TheOtherRoles
 {
-    [BepInPlugin(Id, "The Other Roles", TORRVersionString)]
+    [BepInPlugin(Id, "The Other Roles Rework", TORRVersionString)]
     [BepInDependency(SubmergedCompatibility.SUBMERGED_GUID, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInProcess("Among Us.exe")]
     [ReactorModFlags(Reactor.Networking.ModFlags.RequireOnAllClients)]
@@ -33,8 +33,8 @@ namespace TheOtherRoles
     public class TheOtherRolesPlugin : BasePlugin
     {
         public const string Id = "me.eisbison.theotherroles";
-        public const string VersionString = "4.6.0";
-        public const string TORRVersionString = "1.0.3";
+        //public const string VersionString = "4.6.0";
+        public const string TORRVersionString = "1.0.3.1";
         public static uint betaDays = 0;  // amount of days for the build to be usable (0 for infinite!)
 
         public static Version Version = Version.Parse(TORRVersionString);
@@ -57,6 +57,8 @@ namespace TheOtherRoles
         public static ConfigEntry<bool> ShowVentsOnMap { get; set; }
         public static ConfigEntry<bool> ShowChatNotifications { get; set; }
 
+        public static ConfigEntry<bool> ShowFPS { get; set; }
+ 
         public static ConfigEntry<string> Ip { get; set; }
         public static ConfigEntry<ushort> Port { get; set; }
         public static ConfigEntry<string> ShowPopUpVersion { get; set; }
@@ -102,6 +104,7 @@ namespace TheOtherRoles
             _ = Helpers.checkBeta(); // Exit if running an expired beta
             _ = Patches.CredentialsPatch.MOTD.loadMOTDs();
 
+
             DebugMode = Config.Bind("Custom", ModTranslation.GetString("DebugMode"), "false");
             GhostsSeeInformation = Config.Bind("Custom", "鬼魂可见剩余任务数量", true);
             GhostsSeeRoles = Config.Bind("Custom", "鬼魂可见职业", true);
@@ -114,9 +117,11 @@ namespace TheOtherRoles
             ShowPopUpVersion = Config.Bind("Custom", "启用多服装模式", "0");
             ShowVentsOnMap = Config.Bind("Custom", "在小地图上显示通风口位置", false);
             ShowChatNotifications = Config.Bind("Custom", "显示聊天通知", true);
+            ShowFPS = Config.Bind("Custom", "显示帧率", true);
+ 
 
-            Ip = Config.Bind("Custom", "自定义服务器IP", "127.0.0.1");
-            Port = Config.Bind("Custom", "自定义服务器Port", (ushort)22023);
+            Ip = Config.Bind("自定义", "自定义服务器IP", "127.0.0.1");
+            Port = Config.Bind("自定义", "自定义服务器Port", (ushort)22023);
             defaultRegions = ServerManager.DefaultRegions;
             // Removes vanilla Servers
             ServerManager.DefaultRegions = new Il2CppReferenceArray<IRegionInfo>(new IRegionInfo[0]);
@@ -124,8 +129,7 @@ namespace TheOtherRoles
 
             DebugMode = Config.Bind("自定义", "Enable Debug Mode", "false");
             Harmony.PatchAll();
-
-           
+            
             CustomOptionHolder.Load();
             CustomColors.Load();
             CustomHatManager.LoadHats();

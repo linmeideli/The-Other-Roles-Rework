@@ -22,8 +22,7 @@ using TheOtherRoles.Modules;
 
 namespace TheOtherRoles {
     public class CustomOption {
-        public enum CustomOptionType
-        {
+        public enum CustomOptionType {
             General,
             Impostor,
             Neutral,
@@ -55,8 +54,7 @@ namespace TheOtherRoles {
 
         // Option creation
 
-        public CustomOption(int id, CustomOptionType type, string name, System.Object[] selections, System.Object defaultValue, CustomOption parent, bool isHeader, Action onChange = null, string heading = "")
-        {
+        public CustomOption(int id, CustomOptionType type, string name,  System.Object[] selections, System.Object defaultValue, CustomOption parent, bool isHeader, Action onChange = null, string heading = "") {
             this.id = id;
             this.name = parent == null ? name : "- " + name;
             this.selections = selections;
@@ -68,30 +66,26 @@ namespace TheOtherRoles {
             this.onChange = onChange;
             this.heading = heading;
             selection = 0;
-            if (id != 0)
-            {
+            if (id != 0) {
                 entry = TheOtherRolesPlugin.Instance.Config.Bind($"Preset{preset}", id.ToString(), defaultSelection);
                 selection = Mathf.Clamp(entry.Value, 0, selections.Length - 1);
             }
             options.Add(this);
         }
 
-        public static CustomOption Create(int id, CustomOptionType type, string name, string[] selections, CustomOption parent = null, bool isHeader = false, Action onChange = null, string heading = "")
-        {
+        public static CustomOption Create(int id, CustomOptionType type, string name, string[] selections, CustomOption parent = null, bool isHeader = false, Action onChange = null, string heading = "") {
             return new CustomOption(id, type, name, selections, "", parent, isHeader, onChange, heading);
         }
 
-        public static CustomOption Create(int id, CustomOptionType type, string name, float defaultValue, float min, float max, float step, CustomOption parent = null, bool isHeader = false, Action onChange = null, string heading = "")
-        {
+        public static CustomOption Create(int id, CustomOptionType type, string name, float defaultValue, float min, float max, float step, CustomOption parent = null, bool isHeader = false, Action onChange = null, string heading = "") {
             List<object> selections = new();
             for (float s = min; s <= max; s += step)
                 selections.Add(s);
             return new CustomOption(id, type, name, selections.ToArray(), defaultValue, parent, isHeader, onChange, heading);
         }
 
-        public static CustomOption Create(int id, CustomOptionType type, string name, bool defaultValue, CustomOption parent = null, bool isHeader = false, Action onChange = null, string heading = "")
-        {
-            return new CustomOption(id, type, name, new string[] { "optionOff".Translate(), "optionOn".Translate() }, defaultValue ? "optionOn".Translate() : "optionOff".Translate(), parent, isHeader, onChange, heading);
+        public static CustomOption Create(int id, CustomOptionType type, string name, bool defaultValue, CustomOption parent = null, bool isHeader = false, Action onChange = null, string heading = "") {
+            return new CustomOption(id, type, name, new string[]{ "optionOff".Translate(), "optionOn".Translate() }, defaultValue ? "optionOn".Translate() : "optionOff".Translate(), parent, isHeader, onChange, heading);
         }
 
         // Static behaviour
@@ -302,7 +296,7 @@ namespace TheOtherRoles {
                 ShareOptionSelections();
                 if (TheOtherRolesPlugin.Version > versionInfo && versionInfo < Version.Parse(TheOtherRolesPlugin.TORRVersionString)) {
                     vanillaOptionsFine = false;
-                    FastDestroyableSingleton<HudManager>.Instance.Chat.AddChat(PlayerControl.LocalPlayer, "HOST: Failed to apply the original settings, TORR settings have been applied!");
+                    FastDestroyableSingleton<HudManager>.Instance.Chat.AddChat(PlayerControl.LocalPlayer, "房主信息: 应用原版设置失败，TORR设置已应用！");
                 } else {
                     vanillaSettings.Value = vanillaSettingsSub;
                     vanillaOptionsFine = loadVanillaOptions();
@@ -310,7 +304,7 @@ namespace TheOtherRoles {
             } catch (Exception e) {
                 TheOtherRolesPlugin.Logger.LogWarning($"{e}: tried to paste invalid settings!\n{allSettings}");
                 string errorStr = allSettings.Length > 2 ? allSettings.Substring(0, 3) : "(empty clipboard) ";
-                FastDestroyableSingleton<HudManager>.Instance.Chat.AddChat(PlayerControl.LocalPlayer, $"HOST: Preset ERROR: \"{errorStr}...\"");
+                FastDestroyableSingleton<HudManager>.Instance.Chat.AddChat(PlayerControl.LocalPlayer, $"房主信息: 错误预设: \"{errorStr}...\"");
                 SoundEffectsManager.Load();
                 SoundEffectsManager.play("fail");
             }
@@ -1021,47 +1015,47 @@ namespace TheOtherRoles {
                 maxPage = 2;
                 switch (counter) {
                     case 0:// 翻译不动了自己滚过来搞
-                        hudString += (!hideExtras ? "" : "pahideNSeekPage1".Translate()) + buildOptionsOfType(CustomOption.CustomOptionType.HideNSeekMain, false);
+                        hudString += (!hideExtras ? "" : "page1".Translate()) + buildOptionsOfType(CustomOption.CustomOptionType.HideNSeekMain, false);
                         break;
                     case 1:
-                        hudString += "hideNSeekPage2".Translate() + buildOptionsOfType(CustomOption.CustomOptionType.HideNSeekRoles, false);
+                        hudString += "Page 2: Hide N Seek Role Settings \n\n" + buildOptionsOfType(CustomOption.CustomOptionType.HideNSeekRoles, false);
                         break;
                 }
             } else if (TORMapOptions.gameMode == CustomGamemodes.PropHunt) {
                 maxPage = 1;
                 switch (counter) {
                     case 0:
-                        hudString += "PropHuntPage".Translate() + buildOptionsOfType(CustomOption.CustomOptionType.PropHunt, false);
+                        hudString += "Page 1: Prop Hunt Settings \n\n" + buildOptionsOfType(CustomOption.CustomOptionType.PropHunt, false);
                         break;
                 }
             } else {
                 maxPage = 7;
                 switch (counter) {
                     case 0:
-                        hudString += (!hideExtras ? "" : "page1".Translate()) + vanillaSettings;
+                        hudString += (!hideExtras ? "" : "Page 1: Vanilla Settings \n\n") + vanillaSettings;
                         break;
                     case 1:
-                        hudString += "page2".Translate() + buildOptionsOfType(CustomOption.CustomOptionType.General, false);
+                        hudString += "Page 2: The Other Roles Settings \n" + buildOptionsOfType(CustomOption.CustomOptionType.General, false);
                         break;
                     case 2:
-                        hudString += "page3".Translate() + buildRoleOptions();
+                        hudString += "Page 3: Role and Modifier Rates \n" + buildRoleOptions();
                         break;
                     case 3:
-                        hudString += "page4".Translate() + buildOptionsOfType(CustomOption.CustomOptionType.Impostor, false);
+                        hudString += "Page 4: Impostor Role Settings \n" + buildOptionsOfType(CustomOption.CustomOptionType.Impostor, false);
                         break;
                     case 4:
-                        hudString += "page5".Translate() + buildOptionsOfType(CustomOption.CustomOptionType.Neutral, false);
+                        hudString += "Page 5: Neutral Role Settings \n" + buildOptionsOfType(CustomOption.CustomOptionType.Neutral, false);
                         break;
                     case 5:
-                        hudString += "page6".Translate() + buildOptionsOfType(CustomOption.CustomOptionType.Crewmate, false);
+                        hudString += "Page 6: Crewmate Role Settings \n" + buildOptionsOfType(CustomOption.CustomOptionType.Crewmate, false);
                         break;
                     case 6:
-                        hudString += "page7".Translate() + buildOptionsOfType(CustomOption.CustomOptionType.Modifier, false);
+                        hudString += "Page 7: Modifier Settings \n" + buildOptionsOfType(CustomOption.CustomOptionType.Modifier, false);
                         break;
                 }
             }
 
-            if (!hideExtras || counter != 0) hudString += "pressTabForMore".Translate();// $"\n Press TAB or Page Number for more... ({counter + 1}/{maxPage})";
+            if (!hideExtras || counter != 0) hudString += $"\n Press TAB or Page Number for more... ({counter + 1}/{maxPage})";
             return hudString;
         }
 

@@ -24,13 +24,13 @@ namespace TheOtherRoles.Modules
             var ZipBundleStream = AssetBundle.LoadFromMemory(resourceAudioZipBundleStream.ReadFully());
             var ZipBundleStream2 = AssetBundle.LoadFromMemory(resourceAudioZipBundleStream2.ReadFully());
             var ZipBundleStream3 = AssetBundle.LoadFromMemory(resourceAudioZipBundleStream3.ReadFully());
-            //音频有需要了再添加     
+   
             //Sprite
             CustomMain.customZips.RightPanelCloseButton = ZipBundleStream.LoadAsset<Sprite>("RightPanelCloseButton.png").DontUnload();
             CustomMain.customZips.Alert = ZipBundleStream.LoadAsset<Sprite>("Alert.png").DontUnload();
             CustomMain.customZips.NoAlert = ZipBundleStream.LoadAsset<Sprite>("NoAlert.png").DontUnload();
-           
-          
+
+
             CustomMain.customZips.Bomb_Button_Defuse = ZipBundleStream.LoadAsset<Sprite>("Bomb_Button_Defuse.png").DontUnload();
             CustomMain.customZips.Bomb_Button_Plant = ZipBundleStream.LoadAsset<Sprite>("Bomb_Button_Plant.png").DontUnload();
             CustomMain.customZips.Bomber = ZipBundleStream.LoadAsset<Sprite>("Bomber.png").DontUnload();
@@ -125,7 +125,7 @@ namespace TheOtherRoles.Modules
             CustomMain.customZips.vultureEat = ZipBundleStream3.LoadAsset<AudioClip>("vultureEat.ogg").DontUnload();
             CustomMain.customZips.warlockCurse = ZipBundleStream3.LoadAsset<AudioClip>("warlockCurse.ogg").DontUnload();
             CustomMain.customZips.witchSpell = ZipBundleStream3.LoadAsset<AudioClip>("witchSpell.ogg").DontUnload();
-           
+
         }
         //广告位招租 CustomMain.customZips.招租 = ZipBundleStream2/3.LoadAsset<格式>("招租.格式").DontUnload();
     }

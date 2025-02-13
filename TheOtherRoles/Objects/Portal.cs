@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using static TheOtherRoles.TheOtherRoles;
+using TheOtherRoles.Modules;
 
 namespace TheOtherRoles.Objects {
 
@@ -48,12 +49,12 @@ namespace TheOtherRoles.Objects {
             firstPortal.animationFgRenderer.flipX = flip;
             secondPortal.animationFgRenderer.flipX = flip;
             if (Morphling.morphling != null && Morphling.morphTimer > 0) playerControl = Morphling.morphTarget;  // Will output info of morph-target instead
-            string playerNameDisplay = Portalmaker.logOnlyHasColors ? "A player (" + (Helpers.isLighterColor(playerControl) ? "L" : "D") + ")" : playerControl.Data.PlayerName;
+            string playerNameDisplay = Portalmaker.logOnlyHasColors ? $"{ModTranslation.GetString("PortalAPlayer")} (" + (Helpers.isLighterColor(playerControl) ? "L" : "D") + ")" : playerControl.Data.PlayerName;
 
             int colorId = playerControl.Data.DefaultOutfit.ColorId;
 
             if (Camouflager.camouflageTimer > 0 || Helpers.MushroomSabotageActive()) {
-                playerNameDisplay = "A camouflaged player";
+                playerNameDisplay = "ACamoPlayer".Translate();
                 colorId = 6;
             }
             

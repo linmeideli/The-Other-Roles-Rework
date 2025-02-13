@@ -8,6 +8,7 @@ using Hazel;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using TheOtherRoles.CustomGameModes;
+using TheOtherRoles.Modules;
 
 namespace TheOtherRoles.Patches {
     [HarmonyPatch(typeof(IntroCutscene), nameof(IntroCutscene.OnDestroy))]
@@ -48,7 +49,7 @@ namespace TheOtherRoles.Patches {
                         if (HideNSeek.isHunted() && p.Data.Role.IsImpostor) {
                             player.transform.localPosition = bottomLeft + new Vector3(-0.25f, 0.4f, 0) + Vector3.right * playerCounter++ * 0.6f;
                             player.transform.localScale = Vector3.one * 0.3f;
-                            player.cosmetics.nameText.text += $"{Helpers.cs(Color.red, " (Hunter)")}";
+                            player.cosmetics.nameText.text += $"{Helpers.cs(Color.red, $" ({ModTranslation.GetString("Hunter")})")}";
                             player.gameObject.SetActive(true);
                         } else if (!p.Data.Role.IsImpostor) {
                             player.transform.localPosition = bottomLeft + new Vector3(-0.35f, -0.25f, 0) + Vector3.right * hideNSeekCounter++ * 0.35f;
@@ -178,7 +179,7 @@ namespace TheOtherRoles.Patches {
             if (roleInfo.isNeutral) {
                 var neutralColor = new Color32(76, 84, 78, 255);
                 __instance.BackgroundBar.material.color = neutralColor;
-                __instance.TeamTitle.text = "中立";
+                __instance.TeamTitle.text = "NeutralRolesText".Translate();
                 __instance.TeamTitle.color = neutralColor;
             }
         }
@@ -230,14 +231,14 @@ namespace TheOtherRoles.Patches {
                         __instance.RoleBlurbText.text += Helpers.cs(modifierInfo.color, $"\n{modifierInfo.introDescription}");
                     else {
                         PlayerControl otherLover = CachedPlayer.LocalPlayer.PlayerControl == Lovers.lover1 ? Lovers.lover2 : Lovers.lover1;
-                        __instance.RoleBlurbText.text += Helpers.cs(Lovers.color, $"\n♥ 你爱上了 {otherLover?.Data?.PlayerName ?? ""} ♥");
+                        __instance.RoleBlurbText.text += Helpers.cs(Lovers.color, $"\n"+ "anotherDecTextLover".Translate() + $" {otherLover?.Data?.PlayerName ?? ""} ");
                     }
                 }
                 if (Deputy.knowsSheriff && Deputy.deputy != null && Sheriff.sheriff != null) {
                     if (infos.Any(info => info.roleId == RoleId.Sheriff))
-                        __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color, $"\n你的捕快是 {Deputy.deputy?.Data?.PlayerName ?? ""}");
+                        __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color, $"\n"+ "anotherDecTextDeputy".Translate() + $"{Deputy.deputy?.Data?.PlayerName ?? ""}");
                     else if (infos.Any(info => info.roleId == RoleId.Deputy))
-                        __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color, $"\n你的警长是 {Sheriff.sheriff?.Data?.PlayerName ?? ""}");
+                        __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color, $"\n"+ "anotherDecTextLover".Translate() + $"{Sheriff.sheriff?.Data?.PlayerName ?? ""}");
                 }
             }
             public static bool Prefix(IntroCutscene __instance) {

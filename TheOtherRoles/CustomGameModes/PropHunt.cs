@@ -7,14 +7,15 @@ using Reactor.Utilities.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using TheOtherRoles.Patches;
-using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
 using static TheOtherRoles.Snitch;
 using static UnityEngine.GraphicsBuffer;
+
 
 namespace TheOtherRoles.CustomGameModes {
     [HarmonyPatch]
@@ -324,29 +325,29 @@ namespace TheOtherRoles.CustomGameModes {
 
         public static Sprite getUnstuckButtonSprite() {
             if (unstuckButtonSprite) return unstuckButtonSprite;
-            unstuckButtonSprite = CustomMain.customZips.UnStuck;
+            unstuckButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.UnStuck.png", 115f);
             return unstuckButtonSprite;
         }
         public static Sprite getRevealButtonSprite() {
             if (revealButtonSprite) return revealButtonSprite;
-            revealButtonSprite = CustomMain.customZips.Reveal;
+            revealButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Reveal.png", 115f);
             return revealButtonSprite;
         }
 
         public static Sprite getInvisButtonSprite() {
             if (invisButtonSprite) return invisButtonSprite;
-            invisButtonSprite = CustomMain.customZips.InvisButton;
+            invisButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.InvisButton.png", 115f);
             return invisButtonSprite;
         }
 
         public static Sprite getFindButtonSprite() {
             if (findButtonSprite) return findButtonSprite;
-            findButtonSprite = CustomMain.customZips.FindButton;
+            findButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.FindButton.png", 115f);
             return findButtonSprite;
         }
         public static Sprite getSpeedboostButtonSprite() {
             if (speedboostButtonSprite) return speedboostButtonSprite;
-            speedboostButtonSprite = CustomMain.customZips.SpeedboostButton;
+            speedboostButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SpeedboostButton.png", 115f);
             return speedboostButtonSprite;
         }
 
@@ -399,7 +400,8 @@ namespace TheOtherRoles.CustomGameModes {
 
         [HarmonyPatch(typeof(CustomNetworkTransform), nameof(CustomNetworkTransform.FixedUpdate))]
         [HarmonyPostfix]
-        public static void PostfixNetworkSpeed(CustomNetworkTransform __instance) {
+        public static void PostfixNetworkSpeed(CustomNetworkTransform __instance)
+        {
             if (__instance.AmOwner || !speedboostActive.ContainsKey(__instance.myPlayer.PlayerId)) return;
             if (GameData.Instance && __instance.myPlayer.CanMove)
                 __instance.body.velocity *= speedboostRatio;
@@ -459,20 +461,19 @@ namespace TheOtherRoles.CustomGameModes {
             })));
         }
 
+
         [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.FixedUpdate))]
         [HarmonyPostfix]
-        public static void PlayerControlFixedUpdatePatch(PlayerControl __instance)
-        {
+        public static void PlayerControlFixedUpdatePatch(PlayerControl __instance) {
             if (!PropHunt.isPropHuntGM) return;
-            if (__instance.Data.Role.IsImpostor)
-            {
-                __instance.GetComponent<CircleCollider2D>().radius = 0.2234f;
-                return;
-            }
-            if (__instance.GetComponent<SpriteRenderer>() != null || __instance.Data.IsDead) return;
+                if (__instance.Data.Role.IsImpostor) {
+                    __instance.GetComponent<CircleCollider2D>().radius = 0.2234f;
+                    return;
+                }
+                if (__instance.GetComponent<SpriteRenderer>() != null || __instance.Data.IsDead) return;
 
-            __instance.gameObject.AddComponent<SpriteRenderer>();
-            __instance.GetComponent<CircleCollider2D>().radius = 0.00001f;
+                __instance.gameObject.AddComponent<SpriteRenderer>();
+                __instance.GetComponent<CircleCollider2D>().radius = 0.00001f;
         }
 
 
@@ -561,7 +562,7 @@ namespace TheOtherRoles.CustomGameModes {
         [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.MurderPlayer))]
         [HarmonyPostfix]
         public static void MurderPlayerPostfix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl target) {
-            if (!PropHunt.isPropHuntGM || target != CachedPlayer.LocalPlayer.PlayerControl) return;
+            if (!PropHunt.isPropHuntGM || target != PlayerControl.LocalPlayer) return;
             try {
                 target.NetTransform.RpcSnapTo(__instance.transform.position);
             } catch { }
@@ -597,7 +598,7 @@ namespace TheOtherRoles.CustomGameModes {
             if (__instance.currentTarget == null) {
                 PlayerControl.LocalPlayer.SetKillTimer(killCooldownMiss);
             } else {  // There is a target, execute kill!
-                MurderAttemptResult res = Helpers.checkMurderAttemptAndKill(CachedPlayer.LocalPlayer.PlayerControl, __instance.currentTarget);
+                MurderAttemptResult res = Helpers.checkMurderAttemptAndKill(PlayerControl.LocalPlayer, __instance.currentTarget);
                 __instance.SetTarget(null);
                 PlayerControl.LocalPlayer.SetKillTimer(killCooldownHit);
             }
