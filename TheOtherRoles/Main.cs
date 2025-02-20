@@ -34,7 +34,7 @@ namespace TheOtherRoles
     {
         public const string Id = "me.eisbison.theotherroles";
         //public const string VersionString = "4.6.0";
-        public const string TORRVersionString = "1.0.3.1";
+        public const string TORRVersionString = "1.0.4";
         public static uint betaDays = 0;  // amount of days for the build to be usable (0 for infinite!)
 
         public static Version Version = Version.Parse(TORRVersionString);

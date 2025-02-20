@@ -68,6 +68,7 @@ namespace TheOtherRoles
             Bomber.clearAndReload();
             Yoyo.clearAndReload();
             Fraudster.clearAndReload();
+            Marker.clearAndReload();
 
             // Modifier
             Bait.clearAndReload();
@@ -1943,9 +1944,60 @@ namespace TheOtherRoles
         }
 
     }
+    public static class Marker
+    {
+        public static PlayerControl marker;
+        public static Color32 color = new(0, 255, 255, byte.MaxValue);
 
-        // Modifier
-        public static class Bait {
+        public static float cooldown = 25f;
+        public static float cooldown2 = 25f;
+        public static bool canCallEmergency = false;
+        public static int markNum = 3;
+        public static int markLeft;
+        public static int markLeft2;
+        public static bool markMarker = true;
+
+        public static Dictionary<PlayerControl, bool> marked = new();
+        public static Dictionary<PlayerControl, bool> marked2 = new();
+        public static PlayerControl currentTarget;
+        public static PlayerControl currentTarget2;
+        private static Sprite buttonSprite;
+
+       
+        public static Sprite getButtonSprite()
+        {
+            if (buttonSprite) return buttonSprite;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.MarkButton.png", 115f);
+            return buttonSprite;
+        }
+        public static bool isImp(PlayerControl p)
+        {
+           return (p.Data.Role.IsImpostor);
+        }
+        public static bool isNeutral(PlayerControl p)
+        {
+            return (Helpers.isNeutral(p));
+        }
+        public static bool isCrew(PlayerControl p)
+        {
+            return (!Helpers.isEvil(p));
+        }
+        public static void clearAndReload()
+        {
+            marker = null;
+            currentTarget = null;
+            currentTarget2 = null;
+            marked = new Dictionary<PlayerControl, bool>();
+            marked2 = new Dictionary<PlayerControl, bool>();
+            cooldown = CustomOptionHolder.markerCooldown.getFloat();
+            markNum = Mathf.RoundToInt(CustomOptionHolder.markerNumMarks.getFloat());
+            canCallEmergency = CustomOptionHolder.markerCanCallEmergency.getBool();
+            markLeft = markNum;
+        }
+    }
+
+    // Modifier
+    public static class Bait {
         public static List<PlayerControl> bait = new List<PlayerControl>();
         public static Dictionary<DeadPlayer, float> active = new Dictionary<DeadPlayer, float>();
         public static Color color = new Color32(0, 247, 255, byte.MaxValue);

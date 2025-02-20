@@ -399,6 +399,7 @@ namespace TheOtherRoles.Patches {
             if (Prophet.examinesLeft > 0) setPlayerOutline(Prophet.currentTarget, Prophet.color);
         }
 
+
         static void prophetUpdate()
         {
             if (Prophet.arrows == null) return;
@@ -421,6 +422,18 @@ namespace TheOtherRoles.Patches {
         {
             if (Fraudster.fraudster == null || CachedPlayer.LocalPlayer.PlayerControl != Fraudster.fraudster) return;
             Fraudster.currentTarget = setTarget();
+        }
+        static void markerSetTarget1()
+        {
+            if (Marker.marker == null || CachedPlayer.LocalPlayer.PlayerControl != Marker.marker) return;
+            Marker.currentTarget = setTarget();
+            if (Prophet.examinesLeft > 0) setPlayerOutline(Prophet.currentTarget, Prophet.color);
+        }
+        static void markerSetTarget2()
+        {
+            if (Marker.marker == null || CachedPlayer.LocalPlayer.PlayerControl != Marker.marker) return;
+            Marker.currentTarget2 = setTarget();
+            if (Prophet.examinesLeft > 0) setPlayerOutline(Prophet.currentTarget, Prophet.color);
         }
         static void trackerUpdate() {
             // Handle player tracking
@@ -1116,6 +1129,9 @@ namespace TheOtherRoles.Patches {
                 prophetUpdate();
                 //fraudster
                 FraudsterSetTarget();
+                //marker
+                markerSetTarget1();
+                markerSetTarget2();
 
                 hackerUpdate();
                 swapperUpdate();

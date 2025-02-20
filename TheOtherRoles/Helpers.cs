@@ -30,7 +30,8 @@ namespace TheOtherRoles {
         Classic,
         Guesser,
         HideNSeek,
-        PropHunt
+        PropHunt,
+        Score
     }
     public static class Helpers
     {

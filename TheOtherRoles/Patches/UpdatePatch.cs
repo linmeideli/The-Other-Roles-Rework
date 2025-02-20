@@ -9,6 +9,7 @@ using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using TheOtherRoles.CustomGameModes;
 using AmongUs.GameOptions;
+using static TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.Patches
 {
@@ -108,6 +109,76 @@ namespace TheOtherRoles.Patches
                         setPlayerNameColor(p.Key, p.Value ? Palette.ImpostorRed : Color.green);
                     }
                 }
+            }
+            else if (Marker.marker != null && Marker.marker == localPlayer)
+            {
+                    setPlayerNameColor(Marker.marker, Marker.color);
+                if (MeetingHud.Instance != null)
+                {
+                    if (Marker.marked != null && !localPlayer.Data.IsDead) // Reset the name tags when Prophet is dead
+                    {
+                        foreach (var p in Marker.marked)
+                        {
+                            
+                            if (Marker.currentTarget.Data.Role.IsImpostor)
+                            {
+                                if (Marker.currentTarget2.Data.Role.IsImpostor)
+                                {
+                                    setPlayerNameColor(Marker.currentTarget, Color.green);
+                                    setPlayerNameColor(Marker.currentTarget2, Color.green);
+                                }
+                                if (Helpers.isNeutral(Marker.currentTarget2))
+                                {
+                                    setPlayerNameColor(Marker.currentTarget, Color.red);
+                                    setPlayerNameColor(Marker.currentTarget2, Color.red);
+                                }
+                                if (!Helpers.isNeutral(Marker.currentTarget2) && !Marker.currentTarget2.Data.Role.IsImpostor)
+                                {
+                                    setPlayerNameColor(Marker.currentTarget, Color.red);
+                                    setPlayerNameColor(Marker.currentTarget2, Color.red);
+                                }
+                            }
+                            if (Helpers.isNeutral(Marker.currentTarget))
+                            {
+                                if (Marker.currentTarget2.Data.Role.IsImpostor)
+                                {
+                                    setPlayerNameColor(Marker.currentTarget, Color.red);
+                                    setPlayerNameColor(Marker.currentTarget2, Color.red);
+                                }
+                                if (Helpers.isNeutral(Marker.currentTarget2))
+                                {
+                                    setPlayerNameColor(Marker.currentTarget, Color.green);
+                                    setPlayerNameColor(Marker.currentTarget2, Color.green);
+                                }
+                                if (!Helpers.isNeutral(Marker.currentTarget2) && !Marker.currentTarget2.Data.Role.IsImpostor)
+                                {
+                                    setPlayerNameColor(Marker.currentTarget, Color.red);
+                                    setPlayerNameColor(Marker.currentTarget2, Color.red);
+                                }
+                            }
+                            if (!Helpers.isNeutral(Marker.currentTarget) && !Marker.currentTarget.Data.Role.IsImpostor)
+                            {
+                                if (Marker.currentTarget2.Data.Role.IsImpostor)
+                                {
+                                    setPlayerNameColor(Marker.currentTarget, Color.red);
+                                    setPlayerNameColor(Marker.currentTarget2, Color.red);
+                                }
+                                if (Helpers.isNeutral(Marker.currentTarget2))
+                                {
+                                    setPlayerNameColor(Marker.currentTarget, Color.red);
+                                    setPlayerNameColor(Marker.currentTarget2, Color.red);
+                                }
+                                if (!Helpers.isNeutral(Marker.currentTarget2) && !Marker.currentTarget2.Data.Role.IsImpostor)
+                                {
+                                    setPlayerNameColor(Marker.currentTarget, Color.green);
+                                    setPlayerNameColor(Marker.currentTarget2, Color.green);
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                    
             }
             /*else if (Portalmaker.portalmaker != null && Portalmaker.portalmaker == localPlayer)
                 setPlayerNameColor(Portalmaker.portalmaker, Portalmaker.color);

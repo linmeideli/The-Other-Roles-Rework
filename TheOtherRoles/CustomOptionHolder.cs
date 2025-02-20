@@ -298,7 +298,10 @@ namespace TheOtherRoles
 			CustomOptionHolder.prophetCanCallEmergency = CustomOption.Create(9007, CustomOption.CustomOptionType.Crewmate, "prophetCanCallEmergency".Translate(), false, CustomOptionHolder.prophetSpawnRate, false, null, "");
 			CustomOptionHolder.prophetIsRevealed = CustomOption.Create(9012, CustomOption.CustomOptionType.Crewmate, "prophetIsRevealed".Translate(), true, CustomOptionHolder.prophetSpawnRate, false, null, "");
 			CustomOptionHolder.prophetExaminesToBeRevealed = CustomOption.Create(9008, CustomOption.CustomOptionType.Crewmate, "prophetExaminesToBeRevealed".Translate(), 3f, 1f, 10f, 1f, CustomOptionHolder.prophetIsRevealed, false, null, "");
-			CustomOptionHolder.prophetAccuracy = CustomOption.Create(9009, CustomOption.CustomOptionType.Crewmate, "prophetAccuracy".Translate(), 30f, 0f, 100f, 10f, CustomOptionHolder.prophetSpawnRate, false, null, "");
+            CustomOptionHolder.markerSpawnRate = CustomOption.Create(9005, CustomOption.CustomOptionType.Crewmate, CustomOptionHolder.cs(Marker.color, "markerSpawnRate".Translate()), CustomOptionHolder.rates, null, true, null, "");
+            CustomOptionHolder.markerCooldown = CustomOption.Create(25585, CustomOption.CustomOptionType.Crewmate, "markerCooldown".Translate(), 30f, 5f, 60f, 1f, CustomOptionHolder.prophetSpawnRate, false, null, "");
+            CustomOptionHolder.markerNumMarks = CustomOption.Create(25586, CustomOption.CustomOptionType.Crewmate, "markerNumMarks".Translate(), 4f, 1f, 10f, 1f, CustomOptionHolder.prophetSpawnRate, false, null, "");
+            CustomOptionHolder.markerCanCallEmergency = CustomOption.Create(25587, CustomOption.CustomOptionType.Crewmate, "markerCanCallEmergency".Translate(), false, CustomOptionHolder.prophetSpawnRate, false, null, "");
 			CustomOptionHolder.thiefSpawnRate = CustomOption.Create(400, CustomOption.CustomOptionType.Neutral, CustomOptionHolder.cs(Thief.color, ModTranslation.GetString("Thief", null)), CustomOptionHolder.rates, null, true, null, "");
 			CustomOptionHolder.thiefCooldown = CustomOption.Create(401, CustomOption.CustomOptionType.Neutral, ModTranslation.GetString("thiefCooldown", null), 30f, 5f, 120f, 5f, CustomOptionHolder.thiefSpawnRate, false, null, "");
 			CustomOptionHolder.thiefCanKillSheriff = CustomOption.Create(402, CustomOption.CustomOptionType.Neutral, ModTranslation.GetString("thiefCanKillSheriff", null), true, CustomOptionHolder.thiefSpawnRate, false, null, "");
@@ -1240,8 +1243,19 @@ namespace TheOtherRoles
 		// Token: 0x04000197 RID: 407
 		public static CustomOption prophetExaminesToBeRevealed;
 
-		// Token: 0x04000198 RID: 408
-		public static CustomOption fraudsterSpawnRate;
+        public static CustomOption markerSpawnRate;
+
+        // Token: 0x04000192 RID: 402
+        public static CustomOption markerCooldown;
+
+        // Token: 0x04000193 RID: 403
+        public static CustomOption markerNumMarks;
+
+        // Token: 0x04000195 RID: 405
+        public static CustomOption markerCanCallEmergency;
+
+        // Token: 0x04000198 RID: 408
+        public static CustomOption fraudsterSpawnRate;
 
 		// Token: 0x04000199 RID: 409
 		public static CustomOption fraudstercooldown;

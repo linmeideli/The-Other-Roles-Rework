@@ -20,6 +20,7 @@ namespace TheOtherRoles.Modules
         private static AnnouncementPopUp popUp;
         private static GameObject CreditsButton;
         private static GameObject QQButton;
+        private static GameObject DiscordButton;
         public static MainMenuManager Instance { get; private set; }
 
         public static void addSceneChangeCallbacks()
@@ -67,12 +68,23 @@ namespace TheOtherRoles.Modules
                     TORMapOptions.gameMode = CustomGamemodes.PropHunt;
                     template.OnClick();
                 }));
+                /*var ScoreButton = GameObject.Instantiate<Transform>(gameButton, gameButton.parent);
+                ScoreButton.transform.localPosition += new Vector3(3.4f, 0f);
+                var ScoreButtonText = ScoreButton.GetComponentInChildren<TMPro.TextMeshPro>();
+                var ScoreButtonPassiveButton = ScoreButton.GetComponentInChildren<PassiveButton>();
+                ScoreButtonPassiveButton.OnClick = new Button.ButtonClickedEvent();
+                ScoreButtonPassiveButton.OnClick.AddListener((System.Action)(() =>
+                {
+                    TORMapOptions.gameMode = CustomGamemodes.Score;//Big Life
+                    template.OnClick();
+                }));
                 template.StartCoroutine(Effects.Lerp(0.1f, new System.Action<float>((p) =>
                 {
                     guesserButtonText.SetText(ModTranslation.GetString("CreateGameModeText1"),true);
                     HideNSeekButtonText.SetText(ModTranslation.GetString("CreateGameModeText2"), true);
                     PropHuntButtonText.SetText(ModTranslation.GetString("CreateGameModeText3"), true);
-                })));
+                    ScoreButtonText.SetText(ModTranslation.GetString("CreateGameModeText4"), true);
+                })));*/
             }));
         }
         [HarmonyPatch(typeof(MainMenuManager), nameof(MainMenuManager.Start)), HarmonyPostfix]
@@ -121,10 +133,10 @@ namespace TheOtherRoles.Modules
 
                 popUp.gameObject.SetActive(true);
                 string creditsString = @$"<align=""center"">Contributors:
-ELinmei,FangKuai
+ELinmei
 
 
-<b>Special thanks ksduye</b>
+<b>Special thanks ksduye & FangKuai</b>
 
 ";
                 creditsString += $@"<size=60%> Other Credits & Resources:
@@ -151,7 +163,7 @@ TheEpicRoles - Idea for the first kill shield (partly) and the tabbed option men
 TheOtherUs(Spex) - Some codes
 TheOtherRoles-GMIA(Imp11) - Some codes
 TheOtherUs-Edited(mxyx-club) - Some codes
-TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes/size>";
+TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes</size>";
                 creditsString += "</align>";
                 Assets.InnerNet.Announcement creditsAnnouncement = new()
                 {
@@ -185,14 +197,15 @@ TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes/size>";
             if (QQButton == null) QQButton = CreatButton("QQ", () => Application.OpenURL("https://qm.qq.com/cgi-bin/qm/qr?authKey=Dn8MKDZAadw0VHyaPg43rRuSNIK9fOpzmI%2BfZA1%2F6%2BCx2QpqZH1vzHlB6QwVKv3Q&k=qDktOeGaUnZHnx0_U6kBoQ9d0ip8_Myp&noverify=0"));
             QQButton.gameObject.SetActive(true);
             QQButton.name = "QQ";
-            PassiveButton passiveDiscordButton = QQButton.GetComponent<PassiveButton>();
-            SpriteRenderer SpriteDiscordButton = QQButton.transform.FindChild("Inactive").GetComponent<SpriteRenderer>();
+            PassiveButton passiveQQButton = QQButton.GetComponent<PassiveButton>();
+            SpriteRenderer SpriteQQButton = QQButton.transform.FindChild("Inactive").GetComponent<SpriteRenderer>();
             Color QQColor = new Color(0.317f, 0, 1, 0.8f);
-            SpriteDiscordButton.color = QQColor;
-            passiveDiscordButton.OnMouseOut.AddListener((System.Action)delegate
+            SpriteQQButton.color = QQColor;
+            passiveQQButton.OnMouseOut.AddListener((System.Action)delegate
             {
-                SpriteDiscordButton.color = QQColor;
+                SpriteQQButton.color = QQColor;
             });
+
         }
     }
     [HarmonyPatch(typeof(VersionShower), nameof(VersionShower.Start))]
@@ -203,7 +216,7 @@ TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes/size>";
         private static TextMeshPro VisitText;
         private static void Postfix(VersionShower __instance)
         {
-            string credentialsText = "<color=#BBFFFF>XtremeWave © 2025</color> - <color=#00ffff>ELinmei</color>";
+            string credentialsText = "<color=#CCFFFF>XtremeWave</color> © 2025 - <color=#00ffff>ELinmei</color>";
             credentialsText += "\t\t\t";
             string versionText = $"<color=#8470FF>TORR</color></color> - {TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
             credentialsText += versionText;
