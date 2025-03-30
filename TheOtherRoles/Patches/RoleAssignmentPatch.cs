@@ -38,10 +38,10 @@ namespace TheOtherRoles.Patches
         }
     }
 
-    [HarmonyPatch(typeof(GameOptionsData), nameof(GameOptionsData.Validate))]
+    [HarmonyPatch(typeof(LegacyGameOptions), nameof(LegacyGameOptions.Validate))]
     class GameOptionsDataValidatePatch
     {
-        public static void Postfix(GameOptionsData __instance)
+        public static void Postfix(LegacyGameOptions __instance)
         {
             if (TORMapOptions.gameMode == CustomGamemodes.HideNSeek || GameOptionsManager.Instance.CurrentGameOptions.GameMode != GameModes.Normal) return;
             if (TORMapOptions.gameMode == CustomGamemodes.PropHunt)
@@ -60,13 +60,12 @@ namespace TheOtherRoles.Patches
         public static bool isGuesserGamemode { get { return TORMapOptions.gameMode == CustomGamemodes.Guesser; } }
         public static void Postfix()
         {
-            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.ResetVaribles, Hazel.SendOption.Reliable, -1);
+            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.ResetVaribles, Hazel.SendOption.Reliable, -1);
             AmongUsClient.Instance.FinishRpcImmediately(writer);
             RPCProcedure.resetVariables();
             if (TORMapOptions.gameMode == CustomGamemodes.HideNSeek || TORMapOptions.gameMode == CustomGamemodes.PropHunt || GameOptionsManager.Instance.currentGameOptions.GameMode == GameModes.HideNSeek) return; // Don't assign Roles in Hide N Seek
             assignRoles();
         }
-
 
         private static void assignRoles()
         {
@@ -164,7 +163,6 @@ namespace TheOtherRoles.Patches
             crewSettings.Add((byte)RoleId.Medium, CustomOptionHolder.mediumSpawnRate.getSelection());
             crewSettings.Add((byte)RoleId.Trapper, CustomOptionHolder.trapperSpawnRate.getSelection());
             crewSettings.Add((byte)RoleId.Prophet, CustomOptionHolder.prophetSpawnRate.getSelection());
-            crewSettings.Add((byte)RoleId.Marker, CustomOptionHolder.markerSpawnRate.getSelection());
             if (impostors.Count > 1)
             {
                 // Only add Spy if more than 1 impostor as the spy role is otherwise useless

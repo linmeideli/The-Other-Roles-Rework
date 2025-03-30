@@ -4,6 +4,8 @@ using System.Linq;
 using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using Hazel;
+using AmongUs.Data;
+using InnerNet;
 
 namespace TheOtherRoles.Modules {
     [HarmonyPatch]
@@ -108,6 +110,27 @@ namespace TheOtherRoles.Modules {
             public static void Postfix(HudManager __instance) {
                 if (!__instance.Chat.isActiveAndEnabled && (AmongUsClient.Instance.NetworkMode == NetworkModes.FreePlay || (CachedPlayer.LocalPlayer.PlayerControl.isLover() && Lovers.enableChat)))
                     __instance.Chat.SetVisible(true);
+            }
+        }
+        public static class ChatControllerAwakePatch
+        {
+            public static void Prefix()
+            {
+                DataManager.Settings.Multiplayer.ChatMode = QuickChatModes.FreeChatOrQuickChat;
+            }
+            public static void Postfix(ChatController __instance)
+            {
+                DataManager.Settings.Multiplayer.ChatMode = QuickChatModes.FreeChatOrQuickChat;
+
+                if (UnityEngine.Input.GetKeyDown(ModInputManager.toggleChat.keyCode))
+                {
+                    if (!__instance.isActiveAndEnabled) return;
+                    __instance.Toggle();
+                }
+                if (__instance.IsOpenOrOpening)
+                {
+                    __instance.banButton.MenuButton.enabled = !__instance.IsAnimating;
+                }
             }
         }
 

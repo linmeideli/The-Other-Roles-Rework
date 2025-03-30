@@ -32,12 +32,13 @@ public class ModInputManager
         private readonly ConfigEntry<int> config;
         public KeyCode keyCode { get; private set; }
         private readonly KeyCode defaultKeyCode;
+        public static TheOtherRolesPlugin Instance;
 
         public ModInput(string identifier, KeyCode defaultKeyCode)
         {
             this.identifier = identifier;
             this.defaultKeyCode = defaultKeyCode;
-            config = TheOtherRolesPlugin.Instance.Config.Bind($"KeyBinding", identifier, (int)defaultKeyCode);
+            config = Instance.Config.Bind($"KeyBinding", identifier, (int)defaultKeyCode);
             keyCode = (KeyCode)config.Value;
             allInputs.Add(this);
         }

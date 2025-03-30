@@ -42,7 +42,6 @@ namespace TheOtherRoles
         Vampire,
         Snitch,
         Prophet,
-        Marker,
         Jackal,
         Sidekick,
         Eraser,
@@ -150,7 +149,7 @@ namespace TheOtherRoles
         ThiefStealsRole,
         SetTrap,
         TriggerTrap,
-        MayorSetVoteTwice,
+         MayorSetVoteTwice,
         PlaceBomb,
         DefuseBomb,
         ShareRoom,
@@ -158,8 +157,6 @@ namespace TheOtherRoles
         YoyoBlink,
         ProphetExamine,
         SerialKillerSuicide,
-        MarkerMark,
-        MarkerMark2,
 
         // Gamemode
         SetGuesserGm,
@@ -329,10 +326,7 @@ namespace TheOtherRoles
                         Snitch.snitch = player;
                         break;
                     case RoleId.Prophet:
-                        Prophet.prophet = player;
-                        break;
-                    case RoleId.Marker:
-                        Marker.marker = player;
+                            Prophet.prophet = player;
                         break;
                         case RoleId.Jackal:
                         Jackal.jackal = player;
@@ -712,29 +706,6 @@ namespace TheOtherRoles
             if ((Prophet.examineNum - Prophet.examinesLeft >= Prophet.examinesToBeRevealed) && Prophet.revealProphet) Prophet.isRevealed = true;
         }
 
-        public static void MarkerMark(byte targetId)
-        {
-            var target = Helpers.playerById(targetId);
-            if (target == null) return;
-            if (Marker.marked.ContainsKey(target)) Marker.marked.Remove(target);
-            Marker.marked.Add(target, Marker.isImp(target));
-            Marker.marked.Add(target, Marker.isCrew(target));
-            Marker.marked.Add(target, Marker.isNeutral(target));
-            if (MarkerMark2 == MarkerMark) return;
-            Marker.markLeft--;
-        }
-        public static void MarkerMark2(byte targetId)
-        {
-            var target2 = Helpers.playerById(targetId);
-            if (target2 == null) return;
-            if (Marker.marked2.ContainsKey(target2)) Marker.marked2.Remove(target2);
-            Marker.marked2.Add(target2, Marker.isImp(target2));
-            Marker.marked2.Add(target2, Marker.isCrew(target2));
-            Marker.marked2.Add(target2, Marker.isNeutral(target2));
-            if (MarkerMark2 == MarkerMark) return;
-            Marker.markLeft2--;
-        }
-
         public static void serialKillerSuicide(byte fraudsterId)
         {
             PlayerControl fraudster = Helpers.playerById(fraudsterId);
@@ -759,6 +730,12 @@ namespace TheOtherRoles
         }
 
         public static void deputyUsedHandcuffs(byte targetId)
+        {
+            Deputy.remainingHandcuffs--;
+            Deputy.handcuffedPlayers.Add(targetId);
+        }
+
+        public static void devilIntimidate(byte targetId)
         {
             Deputy.remainingHandcuffs--;
             Deputy.handcuffedPlayers.Add(targetId);
@@ -839,8 +816,6 @@ namespace TheOtherRoles
             if (player == SecurityGuard.securityGuard) SecurityGuard.clearAndReload();
             if (player == Medium.medium) Medium.clearAndReload();
             if (player == Trapper.trapper) Trapper.clearAndReload();
-            if (player == Marker.marker) Marker.clearAndReload();
-            if (player == Prophet.prophet) Prophet.clearAndReload();
 
             // Impostor roles
             if (player == Morphling.morphling) Morphling.clearAndReload();

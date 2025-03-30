@@ -68,7 +68,6 @@ namespace TheOtherRoles
             Bomber.clearAndReload();
             Yoyo.clearAndReload();
             Fraudster.clearAndReload();
-            Marker.clearAndReload();
 
             // Modifier
             Bait.clearAndReload();
@@ -1925,10 +1924,10 @@ namespace TheOtherRoles
         public static PlayerControl fraudster;
         public static PlayerControl currentTarget;
         public static Color color = new Color32(255, 165, 0, byte.MaxValue);
-
-        public static float cooldown = 15f;
+        public static bool fraudstermeeting;
+        public static float cooldown = Sheriff.cooldown;
         
-        private static Sprite buttonSprite;
+        private static Sprite buttonSprite; 
         public static Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
@@ -1944,56 +1943,30 @@ namespace TheOtherRoles
         }
 
     }
-    public static class Marker
+    public static class Devil
     {
-        public static PlayerControl marker;
-        public static Color32 color = new(0, 255, 255, byte.MaxValue);
-
-        public static float cooldown = 25f;
-        public static float cooldown2 = 25f;
-        public static bool canCallEmergency = false;
-        public static int markNum = 3;
-        public static int markLeft;
-        public static int markLeft2;
-        public static bool markMarker = true;
-
-        public static Dictionary<PlayerControl, bool> marked = new();
-        public static Dictionary<PlayerControl, bool> marked2 = new();
+        public static PlayerControl devil;
         public static PlayerControl currentTarget;
-        public static PlayerControl currentTarget2;
+        public static Color color = Palette.ImpostorRed;
+
+        public static float cooldown = 30f;
+
         private static Sprite buttonSprite;
 
-       
         public static Sprite getButtonSprite()
         {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.MarkButton.png", 115f);
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.IntimidateButton.png", 115f);
             return buttonSprite;
         }
-        public static bool isImp(PlayerControl p)
-        {
-           return (p.Data.Role.IsImpostor);
-        }
-        public static bool isNeutral(PlayerControl p)
-        {
-            return (Helpers.isNeutral(p));
-        }
-        public static bool isCrew(PlayerControl p)
-        {
-            return (!Helpers.isEvil(p));
-        }
+
         public static void clearAndReload()
         {
-            marker = null;
-            currentTarget = null;
-            currentTarget2 = null;
-            marked = new Dictionary<PlayerControl, bool>();
-            marked2 = new Dictionary<PlayerControl, bool>();
-            cooldown = CustomOptionHolder.markerCooldown.getFloat();
-            markNum = Mathf.RoundToInt(CustomOptionHolder.markerNumMarks.getFloat());
-            canCallEmergency = CustomOptionHolder.markerCanCallEmergency.getBool();
-            markLeft = markNum;
+            Devil.devil = null;
+            Devil.cooldown = CustomOptionHolder.fraudstercooldown.getFloat();
+
         }
+
     }
 
     // Modifier
@@ -2080,6 +2053,15 @@ namespace TheOtherRoles
         {
             lighterln.Clear();
             lighterln = new List<PlayerControl>();
+        }
+    }
+    public static class LastImpostor
+    {
+        public static PlayerControl lastimp;
+
+        public static void clearAndReload()
+        {
+            lastimp = null;
         }
     }
     public static class Mini {

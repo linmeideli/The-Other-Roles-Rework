@@ -122,7 +122,10 @@ namespace TheOtherRoles
 			}, CustomOptionHolder.yoyoSpawnRate, false, null, "");
 			CustomOptionHolder.fraudsterSpawnRate = CustomOption.Create(480, CustomOption.CustomOptionType.Impostor, CustomOptionHolder.cs(Fraudster.color, ModTranslation.GetString("Fraudster", null)), CustomOptionHolder.rates, null, true, null, "");
 			CustomOptionHolder.fraudstercooldown = CustomOption.Create(481, CustomOption.CustomOptionType.Impostor, ModTranslation.GetString("fraudstercooldown", null), 20f, 2.5f, 120f, 2.5f, CustomOptionHolder.fraudsterSpawnRate, false, null, "");
-			CustomOptionHolder.guesserSpawnRate = CustomOption.Create(310, CustomOption.CustomOptionType.Neutral, CustomOptionHolder.cs(Guesser.color, ModTranslation.GetString("modifierAssassin", null)), CustomOptionHolder.rates, null, true, null, "");
+            CustomOptionHolder.fraudsterSpawnRate = CustomOption.Create(987, CustomOption.CustomOptionType.Impostor, CustomOptionHolder.cs(Devil.color, ModTranslation.GetString("Devil", null)), CustomOptionHolder.rates, null, true, null, "");
+            CustomOptionHolder.fraudstercooldown = CustomOption.Create(988, CustomOption.CustomOptionType.Impostor, ModTranslation.GetString("DevilColldown", null), 20f, 2.5f, 120f, 2.5f, CustomOptionHolder.devilSpawnRate, false, null, "");
+           // CustomOptionHolder.LasterSpawnRate = CustomOption.Create(65899, CustomOption.CustomOptionType.Neutral, CustomOptionHolder.cs(Guesser.color, ModTranslation.GetString("modifierAssassin", null)), CustomOptionHolder.rates, null, true, null, "");
+            CustomOptionHolder.guesserSpawnRate = CustomOption.Create(310, CustomOption.CustomOptionType.Neutral, CustomOptionHolder.cs(Guesser.color, ModTranslation.GetString("modifierAssassin", null)), CustomOptionHolder.rates, null, true, null, "");
 			CustomOptionHolder.guesserIsImpGuesserRate = CustomOption.Create(311, CustomOption.CustomOptionType.Neutral, ModTranslation.GetString("guesserIsImpGuesserRate", null), CustomOptionHolder.rates, CustomOptionHolder.guesserSpawnRate, false, null, "");
 			CustomOptionHolder.guesserNumberOfShots = CustomOption.Create(312, CustomOption.CustomOptionType.Neutral, ModTranslation.GetString("modifierAssassinNumberOfShots", null), 2f, 1f, 15f, 1f, CustomOptionHolder.guesserSpawnRate, false, null, "");
 			CustomOptionHolder.guesserHasMultipleShotsPerMeeting = CustomOption.Create(313, CustomOption.CustomOptionType.Neutral, ModTranslation.GetString("modifierAssassinMultipleShotsPerMeeting", null), false, CustomOptionHolder.guesserSpawnRate, false, null, "");
@@ -229,9 +232,9 @@ namespace TheOtherRoles
 			CustomOptionHolder.seerSpawnRate = CustomOption.Create(160, CustomOption.CustomOptionType.Crewmate, CustomOptionHolder.cs(Seer.color, ModTranslation.GetString("Seer", null)), CustomOptionHolder.rates, null, true, null, "");
 			CustomOptionHolder.seerMode = CustomOption.Create(161, CustomOption.CustomOptionType.Crewmate, ModTranslation.GetString("seerMode", null), new string[]
 			{
-				ModTranslation.GetString("Mode1", null),
-				ModTranslation.GetString("Mode2", null),
-				ModTranslation.GetString("Mode3", null)
+				ModTranslation.GetString("FlashSoul", null),
+				ModTranslation.GetString("Flash", null),
+				ModTranslation.GetString("Soul", null)
 			}, CustomOptionHolder.seerSpawnRate, false, null, "");
 			CustomOptionHolder.seerLimitSoulDuration = CustomOption.Create(163, CustomOption.CustomOptionType.Crewmate, ModTranslation.GetString("seerLimitSoulDuration", null), false, CustomOptionHolder.seerSpawnRate, false, null, "");
 			CustomOptionHolder.seerSoulDuration = CustomOption.Create(162, CustomOption.CustomOptionType.Crewmate, ModTranslation.GetString("seerSoulDuration", null), 15f, 0f, 120f, 5f, CustomOptionHolder.seerLimitSoulDuration, false, null, "");
@@ -250,22 +253,22 @@ namespace TheOtherRoles
 			CustomOptionHolder.trackerCorpsesTrackingDuration = CustomOption.Create(205, CustomOption.CustomOptionType.Crewmate, ModTranslation.GetString("trackerCorpsesTrackingDuration", null), 5f, 2.5f, 30f, 2.5f, CustomOptionHolder.trackerCanTrackCorpses, false, null, "");
 			CustomOptionHolder.trackerTrackingMethod = CustomOption.Create(206, CustomOption.CustomOptionType.Crewmate, ModTranslation.GetString("trackerTrackingMethod", null), new string[]
 			{
-				ModTranslation.GetString("Method1", null),
-				ModTranslation.GetString("Method2", null),
-				ModTranslation.GetString("Method3", null)
+				ModTranslation.GetString("Arrow", null),
+				ModTranslation.GetString("Checker", null),
+				ModTranslation.GetString("ArrowCheck", null)
 			}, CustomOptionHolder.trackerSpawnRate, false, null, "");
 			CustomOptionHolder.snitchSpawnRate = CustomOption.Create(210, CustomOption.CustomOptionType.Crewmate, CustomOptionHolder.cs(Snitch.color, ModTranslation.GetString("Snitch", null)), CustomOptionHolder.rates, null, true, null, "");
 			CustomOptionHolder.snitchLeftTasksForReveal = CustomOption.Create(219, CustomOption.CustomOptionType.Crewmate, ModTranslation.GetString("snitchLeftTasksForReveal", null), 5f, 0f, 25f, 1f, CustomOptionHolder.snitchSpawnRate, false, null, "");
 			CustomOptionHolder.snitchMode = CustomOption.Create(211, CustomOption.CustomOptionType.Crewmate, ModTranslation.GetString("snitchMode", null), new string[]
 			{
-				ModTranslation.GetString("Mode1", null),
-				ModTranslation.GetString("Mode2", null),
-				ModTranslation.GetString("Mode3", null)
+				ModTranslation.GetString("Chat", null),
+				ModTranslation.GetString("Map", null),
+				ModTranslation.GetString("ChatMap", null)
 			}, CustomOptionHolder.snitchSpawnRate, false, null, "");
 			CustomOptionHolder.snitchTargets = CustomOption.Create(212, CustomOption.CustomOptionType.Crewmate, ModTranslation.GetString("snitchTargets", null), new string[]
 			{
-				ModTranslation.GetString("Target1", null),
-				ModTranslation.GetString("Target2", null)
+				ModTranslation.GetString("evilPlayer", null),
+				ModTranslation.GetString("killerPlayer", null)
 			}, CustomOptionHolder.snitchSpawnRate, false, null, "");
 			CustomOptionHolder.spySpawnRate = CustomOption.Create(240, CustomOption.CustomOptionType.Crewmate, CustomOptionHolder.cs(Spy.color, ModTranslation.GetString("Spy", null)), CustomOptionHolder.rates, null, true, null, "");
 			CustomOptionHolder.spyCanDieToSheriff = CustomOption.Create(241, CustomOption.CustomOptionType.Crewmate, ModTranslation.GetString("spyCanDieToSheriff", null), false, CustomOptionHolder.spySpawnRate, false, null, "");
@@ -292,16 +295,13 @@ namespace TheOtherRoles
 			CustomOptionHolder.mediumDuration = CustomOption.Create(362, CustomOption.CustomOptionType.Crewmate, ModTranslation.GetString("mediumDuration", null), 3f, 0f, 15f, 1f, CustomOptionHolder.mediumSpawnRate, false, null, "");
 			CustomOptionHolder.mediumOneTimeUse = CustomOption.Create(363, CustomOption.CustomOptionType.Crewmate, ModTranslation.GetString("mediumOneTimeUse", null), false, CustomOptionHolder.mediumSpawnRate, false, null, "");
 			CustomOptionHolder.mediumChanceAdditionalInfo = CustomOption.Create(364, CustomOption.CustomOptionType.Crewmate, ModTranslation.GetString("mediumChanceAdditionalInfo", null), CustomOptionHolder.rates, CustomOptionHolder.mediumSpawnRate, false, null, "");
-			CustomOptionHolder.prophetSpawnRate = CustomOption.Create(9005, CustomOption.CustomOptionType.Crewmate, CustomOptionHolder.cs(Prophet.color, "prophet".Translate()), CustomOptionHolder.rates, null, true, null, "");
+			CustomOptionHolder.prophetSpawnRate = CustomOption.Create(9005, CustomOption.CustomOptionType.Crewmate, CustomOptionHolder.cs(Prophet.color, "Prophet".Translate()), CustomOptionHolder.rates, null, true, null, "");
 			CustomOptionHolder.prophetCooldown = CustomOption.Create(9011, CustomOption.CustomOptionType.Crewmate, "prophetCooldown".Translate(), 30f, 5f, 60f, 1f, CustomOptionHolder.prophetSpawnRate, false, null, "");
 			CustomOptionHolder.prophetNumExamines = CustomOption.Create(9006, CustomOption.CustomOptionType.Crewmate, "prophetNumExamines".Translate(), 4f, 1f, 10f, 1f, CustomOptionHolder.prophetSpawnRate, false, null, "");
 			CustomOptionHolder.prophetCanCallEmergency = CustomOption.Create(9007, CustomOption.CustomOptionType.Crewmate, "prophetCanCallEmergency".Translate(), false, CustomOptionHolder.prophetSpawnRate, false, null, "");
 			CustomOptionHolder.prophetIsRevealed = CustomOption.Create(9012, CustomOption.CustomOptionType.Crewmate, "prophetIsRevealed".Translate(), true, CustomOptionHolder.prophetSpawnRate, false, null, "");
 			CustomOptionHolder.prophetExaminesToBeRevealed = CustomOption.Create(9008, CustomOption.CustomOptionType.Crewmate, "prophetExaminesToBeRevealed".Translate(), 3f, 1f, 10f, 1f, CustomOptionHolder.prophetIsRevealed, false, null, "");
-            CustomOptionHolder.markerSpawnRate = CustomOption.Create(9005, CustomOption.CustomOptionType.Crewmate, CustomOptionHolder.cs(Marker.color, "markerSpawnRate".Translate()), CustomOptionHolder.rates, null, true, null, "");
-            CustomOptionHolder.markerCooldown = CustomOption.Create(25585, CustomOption.CustomOptionType.Crewmate, "markerCooldown".Translate(), 30f, 5f, 60f, 1f, CustomOptionHolder.prophetSpawnRate, false, null, "");
-            CustomOptionHolder.markerNumMarks = CustomOption.Create(25586, CustomOption.CustomOptionType.Crewmate, "markerNumMarks".Translate(), 4f, 1f, 10f, 1f, CustomOptionHolder.prophetSpawnRate, false, null, "");
-            CustomOptionHolder.markerCanCallEmergency = CustomOption.Create(25587, CustomOption.CustomOptionType.Crewmate, "markerCanCallEmergency".Translate(), false, CustomOptionHolder.prophetSpawnRate, false, null, "");
+			CustomOptionHolder.prophetAccuracy = CustomOption.Create(9009, CustomOption.CustomOptionType.Crewmate, "prophetAccuracy".Translate(), 30f, 0f, 100f, 10f, CustomOptionHolder.prophetSpawnRate, false, null, "");
 			CustomOptionHolder.thiefSpawnRate = CustomOption.Create(400, CustomOption.CustomOptionType.Neutral, CustomOptionHolder.cs(Thief.color, ModTranslation.GetString("Thief", null)), CustomOptionHolder.rates, null, true, null, "");
 			CustomOptionHolder.thiefCooldown = CustomOption.Create(401, CustomOption.CustomOptionType.Neutral, ModTranslation.GetString("thiefCooldown", null), 30f, 5f, 120f, 5f, CustomOptionHolder.thiefSpawnRate, false, null, "");
 			CustomOptionHolder.thiefCanKillSheriff = CustomOption.Create(402, CustomOption.CustomOptionType.Neutral, ModTranslation.GetString("thiefCanKillSheriff", null), true, CustomOptionHolder.thiefSpawnRate, false, null, "");
@@ -316,12 +316,12 @@ namespace TheOtherRoles
 			CustomOptionHolder.trapperAnonymousMap = CustomOption.Create(452, CustomOption.CustomOptionType.Crewmate, ModTranslation.GetString("trapperAnonymousMap", null), false, CustomOptionHolder.trapperSpawnRate, false, null, "");
 			CustomOptionHolder.trapperInfoType = CustomOption.Create(453, CustomOption.CustomOptionType.Crewmate, ModTranslation.GetString("trapperInfoType", null), new string[]
 			{
-				ModTranslation.GetString("Type1", null),
-				ModTranslation.GetString("Type2", null),
-				ModTranslation.GetString("Type3", null)
+				ModTranslation.GetString("roles", null),
+				ModTranslation.GetString("CIRoles", null),
+				ModTranslation.GetString("Names", null)
 			}, CustomOptionHolder.trapperSpawnRate, false, null, "");
 			CustomOptionHolder.trapperTrapDuration = CustomOption.Create(454, CustomOption.CustomOptionType.Crewmate, ModTranslation.GetString("trapperTrapDuration", null), 5f, 1f, 15f, 1f, CustomOptionHolder.trapperSpawnRate, false, null, "");
-			CustomOptionHolder.modifiersAreHidden = CustomOption.Create(1009, CustomOption.CustomOptionType.Modifier, CustomOptionHolder.cs(Color.yellow, ModTranslation.GetString("modifiersAreHidden", null)), true, null, true, null, CustomOptionHolder.cs(Color.yellow, ModTranslation.GetString("ModifiersSettings", null)));
+			CustomOptionHolder.modifiersAreHidden = CustomOption.Create(1009, CustomOption.CustomOptionType.Modifier, CustomOptionHolder.cs(Color.yellow, ModTranslation.GetString("modifiersAreHidden", null)), true, null, true, null, CustomOptionHolder.cs(Color.yellow, ModTranslation.GetString("modifierSettings", null)));
 			CustomOptionHolder.modifierBloody = CustomOption.Create(1000, CustomOption.CustomOptionType.Modifier, CustomOptionHolder.cs(Color.yellow, ModTranslation.GetString("Bloody", null)), CustomOptionHolder.rates, null, true, null, "");
 			CustomOptionHolder.modifierBloodyQuantity = CustomOption.Create(1001, CustomOption.CustomOptionType.Modifier, ModTranslation.GetString("modifierBloodyQuantity", null), CustomOptionHolder.ratesModifier, CustomOptionHolder.modifierBloody, false, null, "");
 			CustomOptionHolder.modifierBloodyDuration = CustomOption.Create(1002, CustomOption.CustomOptionType.Modifier, ModTranslation.GetString("modifierBloodyDuration", null), 10f, 3f, 60f, 1f, CustomOptionHolder.modifierBloody, false, null, "");
@@ -337,9 +337,11 @@ namespace TheOtherRoles
 			CustomOptionHolder.modifierLoverImpLoverRate = CustomOption.Create(1041, CustomOption.CustomOptionType.Modifier, ModTranslation.GetString("modifierLoverImpLoverRate", null), CustomOptionHolder.rates, CustomOptionHolder.modifierLover, false, null, "");
 			CustomOptionHolder.modifierLoverBothDie = CustomOption.Create(1042, CustomOption.CustomOptionType.Modifier, ModTranslation.GetString("modifierLoverBothDie", null), true, CustomOptionHolder.modifierLover, false, null, "");
 			CustomOptionHolder.modifierLoverEnableChat = CustomOption.Create(1043, CustomOption.CustomOptionType.Modifier, ModTranslation.GetString("modifierLoverEnableChat", null), true, CustomOptionHolder.modifierLover, false, null, "");
-			CustomOptionHolder.modifierSunglasses = CustomOption.Create(1050, CustomOption.CustomOptionType.Modifier, CustomOptionHolder.cs(Color.yellow, ModTranslation.GetString("Sunglasses", null)), CustomOptionHolder.rates, null, true, null, "");
+            CustomOptionHolder.modifierLastImpostor = CustomOption.Create(1053, CustomOption.CustomOptionType.Modifier, CustomOptionHolder.cs(Color.yellow, ModTranslation.GetString("LastImpostor", null)), CustomOptionHolder.rates, null, true, null, "");
+            CustomOptionHolder.modifierSunglasses = CustomOption.Create(1050, CustomOption.CustomOptionType.Modifier, CustomOptionHolder.cs(Color.yellow, ModTranslation.GetString("Sunglasses", null)), CustomOptionHolder.rates, null, true, null, "");
 			CustomOptionHolder.modifierSunglassesQuantity = CustomOption.Create(1051, CustomOption.CustomOptionType.Modifier, ModTranslation.GetString("modifierSunglassesQuantity", null), CustomOptionHolder.ratesModifier, CustomOptionHolder.modifierSunglasses, false, null, "");
 			CustomOptionHolder.modifierSunglassesVision = CustomOption.Create(1052, CustomOption.CustomOptionType.Modifier, ModTranslation.GetString("modifierSunglassesVision", null), new string[]
+
 			{
 				"-10%",
 				"-20%",
@@ -1243,25 +1245,20 @@ namespace TheOtherRoles
 		// Token: 0x04000197 RID: 407
 		public static CustomOption prophetExaminesToBeRevealed;
 
-        public static CustomOption markerSpawnRate;
-
-        // Token: 0x04000192 RID: 402
-        public static CustomOption markerCooldown;
-
-        // Token: 0x04000193 RID: 403
-        public static CustomOption markerNumMarks;
-
-        // Token: 0x04000195 RID: 405
-        public static CustomOption markerCanCallEmergency;
-
-        // Token: 0x04000198 RID: 408
-        public static CustomOption fraudsterSpawnRate;
+		// Token: 0x04000198 RID: 408
+		public static CustomOption fraudsterSpawnRate;
 
 		// Token: 0x04000199 RID: 409
 		public static CustomOption fraudstercooldown;
 
-		// Token: 0x0400019A RID: 410
-		public static CustomOption modifiersAreHidden;
+        // Token: 0x04000198 RID: 408
+        public static CustomOption devilSpawnRate;
+
+        // Token: 0x04000199 RID: 409
+        public static CustomOption devilcooldown;
+
+        // Token: 0x0400019A RID: 410
+        public static CustomOption modifiersAreHidden;
 
 		// Token: 0x0400019B RID: 411
 		public static CustomOption modifierBait;
@@ -1623,7 +1620,9 @@ namespace TheOtherRoles
 		// Token: 0x04000212 RID: 530
 		public static CustomOption enableBetterPolus;
 
-		// Token: 0x04000213 RID: 531
-		internal static Dictionary<byte, byte[]> blockedRolePairings = new Dictionary<byte, byte[]>();
+		public static CustomOption modifierLastImpostor;
+
+        // Token: 0x04000213 RID: 531
+        internal static Dictionary<byte, byte[]> blockedRolePairings = new Dictionary<byte, byte[]>();
 	}
 }

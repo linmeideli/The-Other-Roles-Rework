@@ -23,7 +23,7 @@ namespace TheOtherRoles.Patches {
 
         static PlayerControl setTarget(bool onlyCrewmates = false, bool targetPlayersInVents = false, List<PlayerControl> untargetablePlayers = null, PlayerControl targetingPlayer = null) {
             PlayerControl result = null;
-            float num = AmongUs.GameOptions.GameOptionsData.KillDistances[Mathf.Clamp(GameOptionsManager.Instance.currentNormalGameOptions.KillDistance, 0, 2)];
+            float num = AmongUs.GameOptions.LegacyGameOptions.KillDistances[Mathf.Clamp(GameOptionsManager.Instance.currentNormalGameOptions.KillDistance, 0, 2)];
             if (!MapUtilities.CachedShipStatus) return result;
             if (targetingPlayer == null) targetingPlayer = CachedPlayer.LocalPlayer.PlayerControl;
             if (targetingPlayer.Data.IsDead) return result;
@@ -399,7 +399,6 @@ namespace TheOtherRoles.Patches {
             if (Prophet.examinesLeft > 0) setPlayerOutline(Prophet.currentTarget, Prophet.color);
         }
 
-
         static void prophetUpdate()
         {
             if (Prophet.arrows == null) return;
@@ -422,18 +421,6 @@ namespace TheOtherRoles.Patches {
         {
             if (Fraudster.fraudster == null || CachedPlayer.LocalPlayer.PlayerControl != Fraudster.fraudster) return;
             Fraudster.currentTarget = setTarget();
-        }
-        static void markerSetTarget1()
-        {
-            if (Marker.marker == null || CachedPlayer.LocalPlayer.PlayerControl != Marker.marker) return;
-            Marker.currentTarget = setTarget();
-            if (Prophet.examinesLeft > 0) setPlayerOutline(Prophet.currentTarget, Prophet.color);
-        }
-        static void markerSetTarget2()
-        {
-            if (Marker.marker == null || CachedPlayer.LocalPlayer.PlayerControl != Marker.marker) return;
-            Marker.currentTarget2 = setTarget();
-            if (Prophet.examinesLeft > 0) setPlayerOutline(Prophet.currentTarget, Prophet.color);
         }
         static void trackerUpdate() {
             // Handle player tracking
@@ -1129,9 +1116,6 @@ namespace TheOtherRoles.Patches {
                 prophetUpdate();
                 //fraudster
                 FraudsterSetTarget();
-                //marker
-                markerSetTarget1();
-                markerSetTarget2();
 
                 hackerUpdate();
                 swapperUpdate();

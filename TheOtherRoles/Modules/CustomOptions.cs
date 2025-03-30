@@ -1015,47 +1015,47 @@ namespace TheOtherRoles {
                 maxPage = 2;
                 switch (counter) {
                     case 0:// 翻译不动了自己滚过来搞
-                        hudString += (!hideExtras ? "" : "page1".Translate()) + buildOptionsOfType(CustomOption.CustomOptionType.HideNSeekMain, false);
+                        hudString += (!hideExtras ? "" : "hideNSeekPage1".Translate()) + buildOptionsOfType(CustomOption.CustomOptionType.HideNSeekMain, false);
                         break;
                     case 1:
-                        hudString += "Page 2: Hide N Seek Role Settings \n\n" + buildOptionsOfType(CustomOption.CustomOptionType.HideNSeekRoles, false);
+                        hudString += "hideNSeekPage2".Translate() + buildOptionsOfType(CustomOption.CustomOptionType.HideNSeekRoles, false);
                         break;
                 }
             } else if (TORMapOptions.gameMode == CustomGamemodes.PropHunt) {
                 maxPage = 1;
                 switch (counter) {
                     case 0:
-                        hudString += "Page 1: Prop Hunt Settings \n\n" + buildOptionsOfType(CustomOption.CustomOptionType.PropHunt, false);
+                        hudString += "PropHuntPage".Translate() + buildOptionsOfType(CustomOption.CustomOptionType.PropHunt, false);
                         break;
                 }
             } else {
                 maxPage = 7;
                 switch (counter) {
                     case 0:
-                        hudString += (!hideExtras ? "" : "Page 1: Vanilla Settings \n\n") + vanillaSettings;
+                        hudString += (!hideExtras ? "" : "page1".Translate()) + vanillaSettings;
                         break;
                     case 1:
-                        hudString += "Page 2: The Other Roles Settings \n" + buildOptionsOfType(CustomOption.CustomOptionType.General, false);
+                        hudString += "page2".Translate() + buildOptionsOfType(CustomOption.CustomOptionType.General, false);
                         break;
                     case 2:
-                        hudString += "Page 3: Role and Modifier Rates \n" + buildRoleOptions();
+                        hudString += "page3".Translate() + buildRoleOptions();
                         break;
                     case 3:
-                        hudString += "Page 4: Impostor Role Settings \n" + buildOptionsOfType(CustomOption.CustomOptionType.Impostor, false);
+                        hudString += "page4".Translate() + buildOptionsOfType(CustomOption.CustomOptionType.Impostor, false);
                         break;
                     case 4:
-                        hudString += "Page 5: Neutral Role Settings \n" + buildOptionsOfType(CustomOption.CustomOptionType.Neutral, false);
+                        hudString += "page5".Translate() + buildOptionsOfType(CustomOption.CustomOptionType.Neutral, false);
                         break;
                     case 5:
-                        hudString += "Page 6: Crewmate Role Settings \n" + buildOptionsOfType(CustomOption.CustomOptionType.Crewmate, false);
+                        hudString += "page6".Translate() + buildOptionsOfType(CustomOption.CustomOptionType.Crewmate, false);
                         break;
                     case 6:
-                        hudString += "Page 7: Modifier Settings \n" + buildOptionsOfType(CustomOption.CustomOptionType.Modifier, false);
+                        hudString += "page7".Translate() + buildOptionsOfType(CustomOption.CustomOptionType.Modifier, false);
                         break;
                 }
             }
 
-            if (!hideExtras || counter != 0) hudString += $"\n Press TAB or Page Number for more... ({counter + 1}/{maxPage})";
+            if (!hideExtras || counter != 0) hudString += $"pressTabForMore".Translate() +$"({counter + 1}/{maxPage})";
             return hudString;
         }
 
@@ -1071,15 +1071,15 @@ namespace TheOtherRoles {
     [HarmonyPatch]
     public class AddToKillDistanceSetting
     {
-        [HarmonyPatch(typeof(GameOptionsData), nameof(GameOptionsData.AreInvalid))]
+        [HarmonyPatch(typeof(LegacyGameOptions), nameof(LegacyGameOptions.AreInvalid))]
         [HarmonyPrefix]
         
-        public static bool Prefix(GameOptionsData __instance, ref int maxExpectedPlayers)
+        public static bool Prefix(LegacyGameOptions __instance, ref int maxExpectedPlayers)
         {
             //making the killdistances bound check higher since extra short is added
             return __instance.MaxPlayers > maxExpectedPlayers || __instance.NumImpostors < 1
                     || __instance.NumImpostors > 3 || __instance.KillDistance < 0
-                    || __instance.KillDistance >= GameOptionsData.KillDistances.Count
+                    || __instance.KillDistance >= LegacyGameOptions.KillDistances.Count
                     || __instance.PlayerSpeedMod <= 0f || __instance.PlayerSpeedMod > 3f;
         }
 
@@ -1090,7 +1090,7 @@ namespace TheOtherRoles {
         {
             return __instance.MaxPlayers > maxExpectedPlayers || __instance.NumImpostors < 1
                     || __instance.NumImpostors > 3 || __instance.KillDistance < 0
-                    || __instance.KillDistance >= GameOptionsData.KillDistances.Count
+                    || __instance.KillDistance >= LegacyGameOptions.KillDistances.Count
                     || __instance.PlayerSpeedMod <= 0f || __instance.PlayerSpeedMod > 3f;
         }
 
@@ -1133,7 +1133,7 @@ namespace TheOtherRoles {
                 else {
                     index = GameOptionsManager.Instance.currentHideNSeekGameOptions.KillDistance;
                 }
-                value = GameOptionsData.KillDistanceStrings[index];
+                value = LegacyGameOptions.KillDistanceStrings[index];
             }
         }
 
@@ -1152,8 +1152,8 @@ namespace TheOtherRoles {
 
         public static void addKillDistance()
         {
-            GameOptionsData.KillDistances = new(new float[] { 0.5f, 1f, 1.8f, 2.5f });
-            GameOptionsData.KillDistanceStrings = new(new string[] { "Very Short", "Short", "Medium", "Long" });
+            LegacyGameOptions.KillDistances = new(new float[] { 0.5f, 1f, 1.8f, 2.5f });
+            LegacyGameOptions.KillDistanceStrings = new(new string[] { "Very Short", "Short", "Medium", "Long" });
         }
     }
 
@@ -1337,6 +1337,9 @@ namespace TheOtherRoles {
         static PassiveButton toggleSettingsButton;
         static GameObject toggleSettingsButtonObject;
 
+        static PassiveButton toggleRoleInfoButton;
+        static GameObject toggleRoleInfoButtonObject;
+
         static GameObject toggleZoomButtonObject;
         static PassiveButton toggleZoomButton;
 
@@ -1359,9 +1362,30 @@ namespace TheOtherRoles {
             }
             toggleSettingsButtonObject.SetActive(__instance.MapButton.gameObject.active && !(MapBehaviour.Instance && MapBehaviour.Instance.IsOpen) && GameOptionsManager.Instance.currentGameOptions.GameMode != GameModes.HideNSeek);
             toggleSettingsButtonObject.transform.localPosition = __instance.MapButton.transform.localPosition + new Vector3(0, -0.8f, -500f);
+            //
+            
+                //if (AmongUsClient.Instance.GameState != InnerNet.InnerNetClient.GameStates.Started) return;
+                if (!toggleRoleInfoButton || !toggleRoleInfoButtonObject)
+                {
+                    // add a special button for settings viewing:
+                    toggleRoleInfoButtonObject = GameObject.Instantiate(__instance.MapButton.gameObject, __instance.MapButton.transform.parent);
+                    toggleRoleInfoButtonObject.transform.localPosition = __instance.MapButton.transform.localPosition + new Vector3(0, -1.65f, -500f);
+                    toggleRoleInfoButtonObject.name = "TOGGLESETTINGSBUTTON";
+                    SpriteRenderer renderer = toggleRoleInfoButtonObject.transform.Find("Inactive").GetComponent<SpriteRenderer>();
+                    SpriteRenderer rendererActive = toggleRoleInfoButtonObject.transform.Find("Active").GetComponent<SpriteRenderer>();
+                toggleRoleInfoButtonObject.transform.Find("Background").localPosition = Vector3.zero;
+                    renderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Settings_Button.png", 100f);
+                    rendererActive.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Settings_ButtonActive.png", 100);
+                toggleRoleInfoButton = toggleRoleInfoButtonObject.GetComponent<PassiveButton>();
+                toggleRoleInfoButton.OnClick.RemoveAllListeners();
+                toggleRoleInfoButton.OnClick.AddListener((Action)(() => ToggleSettings(__instance)));
 
+                toggleRoleInfoButtonObject.SetActive(__instance.MapButton.gameObject.active && !(MapBehaviour.Instance && MapBehaviour.Instance.IsOpen) && GameOptionsManager.Instance.currentGameOptions.GameMode != GameModes.HideNSeek);
+                toggleSettingsButtonObject.transform.localPosition = __instance.MapButton.transform.localPosition + new Vector3(0, -1.65f, -500f);
+                //
+            }
 
-            if (!toggleZoomButton || !toggleZoomButtonObject) {
+                if (!toggleZoomButton || !toggleZoomButtonObject) {
                 // add a special button for settings viewing:
                 toggleZoomButtonObject = GameObject.Instantiate(__instance.MapButton.gameObject, __instance.MapButton.transform.parent);
                 toggleZoomButtonObject.transform.localPosition = __instance.MapButton.transform.localPosition + new Vector3(0, -1.25f, -500f);

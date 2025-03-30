@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Reactor.Utilities.Extensions;
 using UnityEngine;
+using TheOtherRoles.Objects;
 
 namespace TheOtherRoles.Modules
 {
@@ -126,6 +127,15 @@ namespace TheOtherRoles.Modules
             CustomMain.customZips.warlockCurse = ZipBundleStream3.LoadAsset<AudioClip>("warlockCurse.ogg").DontUnload();
             CustomMain.customZips.witchSpell = ZipBundleStream3.LoadAsset<AudioClip>("witchSpell.ogg").DontUnload();
 
+        }
+        private static void LoadHaomingAssets()
+        {
+            System.IO.Stream resourceTestAssetBundleStream =
+                dll.GetManifestResourceStream("TheOtherRoles.Resources.haomingassets");
+            AssetBundle assetBundleBundle = AssetBundle.LoadFromMemory(resourceTestAssetBundleStream.ReadFully());
+            //FoxTask.prefab = assetBundleBundle.LoadAsset<GameObject>("FoxTask.prefab").DontUnload();
+           // Shrine.sprite = assetBundleBundle.LoadAsset<Sprite>("shrine2.png").DontUnload();
+            
         }
         //广告位招租 CustomMain.customZips.招租 = ZipBundleStream2/3.LoadAsset<格式>("招租.格式").DontUnload();
     }

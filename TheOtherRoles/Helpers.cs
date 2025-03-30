@@ -16,6 +16,7 @@ using TheOtherRoles.CustomGameModes;
 using Reactor.Utilities.Extensions;
 using AmongUs.GameOptions;
 using TheOtherRoles.Patches;
+using Il2CppSystem.IO;
 
 namespace TheOtherRoles {
 
@@ -30,14 +31,21 @@ namespace TheOtherRoles {
         Classic,
         Guesser,
         HideNSeek,
-        PropHunt,
-        Score
+        PropHunt
     }
+    public enum RoleType
+    {
+        Crewmate,
+        Impostor,
+        Neutral,
+        Modifier
+    }
+
     public static class Helpers
     {
 
         public static Dictionary<string, Sprite> CachedSprites = new();
-
+        public static bool IsCountDown => GameStartManager.InstanceExists && GameStartManager.Instance.startState == GameStartManager.StartingStates.Countdown;
         public static Sprite loadSpriteFromResources(string path, float pixelsPerUnit, bool cache=true) {
             try
             {
@@ -51,6 +59,24 @@ namespace TheOtherRoles {
                 System.Console.WriteLine("加载路径时出错: " + path);
             }
             return null;
+        }
+       
+        public static Sprite LoadSpriteFromDisk(string path, float pixelsPerUnit)
+        {
+            var texture = Helpers.loadTextureFromDisk(path);
+            if (texture == null)
+                texture = Helpers.loadTextureFromResources(path);
+            if (texture == null) return null;
+            var sprite = Sprite.Create(texture,
+                new Rect(0, 0, texture.width, texture.height),
+                new Vector2(0.53f, 0.575f),
+                pixelsPerUnit);
+            if (sprite == null) return null;
+            texture.hideFlags |= HideFlags.HideAndDontSave | HideFlags.DontUnloadUnusedAsset;
+            sprite.hideFlags |= HideFlags.HideAndDontSave | HideFlags.DontUnloadUnusedAsset;
+
+            return sprite;
+           
         }
         /*
         public static bool checkAndDoVetKill(PlayerControl target)
@@ -67,12 +93,22 @@ namespace TheOtherRoles {
 
             return shouldVetKill;//老兵反弹
         }*/
-
+        public static Color getTeamColor(RoleType team)
+        {
+            return team switch
+            {
+                RoleType.Crewmate => Palette.CrewmateBlue,
+                RoleType.Impostor => Palette.ImpostorRed,
+                RoleType.Neutral => Color.gray,
+                RoleType.Modifier => Color.yellow,
+                _ => Palette.White
+            };
+        }
         public static unsafe Texture2D loadTextureFromResources(string path) {
             try {
                 Texture2D texture = new Texture2D(2, 2, TextureFormat.ARGB32, true);
                 Assembly assembly = Assembly.GetExecutingAssembly();
-                Stream stream = assembly.GetManifestResourceStream(path);
+                System.IO.Stream stream = assembly.GetManifestResourceStream(path);
                 var length = stream.Length;
                 var byteTexture = new Il2CppStructArray<byte>(length);
                 stream.Read(new Span<byte>(IntPtr.Add(byteTexture.Pointer, IntPtr.Size * 4).ToPointer(), (int) length));
@@ -89,7 +125,7 @@ namespace TheOtherRoles {
 
         public static Texture2D loadTextureFromDisk(string path) {
             try {          
-                if (File.Exists(path))     {
+                if (System.IO.File.Exists(path))     {
                     Texture2D texture = new Texture2D(2, 2, TextureFormat.ARGB32, true);
                     var byteTexture = Il2CppSystem.IO.File.ReadAllBytes(path);
                     ImageConversion.LoadImage(texture, byteTexture, false);
@@ -105,7 +141,7 @@ namespace TheOtherRoles {
             // must be "raw (headerless) 2-channel signed 32 bit pcm (le)" (can e.g. use Audacity® to export)
             try {
                 Assembly assembly = Assembly.GetExecutingAssembly();
-                Stream stream = assembly.GetManifestResourceStream(path);
+                System.IO.Stream stream = assembly.GetManifestResourceStream(path);
                 var byteAudio = new byte[stream.Length];
                 _ = stream.Read(byteAudio, 0, (int)stream.Length);
                 float[] samples = new float[byteAudio.Length / 4]; // 4 bytes per sample
@@ -133,14 +169,14 @@ namespace TheOtherRoles {
 
         public static string readTextFromResources(string path) {
             Assembly assembly = Assembly.GetExecutingAssembly();
-            Stream stream = assembly.GetManifestResourceStream(path);
-            StreamReader textStreamReader = new StreamReader(stream);
+            System.IO.Stream stream = assembly.GetManifestResourceStream(path);
+            System.IO.StreamReader textStreamReader = new System.IO.StreamReader(stream);
             return textStreamReader.ReadToEnd();
         }
 
         public static string readTextFromFile(string path) {
-            Stream stream = File.OpenRead(path);
-            StreamReader textStreamReader = new StreamReader(stream);
+            System.IO.Stream stream = System.IO.File.OpenRead(path);
+            System.IO.StreamReader textStreamReader = new System.IO.StreamReader(stream);
             return textStreamReader.ReadToEnd();
         }
 
@@ -220,6 +256,13 @@ namespace TheOtherRoles {
             }
             
             return cs(roleInfo.color, $"{roleInfo.name}: {roleInfo.shortDescription}");
+        }
+
+        public static bool IsChinese()
+        {
+            int lang = (int)AmongUs.Data.DataManager.Settings.Language.CurrentLanguage;
+            if (lang == 13) return true;
+            return false;
         }
 
         public static bool isD(byte playerId) {
@@ -688,6 +731,15 @@ namespace TheOtherRoles {
         public static object TryCast(this Il2CppObjectBase self, Type type)
         {
             return AccessTools.Method(self.GetType(), nameof(Il2CppObjectBase.TryCast)).MakeGenericMethod(type).Invoke(self, Array.Empty<object>());
+        }
+        public static string SerializeObject(object value)
+        {
+            Type type = TheOtherRolesPlugin.JsonNet.GetType("Newtonsoft.Json.JsonConvert");
+            MethodInfo method = type.GetMethods().FirstOrDefault(c =>
+            {
+                return c.Name == "SerializeObject" && c.GetParameters().Length == 1;
+            });
+            return method.Invoke(null, new[] { value }) as string;
         }
     }
 }

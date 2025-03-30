@@ -13,6 +13,7 @@ using TheOtherRoles.Patches;
 using static TheOtherRoles.Objects.CustomButton;
 using TMPro;
 using TheOtherRoles.Modules;
+using static TheOtherRoles.Modules.ModInputManager;
 
 namespace TheOtherRoles
 {
@@ -41,8 +42,6 @@ namespace TheOtherRoles
         public static CustomButton vampireKillButton;
         public static CustomButton garlicButton;
         public static CustomButton prophetButton;
-        public static CustomButton markerButton1;
-        public static CustomButton markerButton2;
         public static CustomButton jackalKillButton;
         public static CustomButton sidekickKillButton;
         private static CustomButton jackalSidekickButton;
@@ -80,6 +79,7 @@ namespace TheOtherRoles
         private static CustomButton propHuntSpeedboostButton;
         public static CustomButton propHuntAdminButton;
         public static CustomButton propHuntFindButton;
+        public static CustomButton roleSummaryButton;
 
         public static Dictionary<byte, List<CustomButton>> deputyHandcuffedButtons = null;
         public static PoolablePlayer targetDisplay;
@@ -94,11 +94,10 @@ namespace TheOtherRoles
         public static TMPro.TMP_Text hackerVitalsChargesText;
         public static TMPro.TMP_Text trapperChargesText;
         public static TMPro.TMP_Text prophetButtonText;
-        public static TMPro.TMP_Text markButtonText;
         public static TMPro.TMP_Text portalmakerButtonText1;
         public static TMPro.TMP_Text portalmakerButtonText2;
         public static TMPro.TMP_Text huntedShieldCountText;
-
+        public static TMPro.TMP_Text FraudsterButtonText;
 
         public static void setCustomButtonCooldowns() {
             if (!initialized) {
@@ -153,7 +152,6 @@ namespace TheOtherRoles
             yoyoAdminTableButton.MaxTimer = Yoyo.adminCooldown;
             prophetButton.MaxTimer = Prophet.cooldown;
             fraudsterButton.MaxTimer = Fraudster.cooldown;
-            markerButton1.MaxTimer = Marker.cooldown;
             yoyoAdminTableButton.EffectDuration = 10f;
             hunterLighterButton.MaxTimer = Hunter.lightCooldown;
             hunterAdminTableButton.MaxTimer = Hunter.AdminCooldown;
@@ -952,80 +950,12 @@ namespace TheOtherRoles
                
            );
             //prophetButtonText = UnityEngine.Object.Instantiate(prophetButton.actionButton.cooldownTimerText, prophetButton.actionButton.cooldownTimerText.transform.parent);
-            // prophetButtonText.text = "";
+           // prophetButtonText.text = "";
             //prophetButtonText.enableWordWrapping = false;
             //prophetButtonText.transform.localScale = Vector3.one * 0.5f;
             //prophetButtonText.transform.localPosition += new Vector3(-0.05f, 0.55f, -1f);
-            markerButton1 = new CustomButton(
+ 
 
-           () =>
-           {
-               if (Marker.currentTarget != null)
-               {
-
-                   MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.MarkerMark, Hazel.SendOption.Reliable, -1);
-                   writer.Write(Marker.currentTarget.PlayerId);
-                   AmongUsClient.Instance.FinishRpcImmediately(writer);
-                   RPCProcedure.MarkerMark(Marker.currentTarget.PlayerId);
-
-                   markerButton1.Timer = markerButton1.MaxTimer;
-               }
-           },
-              () => { return Marker.marker != null && CachedPlayer.LocalPlayer.PlayerControl == Marker.marker && !CachedPlayer.LocalPlayer.PlayerControl.Data.IsDead && Marker.markLeft > 0; },
-              () =>
-              {
-                  if (markButtonText != null)
-                  {
-                      if (Marker.markLeft > 0)
-                          markButtonText.text = $"{Marker.markLeft}";
-                      else
-                          markButtonText.text = "";
-                  }
-                  return Marker.currentTarget != null && CachedPlayer.LocalPlayer.PlayerControl.CanMove;
-              },
-              () => { markerButton1.Timer = markerButton1.MaxTimer; },
-              Marker.getButtonSprite(),
-              CustomButton.ButtonPositions.lowerRowRight,
-              __instance,
-              KeyCode.F,
-              buttonText: ModTranslation.GetString("MarkText")
-
-          );
-            markerButton2 = new CustomButton(
-
-                      () =>
-                      {
-                          if (Marker.currentTarget2 != null)
-                          {
-
-                              MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.MarkerMark2, Hazel.SendOption.Reliable, -1);
-                              writer.Write(Marker.currentTarget2.PlayerId);
-                              AmongUsClient.Instance.FinishRpcImmediately(writer);
-                              RPCProcedure.MarkerMark(Marker.currentTarget2.PlayerId);
-
-                              markerButton2.Timer = markerButton2.MaxTimer;
-                          }
-                      },
-                         () => { return Marker.marker != null && CachedPlayer.LocalPlayer.PlayerControl == Marker.marker && !CachedPlayer.LocalPlayer.PlayerControl.Data.IsDead && Marker.markLeft > 0; },
-                         () =>
-                         {
-                             if (markButtonText != null)
-                             {
-                                 if (Marker.markLeft > 0)
-                                     markButtonText.text = $"{Marker.markLeft2}";
-                                 else
-                                     markButtonText.text = "";
-                             }
-                             return Marker.currentTarget2 != null && CachedPlayer.LocalPlayer.PlayerControl.CanMove;
-                         },
-                         () => { markerButton1.Timer = markerButton1.MaxTimer; },
-                         Marker.getButtonSprite(),
-                         CustomButton.ButtonPositions.lowerRowCenter,
-                         __instance,
-                         KeyCode.G,
-                         buttonText: ModTranslation.GetString("ButtonMark")
-
-                     );
             portalmakerPlacePortalButton = new CustomButton(
                 () => {
                     portalmakerPlacePortalButton.Timer = portalmakerPlacePortalButton.MaxTimer;
@@ -1196,7 +1126,7 @@ namespace TheOtherRoles
                 () => { return Jackal.canCreateSidekick && Jackal.currentTarget != null && CachedPlayer.LocalPlayer.PlayerControl.CanMove; },
                 () => { jackalSidekickButton.Timer = jackalSidekickButton.MaxTimer;},
                 Jackal.getSidekickButtonSprite(),
-                CustomButton.ButtonPositions.lowerRowCenter,
+                CustomButton.ButtonPositions.upperRowFarRight,
                 __instance,
                 KeyCode.H,
                 buttonText: ModTranslation.GetString("ButtonjackalSidekick")
@@ -1214,7 +1144,7 @@ namespace TheOtherRoles
                 () => { return Jackal.currentTarget && CachedPlayer.LocalPlayer.PlayerControl.CanMove; },
                 () => { jackalKillButton.Timer = jackalKillButton.MaxTimer;},
                 __instance.KillButton.graphic.sprite,
-                CustomButton.ButtonPositions.upperRowFarRight,
+                CustomButton.ButtonPositions.upperRowRight,
                 __instance,
                 KeyCode.Q
             );
@@ -2230,7 +2160,7 @@ namespace TheOtherRoles
                 buttonText: ModTranslation.GetString("ButtonAdmin")
 
            );
-
+       
 
             zoomOutButton = new CustomButton(
                 () => { Helpers.toggleZoom();

@@ -336,13 +336,8 @@ namespace TheOtherRoles
                 {
                     list.Add(RoleInfo.fraudster);
                 }
-                bool flag61 = p == Marker.marker;
+                bool flag61 = list.Count == count;
                 if (flag61)
-                {
-                    list.Add(RoleInfo.marker);
-                }
-                bool flag62 = list.Count == count;
-                if (flag62)
                 {
                     bool isImpostor = p.Data.Role.IsImpostor;
                     if (isImpostor)
@@ -402,11 +397,11 @@ namespace TheOtherRoles
                         string str2 = text;
                         Color c2 = BountyHunter.color;
                         DefaultInterpolatedStringHandler defaultInterpolatedStringHandler = new DefaultInterpolatedStringHandler(16, 2);
-                        defaultInterpolatedStringHandler.AppendLiteral("BHNameCooldown".Translate());
+                        defaultInterpolatedStringHandler.AppendLiteral(" BHNameCooldown".Translate());
                         defaultInterpolatedStringHandler.AppendFormatted<float>(BountyHunter.bountyKillCooldown);
                         defaultInterpolatedStringHandler.AppendLiteral("BHNameCooldown2".Translate());
                         defaultInterpolatedStringHandler.AppendFormatted<float>(BountyHunter.punishmentTime);
-                        defaultInterpolatedStringHandler.AppendLiteral("BHNameCooldown".Translate());
+                        defaultInterpolatedStringHandler.AppendLiteral("BHNameCooldown3".Translate());
                         text = str2 + Helpers.cs(c2, defaultInterpolatedStringHandler.ToStringAndClear());
                     }
                 }
@@ -518,7 +513,7 @@ namespace TheOtherRoles
                                         }
                                         else
                                         {
-                                            str4 = "DeadReasonGuess" + Helpers.cs(c5, deadPlayer.killerIfExisting.Data.PlayerName) + " DeadReasonGuess".Translate();
+                                            str4 = "DeadReasonGuess" + Helpers.cs(c5, deadPlayer.killerIfExisting.Data.PlayerName) + " DeadReasonGuess2".Translate();
                                         }
                                         break;
                                     }
@@ -675,8 +670,6 @@ namespace TheOtherRoles
 
         // Token: 0x040002A4 RID: 676
         public static RoleInfo investigator = new RoleInfo("Prophet", Prophet.color, "ProphetIntroDesc", "ProphetShortDesc", RoleId.Prophet, false, false);
-
-        public static RoleInfo marker = new RoleInfo("Marker", Prophet.color, "MarkerIntroDesc", "MarkerShortDesc", RoleId.Marker, false, false);
 
         // Token: 0x040002A5 RID: 677
         public static RoleInfo jackal = new RoleInfo("Jackal", Jackal.color, "JackalIntroDesc", "JackalShortDesc", RoleId.Jackal, true, false);

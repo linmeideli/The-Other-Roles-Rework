@@ -9,6 +9,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
+using TheOtherRoles;
+using System.IO;
+
 
 namespace TheOtherRoles.Modules
 {
@@ -20,7 +23,6 @@ namespace TheOtherRoles.Modules
         private static AnnouncementPopUp popUp;
         private static GameObject CreditsButton;
         private static GameObject QQButton;
-        private static GameObject DiscordButton;
         public static MainMenuManager Instance { get; private set; }
 
         public static void addSceneChangeCallbacks()
@@ -68,23 +70,12 @@ namespace TheOtherRoles.Modules
                     TORMapOptions.gameMode = CustomGamemodes.PropHunt;
                     template.OnClick();
                 }));
-                /*var ScoreButton = GameObject.Instantiate<Transform>(gameButton, gameButton.parent);
-                ScoreButton.transform.localPosition += new Vector3(3.4f, 0f);
-                var ScoreButtonText = ScoreButton.GetComponentInChildren<TMPro.TextMeshPro>();
-                var ScoreButtonPassiveButton = ScoreButton.GetComponentInChildren<PassiveButton>();
-                ScoreButtonPassiveButton.OnClick = new Button.ButtonClickedEvent();
-                ScoreButtonPassiveButton.OnClick.AddListener((System.Action)(() =>
-                {
-                    TORMapOptions.gameMode = CustomGamemodes.Score;//Big Life
-                    template.OnClick();
-                }));
                 template.StartCoroutine(Effects.Lerp(0.1f, new System.Action<float>((p) =>
                 {
                     guesserButtonText.SetText(ModTranslation.GetString("CreateGameModeText1"),true);
                     HideNSeekButtonText.SetText(ModTranslation.GetString("CreateGameModeText2"), true);
                     PropHuntButtonText.SetText(ModTranslation.GetString("CreateGameModeText3"), true);
-                    ScoreButtonText.SetText(ModTranslation.GetString("CreateGameModeText4"), true);
-                })));*/
+                })));
             }));
         }
         [HarmonyPatch(typeof(MainMenuManager), nameof(MainMenuManager.Start)), HarmonyPostfix]
@@ -133,10 +124,10 @@ namespace TheOtherRoles.Modules
 
                 popUp.gameObject.SetActive(true);
                 string creditsString = @$"<align=""center"">Contributors:
-ELinmei
+ELinmei,FangKuai
 
 
-<b>Special thanks ksduye & FangKuai</b>
+<b>Special thanks ksduye</b>
 
 ";
                 creditsString += $@"<size=60%> Other Credits & Resources:
@@ -197,15 +188,14 @@ TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes</size>";
             if (QQButton == null) QQButton = CreatButton("QQ", () => Application.OpenURL("https://qm.qq.com/cgi-bin/qm/qr?authKey=Dn8MKDZAadw0VHyaPg43rRuSNIK9fOpzmI%2BfZA1%2F6%2BCx2QpqZH1vzHlB6QwVKv3Q&k=qDktOeGaUnZHnx0_U6kBoQ9d0ip8_Myp&noverify=0"));
             QQButton.gameObject.SetActive(true);
             QQButton.name = "QQ";
-            PassiveButton passiveQQButton = QQButton.GetComponent<PassiveButton>();
-            SpriteRenderer SpriteQQButton = QQButton.transform.FindChild("Inactive").GetComponent<SpriteRenderer>();
+            PassiveButton passiveDiscordButton = QQButton.GetComponent<PassiveButton>();
+            SpriteRenderer SpriteDiscordButton = QQButton.transform.FindChild("Inactive").GetComponent<SpriteRenderer>();
             Color QQColor = new Color(0.317f, 0, 1, 0.8f);
-            SpriteQQButton.color = QQColor;
-            passiveQQButton.OnMouseOut.AddListener((System.Action)delegate
+            SpriteDiscordButton.color = QQColor;
+            passiveDiscordButton.OnMouseOut.AddListener((System.Action)delegate
             {
-                SpriteQQButton.color = QQColor;
+                SpriteDiscordButton.color = QQColor;
             });
-
         }
     }
     [HarmonyPatch(typeof(VersionShower), nameof(VersionShower.Start))]
@@ -241,7 +231,7 @@ TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes</size>";
                 VisitText.transform.localPosition = new Vector3(-3.92f, -2.9f, 0f);
                 VisitText.enabled = GameObject.Find("TOR Background") != null;
 
-                __instance.text.text = $"<color=#C1FFC1>Among Us<color=#FF0000>The Other Roles Rework</color></color> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
+                __instance.text.text = $"<color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Rework</color></color></color> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
                 __instance.text.alignment = TextAlignmentOptions.Left;
                 OVersionShower.transform.localPosition = new Vector3(-4.92f, -3.3f, 0f);
 
@@ -252,10 +242,33 @@ TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes</size>";
             };
         }
     }
+    [HarmonyPatch(typeof(PingTracker), "Update")]
+    public static class PingTrackerPatch
+    {
+        private static void Postfix(PingTracker __instance)
+        {
+
+            AspectPosition position = __instance.GetComponent<AspectPosition>();
+            if (AmongUsClient.Instance.GameState == InnerNet.InnerNetClient.GameStates.Started)
+            {
+                __instance.text.alignment = TextAlignmentOptions.Top;
+                position.Alignment = AspectPosition.EdgeAlignments.Top;
+                __instance.text.text = __instance.text.text + "<color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Rework</color></color></color>\n";
+                position.DistanceFromEdge = new Vector3(1.5f, 0.11f, 0f);
+                return;
+            }
+            position.Alignment = AspectPosition.EdgeAlignments.LeftTop;
+            __instance.text.alignment = TextAlignmentOptions.TopLeft;
+            __instance.text.text = __instance.text.text + "<color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Rework</color></color></color>\n";
+            position.DistanceFromEdge = new Vector3(0.5f, 0.11f);
+        }
+
+    }
 
     [HarmonyPatch(typeof(MainMenuManager), nameof(MainMenuManager.Start)), HarmonyPriority(Priority.First)]
     internal class TitleLogoPatch
     {
+
         public static GameObject TOR_Background;
         public static GameObject Ambience;
         public static GameObject Starfield;
@@ -267,17 +280,28 @@ TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes</size>";
         public static GameObject AULogo;
         public static GameObject BottomButtonBounds;
 
+        //public static Texture2D image;
+
         public static Vector3 RightPanelOp;
 
         private static void Postfix(MainMenuManager __instance)
         {
+  
+
             GameObject.Find("BackgroundTexture")?.SetActive(false);
 
             TOR_Background = new GameObject("TOR Background");
             TOR_Background.transform.position = new Vector3(0, 0, 520f);
             var bgRenderer = TOR_Background.AddComponent<SpriteRenderer>();
-            bgRenderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.paintingbyarcaea.jpg", 320f);
-
+            //string imagePath = @"D:/Steam/steamapps/common/Among Us/Among Us Mod/ACG_Images_20250328_220245/image_030.jpg";
+            //Sprite MainMenuSprite = Helpers.LoadSpriteFromDisk(imagePath);
+            //bgRenderer.sprite = MainMenuSprite;
+            //bgRenderer.sprite = Helpers.loadSpriteFromDisk("D:/Steam/steamapps/common/Among Us/Among Us Mod/ACG_Images_20250328_220245.image_030.jpg", 160f);
+            //TitleLogoPatch.image = Helpers.loadTextureFromDisk(@"D:/Steam/steamapps/common/Among Us/Among Us Mod/ACG_Images_20250328_220245/image_030.jpg");
+            //bgRenderer.sprite = Sprite.Create(new Rect(0, 0, image.width, image.height), new Vector2(0.5f, 0.5f),160f,image); 
+            System.Random rnd = new System.Random();
+            int rndnum = rnd.Next(1,MainMenuImage.imgnum);
+            bgRenderer.sprite = Helpers.LoadSpriteFromDisk(@$"{MainMenuImage.FolderPath()}/image_{rndnum}.jpg",160f);
             if (!(Ambience = GameObject.Find("Ambience"))) return;
             if (!(Starfield = Ambience.transform.FindChild("starfield").gameObject)) return;
             StarGen starGen = Starfield.GetComponent<StarGen>();

@@ -22,6 +22,9 @@ using Reactor.Networking.Attributes;
 using AmongUs.Data;
 using TheOtherRoles.Modules.CustomHats;
 using static TheOtherRoles.Modules.ModUpdater;
+using TheOtherRoles.Objects;
+using AmongUs.Data.Player;
+
 
 namespace TheOtherRoles
 {
@@ -45,6 +48,7 @@ namespace TheOtherRoles
 
         public static int optionsPage = 2;
 
+        public static System.Reflection.Assembly JsonNet;
         public static ConfigEntry<string> DebugMode { get; private set; }
         public static ConfigEntry<bool> GhostsSeeInformation { get; set; }
         public static ConfigEntry<bool> GhostsSeeRoles { get; set; }
@@ -95,7 +99,7 @@ namespace TheOtherRoles
             }
         }
 
-        public override void Load() {
+        public override  void Load() {
             ZipsLoad.Load();
             ModTranslation.Load();
             Logger = Log;
@@ -140,18 +144,22 @@ namespace TheOtherRoles
             }
 
             AddComponent<ModUpdater>();
-
+            MainMenuImage.Load();
+            ModInputManager.Load();
             EventUtility.Load();
             SubmergedCompatibility.Initialize();
             MainMenuPatch.addSceneChangeCallbacks();
             _ = RoleInfo.loadReadme();
             AddToKillDistanceSetting.addKillDistance();
             TheOtherRolesPlugin.Logger.LogInfo("加载TORR完成！");
+
+
         }
+        
     }
 
     // Deactivate bans, since I always leave my local testing game and ban myself
-    [HarmonyPatch(typeof(StatsManager), nameof(StatsManager.AmBanned), MethodType.Getter)]
+    [HarmonyPatch(typeof(PlayerBanData), nameof(PlayerBanData.IsBanned), MethodType.Getter)]
     public static class AmBannedPatch
     {
         public static void Postfix(out bool __result)

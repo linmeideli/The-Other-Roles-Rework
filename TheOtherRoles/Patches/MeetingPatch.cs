@@ -11,6 +11,8 @@ using TheOtherRoles.Utilities;
 using UnityEngine;
 using Innersloth.Assets;
 using TMPro;
+using TheOtherRoles.Modules;
+
 
 namespace TheOtherRoles.Patches {
     [HarmonyPatch]
@@ -277,6 +279,7 @@ namespace TheOtherRoles.Patches {
                 }
             }
         }
+       
 
         static void swapperConfirm(MeetingHud __instance) {
             __instance.playerStates[0].Cancel();  // This will stop the underlying buttons of the template from showing up
@@ -371,6 +374,28 @@ namespace TheOtherRoles.Patches {
 
             meetingExtraButtonLabel.text = Helpers.cs(Mayor.color, "两次投票: " + (Mayor.voteTwice ? Helpers.cs(Color.green, "开启 ") : Helpers.cs(Color.red, "关闭")));
         }
+
+        static void FraudsterSuicide(MeetingHud __instance)
+        {
+            __instance.playerStates[0].Cancel();  // This will stop the underlying buttons of the template from showing up
+            if (__instance.state == MeetingHud.VoteStates.Results || Fraudster.fraudster.Data.IsDead) return;
+            if (Mayor.mayorChooseSingleVote == 1)
+            { // Only accept changes until the mayor voted
+                var mayorPVA = __instance.playerStates.FirstOrDefault(x => x.TargetPlayerId == Mayor.mayor.PlayerId);
+                if (mayorPVA != null && mayorPVA.DidVote)
+                {
+                    SoundEffectsManager.play("fail");
+                    return;
+                }
+            }
+
+            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.GuesserShoot, Hazel.SendOption.Reliable, -1);
+            writer.Write(Fraudster.fraudstermeeting);
+            AmongUsClient.Instance.FinishRpcImmediately(writer);
+
+            meetingExtraButtonLabel.text = Helpers.cs(Fraudster.color, "会议自杀" );
+        }
+
 
         public static GameObject guesserUI;
         public static PassiveButton guesserUIExitButton;
@@ -510,6 +535,7 @@ namespace TheOtherRoles.Patches {
         static void populateButtonsPostfix(MeetingHud __instance) {
             // Add Swapper Buttons
             bool addSwapperButtons = Swapper.swapper != null && CachedPlayer.LocalPlayer.PlayerControl == Swapper.swapper && !Swapper.swapper.Data.IsDead;
+            bool addFraudsterButtons = Fraudster.fraudster != null && CachedPlayer.LocalPlayer.PlayerControl == Fraudster.fraudster && !Fraudster.fraudster.Data.IsDead;
             bool addMayorButton = Mayor.mayor != null && CachedPlayer.LocalPlayer.PlayerControl == Mayor.mayor && !Mayor.mayor.Data.IsDead && Mayor.mayorChooseSingleVote > 0;
             if (addSwapperButtons) {
                 selections = new bool[__instance.playerStates.Length];
@@ -542,9 +568,11 @@ namespace TheOtherRoles.Patches {
                     renderers[i] = renderer;
                 }
             }
+           
+            
 
             // Add meeting extra button, i.e. Swapper Confirm Button or Mayor Toggle Double Vote Button. Swapper Button uses ExtraButtonText on the Left of the Button. (Future meeting buttons can easily be added here)
-            if (addSwapperButtons || addMayorButton) {
+            if (addSwapperButtons || addMayorButton || addFraudsterButtons) {
                 Transform meetingUI = UnityEngine.Object.FindObjectsOfType<Transform>().FirstOrDefault(x => x.name == "PhoneUI");
 
                 var buttonTemplate = __instance.playerStates[0].transform.FindChild("votePlayerBase");
@@ -557,7 +585,7 @@ namespace TheOtherRoles.Patches {
                 Transform infoTransform = __instance.playerStates[0].NameText.transform.parent.FindChild("Info");
                 TMPro.TextMeshPro meetingInfo = infoTransform != null ? infoTransform.GetComponent<TMPro.TextMeshPro>() : null;
                 meetingExtraButtonText = UnityEngine.Object.Instantiate(__instance.playerStates[0].NameText, meetingExtraButtonParent);
-                meetingExtraButtonText.text = addSwapperButtons ? $"Swaps: {Swapper.charges}" : "";
+                meetingExtraButtonText.text = addSwapperButtons ? $"{ModTranslation.GetString("Swaps")}: {Swapper.charges}" : "";
                 meetingExtraButtonText.enableWordWrapping = false;
                 meetingExtraButtonText.transform.localScale = Vector3.one * 1.7f;
                 meetingExtraButtonText.transform.localPosition = new Vector3(-2.5f, 0f, 0f);
@@ -572,10 +600,15 @@ namespace TheOtherRoles.Patches {
                 meetingExtraButtonLabel.transform.localPosition = new Vector3(0, 0, meetingExtraButtonLabel.transform.localPosition.z);
                 if (addSwapperButtons) {
                     meetingExtraButtonLabel.transform.localScale *= 1.7f;
-                    meetingExtraButtonLabel.text = Helpers.cs(Color.red, "Confirm Swap");
+                    meetingExtraButtonLabel.text = Helpers.cs(Color.red, $"{ModTranslation.GetString("ConfirmSwap")}");
                 } else if (addMayorButton) {
                     meetingExtraButtonLabel.transform.localScale = new Vector3(meetingExtraButtonLabel.transform.localScale.x * 1.5f, meetingExtraButtonLabel.transform.localScale.x * 1.7f, meetingExtraButtonLabel.transform.localScale.x * 1.7f);
-                    meetingExtraButtonLabel.text = Helpers.cs(Mayor.color, "Double Vote: " + (Mayor.voteTwice ? Helpers.cs(Color.green, "On ") : Helpers.cs(Color.red, "Off")));
+                    meetingExtraButtonLabel.text = Helpers.cs(Mayor.color, $"{ModTranslation.GetString("DbVote")}: " + (Mayor.voteTwice ? Helpers.cs(Color.green, $"{ModTranslation.GetString("optionOn")} ") : Helpers.cs(Color.red, $"{ModTranslation.GetString("optionOff")} ")));
+                }
+                else if (addFraudsterButtons)
+                {
+                    meetingExtraButtonLabel.transform.localScale = new Vector3(meetingExtraButtonLabel.transform.localScale.x * 1.5f, meetingExtraButtonLabel.transform.localScale.x * 1.7f, meetingExtraButtonLabel.transform.localScale.x * 1.7f);
+                    meetingExtraButtonLabel.text = Helpers.cs(Mayor.color,  ModTranslation.GetString("ConfirmSuicide"));
                 }
                 PassiveButton passiveButton = meetingExtraButton.GetComponent<PassiveButton>();
                 passiveButton.OnClick.RemoveAllListeners();
@@ -584,6 +617,9 @@ namespace TheOtherRoles.Patches {
                         passiveButton.OnClick.AddListener((Action)(() => swapperConfirm(__instance)));
                     else if (addMayorButton)
                         passiveButton.OnClick.AddListener((Action)(() => mayorToggleVoteTwice(__instance)));
+                    else if (addFraudsterButtons)
+                        passiveButton.OnClick.AddListener((Action)(() => FraudsterSuicide(__instance)));
+
                 }
                 meetingExtraButton.parent.gameObject.SetActive(false);
                 __instance.StartCoroutine(Effects.Lerp(7.27f, new Action<float>((p) => { // Button appears delayed, so that its visible in the voting screen only!

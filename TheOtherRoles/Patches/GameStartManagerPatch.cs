@@ -5,10 +5,11 @@ using System.Reflection;
 using System.Collections.Generic;
 using Hazel;
 using System;
-using TheOtherRoles.Modules;
+
 using TheOtherRoles.Utilities;
 using System.Linq;
 using Reactor.Utilities.Extensions;
+using TheOtherRoles.Modules;
 
 namespace TheOtherRoles.Patches
 {
@@ -86,33 +87,45 @@ namespace TheOtherRoles.Patches
                     else if (!playerVersions.ContainsKey(client.Id))
                     {
                         versionMismatch = true;
-                        message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} {ModTranslation.GetString("errorNotInstalled")}\n</color>";
-                    } else {
+                        message += $"<color=#FF0000FF>{client.Character.Data.PlayerName}{ModTranslation.GetString("errorNotInstalled")}\n</color>";
+                    }
+                    else
+                    {
                         PlayerVersion PV = playerVersions[client.Id];
                         int diff = TheOtherRolesPlugin.Version.CompareTo(PV.version);
-                        if (diff > 0) {
-                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} {ModTranslation.GetString("errorOlderVersion")} (v{playerVersions[client.Id].version.ToString()})\n</color>";
+                        if (diff > 0)
+                        {
+                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName}{ModTranslation.GetString("errorOlderVersion")} (v{playerVersions[client.Id].version.ToString()})\n</color>";
                             versionMismatch = true;
-                        } else if (diff < 0) {
-                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} {ModTranslation.GetString("errorNewerVersion")} (v{playerVersions[client.Id].version.ToString()})\n</color>";
+                        }
+                        else if (diff < 0)
+                        {
+                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName}{ModTranslation.GetString("errorNewerVersion")}(v{playerVersions[client.Id].version.ToString()})\n</color>";
                             versionMismatch = true;
-                        } else if (!PV.GuidMatches()) { // version presumably matches, check if Guid matches
-                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName} {ModTranslation.GetString("errorWrongVersion")} v{playerVersions[client.Id].version.ToString()} <size=30%>({PV.guid.ToString()})</size>\n</color>";
+                        }
+                        else if (!PV.GuidMatches())
+                        { // version presumably matches, check if Guid matches
+                            message += $"<color=#FF0000FF>{client.Character.Data.PlayerName}{ModTranslation.GetString("errorWrongVersion")}v{playerVersions[client.Id].version.ToString()} <size=30%>({PV.guid.ToString()})</size>\n</color>";
                             versionMismatch = true;
                         }
                     }
                 }
                 // Display message to the host
-                if (AmongUsClient.Instance.AmHost) {
-                    if (versionMismatch) {
+                if (AmongUsClient.Instance.AmHost)
+                {
+                    if (versionMismatch)
+                    {
                         __instance.GameStartText.text = message;
                         __instance.GameStartText.transform.localPosition = __instance.StartButton.transform.localPosition + Vector3.up * 5;
                         __instance.GameStartText.transform.localScale = new Vector3(2f, 2f, 1f);
                         __instance.GameStartTextParent.SetActive(true);
-                    } else {
+                    }
+                    else
+                    {
                         __instance.GameStartText.transform.localPosition = Vector3.zero;
                         __instance.GameStartText.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
-                        if (!__instance.GameStartText.text.StartsWith("Starting")) {
+                        if (!__instance.GameStartText.text.StartsWith("Starting"))
+                        {
                             __instance.GameStartText.text = String.Empty;
                             __instance.GameStartTextParent.SetActive(false);
                         }
@@ -121,7 +134,8 @@ namespace TheOtherRoles.Patches
                     if (__instance.startState != GameStartManager.StartingStates.Countdown)
                         copiedStartButton?.Destroy();
                     // Make starting info available to clients:
-                    if (startingTimer <= 0 && __instance.startState == GameStartManager.StartingStates.Countdown) {
+                    if (startingTimer <= 0 && __instance.startState == GameStartManager.StartingStates.Countdown)
+                    {
                         MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetGameStarting, Hazel.SendOption.Reliable, -1);
                         AmongUsClient.Instance.FinishRpcImmediately(writer);
                         RPCProcedure.setGameStarting();
@@ -135,7 +149,8 @@ namespace TheOtherRoles.Patches
                         startButtonText.fontSizeMax = startButtonText.fontSize;
                         startButtonText.gameObject.transform.localPosition = Vector3.zero;
                         PassiveButton startButtonPassiveButton = copiedStartButton.GetComponent<PassiveButton>();
-                        void StopStartFunc() {
+                        void StopStartFunc()
+                        {
                             __instance.ResetStartState();
                             copiedStartButton.Destroy();
                             startingTimer = 0;
@@ -144,42 +159,61 @@ namespace TheOtherRoles.Patches
                         __instance.StartCoroutine(Effects.Lerp(.1f, new System.Action<float>((p) => {
                             startButtonText.text = "";
                         })));
-                        
+
 
                     }
                 }
-                
+
                 // Client update with handshake infos
-                else {
-                    if (!playerVersions.ContainsKey(AmongUsClient.Instance.HostId) || TheOtherRolesPlugin.Version.CompareTo(playerVersions[AmongUsClient.Instance.HostId].version) != 0) {
+                else
+                {
+                    if (!playerVersions.ContainsKey(AmongUsClient.Instance.HostId) || TheOtherRolesPlugin.Version.CompareTo(playerVersions[AmongUsClient.Instance.HostId].version) != 0)
+                    {
                         kickingTimer += Time.deltaTime;
-                        if (kickingTimer > 10) {
+                        if (kickingTimer > 10)
+                        {
                             kickingTimer = 0;
-			                AmongUsClient.Instance.ExitGame(DisconnectReasons.ExitGame);
+                            AmongUsClient.Instance.ExitGame(DisconnectReasons.ExitGame);
                             SceneChanger.ChangeScene("MainMenu");
                         }
 
-                        __instance.GameStartText.text = $"<color=#FF0000FF> {ModTranslation.GetString("errorHostNoVersion")} {Math.Round(10 - kickingTimer)}</color>";
+                        __instance.GameStartText.text = $"<color=#FF0000FF>{ModTranslation.GetString("errorHostNoVersion")}{Math.Round(10 - kickingTimer)}{ModTranslation.GetString("adderrorHostNoVersion")}</color>";
                         __instance.GameStartText.transform.localPosition = __instance.StartButton.transform.localPosition + Vector3.up * 5;
                         __instance.GameStartText.transform.localScale = new Vector3(2f, 2f, 1f);
                         __instance.GameStartTextParent.SetActive(true);
-                    } else if (versionMismatch) {
-                        __instance.GameStartText.text = $"<color=#FF0000FF>{ModTranslation.GetString("errorDifferentVersion")}\n</color>" + message;
+                    }
+                    else if (versionMismatch)
+                    {
+                        __instance.GameStartText.text = $"<color=#FF0000FF>{ModTranslation.GetString("errorDifferentVersion")}</color>" + message;
                         __instance.GameStartText.transform.localPosition = __instance.StartButton.transform.localPosition + Vector3.up * 5;
                         __instance.GameStartText.transform.localScale = new Vector3(2f, 2f, 1f);
                         __instance.GameStartTextParent.SetActive(true);
-                    } else {
+                    }
+                    else if (GameStartManagerPatch.GameStartManagerUpdatePatch.startingTimer == 5f)
+                    {
+                        __instance.GameStartText.text = $"<color=#FFFFFF>\n\n\n\n\n\n\n\n\n{ModTranslation.GetString("StartGameQuickly")}</color>" + message;
+                        __instance.GameStartText.transform.localPosition = __instance.StartButton.transform.localPosition + Vector3.up * 5;
+                        __instance.GameStartText.transform.localScale = new Vector3(2f, 2f, 1f);
+                        __instance.GameStartTextParent.SetActive(true);
+                        if (Input.GetKeyDown(KeyCode.F7) && Helpers.IsCountDown)
+                        {
+                            GameStartManager.Instance.countDownTimer = 0;
+                        }
+                    }
+                    else
+                    {
                         __instance.GameStartText.transform.localPosition = Vector3.zero;
                         __instance.GameStartText.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
-                        if (!__instance.GameStartText.text.StartsWith("Starting")) {
+                        if (!__instance.GameStartText.text.StartsWith("Starting"))
+                        {
                             __instance.GameStartText.text = String.Empty;
                             __instance.GameStartTextParent.SetActive(false);
                         }
                     }
 
-                    if (!__instance.GameStartText.text.StartsWith("Staring") || !CustomOptionHolder.anyPlayerCanStopStart.getBool())
+                    if (!__instance.GameStartText.text.StartsWith("Starting") || !CustomOptionHolder.anyPlayerCanStopStart.getBool())
                         copiedStartButton?.Destroy();
-                    if (CustomOptionHolder.anyPlayerCanStopStart.getBool() && copiedStartButton == null && __instance.GameStartText.text.StartsWith("��ʼ��"))
+                    if (CustomOptionHolder.anyPlayerCanStopStart.getBool() && copiedStartButton == null && __instance.GameStartText.text.StartsWith("Starting"))
                     {
 
                         // Activate Stop-Button
@@ -267,11 +301,10 @@ namespace TheOtherRoles.Patches
                             break;
                         }
                     }
-                    if (continueStart && (TORMapOptions.gameMode == CustomGamemodes.HideNSeek || TORMapOptions.gameMode == CustomGamemodes.PropHunt) && GameOptionsManager.Instance.CurrentGameOptions.MapId != 6)
+                    if (continueStart && GameOptionsManager.Instance.CurrentGameOptions.MapId != 6)
                     {
                         byte mapId = 0;
-                        if (TORMapOptions.gameMode == CustomGamemodes.HideNSeek) mapId = (byte)CustomOptionHolder.hideNSeekMap.getSelection();
-                        else if (TORMapOptions.gameMode == CustomGamemodes.PropHunt) mapId = (byte)CustomOptionHolder.propHuntMap.getSelection();
+
                         if (mapId >= 3) mapId++;
                         MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.DynamicMapOption, Hazel.SendOption.Reliable, -1);
                         writer.Write(mapId);

@@ -238,7 +238,7 @@
         "13": "第一页：游戏设置 \n\n"
     },
     "page2": {
-        "0": "Page 2: The Other Us Settings \n",
+        "0": "Page 2: The Other Roles Rework Settings \n",
         "13": "第2页: 超多职业模组设置 \n"
     },
     "page3": {
@@ -2331,8 +2331,9 @@
     "modifierSpecoalityIsGlobal": {
         "13": "更改为公共附加能力\n(仅赌怪模式生效)"
     },
-    "modifierLastImpostorDeduce": {
-        "13": "绝境者击杀冷却减少"
+    "LastImpostor": {
+        "0": "LastImpostor",
+        "13": "绝境者"
     },
     "modifierFlashQuantity": {
         "0": "Flash Quantity",
@@ -2609,20 +2610,20 @@
         "13": "嘘！不许说话！"
     },
     "errorNotInstalled": {
-        "0": "{0} has a different or no version of TheOtherRolesRework",
-        "13": "{0} 安装了不同版本的TheOtherRolesRework"
+        "0": " has a different or no version of TheOtherRolesRework",
+        "13": " 安装了不同版本的TheOtherRolesRework"
     },
     "errorOlderVersion": {
-        "0": "{0} has an older version of TheOtherRolesRework",
-        "13": "{0} 安装了旧版本的TheOtherRolesRework"
+        "0": " has an older version of TheOtherRolesRework",
+        "13": " 安装了旧版本的TheOtherRolesRework"
     },
     "errorNewerVersion": {
-        "0": "{0} has a newer version of TheOtherRolesRework",
-        "13": "{0} 安装了较新版本的TheOtherRolesRework"
+        "0": " has a newer version of TheOtherRolesRework",
+        "13": " 安装了较新版本的TheOtherRolesRework"
     },
     "errorWrongVersion": {
-        "0": "{0} has a modified version of TheOtherRolesRework",
-        "13": "{0} 安装了修改过的TheOtherRolesRework"
+        "0": " has a modified version of TheOtherRolesRework",
+        "13": " 安装了修改过的TheOtherRolesRework"
     },
     "errorHostNoVersion": {
         "0": "The host has no or a different version of TheOtherRolesRework\nYou will be kicked in ",
@@ -2635,6 +2636,10 @@
     "errorDifferentVersion": {
         "0": "Players With Different Versions:",
         "13": "装了不同版本模组的玩家:"
+    },
+    "StartGameQuickly": {
+        "0": "Press F7 If You Want to Start Game Now ",
+        "13": "按F7快速开启游戏:"
     },
     "tasksNum": {
         "0": "Tasks {0}",
@@ -4407,6 +4412,10 @@
         "0": " - Guessed by ",
         "13": " - 被 "
     },
+    "DeadReasonGuess2": {
+        "0": " ",
+        "13": " 猜测"
+    },
     "DeadReasonthief": {
         "0": "theft by ",
         "13": "被偷盗于 "
@@ -4436,8 +4445,8 @@
         "13": " - 烧死于 "
     },
     "GameReason": {
-        "0": "### Roles:",
-        "13": "###职业："
+        "0": "### Role:",
+        "13": "### 职业："
     },
     "BHNameCooldown": {
         "0": " (Right:",
@@ -4450,7 +4459,110 @@
     "BHNameCooldown3": {
         "0": " s)",
         "13": " 秒)"
+    },
+    "Atts": {
+        "0": "Remenber the other impostors in case they become sidekick",
+        "13": "记住其他伪装者以防他们变成跟班"
+    },
+    "AttsO": {
+        "0": "There Were",
+        "13": "在我们之中有"
+    },
+    "AttsP": {
+        "0": "Impostor",
+        "13": "名伪装者与"
+    },
+    "AttsQ": {
+        "0": "And",
+        "13": "名中立"
+    },
+    "AttsR": {
+        "0": "Neutral Among Us",
+        "13": ""
+    },
+    "ConfirmSwap": {
+        "0": "Confirm Swap",
+        "13": "确认交换"
+    },
+    "DbVote": {
+        "0": "Double Vote",
+        "13": "双次投票"
+    },
+    "ConfirmSuicide": {
+        "0": "Confirm Suicide",
+        "13": "确认自杀"
+    },
+    "Devil": {
+        "0": "Devil",
+        "13": "厉鬼"
+    },
+    "DevilColldown": {
+        "0": "Devil Colldown",
+        "13": "恐吓冷却时间"
+    },
+    "Intimidate": {
+        "0": "Intimidate",
+        "13": "恐吓"
+    },
+    "FlashSoul": {
+        "0": "Flash + Soul",
+        "13": "闪光+灵魂"
+    },
+    "Lighterln": {
+        "0": "Torch",
+        "13": "火炬"
+    },
+    "Flash": {
+        "0": "Flash",
+        "13": "闪光"
+    },
+    "Soul": {
+        "0": "Soul",
+        "13": "灵魂"
+    },
+    "Arrow": {
+        "0": "Arrow",
+        "13": "箭头"
+    },
+    "ArrowCheck": {
+        "0": "Arrow + Checker",
+        "13": "箭头+检测仪"
+    },
+    "Checker": {
+        "0": "Checker",
+        "13": "检测仪"
+    },
+    "Chat": {
+        "0": "ChatLan",
+        "13": "聊天栏"
+    },
+    "Map": {
+        "0": "Map",
+        "13": "地图"
+    },
+    "ChatMap": {
+        "0": "Chat + Map",
+        "13": "聊天栏+地图"
+    },
+    "evilPlayer": {
+        "0": "Evil Player",
+        "13": "邪恶玩家"
+    },
+    "killerPlayer": {
+        "0": "Killer Player",
+        "13": "带刀玩家"
+    },
+    "roles": {
+        "0": "Roles",
+        "13": "职业"
+    },
+    "CIRoles": {
+        "0": "Nice Or Evil",
+        "13": "正义/邪恶职业"
+    },
+    "Names": {
+        "0": "Name",
+        "13": "名称"
     }
-
 }
 
