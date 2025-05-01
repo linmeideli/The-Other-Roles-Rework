@@ -739,7 +739,7 @@ internal class LobbyViewSettingsPatch
         if (TORMapOptions.gameMode == CustomGamemodes.Guesser || TORMapOptions.gameMode == CustomGamemodes.Classic)
         {
             // create TOR settings
-            createCustomButton(__instance, next++, "TORSettings", "TOR Settings", CustomOptionType.General);
+            createCustomButton(__instance, next++, "TORSettings", "TORR Settings", CustomOptionType.General);
             // create TOR settings
             createCustomButton(__instance, next++, "RoleOverview", "Role Overview", (CustomOptionType)99);
             // IMp
@@ -822,7 +822,7 @@ internal class GameOptionsMenuStartPatch
         var template = GameObject.Find("PlayerOptionsMenu(Clone)").transform.Find("CloseButton").gameObject;
         var holderGO = new GameObject("copyPasteButtonParent");
         var bgrenderer = holderGO.AddComponent<SpriteRenderer>();
-        bgrenderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CopyPasteBG.png", 175f);
+        bgrenderer.sprite = Helpers.loadSpriteFromResources("CopyPasteBG.png", 175f);
         holderGO.transform.SetParent(template.transform.parent, false);
         holderGO.transform.localPosition = template.transform.localPosition + new Vector3(-8.3f, 0.73f, -2f);
         holderGO.layer = template.layer;
@@ -832,10 +832,10 @@ internal class GameOptionsMenuStartPatch
         var copyButtonPassive = copyButton.GetComponent<PassiveButton>();
         var copyButtonRenderer = copyButton.GetComponentInChildren<SpriteRenderer>();
         var copyButtonActiveRenderer = copyButton.transform.GetChild(1).GetComponent<SpriteRenderer>();
-        copyButtonRenderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Copy.png", 100f);
+        copyButtonRenderer.sprite = Helpers.loadSpriteFromResources("Copy.png", 100f);
         copyButton.transform.GetChild(1).transform.localPosition = Vector3.zero;
         copyButtonActiveRenderer.sprite =
-            Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CopyActive.png", 100f);
+            Helpers.loadSpriteFromResources("CopyActive.png", 100f);
         copyButtonPassive.OnClick.RemoveAllListeners();
         copyButtonPassive.OnClick = new Button.ButtonClickedEvent();
         copyButtonPassive.OnClick.AddListener((Action)(() =>
@@ -857,9 +857,9 @@ internal class GameOptionsMenuStartPatch
         var pasteButtonPassive = pasteButton.GetComponent<PassiveButton>();
         var pasteButtonRenderer = pasteButton.GetComponentInChildren<SpriteRenderer>();
         var pasteButtonActiveRenderer = pasteButton.transform.GetChild(1).GetComponent<SpriteRenderer>();
-        pasteButtonRenderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Paste.png", 100f);
+        pasteButtonRenderer.sprite = Helpers.loadSpriteFromResources("Paste.png", 100f);
         pasteButtonActiveRenderer.sprite =
-            Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PasteActive.png", 100f);
+            Helpers.loadSpriteFromResources("PasteActive.png", 100f);
         pasteButtonPassive.OnClick.RemoveAllListeners();
         pasteButtonPassive.OnClick = new Button.ButtonClickedEvent();
         pasteButtonPassive.OnClick.AddListener((Action)(() =>
@@ -1028,7 +1028,7 @@ internal class GameOptionsMenuStartPatch
         if (TORMapOptions.gameMode == CustomGamemodes.Guesser || TORMapOptions.gameMode == CustomGamemodes.Classic)
         {
             // create TOR settings
-            createCustomButton(__instance, next++, "TORSettings", "TOR Settings");
+            createCustomButton(__instance, next++, "TORSettings", "TORR Settings");
             createGameOptionsMenu(__instance, CustomOptionType.General, "TORSettings");
             // Guesser if applicable
             if (TORMapOptions.gameMode == CustomGamemodes.Guesser)
@@ -1379,7 +1379,7 @@ internal class LegacyGameOptionsPatch
                     hudString += (!hideExtras ? "" : "Page 1: Vanilla Settings \n\n") + vanillaSettings;
                     break;
                 case 1:
-                    hudString += "Page 2: The Other Roles Settings \n" +
+                    hudString += "Page 2: The Other Roles Rework Settings \n" +
                                  buildOptionsOfType(CustomOptionType.General, false);
                     break;
                 case 2:
@@ -1767,9 +1767,9 @@ public class HudManagerUpdate
             var renderer = toggleSettingsButtonObject.transform.Find("Inactive").GetComponent<SpriteRenderer>();
             var rendererActive = toggleSettingsButtonObject.transform.Find("Active").GetComponent<SpriteRenderer>();
             toggleSettingsButtonObject.transform.Find("Background").localPosition = Vector3.zero;
-            renderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Settings_Button.png", 100f);
+            renderer.sprite = Helpers.loadSpriteFromResources("Settings_Button.png", 100f);
             rendererActive.sprite =
-                Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Settings_ButtonActive.png", 100);
+                Helpers.loadSpriteFromResources("Settings_ButtonActive.png", 100);
             toggleSettingsButton = toggleSettingsButtonObject.GetComponent<PassiveButton>();
             toggleSettingsButton.OnClick.RemoveAllListeners();
             toggleSettingsButton.OnClick.AddListener((Action)(() => ToggleSettings(__instance)));
@@ -1793,8 +1793,8 @@ public class HudManagerUpdate
             var tZrenderer = toggleZoomButtonObject.transform.Find("Inactive").GetComponent<SpriteRenderer>();
             var tZArenderer = toggleZoomButtonObject.transform.Find("Active").GetComponent<SpriteRenderer>();
             toggleZoomButtonObject.transform.Find("Background").localPosition = Vector3.zero;
-            tZrenderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Minus_Button.png", 100f);
-            tZArenderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Minus_ButtonActive.png", 100);
+            tZrenderer.sprite = Helpers.loadSpriteFromResources("Minus_Button.png", 100f);
+            tZArenderer.sprite = Helpers.loadSpriteFromResources("Minus_ButtonActive.png", 100);
             toggleZoomButton = toggleZoomButtonObject.GetComponent<PassiveButton>();
             toggleZoomButton.OnClick.RemoveAllListeners();
             toggleZoomButton.OnClick.AddListener((Action)(() => Helpers.toggleZoom()));
@@ -1839,9 +1839,9 @@ public class HudManagerUpdate
             var renderer = toggleSummaryButtonObject.transform.Find("Inactive").GetComponent<SpriteRenderer>();
             var rendererActive = toggleSummaryButtonObject.transform.Find("Active").GetComponent<SpriteRenderer>();
             toggleSummaryButtonObject.transform.Find("Background").localPosition = Vector3.zero;
-            renderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Endscreen.png", 100f);
+            renderer.sprite = Helpers.loadSpriteFromResources("Endscreen.png", 100f);
             rendererActive.sprite =
-                Helpers.loadSpriteFromResources("TheOtherRoles.Resources.EndscreenActive.png", 100f);
+                Helpers.loadSpriteFromResources("EndscreenActive.png", 100f);
             toggleSummaryButton = toggleSummaryButtonObject.GetComponent<PassiveButton>();
             toggleSummaryButton.OnClick.RemoveAllListeners();
             toggleSummaryButton.OnClick.AddListener((Action)(() => ToggleSummary(__instance)));

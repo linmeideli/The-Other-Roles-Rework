@@ -23,13 +23,13 @@ public static class SoundEffectsManager
         /* Old way of loading .raw files. Left here for reference -Gendelo
         foreach (string resourceName in resourceNames)
         {
-            if (resourceName.Contains("TheOtherRoles.Resources.SoundEffects.") && (resourceName.Contains(".raw") || resourceName.Contains(".ogg")))
+            if (resourceName.Contains("SoundEffects.") && (resourceName.Contains(".raw") || resourceName.Contains(".ogg")))
             {
                 soundEffects.Add(resourceName, Helpers.loadAudioClipFromResources(resourceName));
             }
         }*/
 
-        var resourceBundle = assembly.GetManifestResourceStream("TheOtherRoles.Resources.SoundEffects.toraudio");
+        var resourceBundle = assembly.GetManifestResourceStream("SoundEffects.toraudio");
         var assetBundle = AssetBundle.LoadFromMemory(resourceBundle.ReadFully());
         foreach (var f in assetBundle.GetAllAssetNames())
             soundEffects.Add(f, assetBundle.LoadAsset<AudioClip>(f).DontUnload());
@@ -39,7 +39,7 @@ public static class SoundEffectsManager
     public static AudioClip get(string path)
     {
         // Convenience: As as SoundEffects are stored in the same folder, allow using just the name as well
-        //if (!path.Contains(".")) path = "TheOtherRoles.Resources.SoundEffects." + path + ".raw";
+        //if (!path.Contains(".")) path = "SoundEffects." + path + ".raw";
         if (!path.Contains("assets")) path = "assets/audio/" + path.ToLower() + ".ogg";
         AudioClip returnValue;
         return soundEffects.TryGetValue(path, out returnValue) ? returnValue : null;

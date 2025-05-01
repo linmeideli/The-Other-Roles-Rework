@@ -599,7 +599,7 @@ internal class SurveillanceMinigamePatch
     public static List<GameObject> nightVisionOverlays;
 
     private static readonly Sprite overlaySprite =
-        Helpers.loadSpriteFromResources("TheOtherRoles.Resources.NightVisionOverlay.png", 350f);
+        Helpers.loadSpriteFromResources("NightVisionOverlay.png", 350f);
 
     public static bool nightVisionIsActive;
     private static bool isLightsOut;

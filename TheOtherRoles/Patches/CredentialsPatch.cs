@@ -105,7 +105,7 @@ Based on <color=#FCCE03FF>TheOtherRoles</color>";
 
             renderer = torLogo.AddComponent<SpriteRenderer>();
             loadSprites();
-            renderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 300f);
+            renderer.sprite = Helpers.loadSpriteFromResources("Banner.png", 300f);
 
             instance = __instance;
             loadSprites();
@@ -141,12 +141,12 @@ Based on <color=#FCCE03FF>TheOtherRoles</color>";
         public static void loadSprites()
         {
             if (bannerSprite == null)
-                bannerSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner.png", 300f);
+                bannerSprite = Helpers.loadSpriteFromResources("Banner.png", 300f);
             if (banner2Sprite == null)
-                banner2Sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Banner2.png", 300f);
+                banner2Sprite = Helpers.loadSpriteFromResources("Banner2.png", 300f);
             if (horseBannerSprite == null)
                 horseBannerSprite =
-                    Helpers.loadSpriteFromResources("TheOtherRoles.Resources.bannerTheHorseRoles.png", 300f);
+                    Helpers.loadSpriteFromResources("bannerTheHorseRoles.png", 300f);
         }
 
         public static void updateSprite()

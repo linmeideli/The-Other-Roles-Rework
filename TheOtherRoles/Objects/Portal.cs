@@ -63,7 +63,7 @@ public class Portal
         index = Mathf.Clamp(index, 0, portalFgAnimationSprites.Length - 1);
         if (portalFgAnimationSprites[index] == null)
             portalFgAnimationSprites[index] =
-                Helpers.loadSpriteFromResources($"TheOtherRoles.Resources.PortalAnimation.portal_{index:000}.png",
+                Helpers.loadSpriteFromResources($"PortalAnimation.portal_{index:000}.png",
                     115f);
         return portalFgAnimationSprites[index];
     }
@@ -167,7 +167,7 @@ public class Portal
     private static void preloadSprites()
     {
         for (var i = 0; i < portalFgAnimationSprites.Length; i++) getFgAnimationSprite(i);
-        portalSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PortalAnimation.plattform.png", 115f);
+        portalSprite = Helpers.loadSpriteFromResources("PortalAnimation.plattform.png", 115f);
     }
 
     public static void clearPortals()

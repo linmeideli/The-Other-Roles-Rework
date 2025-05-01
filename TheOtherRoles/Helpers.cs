@@ -46,6 +46,7 @@ public static class Helpers
 
     public static Sprite loadSpriteFromResources(string path, float pixelsPerUnit, bool cache = true)
     {
+        path = "TheOtherRoles.Resources." + path;
         try
         {
             if (cache && CachedSprites.TryGetValue(path + pixelsPerUnit, out var sprite)) return sprite;
@@ -784,11 +785,11 @@ public static class Helpers
             var rend = tzGO.transform.Find("Inactive").GetComponent<SpriteRenderer>();
             var rendActive = tzGO.transform.Find("Active").GetComponent<SpriteRenderer>();
             rend.sprite = zoomOutStatus
-                ? loadSpriteFromResources("TheOtherRoles.Resources.Plus_Button.png", 100f)
-                : loadSpriteFromResources("TheOtherRoles.Resources.Minus_Button.png", 100f);
+                ? loadSpriteFromResources("Plus_Button.png", 100f)
+                : loadSpriteFromResources("Minus_Button.png", 100f);
             rendActive.sprite = zoomOutStatus
-                ? loadSpriteFromResources("TheOtherRoles.Resources.Plus_ButtonActive.png", 100f)
-                : loadSpriteFromResources("TheOtherRoles.Resources.Minus_ButtonActive.png", 100f);
+                ? loadSpriteFromResources("Plus_ButtonActive.png", 100f)
+                : loadSpriteFromResources("Minus_ButtonActive.png", 100f);
             tzGO.transform.localScale = new Vector3(1.2f, 1.2f, 1f) * (zoomOutStatus ? 4 : 1);
         }
 

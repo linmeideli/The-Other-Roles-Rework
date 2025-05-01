@@ -15,7 +15,7 @@ internal static class MapBehaviourPatch
 {
     public static Dictionary<byte, SpriteRenderer> herePoints = new();
 
-    public static Sprite Vent = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Vent.png", 150f);
+    public static Sprite Vent = Helpers.loadSpriteFromResources("Vent.png", 150f);
 
     public static List<List<Vent>> VentNetworks = new();
 

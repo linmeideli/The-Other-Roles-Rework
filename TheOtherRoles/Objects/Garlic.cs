@@ -37,14 +37,14 @@ internal class Garlic
     public static Sprite getGarlicSprite()
     {
         if (garlicSprite) return garlicSprite;
-        garlicSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Garlic.png", 300f);
+        garlicSprite = Helpers.loadSpriteFromResources("Garlic.png", 300f);
         return garlicSprite;
     }
 
     public static Sprite getBackgroundSprite()
     {
         if (backgroundSprite) return backgroundSprite;
-        backgroundSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.GarlicBackground.png", 60f);
+        backgroundSprite = Helpers.loadSpriteFromResources("GarlicBackground.png", 60f);
         return backgroundSprite;
     }
 
