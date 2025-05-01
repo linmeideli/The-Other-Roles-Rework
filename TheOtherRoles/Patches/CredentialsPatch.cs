@@ -13,16 +13,16 @@ using UnityEngine;
 namespace TheOtherRoles.Patches {
     [HarmonyPatch]
     public static class CredentialsPatch {
+        public static string modName = "<color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Rework</color></color></color>";
         public static string fullCredentialsVersion = 
-$@"<size=130%><color=#ff351f>TheOtherRoles</color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays>0 ? "-BETA": "")}";
+$@"<size=130%>{modName}</size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays>0 ? "-BETA": "")}";
 public static string fullCredentials =
-$@"<size=60%>Modded by <color=#FCCE03FF>Eisbison</color>, <color=#FCCE03FF>EndOfFile</color>
-<color=#FCCE03FF>Thunderstorm584</color>, <color=#FCCE03FF>Mallöris</color> & <color=#FCCE03FF>Gendelo</color>
-Design by <color=#FCCE03FF>Bavari</color></size>";
+$@"<size=60%>Modded by <color=#00FFFF>ELinmei</color>
+Based on <color=#FCCE03FF>TheOtherRoles</color></size>";
 
     public static string mainMenuCredentials = 
-$@"Modded by <color=#FCCE03FF>Eisbison</color>, <color=#FCCE03FF>Thunderstorm584</color>, <color=#FCCE03FF>EndOfFile</color>, <color=#FCCE03FF>Mallöris</color> & <color=#FCCE03FF>Gendelo</color>
-Design by <color=#FCCE03FF>Bavari</color>";
+$@"Modded by <color=#00FFFF>ELinmei</color>
+Based on <color=#FCCE03FF>TheOtherRoles</color>";
 
         public static string contributorsCredentials =
 $@"<size=60%> <color=#FCCE03FF>Special thanks to Smeggy</color></size>";
@@ -41,7 +41,7 @@ $@"<size=60%> <color=#FCCE03FF>Special thanks to Smeggy</color></size>";
                     else if (HandleGuesser.isGuesserGm) gameModeText = $"Guesser";
                     else if (PropHunt.isPropHuntGM) gameModeText = "Prop Hunt";
                     if (gameModeText != "") gameModeText = Helpers.cs(Color.yellow, gameModeText) + (MeetingHud.Instance ? " " : "\n");
-                    __instance.text.text = $"<size=130%><color=#ff351f>TheOtherRoles</color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}\n{gameModeText}" + __instance.text.text;
+                    __instance.text.text = $"<size=130%>{modName}</size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}\n{gameModeText}" + __instance.text.text;
                     position.DistanceFromEdge = MeetingHud.Instance ? new Vector3(1.25f, 0.15f, 0) : new Vector3(1.55f, 0.15f, 0);
                 } else {
                     string gameModeText = $"";
