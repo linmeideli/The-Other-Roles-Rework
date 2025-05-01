@@ -46,15 +46,24 @@ public class ModNewsHistory
 
         // 创建新公告时，不能删除旧公告   
         {
+            var news110 = new ModNews
+            {
+                Number = 100005,
+                Title = ModTranslation.GetString("TORR110TitleTop"),
+                SubTitle = ModTranslation.GetString("TORR110Title"),
+                ShortTitle = ModTranslation.GetString("TORR110Lans"),
+                Text = ModTranslation.GetString("TORR110Text"),
+                Date = "2025-4-12T00:00:00Z"
+            };
+            AllModNews.Add(news110);
 
             var news1031 = new ModNews
             {
                 Number = 100004,
-                Title = "TheOtherRolesRework-v1.0.3.1",
+                Title = ModTranslation.GetString("TORR1031TitleTop"),
                 SubTitle = ModTranslation.GetString("TORR1031Title"),
-                ShortTitle = "★TORR v1.0.3.1★",
-                Text = ModTranslation.GetString("TORR1031Text")
-                   ,
+                ShortTitle = ModTranslation.GetString("TORR1031Lans"),
+                Text = ModTranslation.GetString("TORR1031Text"),
                 Date = "2025-2-10T00:00:00Z"
             };
             AllModNews.Add(news1031);
@@ -62,9 +71,9 @@ public class ModNewsHistory
             var news103 = new ModNews
             {
                 Number = 100003,
-                Title = "TheOtherRolesRework-v1.0.3",
+                Title = ModTranslation.GetString("TORR103TitleTop"),
                 SubTitle = ModTranslation.GetString("TORR103Title"),
-                ShortTitle = "★TORR v1.0.3★",
+                ShortTitle = ModTranslation.GetString("TORR103Lans"),
                 Text = ModTranslation.GetString("TORR103Text")            ,
                 Date = "2025-2-5T00:00:00Z"
             };

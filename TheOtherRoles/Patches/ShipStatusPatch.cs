@@ -15,8 +15,20 @@ namespace TheOtherRoles.Patches {
         [HarmonyPrefix]
         [HarmonyPatch(typeof(ShipStatus), nameof(ShipStatus.CalculateLightRadius))]
         public static bool Prefix(ref float __result, ShipStatus __instance, [HarmonyArgument(0)] NetworkedPlayerInfo player) {
-            if ((!__instance.Systems.ContainsKey(SystemTypes.Electrical) && !Helpers.isFungle()) || GameOptionsManager.Instance.currentGameOptions.GameMode == GameModes.HideNSeek) return true;
 
+
+            if ((!__instance.Systems.ContainsKey(SystemTypes.Electrical) && !Helpers.isFungle()) || GameOptionsManager.Instance.currentGameOptions.GameMode == GameModes.HideNSeek) return true;
+            foreach (PlayerControl blinds in Devil.devilIntimidate)
+            {
+               foreach(PlayerControl alreadyblind in Devil.already)
+                {
+                    if (blinds != null && Devil.devil != null && blinds.PlayerId == player.PlayerId && alreadyblind.PlayerId == player.PlayerId)
+                    {
+                        __result *= 0f;
+                        TheOtherRolesPlugin.Logger.LogInfo("厉鬼现ShipStatusPatch代码已执行完");
+                    }
+                }
+            }
             // If Game Mode is PropHunt:
             if (PropHunt.isPropHuntGM) {
                 if (!PropHunt.timerRunning) {
@@ -70,15 +82,16 @@ namespace TheOtherRoles.Patches {
                 return false;
             }
 
-            // Default light radius
-            else {
-                __result = GetNeutralLightRadius(__instance, false);
-            }
             if (Sunglasses.sunglasses.FindAll(x => x.PlayerId == player.PlayerId).Count > 0) // Sunglasses
                 __result *= 1f - Sunglasses.vision * 0.1f;
-            if (Lighterln.lighterln.FindAll(x => x.PlayerId == player.PlayerId).Count > 0) // Torch
+            else if (Lighterln.lighterln.FindAll(x => x.PlayerId == player.PlayerId).Count > 0) // Torch
                 __result = __instance.MaxLightRadius * GameOptionsManager.Instance.currentNormalGameOptions.CrewLightMod * Lighterln.vision;
 
+            // Default light radius
+            else
+            {
+                __result = GetNeutralLightRadius(__instance, false);
+            }
             return false;
         }
 

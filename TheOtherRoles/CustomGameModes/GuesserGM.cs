@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace TheOtherRoles.CustomGameModes {
-    class GuesserGM { // Guesser Gamemode
+    public class GuesserGM { // Guesser Gamemode
         public static List<GuesserGM> guessers = new List<GuesserGM>();
         public static Color color = new Color32(255, 255, 0, byte.MaxValue);
 

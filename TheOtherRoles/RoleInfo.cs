@@ -4,8 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using AmongUs.GameOptions;
 using TheOtherRoles.Modules;
-using TheOtherRoles.Players;
+ 
 using TheOtherRoles.Utilities;
 using UnityEngine;
 
@@ -336,6 +337,11 @@ namespace TheOtherRoles
                 {
                     list.Add(RoleInfo.fraudster);
                 }
+                bool flag62 = p == Devil.devil;
+                if (flag62)
+                {
+                    list.Add(RoleInfo.devil);
+                }
                 bool flag61 = list.Count == count;
                 if (flag61)
                 {
@@ -359,25 +365,31 @@ namespace TheOtherRoles
         {
             string text = string.Join(" ", (from x in RoleInfo.getRoleInfoForPlayer(p, showModifier)
                                             select useColors ? Helpers.cs(x.color, x.name) : x.name).ToArray<string>());
-            bool flag = Lawyer.target != null && p.PlayerId == Lawyer.target.PlayerId && CachedPlayer.LocalPlayer.PlayerControl != Lawyer.target;
+            bool flag = Lawyer.target != null && p.PlayerId == Lawyer.target.PlayerId && PlayerControl.LocalPlayer != Lawyer.target;
             if (flag)
             {
                 text += (useColors ? Helpers.cs(Pursuer.color, " §") : " §");
             }
+
             bool flag2 = HandleGuesser.isGuesserGm && HandleGuesser.isGuesser(p.PlayerId);
             if (flag2)
-            {
-                text += "GuessserGMInfo".Translate();
-            }
+			{
+				int remainingShots = HandleGuesser.remainingShots(p.PlayerId);
+				var (playerCompleted, playerTotal) = TasksHandler.taskInfo(p.Data);
+				var color = Palette.ImpostorRed;
+                string guesserModifier = p == LastImp.lastimp ? LastCrew.lastcrew ? ModTranslation.GetString("Last") : ModTranslation.GetString("Last") : ModTranslation.GetString("GuessserGMInfo");
+				if ((!Helpers.isEvil(p) || remainingShots == 0 || (p == LastImp.lastimp && !LastImp.isOriginalGuesser && !LastImp.isCounterMax()))) color = Color.gray;
+				text += useColors ? Helpers.cs(color, guesserModifier) : guesserModifier;
+			}
             bool flag3 = !suppressGhostInfo && p != null;
             if (flag3)
             {
-                bool flag4 = p == Shifter.shifter && (CachedPlayer.LocalPlayer.PlayerControl == Shifter.shifter || Helpers.shouldShowGhostInfo()) && Shifter.futureShift != null;
+                bool flag4 = p == Shifter.shifter && (PlayerControl.LocalPlayer == Shifter.shifter || Helpers.shouldShowGhostInfo()) && Shifter.futureShift != null;
                 if (flag4)
                 {
                     text += Helpers.cs(Color.yellow, " ← " + Shifter.futureShift.Data.PlayerName);
                 }
-                bool flag5 = p == Vulture.vulture && (CachedPlayer.LocalPlayer.PlayerControl == Vulture.vulture || Helpers.shouldShowGhostInfo());
+                bool flag5 = p == Vulture.vulture && (PlayerControl.LocalPlayer == Vulture.vulture || Helpers.shouldShowGhostInfo());
                 if (flag5)
                 {
                     string str = text;
@@ -391,7 +403,7 @@ namespace TheOtherRoles
                 bool @bool = CustomOptionHolder.bountyHunterShowCooldownForGhosts.getBool();
                 if (@bool)
                 {
-                    bool flag6 = p == BountyHunter.bountyHunter && (CachedPlayer.LocalPlayer.PlayerControl == BountyHunter.bountyHunter || Helpers.shouldShowGhostInfo());
+                    bool flag6 = p == BountyHunter.bountyHunter && (PlayerControl.LocalPlayer == BountyHunter.bountyHunter || Helpers.shouldShowGhostInfo());
                     if (flag6)
                     {
                         string str2 = text;
@@ -470,7 +482,7 @@ namespace TheOtherRoles
                         Color c4 = Arsonist.color;
                         DefaultInterpolatedStringHandler defaultInterpolatedStringHandler = new DefaultInterpolatedStringHandler(7, 1);
                         defaultInterpolatedStringHandler.AppendLiteral("VultrueLeft".Translate());
-                        defaultInterpolatedStringHandler.AppendFormatted<int>(CachedPlayer.AllPlayers.Count((CachedPlayer x) => x.PlayerControl != Arsonist.arsonist && !x.Data.IsDead && !x.Data.Disconnected && !Arsonist.dousedPlayers.Any((PlayerControl y) => y.PlayerId == x.PlayerId)));
+                        defaultInterpolatedStringHandler.AppendFormatted<int>(PlayerControl.AllPlayerControls.ToArray().Count((PlayerControl x) => x != Arsonist.arsonist && !x.Data.IsDead && !x.Data.Disconnected && !Arsonist.dousedPlayers.Any((PlayerControl y) => y.PlayerId == x.PlayerId)));
                         defaultInterpolatedStringHandler.AppendLiteral("VultrueLeft2".Translate());
                         text = str3 + Helpers.cs(c4, defaultInterpolatedStringHandler.ToStringAndClear());
                     }
@@ -734,6 +746,8 @@ namespace TheOtherRoles
         // Token: 0x040002B9 RID: 697
         public static RoleInfo fraudster = new RoleInfo("Fraudster", Fraudster.color, "FraudsterIntroDesc", "FraudsterShortDesc", RoleId.Fraudster, false, false);
 
+        public static RoleInfo devil = new RoleInfo("Devil", Devil.color, "DevilIntroDesc", "DevilShortDesc", RoleId.Devil, false, false);
+
         // Token: 0x040002BA RID: 698
         public static RoleInfo hunter = new RoleInfo("Hunter", Palette.ImpostorRed, Helpers.cs(Palette.ImpostorRed, "HunterIntroDesc"), "HunterShortDesc", RoleId.Impostor, false, false);
 
@@ -771,7 +785,7 @@ namespace TheOtherRoles
         public static RoleInfo vip = new RoleInfo("Vip", Color.yellow, "VipIntroDesc", "VipShortDesc", RoleId.Vip, false, true);
 
         // Token: 0x040002C6 RID: 710
-        public static RoleInfo invert = new RoleInfo("醉鬼", Color.yellow, "InvertIntroDesc", "InvertShortDesc", RoleId.Invert, false, true);
+        public static RoleInfo invert = new RoleInfo("Invert", Color.yellow, "InvertIntroDesc", "InvertShortDesc", RoleId.Invert, false, true);
 
         // Token: 0x040002C7 RID: 711
         public static RoleInfo chameleon = new RoleInfo("Chameleon", Color.yellow, "ChameleonIntroDesc", "ChameleonShortDesc", RoleId.Chameleon, false, true);

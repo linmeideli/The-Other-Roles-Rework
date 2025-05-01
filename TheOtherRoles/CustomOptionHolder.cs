@@ -35,8 +35,1079 @@ namespace TheOtherRoles
 			return option == CustomOptionHolder.propHuntMap && option == CustomOptionHolder.hideNSeekMap;
 		}
 
-		// Token: 0x06000013 RID: 19 RVA: 0x00005D44 File Offset: 0x00003F44
-		public static void Load()
+        // Token: 0x040000B7 RID: 183
+        public static CustomOption presetSelection;
+
+        // Token: 0x040000B8 RID: 184
+        public static CustomOption activateRoles;
+
+        // Token: 0x040000B9 RID: 185
+        public static CustomOption crewmateRolesCountMin;
+
+        // Token: 0x040000BA RID: 186
+        public static CustomOption crewmateRolesCountMax;
+
+        // Token: 0x040000BB RID: 187
+        public static CustomOption crewmateRolesFill;
+
+        // Token: 0x040000BC RID: 188
+        public static CustomOption neutralRolesCountMin;
+
+        // Token: 0x040000BD RID: 189
+        public static CustomOption neutralRolesCountMax;
+
+        // Token: 0x040000BE RID: 190
+        public static CustomOption impostorRolesCountMin;
+
+        // Token: 0x040000BF RID: 191
+        public static CustomOption impostorRolesCountMax;
+
+        // Token: 0x040000C0 RID: 192
+        public static CustomOption modifiersCountMin;
+
+        // Token: 0x040000C1 RID: 193
+        public static CustomOption modifiersCountMax;
+
+        // Token: 0x040000C2 RID: 194
+        public static CustomOption anyPlayerCanStopStart;
+
+        // Token: 0x040000C3 RID: 195
+        public static CustomOption enableEventMode;
+
+        // Token: 0x040000C4 RID: 196
+        public static CustomOption deadImpsBlockSabotage;
+
+        // Token: 0x040000C5 RID: 197
+        public static CustomOption mafiaSpawnRate;
+
+        // Token: 0x040000C6 RID: 198
+        public static CustomOption janitorCooldown;
+
+        // Token: 0x040000C7 RID: 199
+        public static CustomOption morphlingSpawnRate;
+
+        // Token: 0x040000C8 RID: 200
+        public static CustomOption morphlingCooldown;
+
+        // Token: 0x040000C9 RID: 201
+        public static CustomOption morphlingDuration;
+
+        // Token: 0x040000CA RID: 202
+        public static CustomOption camouflagerSpawnRate;
+
+        // Token: 0x040000CB RID: 203
+        public static CustomOption camouflagerCooldown;
+
+        // Token: 0x040000CC RID: 204
+        public static CustomOption camouflagerDuration;
+
+        // Token: 0x040000CD RID: 205
+        public static CustomOption vampireSpawnRate;
+
+        // Token: 0x040000CE RID: 206
+        public static CustomOption vampireKillDelay;
+
+        // Token: 0x040000CF RID: 207
+        public static CustomOption vampireCooldown;
+
+        // Token: 0x040000D0 RID: 208
+        public static CustomOption vampireCanKillNearGarlics;
+
+        // Token: 0x040000D1 RID: 209
+        public static CustomOption eraserSpawnRate;
+
+        // Token: 0x040000D2 RID: 210
+        public static CustomOption eraserCooldown;
+
+        // Token: 0x040000D3 RID: 211
+        public static CustomOption eraserCanEraseAnyone;
+
+        // Token: 0x040000D4 RID: 212
+        public static CustomOption guesserSpawnRate;
+
+        // Token: 0x040000D5 RID: 213
+        public static CustomOption guesserIsImpGuesserRate;
+
+        // Token: 0x040000D6 RID: 214
+        public static CustomOption guesserNumberOfShots;
+
+        // Token: 0x040000D7 RID: 215
+        public static CustomOption guesserHasMultipleShotsPerMeeting;
+
+        // Token: 0x040000D8 RID: 216
+        public static CustomOption guesserKillsThroughShield;
+
+        // Token: 0x040000D9 RID: 217
+        public static CustomOption guesserEvilCanKillSpy;
+
+        // Token: 0x040000DA RID: 218
+        public static CustomOption guesserSpawnBothRate;
+
+        // Token: 0x040000DB RID: 219
+        public static CustomOption guesserCantGuessSnitchIfTaksDone;
+
+        // Token: 0x040000DC RID: 220
+        public static CustomOption jesterSpawnRate;
+
+        // Token: 0x040000DD RID: 221
+        public static CustomOption jesterCanCallEmergency;
+
+        // Token: 0x040000DE RID: 222
+        public static CustomOption jesterHasImpostorVision;
+
+        // Token: 0x040000DF RID: 223
+        public static CustomOption arsonistSpawnRate;
+
+        // Token: 0x040000E0 RID: 224
+        public static CustomOption arsonistCooldown;
+
+        // Token: 0x040000E1 RID: 225
+        public static CustomOption arsonistDuration;
+
+        // Token: 0x040000E2 RID: 226
+        public static CustomOption jackalSpawnRate;
+
+        // Token: 0x040000E3 RID: 227
+        public static CustomOption jackalKillCooldown;
+
+        // Token: 0x040000E4 RID: 228
+        public static CustomOption jackalCreateSidekickCooldown;
+
+        // Token: 0x040000E5 RID: 229
+        public static CustomOption jackalCanSabotageLights;
+
+        // Token: 0x040000E6 RID: 230
+        public static CustomOption jackalCanUseVents;
+
+        // Token: 0x040000E7 RID: 231
+        public static CustomOption jackalCanCreateSidekick;
+
+        // Token: 0x040000E8 RID: 232
+        public static CustomOption sidekickPromotesToJackal;
+
+        // Token: 0x040000E9 RID: 233
+        public static CustomOption sidekickCanKill;
+
+        // Token: 0x040000EA RID: 234
+        public static CustomOption sidekickCanUseVents;
+
+        // Token: 0x040000EB RID: 235
+        public static CustomOption sidekickCanSabotageLights;
+
+        // Token: 0x040000EC RID: 236
+        public static CustomOption jackalPromotedFromSidekickCanCreateSidekick;
+
+        // Token: 0x040000ED RID: 237
+        public static CustomOption jackalCanCreateSidekickFromImpostor;
+
+        // Token: 0x040000EE RID: 238
+        public static CustomOption jackalAndSidekickHaveImpostorVision;
+
+        // Token: 0x040000EF RID: 239
+        public static CustomOption bountyHunterSpawnRate;
+
+        // Token: 0x040000F0 RID: 240
+        public static CustomOption bountyHunterBountyDuration;
+
+        // Token: 0x040000F1 RID: 241
+        public static CustomOption bountyHunterReducedCooldown;
+
+        // Token: 0x040000F2 RID: 242
+        public static CustomOption bountyHunterPunishmentTime;
+
+        // Token: 0x040000F3 RID: 243
+        public static CustomOption bountyHunterShowArrow;
+
+        // Token: 0x040000F4 RID: 244
+        public static CustomOption bountyHunterArrowUpdateIntervall;
+
+        // Token: 0x040000F5 RID: 245
+        public static CustomOption bountyHunterShowCooldownForGhosts;
+
+        // Token: 0x040000F6 RID: 246
+        public static CustomOption witchSpawnRate;
+
+        // Token: 0x040000F7 RID: 247
+        public static CustomOption witchCooldown;
+
+        // Token: 0x040000F8 RID: 248
+        public static CustomOption witchAdditionalCooldown;
+
+        // Token: 0x040000F9 RID: 249
+        public static CustomOption witchCanSpellAnyone;
+
+        // Token: 0x040000FA RID: 250
+        public static CustomOption witchSpellCastingDuration;
+
+        // Token: 0x040000FB RID: 251
+        public static CustomOption witchTriggerBothCooldowns;
+
+        // Token: 0x040000FC RID: 252
+        public static CustomOption witchVoteSavesTargets;
+
+        // Token: 0x040000FD RID: 253
+        public static CustomOption ninjaSpawnRate;
+
+        // Token: 0x040000FE RID: 254
+        public static CustomOption ninjaCooldown;
+
+        // Token: 0x040000FF RID: 255
+        public static CustomOption ninjaKnowsTargetLocation;
+
+        // Token: 0x04000100 RID: 256
+        public static CustomOption ninjaTraceTime;
+
+        // Token: 0x04000101 RID: 257
+        public static CustomOption ninjaTraceColorTime;
+
+        // Token: 0x04000102 RID: 258
+        public static CustomOption ninjaInvisibleDuration;
+
+        // Token: 0x04000103 RID: 259
+        public static CustomOption mayorSpawnRate;
+
+        // Token: 0x04000104 RID: 260
+        public static CustomOption mayorCanSeeVoteColors;
+
+        // Token: 0x04000105 RID: 261
+        public static CustomOption mayorTasksNeededToSeeVoteColors;
+
+        // Token: 0x04000106 RID: 262
+        public static CustomOption mayorMeetingButton;
+
+        // Token: 0x04000107 RID: 263
+        public static CustomOption mayorMaxRemoteMeetings;
+
+        // Token: 0x04000108 RID: 264
+        public static CustomOption mayorChooseSingleVote;
+
+        // Token: 0x04000109 RID: 265
+        public static CustomOption portalmakerSpawnRate;
+
+        // Token: 0x0400010A RID: 266
+        public static CustomOption portalmakerCooldown;
+
+        // Token: 0x0400010B RID: 267
+        public static CustomOption portalmakerUsePortalCooldown;
+
+        // Token: 0x0400010C RID: 268
+        public static CustomOption portalmakerLogOnlyColorType;
+
+        // Token: 0x0400010D RID: 269
+        public static CustomOption portalmakerLogHasTime;
+
+        // Token: 0x0400010E RID: 270
+        public static CustomOption portalmakerCanPortalFromAnywhere;
+
+        // Token: 0x0400010F RID: 271
+        public static CustomOption engineerSpawnRate;
+
+        // Token: 0x04000110 RID: 272
+        public static CustomOption engineerNumberOfFixes;
+
+        // Token: 0x04000111 RID: 273
+        public static CustomOption engineerHighlightForImpostors;
+
+        // Token: 0x04000112 RID: 274
+        public static CustomOption engineerHighlightForTeamJackal;
+
+        // Token: 0x04000113 RID: 275
+        public static CustomOption sheriffSpawnRate;
+
+        // Token: 0x04000114 RID: 276
+        public static CustomOption sheriffCooldown;
+
+        // Token: 0x04000115 RID: 277
+        public static CustomOption sheriffCanKillNeutrals;
+
+        // Token: 0x04000116 RID: 278
+        public static CustomOption deputySpawnRate;
+
+        // Token: 0x04000117 RID: 279
+        public static CustomOption deputyNumberOfHandcuffs;
+
+        // Token: 0x04000118 RID: 280
+        public static CustomOption deputyHandcuffCooldown;
+
+        // Token: 0x04000119 RID: 281
+        public static CustomOption deputyGetsPromoted;
+
+        // Token: 0x0400011A RID: 282
+        public static CustomOption deputyKeepsHandcuffs;
+
+        // Token: 0x0400011B RID: 283
+        public static CustomOption deputyHandcuffDuration;
+
+        // Token: 0x0400011C RID: 284
+        public static CustomOption deputyKnowsSheriff;
+
+        // Token: 0x0400011D RID: 285
+        public static CustomOption lighterSpawnRate;
+
+        // Token: 0x0400011E RID: 286
+        public static CustomOption lighterModeLightsOnVision;
+
+        // Token: 0x0400011F RID: 287
+        public static CustomOption lighterModeLightsOffVision;
+
+        // Token: 0x04000120 RID: 288
+        public static CustomOption lighterFlashlightWidth;
+
+        // Token: 0x04000121 RID: 289
+        public static CustomOption detectiveSpawnRate;
+
+        // Token: 0x04000122 RID: 290
+        public static CustomOption detectiveAnonymousFootprints;
+
+        // Token: 0x04000123 RID: 291
+        public static CustomOption detectiveFootprintIntervall;
+
+        // Token: 0x04000124 RID: 292
+        public static CustomOption detectiveFootprintDuration;
+
+        // Token: 0x04000125 RID: 293
+        public static CustomOption detectiveReportNameDuration;
+
+        // Token: 0x04000126 RID: 294
+        public static CustomOption detectiveReportColorDuration;
+
+        // Token: 0x04000127 RID: 295
+        public static CustomOption timeMasterSpawnRate;
+
+        // Token: 0x04000128 RID: 296
+        public static CustomOption timeMasterCooldown;
+
+        // Token: 0x04000129 RID: 297
+        public static CustomOption timeMasterRewindTime;
+
+        // Token: 0x0400012A RID: 298
+        public static CustomOption timeMasterShieldDuration;
+
+        // Token: 0x0400012B RID: 299
+        public static CustomOption medicSpawnRate;
+
+        // Token: 0x0400012C RID: 300
+        public static CustomOption medicShowShielded;
+
+        // Token: 0x0400012D RID: 301
+        public static CustomOption medicShowAttemptToShielded;
+
+        // Token: 0x0400012E RID: 302
+        public static CustomOption medicSetOrShowShieldAfterMeeting;
+
+        // Token: 0x0400012F RID: 303
+        public static CustomOption medicShowAttemptToMedic;
+
+        // Token: 0x04000130 RID: 304
+        public static CustomOption medicSetShieldAfterMeeting;
+
+        // Token: 0x04000131 RID: 305
+        public static CustomOption swapperSpawnRate;
+
+        // Token: 0x04000132 RID: 306
+        public static CustomOption swapperCanCallEmergency;
+
+        // Token: 0x04000133 RID: 307
+        public static CustomOption swapperCanOnlySwapOthers;
+
+        // Token: 0x04000134 RID: 308
+        public static CustomOption swapperSwapsNumber;
+
+        // Token: 0x04000135 RID: 309
+        public static CustomOption swapperRechargeTasksNumber;
+
+        // Token: 0x04000136 RID: 310
+        public static CustomOption seerSpawnRate;
+
+        // Token: 0x04000137 RID: 311
+        public static CustomOption seerMode;
+
+        // Token: 0x04000138 RID: 312
+        public static CustomOption seerSoulDuration;
+
+        // Token: 0x04000139 RID: 313
+        public static CustomOption seerLimitSoulDuration;
+
+        // Token: 0x0400013A RID: 314
+        public static CustomOption hackerSpawnRate;
+
+        // Token: 0x0400013B RID: 315
+        public static CustomOption hackerCooldown;
+
+        // Token: 0x0400013C RID: 316
+        public static CustomOption hackerHackeringDuration;
+
+        // Token: 0x0400013D RID: 317
+        public static CustomOption hackerOnlyColorType;
+
+        // Token: 0x0400013E RID: 318
+        public static CustomOption hackerToolsNumber;
+
+        // Token: 0x0400013F RID: 319
+        public static CustomOption hackerRechargeTasksNumber;
+
+        // Token: 0x04000140 RID: 320
+        public static CustomOption hackerNoMove;
+
+        // Token: 0x04000141 RID: 321
+        public static CustomOption trackerSpawnRate;
+
+        // Token: 0x04000142 RID: 322
+        public static CustomOption trackerUpdateIntervall;
+
+        // Token: 0x04000143 RID: 323
+        public static CustomOption trackerResetTargetAfterMeeting;
+
+        // Token: 0x04000144 RID: 324
+        public static CustomOption trackerCanTrackCorpses;
+
+        // Token: 0x04000145 RID: 325
+        public static CustomOption trackerCorpsesTrackingCooldown;
+
+        // Token: 0x04000146 RID: 326
+        public static CustomOption trackerCorpsesTrackingDuration;
+
+        // Token: 0x04000147 RID: 327
+        public static CustomOption trackerTrackingMethod;
+
+        // Token: 0x04000148 RID: 328
+        public static CustomOption snitchSpawnRate;
+
+        // Token: 0x04000149 RID: 329
+        public static CustomOption snitchLeftTasksForReveal;
+
+        // Token: 0x0400014A RID: 330
+        public static CustomOption snitchMode;
+
+        // Token: 0x0400014B RID: 331
+        public static CustomOption snitchTargets;
+
+        // Token: 0x0400014C RID: 332
+        public static CustomOption spySpawnRate;
+
+        // Token: 0x0400014D RID: 333
+        public static CustomOption spyCanDieToSheriff;
+
+        // Token: 0x0400014E RID: 334
+        public static CustomOption spyImpostorsCanKillAnyone;
+
+        // Token: 0x0400014F RID: 335
+        public static CustomOption spyCanEnterVents;
+
+        // Token: 0x04000150 RID: 336
+        public static CustomOption spyHasImpostorVision;
+
+        // Token: 0x04000151 RID: 337
+        public static CustomOption tricksterSpawnRate;
+
+        // Token: 0x04000152 RID: 338
+        public static CustomOption tricksterPlaceBoxCooldown;
+
+        // Token: 0x04000153 RID: 339
+        public static CustomOption tricksterLightsOutCooldown;
+
+        // Token: 0x04000154 RID: 340
+        public static CustomOption tricksterLightsOutDuration;
+
+        // Token: 0x04000155 RID: 341
+        public static CustomOption cleanerSpawnRate;
+
+        // Token: 0x04000156 RID: 342
+        public static CustomOption cleanerCooldown;
+
+        // Token: 0x04000157 RID: 343
+        public static CustomOption warlockSpawnRate;
+
+        // Token: 0x04000158 RID: 344
+        public static CustomOption warlockCooldown;
+
+        // Token: 0x04000159 RID: 345
+        public static CustomOption warlockRootTime;
+
+        // Token: 0x0400015A RID: 346
+        public static CustomOption securityGuardSpawnRate;
+
+        // Token: 0x0400015B RID: 347
+        public static CustomOption securityGuardCooldown;
+
+        // Token: 0x0400015C RID: 348
+        public static CustomOption securityGuardTotalScrews;
+
+        // Token: 0x0400015D RID: 349
+        public static CustomOption securityGuardCamPrice;
+
+        // Token: 0x0400015E RID: 350
+        public static CustomOption securityGuardVentPrice;
+
+        // Token: 0x0400015F RID: 351
+        public static CustomOption securityGuardCamDuration;
+
+        // Token: 0x04000160 RID: 352
+        public static CustomOption securityGuardCamMaxCharges;
+
+        // Token: 0x04000161 RID: 353
+        public static CustomOption securityGuardCamRechargeTasksNumber;
+
+        // Token: 0x04000162 RID: 354
+        public static CustomOption securityGuardNoMove;
+
+        // Token: 0x04000163 RID: 355
+        public static CustomOption vultureSpawnRate;
+
+        // Token: 0x04000164 RID: 356
+        public static CustomOption vultureCooldown;
+
+        // Token: 0x04000165 RID: 357
+        public static CustomOption vultureNumberToWin;
+
+        // Token: 0x04000166 RID: 358
+        public static CustomOption vultureCanUseVents;
+
+        // Token: 0x04000167 RID: 359
+        public static CustomOption vultureShowArrows;
+
+        // Token: 0x04000168 RID: 360
+        public static CustomOption mediumSpawnRate;
+
+        // Token: 0x04000169 RID: 361
+        public static CustomOption mediumCooldown;
+
+        // Token: 0x0400016A RID: 362
+        public static CustomOption mediumDuration;
+
+        // Token: 0x0400016B RID: 363
+        public static CustomOption mediumOneTimeUse;
+
+        // Token: 0x0400016C RID: 364
+        public static CustomOption mediumChanceAdditionalInfo;
+
+        // Token: 0x0400016D RID: 365
+        public static CustomOption lawyerSpawnRate;
+
+        // Token: 0x0400016E RID: 366
+        public static CustomOption lawyerIsProsecutorChance;
+
+        // Token: 0x0400016F RID: 367
+        public static CustomOption lawyerTargetCanBeJester;
+
+        // Token: 0x04000170 RID: 368
+        public static CustomOption lawyerVision;
+
+        // Token: 0x04000171 RID: 369
+        public static CustomOption lawyerKnowsRole;
+
+        // Token: 0x04000172 RID: 370
+        public static CustomOption lawyerCanCallEmergency;
+
+        // Token: 0x04000173 RID: 371
+        public static CustomOption pursuerCooldown;
+
+        // Token: 0x04000174 RID: 372
+        public static CustomOption pursuerBlanksNumber;
+
+        // Token: 0x04000175 RID: 373
+        public static CustomOption thiefSpawnRate;
+
+        // Token: 0x04000176 RID: 374
+        public static CustomOption thiefCooldown;
+
+        // Token: 0x04000177 RID: 375
+        public static CustomOption thiefHasImpVision;
+
+        // Token: 0x04000178 RID: 376
+        public static CustomOption thiefCanUseVents;
+
+        // Token: 0x04000179 RID: 377
+        public static CustomOption thiefCanKillSheriff;
+
+        // Token: 0x0400017A RID: 378
+        public static CustomOption thiefCanStealWithGuess;
+
+        // Token: 0x0400017B RID: 379
+        public static CustomOption trapperSpawnRate;
+
+        // Token: 0x0400017C RID: 380
+        public static CustomOption trapperCooldown;
+
+        // Token: 0x0400017D RID: 381
+        public static CustomOption trapperMaxCharges;
+
+        // Token: 0x0400017E RID: 382
+        public static CustomOption trapperRechargeTasksNumber;
+
+        // Token: 0x0400017F RID: 383
+        public static CustomOption trapperTrapNeededTriggerToReveal;
+
+        // Token: 0x04000180 RID: 384
+        public static CustomOption trapperAnonymousMap;
+
+        // Token: 0x04000181 RID: 385
+        public static CustomOption trapperInfoType;
+
+        // Token: 0x04000182 RID: 386
+        public static CustomOption trapperTrapDuration;
+
+        // Token: 0x04000183 RID: 387
+        public static CustomOption bomberSpawnRate;
+
+        // Token: 0x04000184 RID: 388
+        public static CustomOption bomberBombDestructionTime;
+
+        // Token: 0x04000185 RID: 389
+        public static CustomOption bomberBombDestructionRange;
+
+        // Token: 0x04000186 RID: 390
+        public static CustomOption bomberBombHearRange;
+
+        // Token: 0x04000187 RID: 391
+        public static CustomOption bomberDefuseDuration;
+
+        // Token: 0x04000188 RID: 392
+        public static CustomOption bomberBombCooldown;
+
+        // Token: 0x04000189 RID: 393
+        public static CustomOption bomberBombActiveAfter;
+
+        // Token: 0x0400018A RID: 394
+        public static CustomOption yoyoSpawnRate;
+
+        // Token: 0x0400018B RID: 395
+        public static CustomOption yoyoBlinkDuration;
+
+        // Token: 0x0400018C RID: 396
+        public static CustomOption yoyoMarkCooldown;
+
+        // Token: 0x0400018D RID: 397
+        public static CustomOption yoyoMarkStaysOverMeeting;
+
+        // Token: 0x0400018E RID: 398
+        public static CustomOption yoyoHasAdminTable;
+
+        // Token: 0x0400018F RID: 399
+        public static CustomOption yoyoAdminTableCooldown;
+
+        // Token: 0x04000190 RID: 400
+        public static CustomOption yoyoSilhouetteVisibility;
+
+        // Token: 0x04000191 RID: 401
+        public static CustomOption prophetSpawnRate;
+
+        // Token: 0x04000192 RID: 402
+        public static CustomOption prophetCooldown;
+
+        // Token: 0x04000193 RID: 403
+        public static CustomOption prophetNumExamines;
+
+        // Token: 0x04000194 RID: 404
+        public static CustomOption prophetAccuracy;
+
+        // Token: 0x04000195 RID: 405
+        public static CustomOption prophetCanCallEmergency;
+
+        // Token: 0x04000196 RID: 406
+        public static CustomOption prophetIsRevealed;
+
+        // Token: 0x04000197 RID: 407
+        public static CustomOption prophetExaminesToBeRevealed;
+
+        // Token: 0x04000198 RID: 408
+        public static CustomOption fraudsterSpawnRate;
+
+        // Token: 0x04000199 RID: 409
+        public static CustomOption fraudstercooldown;
+
+        // Token: 0x04000198 RID: 408
+        public static CustomOption devilSpawnRate;
+
+        // Token: 0x04000199 RID: 409
+        public static CustomOption devilcooldown;
+
+        // Token: 0x04000198 RID: 408
+        public static CustomOption devilcanintianyone;
+
+        // Token: 0x0400019A RID: 410
+        public static CustomOption modifiersAreHidden;
+
+        // Token: 0x0400019B RID: 411
+        public static CustomOption modifierBait;
+
+        // Token: 0x0400019C RID: 412
+        public static CustomOption modifierBaitQuantity;
+
+        // Token: 0x0400019D RID: 413
+        public static CustomOption modifierBaitReportDelayMin;
+
+        // Token: 0x0400019E RID: 414
+        public static CustomOption modifierBaitReportDelayMax;
+
+        // Token: 0x0400019F RID: 415
+        public static CustomOption modifierBaitShowKillFlash;
+
+        // Token: 0x040001A0 RID: 416
+        public static CustomOption modifierLover;
+
+        // Token: 0x040001A1 RID: 417
+        public static CustomOption modifierLoverImpLoverRate;
+
+        // Token: 0x040001A2 RID: 418
+        public static CustomOption modifierLoverBothDie;
+
+        // Token: 0x040001A3 RID: 419
+        public static CustomOption modifierLoverEnableChat;
+
+        // Token: 0x040001A4 RID: 420
+        public static CustomOption modifierBloody;
+
+        // Token: 0x040001A5 RID: 421
+        public static CustomOption modifierBloodyQuantity;
+
+        // Token: 0x040001A6 RID: 422
+        public static CustomOption modifierBloodyDuration;
+
+        // Token: 0x040001A7 RID: 423
+        public static CustomOption modifierAntiTeleport;
+
+        // Token: 0x040001A8 RID: 424
+        public static CustomOption modifierAntiTeleportQuantity;
+
+        // Token: 0x040001A9 RID: 425
+        public static CustomOption modifierTieBreaker;
+
+        // Token: 0x040001AA RID: 426
+        public static CustomOption modifierSunglasses;
+
+        // Token: 0x040001AB RID: 427
+        public static CustomOption modifierSunglassesQuantity;
+
+        // Token: 0x040001AC RID: 428
+        public static CustomOption modifierSunglassesVision;
+
+        // Token: 0x040001AD RID: 429
+        public static CustomOption modifierLighterln;
+
+        // Token: 0x040001AE RID: 430
+        public static CustomOption modifierMini;
+
+        // Token: 0x040001AF RID: 431
+        public static CustomOption modifierMiniGrowingUpDuration;
+
+        // Token: 0x040001B0 RID: 432
+        public static CustomOption modifierMiniGrowingUpInMeeting;
+
+        // Token: 0x040001B1 RID: 433
+        public static CustomOption modifierVip;
+
+        // Token: 0x040001B2 RID: 434
+        public static CustomOption modifierVipQuantity;
+
+        // Token: 0x040001B3 RID: 435
+        public static CustomOption modifierVipShowColor;
+
+        // Token: 0x040001B4 RID: 436
+        public static CustomOption modifierInvert;
+
+        // Token: 0x040001B5 RID: 437
+        public static CustomOption modifierInvertQuantity;
+
+        // Token: 0x040001B6 RID: 438
+        public static CustomOption modifierInvertDuration;
+
+        // Token: 0x040001B7 RID: 439
+        public static CustomOption modifierChameleon;
+
+        // Token: 0x040001B8 RID: 440
+        public static CustomOption modifierChameleonQuantity;
+
+        // Token: 0x040001B9 RID: 441
+        public static CustomOption modifierChameleonHoldDuration;
+
+        // Token: 0x040001BA RID: 442
+        public static CustomOption modifierChameleonFadeDuration;
+
+        // Token: 0x040001BB RID: 443
+        public static CustomOption modifierChameleonMinVisibility;
+
+        // Token: 0x040001BC RID: 444
+        public static CustomOption modifierShifter;
+
+        // Token: 0x040001BD RID: 445
+        public static CustomOption maxNumberOfMeetings;
+
+        // Token: 0x040001BE RID: 446
+        public static CustomOption blockSkippingInEmergencyMeetings;
+
+        // Token: 0x040001BF RID: 447
+        public static CustomOption noVoteIsSelfVote;
+
+        // Token: 0x040001C0 RID: 448
+        public static CustomOption hidePlayerNames;
+
+        // Token: 0x040001C1 RID: 449
+        public static CustomOption allowParallelMedBayScans;
+
+        // Token: 0x040001C2 RID: 450
+        public static CustomOption shieldFirstKill;
+
+        // Token: 0x040001C3 RID: 451
+        public static CustomOption finishTasksBeforeHauntingOrZoomingOut;
+
+        // Token: 0x040001C4 RID: 452
+        public static CustomOption camsNightVision;
+
+        // Token: 0x040001C5 RID: 453
+        public static CustomOption camsNoNightVisionIfImpVision;
+
+        // Token: 0x040001C6 RID: 454
+        public static CustomOption dynamicMap;
+
+        // Token: 0x040001C7 RID: 455
+        public static CustomOption dynamicMapEnableSkeld;
+
+        // Token: 0x040001C8 RID: 456
+        public static CustomOption dynamicMapEnableMira;
+
+        // Token: 0x040001C9 RID: 457
+        public static CustomOption dynamicMapEnablePolus;
+
+        // Token: 0x040001CA RID: 458
+        public static CustomOption dynamicMapEnableAirShip;
+
+        // Token: 0x040001CB RID: 459
+        public static CustomOption dynamicMapEnableFungle;
+
+        // Token: 0x040001CC RID: 460
+        public static CustomOption dynamicMapEnableSubmerged;
+
+        // Token: 0x040001CD RID: 461
+        public static CustomOption dynamicMapSeparateSettings;
+
+        // Token: 0x040001CE RID: 462
+        public static CustomOption guesserGamemodeCrewNumber;
+
+        // Token: 0x040001CF RID: 463
+        public static CustomOption guesserGamemodeNeutralNumber;
+
+        // Token: 0x040001D0 RID: 464
+        public static CustomOption guesserGamemodeImpNumber;
+
+        // Token: 0x040001D1 RID: 465
+        public static CustomOption guesserForceJackalGuesser;
+
+        // Token: 0x040001D2 RID: 466
+        public static CustomOption guesserForceThiefGuesser;
+
+        // Token: 0x040001D3 RID: 467
+        public static CustomOption guesserGamemodeHaveModifier;
+
+        // Token: 0x040001D4 RID: 468
+        public static CustomOption guesserGamemodeNumberOfShots;
+
+        // Token: 0x040001D5 RID: 469
+        public static CustomOption guesserGamemodeHasMultipleShotsPerMeeting;
+
+        // Token: 0x040001D6 RID: 470
+        public static CustomOption guesserGamemodeKillsThroughShield;
+
+        // Token: 0x040001D7 RID: 471
+        public static CustomOption guesserGamemodeEvilCanKillSpy;
+
+        // Token: 0x040001D8 RID: 472
+        public static CustomOption guesserGamemodeCantGuessSnitchIfTaksDone;
+
+        // Token: 0x040001D9 RID: 473
+        public static CustomOption guesserGamemodeSidekickIsAlwaysGuesser;
+
+        // Token: 0x040001DA RID: 474
+        public static CustomOption hideNSeekHunterCount;
+
+        // Token: 0x040001DB RID: 475
+        public static CustomOption hideNSeekKillCooldown;
+
+        // Token: 0x040001DC RID: 476
+        public static CustomOption hideNSeekHunterVision;
+
+        // Token: 0x040001DD RID: 477
+        public static CustomOption hideNSeekHuntedVision;
+
+        // Token: 0x040001DE RID: 478
+        public static CustomOption hideNSeekTimer;
+
+        // Token: 0x040001DF RID: 479
+        public static CustomOption hideNSeekCommonTasks;
+
+        // Token: 0x040001E0 RID: 480
+        public static CustomOption hideNSeekShortTasks;
+
+        // Token: 0x040001E1 RID: 481
+        public static CustomOption hideNSeekLongTasks;
+
+        // Token: 0x040001E2 RID: 482
+        public static CustomOption hideNSeekTaskWin;
+
+        // Token: 0x040001E3 RID: 483
+        public static CustomOption hideNSeekTaskPunish;
+
+        // Token: 0x040001E4 RID: 484
+        public static CustomOption hideNSeekCanSabotage;
+
+        // Token: 0x040001E5 RID: 485
+        public static CustomOption hideNSeekMap;
+
+        // Token: 0x040001E6 RID: 486
+        public static CustomOption hideNSeekHunterWaiting;
+
+        // Token: 0x040001E7 RID: 487
+        public static CustomOption hunterLightCooldown;
+
+        // Token: 0x040001E8 RID: 488
+        public static CustomOption hunterLightDuration;
+
+        // Token: 0x040001E9 RID: 489
+        public static CustomOption hunterLightVision;
+
+        // Token: 0x040001EA RID: 490
+        public static CustomOption hunterLightPunish;
+
+        // Token: 0x040001EB RID: 491
+        public static CustomOption hunterAdminCooldown;
+
+        // Token: 0x040001EC RID: 492
+        public static CustomOption hunterAdminDuration;
+
+        // Token: 0x040001ED RID: 493
+        public static CustomOption hunterAdminPunish;
+
+        // Token: 0x040001EE RID: 494
+        public static CustomOption hunterArrowCooldown;
+
+        // Token: 0x040001EF RID: 495
+        public static CustomOption hunterArrowDuration;
+
+        // Token: 0x040001F0 RID: 496
+        public static CustomOption hunterArrowPunish;
+
+        // Token: 0x040001F1 RID: 497
+        public static CustomOption huntedShieldCooldown;
+
+        // Token: 0x040001F2 RID: 498
+        public static CustomOption huntedShieldDuration;
+
+        // Token: 0x040001F3 RID: 499
+        public static CustomOption huntedShieldRewindTime;
+
+        // Token: 0x040001F4 RID: 500
+        public static CustomOption huntedShieldNumber;
+
+        // Token: 0x040001F5 RID: 501
+        public static CustomOption propHuntMap;
+
+        // Token: 0x040001F6 RID: 502
+        public static CustomOption propHuntTimer;
+
+        // Token: 0x040001F7 RID: 503
+        public static CustomOption propHuntNumberOfHunters;
+
+        // Token: 0x040001F8 RID: 504
+        public static CustomOption hunterInitialBlackoutTime;
+
+        // Token: 0x040001F9 RID: 505
+        public static CustomOption hunterMissCooldown;
+
+        // Token: 0x040001FA RID: 506
+        public static CustomOption hunterHitCooldown;
+
+        // Token: 0x040001FB RID: 507
+        public static CustomOption hunterMaxMissesBeforeDeath;
+
+        // Token: 0x040001FC RID: 508
+        public static CustomOption propBecomesHunterWhenFound;
+
+        // Token: 0x040001FD RID: 509
+        public static CustomOption propHunterVision;
+
+        // Token: 0x040001FE RID: 510
+        public static CustomOption propVision;
+
+        // Token: 0x040001FF RID: 511
+        public static CustomOption propHuntRevealCooldown;
+
+        // Token: 0x04000200 RID: 512
+        public static CustomOption propHuntRevealDuration;
+
+        // Token: 0x04000201 RID: 513
+        public static CustomOption propHuntRevealPunish;
+
+        // Token: 0x04000202 RID: 514
+        public static CustomOption propHuntUnstuckCooldown;
+
+        // Token: 0x04000203 RID: 515
+        public static CustomOption propHuntUnstuckDuration;
+
+        // Token: 0x04000204 RID: 516
+        public static CustomOption propHuntInvisCooldown;
+
+        // Token: 0x04000205 RID: 517
+        public static CustomOption propHuntInvisDuration;
+
+        // Token: 0x04000206 RID: 518
+        public static CustomOption propHuntSpeedboostCooldown;
+
+        // Token: 0x04000207 RID: 519
+        public static CustomOption propHuntSpeedboostDuration;
+
+        // Token: 0x04000208 RID: 520
+        public static CustomOption propHuntSpeedboostSpeed;
+
+        // Token: 0x04000209 RID: 521
+        public static CustomOption propHuntSpeedboostEnabled;
+
+        // Token: 0x0400020A RID: 522
+        public static CustomOption propHuntInvisEnabled;
+
+        // Token: 0x0400020B RID: 523
+        public static CustomOption propHuntAdminCooldown;
+
+        // Token: 0x0400020C RID: 524
+        public static CustomOption propHuntFindCooldown;
+
+        // Token: 0x0400020D RID: 525
+        public static CustomOption propHuntFindDuration;
+
+        //// Token: 0x0400020E RID: 526
+        //public static CustomOption AddVents;
+
+        //// Token: 0x0400020F RID: 527
+        //public static CustomOption addPolusVents;
+
+        //// Token: 0x04000210 RID: 528
+        //public static CustomOption addAirShipVents;
+
+        //// Token: 0x04000211 RID: 529
+        //public static CustomOption enableAirShipModify;
+
+        // Token: 0x04000212 RID: 530
+        //public static CustomOption enableBetterPolus;
+
+        public static CustomOption enableNoEndGame;
+
+        public static CustomOption modifierLast;
+
+        public static CustomOption modifierLastImpostorShotNum;
+
+        public static CustomOption modifierLastCrewmateShotNum;
+
+        public static CustomOption modifierLastCrewmateShotTaskNum;
+
+        public static CustomOption modifierLastCrewmateAliveNum;
+
+        public static CustomOption modifierLasthasMultipleShots;
+
+        public static CustomOption modifierLastKillCount;
+        // Token: 0x04000213 RID: 531
+        internal static Dictionary<byte, byte[]> blockedRolePairings = new Dictionary<byte, byte[]>();
+
+        // Token: 0x06000013 RID: 19 RVA: 0x00005D44 File Offset: 0x00003F44
+        public static void Load()
 		{
             CustomOption.vanillaSettings = TheOtherRolesPlugin.Instance.Config.Bind("Preset0", "VanillaOptions", "");
             CustomOptionHolder.presetSelection = CustomOption.Create(0, CustomOption.CustomOptionType.General, CustomOptionHolder.cs(new Color(0.8f, 0.8f, 0f, 1f), "presetSelection".Translate()), CustomOptionHolder.presets, null, true, null, "");
@@ -45,7 +1116,7 @@ namespace TheOtherRoles
 			{
 				CustomOptionHolder.enableEventMode = CustomOption.Create(10423, CustomOption.CustomOptionType.General, CustomOptionHolder.cs(Color.green, ModTranslation.GetString("enableEventMode", null)), true, null, true, null, "");
 			}
-			CustomOptionHolder.crewmateRolesCountMin = CustomOption.Create(300, CustomOption.CustomOptionType.General, CustomOptionHolder.cs(new Color(0.8f, 0.8f, 0f, 1f), ModTranslation.GetString("crewmateRolesCountMin", null)), 15f, 0f, 15f, 1f, null, true, null, "Min/Max Roles");
+			CustomOptionHolder.crewmateRolesCountMin = CustomOption.Create(300, CustomOption.CustomOptionType.General, CustomOptionHolder.cs(new Color(0.8f, 0.8f, 0f, 1f), ModTranslation.GetString("crewmateRolesCountMin", null)), 15f, 0f, 15f, 1f, null, true, null, ModTranslation.GetString("MinMaxRoles"));
 			CustomOptionHolder.crewmateRolesCountMax = CustomOption.Create(301, CustomOption.CustomOptionType.General, CustomOptionHolder.cs(new Color(0.8f, 0.8f, 0f, 1f), ModTranslation.GetString("crewmateRolesCountMax", null)), 15f, 0f, 15f, 1f, null, false, null, "");
 			CustomOptionHolder.neutralRolesCountMin = CustomOption.Create(302, CustomOption.CustomOptionType.General, CustomOptionHolder.cs(new Color(0.8f, 0.8f, 0f, 1f), ModTranslation.GetString("neutralRolesCountMin", null)), 15f, 0f, 15f, 1f, null, false, null, "");
 			CustomOptionHolder.neutralRolesCountMax = CustomOption.Create(303, CustomOption.CustomOptionType.General, CustomOptionHolder.cs(new Color(0.8f, 0.8f, 0f, 1f), ModTranslation.GetString("neutralRolesCountMax", null)), 15f, 0f, 15f, 1f, null, false, null, "");
@@ -122,9 +1193,9 @@ namespace TheOtherRoles
 			}, CustomOptionHolder.yoyoSpawnRate, false, null, "");
 			CustomOptionHolder.fraudsterSpawnRate = CustomOption.Create(480, CustomOption.CustomOptionType.Impostor, CustomOptionHolder.cs(Fraudster.color, ModTranslation.GetString("Fraudster", null)), CustomOptionHolder.rates, null, true, null, "");
 			CustomOptionHolder.fraudstercooldown = CustomOption.Create(481, CustomOption.CustomOptionType.Impostor, ModTranslation.GetString("fraudstercooldown", null), 20f, 2.5f, 120f, 2.5f, CustomOptionHolder.fraudsterSpawnRate, false, null, "");
-            CustomOptionHolder.fraudsterSpawnRate = CustomOption.Create(987, CustomOption.CustomOptionType.Impostor, CustomOptionHolder.cs(Devil.color, ModTranslation.GetString("Devil", null)), CustomOptionHolder.rates, null, true, null, "");
-            CustomOptionHolder.fraudstercooldown = CustomOption.Create(988, CustomOption.CustomOptionType.Impostor, ModTranslation.GetString("DevilColldown", null), 20f, 2.5f, 120f, 2.5f, CustomOptionHolder.devilSpawnRate, false, null, "");
-           // CustomOptionHolder.LasterSpawnRate = CustomOption.Create(65899, CustomOption.CustomOptionType.Neutral, CustomOptionHolder.cs(Guesser.color, ModTranslation.GetString("modifierAssassin", null)), CustomOptionHolder.rates, null, true, null, "");
+            CustomOptionHolder.devilSpawnRate = CustomOption.Create(987, CustomOption.CustomOptionType.Impostor, CustomOptionHolder.cs(Devil.color, ModTranslation.GetString("Devil", null)), CustomOptionHolder.rates, null, true, null, "");
+            CustomOptionHolder.devilcooldown = CustomOption.Create(988, CustomOption.CustomOptionType.Impostor, ModTranslation.GetString("DevilColldown", null), 20f, 2.5f, 120f, 2.5f, CustomOptionHolder.devilSpawnRate, false, null, "");
+            CustomOptionHolder.devilcanintianyone = CustomOption.Create(989, CustomOption.CustomOptionType.Impostor, ModTranslation.GetString(ModTranslation.GetString("DevilIntimidateAnyone", null), null), false, CustomOptionHolder.devilSpawnRate, false, null, "");
             CustomOptionHolder.guesserSpawnRate = CustomOption.Create(310, CustomOption.CustomOptionType.Neutral, CustomOptionHolder.cs(Guesser.color, ModTranslation.GetString("modifierAssassin", null)), CustomOptionHolder.rates, null, true, null, "");
 			CustomOptionHolder.guesserIsImpGuesserRate = CustomOption.Create(311, CustomOption.CustomOptionType.Neutral, ModTranslation.GetString("guesserIsImpGuesserRate", null), CustomOptionHolder.rates, CustomOptionHolder.guesserSpawnRate, false, null, "");
 			CustomOptionHolder.guesserNumberOfShots = CustomOption.Create(312, CustomOption.CustomOptionType.Neutral, ModTranslation.GetString("modifierAssassinNumberOfShots", null), 2f, 1f, 15f, 1f, CustomOptionHolder.guesserSpawnRate, false, null, "");
@@ -337,7 +1408,6 @@ namespace TheOtherRoles
 			CustomOptionHolder.modifierLoverImpLoverRate = CustomOption.Create(1041, CustomOption.CustomOptionType.Modifier, ModTranslation.GetString("modifierLoverImpLoverRate", null), CustomOptionHolder.rates, CustomOptionHolder.modifierLover, false, null, "");
 			CustomOptionHolder.modifierLoverBothDie = CustomOption.Create(1042, CustomOption.CustomOptionType.Modifier, ModTranslation.GetString("modifierLoverBothDie", null), true, CustomOptionHolder.modifierLover, false, null, "");
 			CustomOptionHolder.modifierLoverEnableChat = CustomOption.Create(1043, CustomOption.CustomOptionType.Modifier, ModTranslation.GetString("modifierLoverEnableChat", null), true, CustomOptionHolder.modifierLover, false, null, "");
-            CustomOptionHolder.modifierLastImpostor = CustomOption.Create(1053, CustomOption.CustomOptionType.Modifier, CustomOptionHolder.cs(Color.yellow, ModTranslation.GetString("LastImpostor", null)), CustomOptionHolder.rates, null, true, null, "");
             CustomOptionHolder.modifierSunglasses = CustomOption.Create(1050, CustomOption.CustomOptionType.Modifier, CustomOptionHolder.cs(Color.yellow, ModTranslation.GetString("Sunglasses", null)), CustomOptionHolder.rates, null, true, null, "");
 			CustomOptionHolder.modifierSunglassesQuantity = CustomOption.Create(1051, CustomOption.CustomOptionType.Modifier, ModTranslation.GetString("modifierSunglassesQuantity", null), CustomOptionHolder.ratesModifier, CustomOptionHolder.modifierSunglasses, false, null, "");
 			CustomOptionHolder.modifierSunglassesVision = CustomOption.Create(1052, CustomOption.CustomOptionType.Modifier, ModTranslation.GetString("modifierSunglassesVision", null), new string[]
@@ -373,7 +1443,21 @@ namespace TheOtherRoles
 				"50%"
 			}, CustomOptionHolder.modifierChameleon, false, null, "");
 			CustomOptionHolder.modifierShifter = CustomOption.Create(1100, CustomOption.CustomOptionType.Modifier, CustomOptionHolder.cs(Color.yellow, ModTranslation.GetString("Shifter", null)), CustomOptionHolder.rates, null, true, null, "");
-			CustomOptionHolder.guesserGamemodeCrewNumber = CustomOption.Create(2001, CustomOption.CustomOptionType.Guesser, CustomOptionHolder.cs(Guesser.color, "guesserGamemodeCrewNumber".Translate()), 15f, 1f, 15f, 1f, null, true, null, "guesserGamemodeCrewNumber".Translate());
+            CustomOptionHolder.modifierLast = CustomOption.Create(1111, CustomOption.CustomOptionType.Modifier, CustomOptionHolder.cs(Color.yellow, ModTranslation.GetString("modifierLast", null)), CustomOptionHolder.rates, null, true, null, "");
+			CustomOptionHolder.modifierLastImpostorShotNum = CustomOption.Create(1112, CustomOption.CustomOptionType.Modifier, CustomOptionHolder.cs(Color.white, ModTranslation.GetString("modifierLastImpostorShotNum", null)), 3f, 1f, 3f, 1f, modifierLast, false, null, "");
+            CustomOptionHolder.modifierLastCrewmateShotNum = CustomOption.Create(1113, CustomOption.CustomOptionType.Modifier, CustomOptionHolder.cs(Color.white, ModTranslation.GetString("modifierLastCrewmateShotNum", null)), 3f, 1f, 3f, 1f, modifierLast, false, null, "");
+            CustomOptionHolder.modifierLastCrewmateShotTaskNum = CustomOption.Create(1114, CustomOption.CustomOptionType.Modifier, CustomOptionHolder.cs(Color.white, ModTranslation.GetString("modifierLastCrewmateShotTaskNum", null)), 4f, 1f, 4f, 1f, modifierLast, false, null, "");
+            CustomOptionHolder.modifierLastCrewmateAliveNum = CustomOption.Create(1115, CustomOption.CustomOptionType.Modifier, CustomOptionHolder.cs(Color.white, ModTranslation.GetString("modifierLastCrewmateAliveNum", null)), 3f, 1f, 3f, 1f, modifierLast, false, null, "");
+            CustomOptionHolder.modifierLasthasMultipleShots = CustomOption.Create(1116, CustomOption.CustomOptionType.Modifier, CustomOptionHolder.cs(Color.white, ModTranslation.GetString("modifierLasthasMultipleShots", null)), true, modifierLast, false, null, "");
+            CustomOptionHolder.modifierLastKillCount = CustomOption.Create(1117, CustomOption.CustomOptionType.Modifier, CustomOptionHolder.cs(Color.white, ModTranslation.GetString("modifierLastKillCount", null)), 3f, 1f, 3f, 1f, modifierLast, false, null, "");
+
+
+
+
+
+
+
+            CustomOptionHolder.guesserGamemodeCrewNumber = CustomOption.Create(2001, CustomOption.CustomOptionType.Guesser, CustomOptionHolder.cs(Guesser.color, "guesserGamemodeCrewNumber".Translate()), 15f, 1f, 15f, 1f, null, true, null, "guesserGamemodeCrewNumber".Translate());
 			CustomOptionHolder.guesserGamemodeNeutralNumber = CustomOption.Create(2002, CustomOption.CustomOptionType.Guesser, CustomOptionHolder.cs(Guesser.color, "guesserGamemodeNeutralNumber".Translate()), 15f, 1f, 15f, 1f, null, false, null, "");
 			CustomOptionHolder.guesserGamemodeImpNumber = CustomOption.Create(2003, CustomOption.CustomOptionType.Guesser, CustomOptionHolder.cs(Guesser.color, "guesserGamemodeImpNumber".Translate()), 15f, 1f, 15f, 1f, null, false, null, "");
 			CustomOptionHolder.guesserForceJackalGuesser = CustomOption.Create(2007, CustomOption.CustomOptionType.Guesser, "guesserForceJackalGuesser".Translate(), false, null, true, null, "guesserForceJackalGuesser".Translate());
@@ -491,12 +1575,12 @@ namespace TheOtherRoles
 			CustomOptionHolder.dynamicMapEnableSubmerged = CustomOption.Create(505, CustomOption.CustomOptionType.General, "Submerged", CustomOptionHolder.rates, CustomOptionHolder.dynamicMap, false, null, "");
 			CustomOptionHolder.dynamicMapSeparateSettings = CustomOption.Create(509, CustomOption.CustomOptionType.General, "dynamicMapSeparateSettings".Translate(), false, CustomOptionHolder.dynamicMap, true, null, "");
 			CustomOptionHolder.camsNoNightVisionIfImpVision = CustomOption.Create(12, CustomOption.CustomOptionType.General, "camsNoNightVisionIfImpVision".Translate(), false, CustomOptionHolder.camsNightVision, false, null, "");
-			CustomOptionHolder.AddVents = CustomOption.Create(114513, CustomOption.CustomOptionType.General, "AddVents".Translate(), false, null, true, null, "AddVents".Translate());
-			CustomOptionHolder.addPolusVents = CustomOption.Create(114514, CustomOption.CustomOptionType.General, "addPolusVents".Translate(), false, CustomOptionHolder.enableBetterPolus, false, null, "");
-			CustomOptionHolder.addAirShipVents = CustomOption.Create(114515, CustomOption.CustomOptionType.General, "addAirShipVents".Translate(), false, CustomOptionHolder.enableAirShipModify, false, null, "");
-			CustomOptionHolder.enableAirShipModify = CustomOption.Create(114516, CustomOption.CustomOptionType.General, CustomOptionHolder.cs(Color.yellow, "enableAirShipModify".Translate()), false, null, false, null, "");
-			CustomOptionHolder.enableBetterPolus = CustomOption.Create(114517, CustomOption.CustomOptionType.General, "enableBetterPolus".Translate(), false, null, false, null, "");
-			CustomOptionHolder.blockedRolePairings.Add(19, new byte[]
+            //CustomOptionHolder.AddVents = CustomOption.Create(114513, CustomOption.CustomOptionType.General, "AddVents".Translate(), false, null, true, null, "AddVents".Translate());
+            //CustomOptionHolder.addPolusVents = CustomOption.Create(114514, CustomOption.CustomOptionType.General, "addPolusVents".Translate(), false, CustomOptionHolder.enableBetterPolus, false, null, "");
+            //CustomOptionHolder.addAirShipVents = CustomOption.Create(114515, CustomOption.CustomOptionType.General, "addAirShipVents".Translate(), false, CustomOptionHolder.enableAirShipModify, false, null, "");
+            //CustomOptionHolder.enableAirShipModify = CustomOption.Create(114516, CustomOption.CustomOptionType.General, CustomOptionHolder.cs(Color.yellow, "enableAirShipModify".Translate()), false, null, false, null, "");
+            CustomOptionHolder.enableNoEndGame = CustomOption.Create(8769845, CustomOption.CustomOptionType.General, "enableBetterPolus".Translate(), false, null, false, null, ModTranslation.GetString("enableBetterPolus"));
+            CustomOptionHolder.blockedRolePairings.Add(19, new byte[]
 			{
 				28
 			});
@@ -570,1059 +1654,5 @@ namespace TheOtherRoles
 			"RandomPresetSubmerged".Translate()
 		};
 
-		// Token: 0x040000B7 RID: 183
-		public static CustomOption presetSelection;
-
-		// Token: 0x040000B8 RID: 184
-		public static CustomOption activateRoles;
-
-		// Token: 0x040000B9 RID: 185
-		public static CustomOption crewmateRolesCountMin;
-
-		// Token: 0x040000BA RID: 186
-		public static CustomOption crewmateRolesCountMax;
-
-		// Token: 0x040000BB RID: 187
-		public static CustomOption crewmateRolesFill;
-
-		// Token: 0x040000BC RID: 188
-		public static CustomOption neutralRolesCountMin;
-
-		// Token: 0x040000BD RID: 189
-		public static CustomOption neutralRolesCountMax;
-
-		// Token: 0x040000BE RID: 190
-		public static CustomOption impostorRolesCountMin;
-
-		// Token: 0x040000BF RID: 191
-		public static CustomOption impostorRolesCountMax;
-
-		// Token: 0x040000C0 RID: 192
-		public static CustomOption modifiersCountMin;
-
-		// Token: 0x040000C1 RID: 193
-		public static CustomOption modifiersCountMax;
-
-		// Token: 0x040000C2 RID: 194
-		public static CustomOption anyPlayerCanStopStart;
-
-		// Token: 0x040000C3 RID: 195
-		public static CustomOption enableEventMode;
-
-		// Token: 0x040000C4 RID: 196
-		public static CustomOption deadImpsBlockSabotage;
-
-		// Token: 0x040000C5 RID: 197
-		public static CustomOption mafiaSpawnRate;
-
-		// Token: 0x040000C6 RID: 198
-		public static CustomOption janitorCooldown;
-
-		// Token: 0x040000C7 RID: 199
-		public static CustomOption morphlingSpawnRate;
-
-		// Token: 0x040000C8 RID: 200
-		public static CustomOption morphlingCooldown;
-
-		// Token: 0x040000C9 RID: 201
-		public static CustomOption morphlingDuration;
-
-		// Token: 0x040000CA RID: 202
-		public static CustomOption camouflagerSpawnRate;
-
-		// Token: 0x040000CB RID: 203
-		public static CustomOption camouflagerCooldown;
-
-		// Token: 0x040000CC RID: 204
-		public static CustomOption camouflagerDuration;
-
-		// Token: 0x040000CD RID: 205
-		public static CustomOption vampireSpawnRate;
-
-		// Token: 0x040000CE RID: 206
-		public static CustomOption vampireKillDelay;
-
-		// Token: 0x040000CF RID: 207
-		public static CustomOption vampireCooldown;
-
-		// Token: 0x040000D0 RID: 208
-		public static CustomOption vampireCanKillNearGarlics;
-
-		// Token: 0x040000D1 RID: 209
-		public static CustomOption eraserSpawnRate;
-
-		// Token: 0x040000D2 RID: 210
-		public static CustomOption eraserCooldown;
-
-		// Token: 0x040000D3 RID: 211
-		public static CustomOption eraserCanEraseAnyone;
-
-		// Token: 0x040000D4 RID: 212
-		public static CustomOption guesserSpawnRate;
-
-		// Token: 0x040000D5 RID: 213
-		public static CustomOption guesserIsImpGuesserRate;
-
-		// Token: 0x040000D6 RID: 214
-		public static CustomOption guesserNumberOfShots;
-
-		// Token: 0x040000D7 RID: 215
-		public static CustomOption guesserHasMultipleShotsPerMeeting;
-
-		// Token: 0x040000D8 RID: 216
-		public static CustomOption guesserKillsThroughShield;
-
-		// Token: 0x040000D9 RID: 217
-		public static CustomOption guesserEvilCanKillSpy;
-
-		// Token: 0x040000DA RID: 218
-		public static CustomOption guesserSpawnBothRate;
-
-		// Token: 0x040000DB RID: 219
-		public static CustomOption guesserCantGuessSnitchIfTaksDone;
-
-		// Token: 0x040000DC RID: 220
-		public static CustomOption jesterSpawnRate;
-
-		// Token: 0x040000DD RID: 221
-		public static CustomOption jesterCanCallEmergency;
-
-		// Token: 0x040000DE RID: 222
-		public static CustomOption jesterHasImpostorVision;
-
-		// Token: 0x040000DF RID: 223
-		public static CustomOption arsonistSpawnRate;
-
-		// Token: 0x040000E0 RID: 224
-		public static CustomOption arsonistCooldown;
-
-		// Token: 0x040000E1 RID: 225
-		public static CustomOption arsonistDuration;
-
-		// Token: 0x040000E2 RID: 226
-		public static CustomOption jackalSpawnRate;
-
-		// Token: 0x040000E3 RID: 227
-		public static CustomOption jackalKillCooldown;
-
-		// Token: 0x040000E4 RID: 228
-		public static CustomOption jackalCreateSidekickCooldown;
-
-		// Token: 0x040000E5 RID: 229
-		public static CustomOption jackalCanSabotageLights;
-
-		// Token: 0x040000E6 RID: 230
-		public static CustomOption jackalCanUseVents;
-
-		// Token: 0x040000E7 RID: 231
-		public static CustomOption jackalCanCreateSidekick;
-
-		// Token: 0x040000E8 RID: 232
-		public static CustomOption sidekickPromotesToJackal;
-
-		// Token: 0x040000E9 RID: 233
-		public static CustomOption sidekickCanKill;
-
-		// Token: 0x040000EA RID: 234
-		public static CustomOption sidekickCanUseVents;
-
-		// Token: 0x040000EB RID: 235
-		public static CustomOption sidekickCanSabotageLights;
-
-		// Token: 0x040000EC RID: 236
-		public static CustomOption jackalPromotedFromSidekickCanCreateSidekick;
-
-		// Token: 0x040000ED RID: 237
-		public static CustomOption jackalCanCreateSidekickFromImpostor;
-
-		// Token: 0x040000EE RID: 238
-		public static CustomOption jackalAndSidekickHaveImpostorVision;
-
-		// Token: 0x040000EF RID: 239
-		public static CustomOption bountyHunterSpawnRate;
-
-		// Token: 0x040000F0 RID: 240
-		public static CustomOption bountyHunterBountyDuration;
-
-		// Token: 0x040000F1 RID: 241
-		public static CustomOption bountyHunterReducedCooldown;
-
-		// Token: 0x040000F2 RID: 242
-		public static CustomOption bountyHunterPunishmentTime;
-
-		// Token: 0x040000F3 RID: 243
-		public static CustomOption bountyHunterShowArrow;
-
-		// Token: 0x040000F4 RID: 244
-		public static CustomOption bountyHunterArrowUpdateIntervall;
-
-		// Token: 0x040000F5 RID: 245
-		public static CustomOption bountyHunterShowCooldownForGhosts;
-
-		// Token: 0x040000F6 RID: 246
-		public static CustomOption witchSpawnRate;
-
-		// Token: 0x040000F7 RID: 247
-		public static CustomOption witchCooldown;
-
-		// Token: 0x040000F8 RID: 248
-		public static CustomOption witchAdditionalCooldown;
-
-		// Token: 0x040000F9 RID: 249
-		public static CustomOption witchCanSpellAnyone;
-
-		// Token: 0x040000FA RID: 250
-		public static CustomOption witchSpellCastingDuration;
-
-		// Token: 0x040000FB RID: 251
-		public static CustomOption witchTriggerBothCooldowns;
-
-		// Token: 0x040000FC RID: 252
-		public static CustomOption witchVoteSavesTargets;
-
-		// Token: 0x040000FD RID: 253
-		public static CustomOption ninjaSpawnRate;
-
-		// Token: 0x040000FE RID: 254
-		public static CustomOption ninjaCooldown;
-
-		// Token: 0x040000FF RID: 255
-		public static CustomOption ninjaKnowsTargetLocation;
-
-		// Token: 0x04000100 RID: 256
-		public static CustomOption ninjaTraceTime;
-
-		// Token: 0x04000101 RID: 257
-		public static CustomOption ninjaTraceColorTime;
-
-		// Token: 0x04000102 RID: 258
-		public static CustomOption ninjaInvisibleDuration;
-
-		// Token: 0x04000103 RID: 259
-		public static CustomOption mayorSpawnRate;
-
-		// Token: 0x04000104 RID: 260
-		public static CustomOption mayorCanSeeVoteColors;
-
-		// Token: 0x04000105 RID: 261
-		public static CustomOption mayorTasksNeededToSeeVoteColors;
-
-		// Token: 0x04000106 RID: 262
-		public static CustomOption mayorMeetingButton;
-
-		// Token: 0x04000107 RID: 263
-		public static CustomOption mayorMaxRemoteMeetings;
-
-		// Token: 0x04000108 RID: 264
-		public static CustomOption mayorChooseSingleVote;
-
-		// Token: 0x04000109 RID: 265
-		public static CustomOption portalmakerSpawnRate;
-
-		// Token: 0x0400010A RID: 266
-		public static CustomOption portalmakerCooldown;
-
-		// Token: 0x0400010B RID: 267
-		public static CustomOption portalmakerUsePortalCooldown;
-
-		// Token: 0x0400010C RID: 268
-		public static CustomOption portalmakerLogOnlyColorType;
-
-		// Token: 0x0400010D RID: 269
-		public static CustomOption portalmakerLogHasTime;
-
-		// Token: 0x0400010E RID: 270
-		public static CustomOption portalmakerCanPortalFromAnywhere;
-
-		// Token: 0x0400010F RID: 271
-		public static CustomOption engineerSpawnRate;
-
-		// Token: 0x04000110 RID: 272
-		public static CustomOption engineerNumberOfFixes;
-
-		// Token: 0x04000111 RID: 273
-		public static CustomOption engineerHighlightForImpostors;
-
-		// Token: 0x04000112 RID: 274
-		public static CustomOption engineerHighlightForTeamJackal;
-
-		// Token: 0x04000113 RID: 275
-		public static CustomOption sheriffSpawnRate;
-
-		// Token: 0x04000114 RID: 276
-		public static CustomOption sheriffCooldown;
-
-		// Token: 0x04000115 RID: 277
-		public static CustomOption sheriffCanKillNeutrals;
-
-		// Token: 0x04000116 RID: 278
-		public static CustomOption deputySpawnRate;
-
-		// Token: 0x04000117 RID: 279
-		public static CustomOption deputyNumberOfHandcuffs;
-
-		// Token: 0x04000118 RID: 280
-		public static CustomOption deputyHandcuffCooldown;
-
-		// Token: 0x04000119 RID: 281
-		public static CustomOption deputyGetsPromoted;
-
-		// Token: 0x0400011A RID: 282
-		public static CustomOption deputyKeepsHandcuffs;
-
-		// Token: 0x0400011B RID: 283
-		public static CustomOption deputyHandcuffDuration;
-
-		// Token: 0x0400011C RID: 284
-		public static CustomOption deputyKnowsSheriff;
-
-		// Token: 0x0400011D RID: 285
-		public static CustomOption lighterSpawnRate;
-
-		// Token: 0x0400011E RID: 286
-		public static CustomOption lighterModeLightsOnVision;
-
-		// Token: 0x0400011F RID: 287
-		public static CustomOption lighterModeLightsOffVision;
-
-		// Token: 0x04000120 RID: 288
-		public static CustomOption lighterFlashlightWidth;
-
-		// Token: 0x04000121 RID: 289
-		public static CustomOption detectiveSpawnRate;
-
-		// Token: 0x04000122 RID: 290
-		public static CustomOption detectiveAnonymousFootprints;
-
-		// Token: 0x04000123 RID: 291
-		public static CustomOption detectiveFootprintIntervall;
-
-		// Token: 0x04000124 RID: 292
-		public static CustomOption detectiveFootprintDuration;
-
-		// Token: 0x04000125 RID: 293
-		public static CustomOption detectiveReportNameDuration;
-
-		// Token: 0x04000126 RID: 294
-		public static CustomOption detectiveReportColorDuration;
-
-		// Token: 0x04000127 RID: 295
-		public static CustomOption timeMasterSpawnRate;
-
-		// Token: 0x04000128 RID: 296
-		public static CustomOption timeMasterCooldown;
-
-		// Token: 0x04000129 RID: 297
-		public static CustomOption timeMasterRewindTime;
-
-		// Token: 0x0400012A RID: 298
-		public static CustomOption timeMasterShieldDuration;
-
-		// Token: 0x0400012B RID: 299
-		public static CustomOption medicSpawnRate;
-
-		// Token: 0x0400012C RID: 300
-		public static CustomOption medicShowShielded;
-
-		// Token: 0x0400012D RID: 301
-		public static CustomOption medicShowAttemptToShielded;
-
-		// Token: 0x0400012E RID: 302
-		public static CustomOption medicSetOrShowShieldAfterMeeting;
-
-		// Token: 0x0400012F RID: 303
-		public static CustomOption medicShowAttemptToMedic;
-
-		// Token: 0x04000130 RID: 304
-		public static CustomOption medicSetShieldAfterMeeting;
-
-		// Token: 0x04000131 RID: 305
-		public static CustomOption swapperSpawnRate;
-
-		// Token: 0x04000132 RID: 306
-		public static CustomOption swapperCanCallEmergency;
-
-		// Token: 0x04000133 RID: 307
-		public static CustomOption swapperCanOnlySwapOthers;
-
-		// Token: 0x04000134 RID: 308
-		public static CustomOption swapperSwapsNumber;
-
-		// Token: 0x04000135 RID: 309
-		public static CustomOption swapperRechargeTasksNumber;
-
-		// Token: 0x04000136 RID: 310
-		public static CustomOption seerSpawnRate;
-
-		// Token: 0x04000137 RID: 311
-		public static CustomOption seerMode;
-
-		// Token: 0x04000138 RID: 312
-		public static CustomOption seerSoulDuration;
-
-		// Token: 0x04000139 RID: 313
-		public static CustomOption seerLimitSoulDuration;
-
-		// Token: 0x0400013A RID: 314
-		public static CustomOption hackerSpawnRate;
-
-		// Token: 0x0400013B RID: 315
-		public static CustomOption hackerCooldown;
-
-		// Token: 0x0400013C RID: 316
-		public static CustomOption hackerHackeringDuration;
-
-		// Token: 0x0400013D RID: 317
-		public static CustomOption hackerOnlyColorType;
-
-		// Token: 0x0400013E RID: 318
-		public static CustomOption hackerToolsNumber;
-
-		// Token: 0x0400013F RID: 319
-		public static CustomOption hackerRechargeTasksNumber;
-
-		// Token: 0x04000140 RID: 320
-		public static CustomOption hackerNoMove;
-
-		// Token: 0x04000141 RID: 321
-		public static CustomOption trackerSpawnRate;
-
-		// Token: 0x04000142 RID: 322
-		public static CustomOption trackerUpdateIntervall;
-
-		// Token: 0x04000143 RID: 323
-		public static CustomOption trackerResetTargetAfterMeeting;
-
-		// Token: 0x04000144 RID: 324
-		public static CustomOption trackerCanTrackCorpses;
-
-		// Token: 0x04000145 RID: 325
-		public static CustomOption trackerCorpsesTrackingCooldown;
-
-		// Token: 0x04000146 RID: 326
-		public static CustomOption trackerCorpsesTrackingDuration;
-
-		// Token: 0x04000147 RID: 327
-		public static CustomOption trackerTrackingMethod;
-
-		// Token: 0x04000148 RID: 328
-		public static CustomOption snitchSpawnRate;
-
-		// Token: 0x04000149 RID: 329
-		public static CustomOption snitchLeftTasksForReveal;
-
-		// Token: 0x0400014A RID: 330
-		public static CustomOption snitchMode;
-
-		// Token: 0x0400014B RID: 331
-		public static CustomOption snitchTargets;
-
-		// Token: 0x0400014C RID: 332
-		public static CustomOption spySpawnRate;
-
-		// Token: 0x0400014D RID: 333
-		public static CustomOption spyCanDieToSheriff;
-
-		// Token: 0x0400014E RID: 334
-		public static CustomOption spyImpostorsCanKillAnyone;
-
-		// Token: 0x0400014F RID: 335
-		public static CustomOption spyCanEnterVents;
-
-		// Token: 0x04000150 RID: 336
-		public static CustomOption spyHasImpostorVision;
-
-		// Token: 0x04000151 RID: 337
-		public static CustomOption tricksterSpawnRate;
-
-		// Token: 0x04000152 RID: 338
-		public static CustomOption tricksterPlaceBoxCooldown;
-
-		// Token: 0x04000153 RID: 339
-		public static CustomOption tricksterLightsOutCooldown;
-
-		// Token: 0x04000154 RID: 340
-		public static CustomOption tricksterLightsOutDuration;
-
-		// Token: 0x04000155 RID: 341
-		public static CustomOption cleanerSpawnRate;
-
-		// Token: 0x04000156 RID: 342
-		public static CustomOption cleanerCooldown;
-
-		// Token: 0x04000157 RID: 343
-		public static CustomOption warlockSpawnRate;
-
-		// Token: 0x04000158 RID: 344
-		public static CustomOption warlockCooldown;
-
-		// Token: 0x04000159 RID: 345
-		public static CustomOption warlockRootTime;
-
-		// Token: 0x0400015A RID: 346
-		public static CustomOption securityGuardSpawnRate;
-
-		// Token: 0x0400015B RID: 347
-		public static CustomOption securityGuardCooldown;
-
-		// Token: 0x0400015C RID: 348
-		public static CustomOption securityGuardTotalScrews;
-
-		// Token: 0x0400015D RID: 349
-		public static CustomOption securityGuardCamPrice;
-
-		// Token: 0x0400015E RID: 350
-		public static CustomOption securityGuardVentPrice;
-
-		// Token: 0x0400015F RID: 351
-		public static CustomOption securityGuardCamDuration;
-
-		// Token: 0x04000160 RID: 352
-		public static CustomOption securityGuardCamMaxCharges;
-
-		// Token: 0x04000161 RID: 353
-		public static CustomOption securityGuardCamRechargeTasksNumber;
-
-		// Token: 0x04000162 RID: 354
-		public static CustomOption securityGuardNoMove;
-
-		// Token: 0x04000163 RID: 355
-		public static CustomOption vultureSpawnRate;
-
-		// Token: 0x04000164 RID: 356
-		public static CustomOption vultureCooldown;
-
-		// Token: 0x04000165 RID: 357
-		public static CustomOption vultureNumberToWin;
-
-		// Token: 0x04000166 RID: 358
-		public static CustomOption vultureCanUseVents;
-
-		// Token: 0x04000167 RID: 359
-		public static CustomOption vultureShowArrows;
-
-		// Token: 0x04000168 RID: 360
-		public static CustomOption mediumSpawnRate;
-
-		// Token: 0x04000169 RID: 361
-		public static CustomOption mediumCooldown;
-
-		// Token: 0x0400016A RID: 362
-		public static CustomOption mediumDuration;
-
-		// Token: 0x0400016B RID: 363
-		public static CustomOption mediumOneTimeUse;
-
-		// Token: 0x0400016C RID: 364
-		public static CustomOption mediumChanceAdditionalInfo;
-
-		// Token: 0x0400016D RID: 365
-		public static CustomOption lawyerSpawnRate;
-
-		// Token: 0x0400016E RID: 366
-		public static CustomOption lawyerIsProsecutorChance;
-
-		// Token: 0x0400016F RID: 367
-		public static CustomOption lawyerTargetCanBeJester;
-
-		// Token: 0x04000170 RID: 368
-		public static CustomOption lawyerVision;
-
-		// Token: 0x04000171 RID: 369
-		public static CustomOption lawyerKnowsRole;
-
-		// Token: 0x04000172 RID: 370
-		public static CustomOption lawyerCanCallEmergency;
-
-		// Token: 0x04000173 RID: 371
-		public static CustomOption pursuerCooldown;
-
-		// Token: 0x04000174 RID: 372
-		public static CustomOption pursuerBlanksNumber;
-
-		// Token: 0x04000175 RID: 373
-		public static CustomOption thiefSpawnRate;
-
-		// Token: 0x04000176 RID: 374
-		public static CustomOption thiefCooldown;
-
-		// Token: 0x04000177 RID: 375
-		public static CustomOption thiefHasImpVision;
-
-		// Token: 0x04000178 RID: 376
-		public static CustomOption thiefCanUseVents;
-
-		// Token: 0x04000179 RID: 377
-		public static CustomOption thiefCanKillSheriff;
-
-		// Token: 0x0400017A RID: 378
-		public static CustomOption thiefCanStealWithGuess;
-
-		// Token: 0x0400017B RID: 379
-		public static CustomOption trapperSpawnRate;
-
-		// Token: 0x0400017C RID: 380
-		public static CustomOption trapperCooldown;
-
-		// Token: 0x0400017D RID: 381
-		public static CustomOption trapperMaxCharges;
-
-		// Token: 0x0400017E RID: 382
-		public static CustomOption trapperRechargeTasksNumber;
-
-		// Token: 0x0400017F RID: 383
-		public static CustomOption trapperTrapNeededTriggerToReveal;
-
-		// Token: 0x04000180 RID: 384
-		public static CustomOption trapperAnonymousMap;
-
-		// Token: 0x04000181 RID: 385
-		public static CustomOption trapperInfoType;
-
-		// Token: 0x04000182 RID: 386
-		public static CustomOption trapperTrapDuration;
-
-		// Token: 0x04000183 RID: 387
-		public static CustomOption bomberSpawnRate;
-
-		// Token: 0x04000184 RID: 388
-		public static CustomOption bomberBombDestructionTime;
-
-		// Token: 0x04000185 RID: 389
-		public static CustomOption bomberBombDestructionRange;
-
-		// Token: 0x04000186 RID: 390
-		public static CustomOption bomberBombHearRange;
-
-		// Token: 0x04000187 RID: 391
-		public static CustomOption bomberDefuseDuration;
-
-		// Token: 0x04000188 RID: 392
-		public static CustomOption bomberBombCooldown;
-
-		// Token: 0x04000189 RID: 393
-		public static CustomOption bomberBombActiveAfter;
-
-		// Token: 0x0400018A RID: 394
-		public static CustomOption yoyoSpawnRate;
-
-		// Token: 0x0400018B RID: 395
-		public static CustomOption yoyoBlinkDuration;
-
-		// Token: 0x0400018C RID: 396
-		public static CustomOption yoyoMarkCooldown;
-
-		// Token: 0x0400018D RID: 397
-		public static CustomOption yoyoMarkStaysOverMeeting;
-
-		// Token: 0x0400018E RID: 398
-		public static CustomOption yoyoHasAdminTable;
-
-		// Token: 0x0400018F RID: 399
-		public static CustomOption yoyoAdminTableCooldown;
-
-		// Token: 0x04000190 RID: 400
-		public static CustomOption yoyoSilhouetteVisibility;
-
-		// Token: 0x04000191 RID: 401
-		public static CustomOption prophetSpawnRate;
-
-		// Token: 0x04000192 RID: 402
-		public static CustomOption prophetCooldown;
-
-		// Token: 0x04000193 RID: 403
-		public static CustomOption prophetNumExamines;
-
-		// Token: 0x04000194 RID: 404
-		public static CustomOption prophetAccuracy;
-
-		// Token: 0x04000195 RID: 405
-		public static CustomOption prophetCanCallEmergency;
-
-		// Token: 0x04000196 RID: 406
-		public static CustomOption prophetIsRevealed;
-
-		// Token: 0x04000197 RID: 407
-		public static CustomOption prophetExaminesToBeRevealed;
-
-		// Token: 0x04000198 RID: 408
-		public static CustomOption fraudsterSpawnRate;
-
-		// Token: 0x04000199 RID: 409
-		public static CustomOption fraudstercooldown;
-
-        // Token: 0x04000198 RID: 408
-        public static CustomOption devilSpawnRate;
-
-        // Token: 0x04000199 RID: 409
-        public static CustomOption devilcooldown;
-
-        // Token: 0x0400019A RID: 410
-        public static CustomOption modifiersAreHidden;
-
-		// Token: 0x0400019B RID: 411
-		public static CustomOption modifierBait;
-
-		// Token: 0x0400019C RID: 412
-		public static CustomOption modifierBaitQuantity;
-
-		// Token: 0x0400019D RID: 413
-		public static CustomOption modifierBaitReportDelayMin;
-
-		// Token: 0x0400019E RID: 414
-		public static CustomOption modifierBaitReportDelayMax;
-
-		// Token: 0x0400019F RID: 415
-		public static CustomOption modifierBaitShowKillFlash;
-
-		// Token: 0x040001A0 RID: 416
-		public static CustomOption modifierLover;
-
-		// Token: 0x040001A1 RID: 417
-		public static CustomOption modifierLoverImpLoverRate;
-
-		// Token: 0x040001A2 RID: 418
-		public static CustomOption modifierLoverBothDie;
-
-		// Token: 0x040001A3 RID: 419
-		public static CustomOption modifierLoverEnableChat;
-
-		// Token: 0x040001A4 RID: 420
-		public static CustomOption modifierBloody;
-
-		// Token: 0x040001A5 RID: 421
-		public static CustomOption modifierBloodyQuantity;
-
-		// Token: 0x040001A6 RID: 422
-		public static CustomOption modifierBloodyDuration;
-
-		// Token: 0x040001A7 RID: 423
-		public static CustomOption modifierAntiTeleport;
-
-		// Token: 0x040001A8 RID: 424
-		public static CustomOption modifierAntiTeleportQuantity;
-
-		// Token: 0x040001A9 RID: 425
-		public static CustomOption modifierTieBreaker;
-
-		// Token: 0x040001AA RID: 426
-		public static CustomOption modifierSunglasses;
-
-		// Token: 0x040001AB RID: 427
-		public static CustomOption modifierSunglassesQuantity;
-
-		// Token: 0x040001AC RID: 428
-		public static CustomOption modifierSunglassesVision;
-
-		// Token: 0x040001AD RID: 429
-		public static CustomOption modifierLighterln;
-
-		// Token: 0x040001AE RID: 430
-		public static CustomOption modifierMini;
-
-		// Token: 0x040001AF RID: 431
-		public static CustomOption modifierMiniGrowingUpDuration;
-
-		// Token: 0x040001B0 RID: 432
-		public static CustomOption modifierMiniGrowingUpInMeeting;
-
-		// Token: 0x040001B1 RID: 433
-		public static CustomOption modifierVip;
-
-		// Token: 0x040001B2 RID: 434
-		public static CustomOption modifierVipQuantity;
-
-		// Token: 0x040001B3 RID: 435
-		public static CustomOption modifierVipShowColor;
-
-		// Token: 0x040001B4 RID: 436
-		public static CustomOption modifierInvert;
-
-		// Token: 0x040001B5 RID: 437
-		public static CustomOption modifierInvertQuantity;
-
-		// Token: 0x040001B6 RID: 438
-		public static CustomOption modifierInvertDuration;
-
-		// Token: 0x040001B7 RID: 439
-		public static CustomOption modifierChameleon;
-
-		// Token: 0x040001B8 RID: 440
-		public static CustomOption modifierChameleonQuantity;
-
-		// Token: 0x040001B9 RID: 441
-		public static CustomOption modifierChameleonHoldDuration;
-
-		// Token: 0x040001BA RID: 442
-		public static CustomOption modifierChameleonFadeDuration;
-
-		// Token: 0x040001BB RID: 443
-		public static CustomOption modifierChameleonMinVisibility;
-
-		// Token: 0x040001BC RID: 444
-		public static CustomOption modifierShifter;
-
-		// Token: 0x040001BD RID: 445
-		public static CustomOption maxNumberOfMeetings;
-
-		// Token: 0x040001BE RID: 446
-		public static CustomOption blockSkippingInEmergencyMeetings;
-
-		// Token: 0x040001BF RID: 447
-		public static CustomOption noVoteIsSelfVote;
-
-		// Token: 0x040001C0 RID: 448
-		public static CustomOption hidePlayerNames;
-
-		// Token: 0x040001C1 RID: 449
-		public static CustomOption allowParallelMedBayScans;
-
-		// Token: 0x040001C2 RID: 450
-		public static CustomOption shieldFirstKill;
-
-		// Token: 0x040001C3 RID: 451
-		public static CustomOption finishTasksBeforeHauntingOrZoomingOut;
-
-		// Token: 0x040001C4 RID: 452
-		public static CustomOption camsNightVision;
-
-		// Token: 0x040001C5 RID: 453
-		public static CustomOption camsNoNightVisionIfImpVision;
-
-		// Token: 0x040001C6 RID: 454
-		public static CustomOption dynamicMap;
-
-		// Token: 0x040001C7 RID: 455
-		public static CustomOption dynamicMapEnableSkeld;
-
-		// Token: 0x040001C8 RID: 456
-		public static CustomOption dynamicMapEnableMira;
-
-		// Token: 0x040001C9 RID: 457
-		public static CustomOption dynamicMapEnablePolus;
-
-		// Token: 0x040001CA RID: 458
-		public static CustomOption dynamicMapEnableAirShip;
-
-		// Token: 0x040001CB RID: 459
-		public static CustomOption dynamicMapEnableFungle;
-
-		// Token: 0x040001CC RID: 460
-		public static CustomOption dynamicMapEnableSubmerged;
-
-		// Token: 0x040001CD RID: 461
-		public static CustomOption dynamicMapSeparateSettings;
-
-		// Token: 0x040001CE RID: 462
-		public static CustomOption guesserGamemodeCrewNumber;
-
-		// Token: 0x040001CF RID: 463
-		public static CustomOption guesserGamemodeNeutralNumber;
-
-		// Token: 0x040001D0 RID: 464
-		public static CustomOption guesserGamemodeImpNumber;
-
-		// Token: 0x040001D1 RID: 465
-		public static CustomOption guesserForceJackalGuesser;
-
-		// Token: 0x040001D2 RID: 466
-		public static CustomOption guesserForceThiefGuesser;
-
-		// Token: 0x040001D3 RID: 467
-		public static CustomOption guesserGamemodeHaveModifier;
-
-		// Token: 0x040001D4 RID: 468
-		public static CustomOption guesserGamemodeNumberOfShots;
-
-		// Token: 0x040001D5 RID: 469
-		public static CustomOption guesserGamemodeHasMultipleShotsPerMeeting;
-
-		// Token: 0x040001D6 RID: 470
-		public static CustomOption guesserGamemodeKillsThroughShield;
-
-		// Token: 0x040001D7 RID: 471
-		public static CustomOption guesserGamemodeEvilCanKillSpy;
-
-		// Token: 0x040001D8 RID: 472
-		public static CustomOption guesserGamemodeCantGuessSnitchIfTaksDone;
-
-		// Token: 0x040001D9 RID: 473
-		public static CustomOption guesserGamemodeSidekickIsAlwaysGuesser;
-
-		// Token: 0x040001DA RID: 474
-		public static CustomOption hideNSeekHunterCount;
-
-		// Token: 0x040001DB RID: 475
-		public static CustomOption hideNSeekKillCooldown;
-
-		// Token: 0x040001DC RID: 476
-		public static CustomOption hideNSeekHunterVision;
-
-		// Token: 0x040001DD RID: 477
-		public static CustomOption hideNSeekHuntedVision;
-
-		// Token: 0x040001DE RID: 478
-		public static CustomOption hideNSeekTimer;
-
-		// Token: 0x040001DF RID: 479
-		public static CustomOption hideNSeekCommonTasks;
-
-		// Token: 0x040001E0 RID: 480
-		public static CustomOption hideNSeekShortTasks;
-
-		// Token: 0x040001E1 RID: 481
-		public static CustomOption hideNSeekLongTasks;
-
-		// Token: 0x040001E2 RID: 482
-		public static CustomOption hideNSeekTaskWin;
-
-		// Token: 0x040001E3 RID: 483
-		public static CustomOption hideNSeekTaskPunish;
-
-		// Token: 0x040001E4 RID: 484
-		public static CustomOption hideNSeekCanSabotage;
-
-		// Token: 0x040001E5 RID: 485
-		public static CustomOption hideNSeekMap;
-
-		// Token: 0x040001E6 RID: 486
-		public static CustomOption hideNSeekHunterWaiting;
-
-		// Token: 0x040001E7 RID: 487
-		public static CustomOption hunterLightCooldown;
-
-		// Token: 0x040001E8 RID: 488
-		public static CustomOption hunterLightDuration;
-
-		// Token: 0x040001E9 RID: 489
-		public static CustomOption hunterLightVision;
-
-		// Token: 0x040001EA RID: 490
-		public static CustomOption hunterLightPunish;
-
-		// Token: 0x040001EB RID: 491
-		public static CustomOption hunterAdminCooldown;
-
-		// Token: 0x040001EC RID: 492
-		public static CustomOption hunterAdminDuration;
-
-		// Token: 0x040001ED RID: 493
-		public static CustomOption hunterAdminPunish;
-
-		// Token: 0x040001EE RID: 494
-		public static CustomOption hunterArrowCooldown;
-
-		// Token: 0x040001EF RID: 495
-		public static CustomOption hunterArrowDuration;
-
-		// Token: 0x040001F0 RID: 496
-		public static CustomOption hunterArrowPunish;
-
-		// Token: 0x040001F1 RID: 497
-		public static CustomOption huntedShieldCooldown;
-
-		// Token: 0x040001F2 RID: 498
-		public static CustomOption huntedShieldDuration;
-
-		// Token: 0x040001F3 RID: 499
-		public static CustomOption huntedShieldRewindTime;
-
-		// Token: 0x040001F4 RID: 500
-		public static CustomOption huntedShieldNumber;
-
-		// Token: 0x040001F5 RID: 501
-		public static CustomOption propHuntMap;
-
-		// Token: 0x040001F6 RID: 502
-		public static CustomOption propHuntTimer;
-
-		// Token: 0x040001F7 RID: 503
-		public static CustomOption propHuntNumberOfHunters;
-
-		// Token: 0x040001F8 RID: 504
-		public static CustomOption hunterInitialBlackoutTime;
-
-		// Token: 0x040001F9 RID: 505
-		public static CustomOption hunterMissCooldown;
-
-		// Token: 0x040001FA RID: 506
-		public static CustomOption hunterHitCooldown;
-
-		// Token: 0x040001FB RID: 507
-		public static CustomOption hunterMaxMissesBeforeDeath;
-
-		// Token: 0x040001FC RID: 508
-		public static CustomOption propBecomesHunterWhenFound;
-
-		// Token: 0x040001FD RID: 509
-		public static CustomOption propHunterVision;
-
-		// Token: 0x040001FE RID: 510
-		public static CustomOption propVision;
-
-		// Token: 0x040001FF RID: 511
-		public static CustomOption propHuntRevealCooldown;
-
-		// Token: 0x04000200 RID: 512
-		public static CustomOption propHuntRevealDuration;
-
-		// Token: 0x04000201 RID: 513
-		public static CustomOption propHuntRevealPunish;
-
-		// Token: 0x04000202 RID: 514
-		public static CustomOption propHuntUnstuckCooldown;
-
-		// Token: 0x04000203 RID: 515
-		public static CustomOption propHuntUnstuckDuration;
-
-		// Token: 0x04000204 RID: 516
-		public static CustomOption propHuntInvisCooldown;
-
-		// Token: 0x04000205 RID: 517
-		public static CustomOption propHuntInvisDuration;
-
-		// Token: 0x04000206 RID: 518
-		public static CustomOption propHuntSpeedboostCooldown;
-
-		// Token: 0x04000207 RID: 519
-		public static CustomOption propHuntSpeedboostDuration;
-
-		// Token: 0x04000208 RID: 520
-		public static CustomOption propHuntSpeedboostSpeed;
-
-		// Token: 0x04000209 RID: 521
-		public static CustomOption propHuntSpeedboostEnabled;
-
-		// Token: 0x0400020A RID: 522
-		public static CustomOption propHuntInvisEnabled;
-
-		// Token: 0x0400020B RID: 523
-		public static CustomOption propHuntAdminCooldown;
-
-		// Token: 0x0400020C RID: 524
-		public static CustomOption propHuntFindCooldown;
-
-		// Token: 0x0400020D RID: 525
-		public static CustomOption propHuntFindDuration;
-
-		// Token: 0x0400020E RID: 526
-		public static CustomOption AddVents;
-
-		// Token: 0x0400020F RID: 527
-		public static CustomOption addPolusVents;
-
-		// Token: 0x04000210 RID: 528
-		public static CustomOption addAirShipVents;
-
-		// Token: 0x04000211 RID: 529
-		public static CustomOption enableAirShipModify;
-
-		// Token: 0x04000212 RID: 530
-		public static CustomOption enableBetterPolus;
-
-		public static CustomOption modifierLastImpostor;
-
-        // Token: 0x04000213 RID: 531
-        internal static Dictionary<byte, byte[]> blockedRolePairings = new Dictionary<byte, byte[]>();
 	}
 }
