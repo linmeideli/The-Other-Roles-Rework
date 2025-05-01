@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TheOtherRoles.Objects;
- 
+using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using UnityEngine;
 
@@ -39,7 +39,7 @@ namespace TheOtherRoles.Patches {
 			}
 
 			__instance.HerePoint.transform.SetLocalZ(-2.1f);
-			if (Trapper.trapper != null && PlayerControl.LocalPlayer.PlayerId == Trapper.trapper.PlayerId) {
+			if (Trapper.trapper != null && CachedPlayer.LocalPlayer.PlayerId == Trapper.trapper.PlayerId) {
 				foreach (PlayerControl player in Trapper.playersOnMap) {
 					if (herePoints.ContainsKey(player)) continue;
 					Vector3 v = Trap.trapPlayerIdMap[player.PlayerId].trap.transform.position;
@@ -59,13 +59,13 @@ namespace TheOtherRoles.Patches {
 					UnityEngine.Object.Destroy(s.Value);
 					herePoints.Remove(s.Key);
 				}
-			} else if (Snitch.snitch != null && PlayerControl.LocalPlayer.PlayerId == Snitch.snitch.PlayerId && !Snitch.snitch.Data.IsDead && Snitch.mode != Snitch.Mode.Chat) {
+			} else if (Snitch.snitch != null && CachedPlayer.LocalPlayer.PlayerId == Snitch.snitch.PlayerId && !Snitch.snitch.Data.IsDead && Snitch.mode != Snitch.Mode.Chat) {
 				var (playerCompleted, playerTotal) = TasksHandler.taskInfo(Snitch.snitch.Data);
 				int numberOfTasks = playerTotal - playerCompleted;
 
 				if (numberOfTasks == 0) {
 					if (MeetingHud.Instance == null) {
-						foreach (PlayerControl player in PlayerControl.AllPlayerControls.ToArray()) {
+						foreach (PlayerControl player in CachedPlayer.AllPlayers) {
 							if (Snitch.targets == Snitch.Targets.EvilPlayers && !Helpers.isEvil(player)) continue;
 							else if (Snitch.targets == Snitch.Targets.Killers && !Helpers.isKiller(player)) continue;
 							if (player.Data.IsDead) continue;
@@ -98,7 +98,7 @@ namespace TheOtherRoles.Patches {
 			// Show location of all players on the map for ghosts!
 			if (PlayerControl.LocalPlayer.Data.IsDead && (!PlayerControl.LocalPlayer.Data.Role.IsImpostor || CustomOptionHolder.deadImpsBlockSabotage.getBool()))
 			{
-				foreach (PlayerControl player in PlayerControl.AllPlayerControls.ToArray())
+				foreach (PlayerControl player in CachedPlayer.AllPlayers)
 				{
 					if (player == PlayerControl.LocalPlayer)
 						continue;

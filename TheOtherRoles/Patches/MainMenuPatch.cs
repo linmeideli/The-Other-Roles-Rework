@@ -231,7 +231,7 @@ TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes</size>";
                 VisitText.transform.localPosition = new Vector3(-3.92f, -2.9f, 0f);
                 VisitText.enabled = GameObject.Find("TOR Background") != null;
 
-                __instance.text.text = $"<color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Rework</color></color></color> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}{(Helpers.isAprilDay() ? (Helpers.IsChinese() ? "<color=#7CFC00>愚人节快乐!!</color>" : "<color=#7CFC00>Happy April Fool's Day!!</color>") : "")}";
+                __instance.text.text = $"<color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Rework</color></color></color> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
                 __instance.text.alignment = TextAlignmentOptions.Left;
                 OVersionShower.transform.localPosition = new Vector3(-4.92f, -3.3f, 0f);
 
@@ -241,6 +241,28 @@ TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes</size>";
                 if (ap2 != null) UnityEngine.Object.Destroy(ap2);
             };
         }
+    }
+    [HarmonyPatch(typeof(PingTracker), "Update")]
+    public static class PingTrackerPatch
+    {
+        private static void Postfix(PingTracker __instance)
+        {
+
+            AspectPosition position = __instance.GetComponent<AspectPosition>();
+            if (AmongUsClient.Instance.GameState == InnerNet.InnerNetClient.GameStates.Started)
+            {
+                __instance.text.alignment = TextAlignmentOptions.Top;
+                position.Alignment = AspectPosition.EdgeAlignments.Top;
+                __instance.text.text = __instance.text.text + "<color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Rework</color></color></color>\n";
+                position.DistanceFromEdge = new Vector3(1.5f, 0.11f, 0f);
+                return;
+            }
+            position.Alignment = AspectPosition.EdgeAlignments.LeftTop;
+            __instance.text.alignment = TextAlignmentOptions.TopLeft;
+            __instance.text.text = __instance.text.text + "<color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Rework</color></color></color>\n";
+            position.DistanceFromEdge = new Vector3(0.5f, 0.11f);
+        }
+
     }
 
     [HarmonyPatch(typeof(MainMenuManager), nameof(MainMenuManager.Start)), HarmonyPriority(Priority.First)]
@@ -271,12 +293,15 @@ TheOtherRolesCE-Next(FangKuai,鸡分 ,乱码 ) - Some codes</size>";
             TOR_Background = new GameObject("TOR Background");
             TOR_Background.transform.position = new Vector3(0, 0, 520f);
             var bgRenderer = TOR_Background.AddComponent<SpriteRenderer>();
-            //System.Random rnd = new System.Random();
-            //int rndnum = rnd.Next(1,MainMenuImage.imgnum);
-            //bgRenderer.sprite = Helpers.LoadSpriteFromDisk(@$"{MainMenuImage.FolderPath()}/image_{rndnum}.jpg",160f);
-            bgRenderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.paintingbyarcaea.jpg", 320f);
-           // bgRenderer.sprite = Helpers.LoadSpriteFromDisk("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Among Us\\Among Us TORR\\ACG\\image_8.jpg", 320f);
-
+            //string imagePath = @"D:/Steam/steamapps/common/Among Us/Among Us Mod/ACG_Images_20250328_220245/image_030.jpg";
+            //Sprite MainMenuSprite = Helpers.LoadSpriteFromDisk(imagePath);
+            //bgRenderer.sprite = MainMenuSprite;
+            //bgRenderer.sprite = Helpers.loadSpriteFromDisk("D:/Steam/steamapps/common/Among Us/Among Us Mod/ACG_Images_20250328_220245.image_030.jpg", 160f);
+            //TitleLogoPatch.image = Helpers.loadTextureFromDisk(@"D:/Steam/steamapps/common/Among Us/Among Us Mod/ACG_Images_20250328_220245/image_030.jpg");
+            //bgRenderer.sprite = Sprite.Create(new Rect(0, 0, image.width, image.height), new Vector2(0.5f, 0.5f),160f,image); 
+            System.Random rnd = new System.Random();
+            int rndnum = rnd.Next(1,MainMenuImage.imgnum);
+            bgRenderer.sprite = Helpers.LoadSpriteFromDisk(@$"{MainMenuImage.FolderPath()}/image_{rndnum}.jpg",160f);
             if (!(Ambience = GameObject.Find("Ambience"))) return;
             if (!(Starfield = Ambience.transform.FindChild("starfield").gameObject)) return;
             StarGen starGen = Starfield.GetComponent<StarGen>();

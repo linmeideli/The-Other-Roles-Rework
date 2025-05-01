@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TheOtherRoles;
 using TheOtherRoles.CustomGameModes;
 using TheOtherRoles.Modules;
- 
+using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using TMPro;
 using UnityEngine;
@@ -56,7 +56,7 @@ namespace TheOtherRoles.Patches
                     else if (HandleGuesser.isGuesserGm) gameModeText = ModTranslation.GetString("isGuesserGm");
                     else if (PropHunt.isPropHuntGM) gameModeText = ModTranslation.GetString("isPropHuntGM");
                     if (gameModeText != "") gameModeText = Helpers.cs(Color.yellow, gameModeText) + "\n";
-                    __instance.text.text = $"<size=130%><color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Rework</color></color></color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "") + "\n" + $"{gameModeText}" + $"<color={PingColor}>PING: <b>{AmongUsClient.Instance.Ping}</b> MS</color>" + $"  {(TORMapOptions.showFPS ? $"  <color=#00a4ff>FPS: {fps}</color>" : "")}{(Helpers.isAprilDay() ? (Helpers.IsChinese() ? "\n<color=#7CFC00>愚人节快乐!!</color>" : "\n<color=#7CFC00>Happy April Fool's Day!!</color>") : "")}"}";
+                    __instance.text.text = $"<size=130%><color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Rework</color></color></color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "") + "\n" + $"{gameModeText}" + $"<color={PingColor}>PING: <b>{AmongUsClient.Instance.Ping}</b> MS</color>" + $"  {(TORMapOptions.showFPS ? $"  <color=#00a4ff>FPS: {fps}</color>" : "")}"}";
 
                     position.DistanceFromEdge = new Vector3(1.5f, 0.11f, 0);
                 }
@@ -104,7 +104,7 @@ namespace TheOtherRoles.Patches
 
                 renderer = torLogo.AddComponent<SpriteRenderer>();
                 loadSprites();
-                // renderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.NewBanner.png", 1145141919810);
+                renderer.sprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.NewBanner.png", 1145141919810);
                 //这些先不删了
                 instance = __instance;
                 loadSprites();

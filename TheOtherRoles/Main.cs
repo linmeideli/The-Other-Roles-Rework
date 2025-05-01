@@ -14,7 +14,7 @@ using System.Linq;
 using System;
 using UnityEngine;
 using TheOtherRoles.Modules;
- 
+using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using Il2CppSystem.Security.Cryptography;
 using Il2CppSystem.Text;
@@ -37,7 +37,7 @@ namespace TheOtherRoles
     {
         public const string Id = "me.eisbison.theotherroles";
         //public const string VersionString = "4.6.0";
-        public const string TORRVersionString = "1.1.0";
+        public const string TORRVersionString = "1.0.4";
         public static uint betaDays = 0;  // amount of days for the build to be usable (0 for infinite!)
 
         public static Version Version = Version.Parse(TORRVersionString);
@@ -132,7 +132,6 @@ namespace TheOtherRoles
             UpdateRegions();
 
             DebugMode = Config.Bind("自定义", "Enable Debug Mode", "false");
-            //MainMenuImage.Load();
             Harmony.PatchAll();
             
             CustomOptionHolder.Load();
@@ -145,12 +144,16 @@ namespace TheOtherRoles
             }
 
             AddComponent<ModUpdater>();
+            MainMenuImage.Load();
+            ModInputManager.Load();
             EventUtility.Load();
             SubmergedCompatibility.Initialize();
             MainMenuPatch.addSceneChangeCallbacks();
             _ = RoleInfo.loadReadme();
             AddToKillDistanceSetting.addKillDistance();
             TheOtherRolesPlugin.Logger.LogInfo("加载TORR完成！");
+
+
         }
         
     }
@@ -203,7 +206,7 @@ namespace TheOtherRoles
                 GameData.Instance.AddPlayer(playerControl, new InnerNet.ClientData(0));
                 AmongUsClient.Instance.Spawn(playerControl, -2, InnerNet.SpawnFlags.None);
                 
-                playerControl.transform.position = PlayerControl.LocalPlayer.transform.position;
+                playerControl.transform.position = CachedPlayer.LocalPlayer.transform.position;
                 playerControl.GetComponent<DummyBehaviour>().enabled = true;
                 playerControl.NetTransform.enabled = false;
                 playerControl.SetName(RandomString(10));
@@ -213,7 +216,7 @@ namespace TheOtherRoles
 
             // Terminate round
             if(Input.GetKeyDown(KeyCode.L)) {
-                MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.ForceEnd, Hazel.SendOption.Reliable, -1);
+                MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.ForceEnd, Hazel.SendOption.Reliable, -1);
                 AmongUsClient.Instance.FinishRpcImmediately(writer);
                 RPCProcedure.forceEnd();
             }

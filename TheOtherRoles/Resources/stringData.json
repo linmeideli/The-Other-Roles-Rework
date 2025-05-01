@@ -556,8 +556,8 @@
         "13": "添加通风管道"
     },
     "enableBetterPolus": {
-        "0": "No end game",
-        "13": "游戏不结束"
+        "0": "Polus",
+        "13": "Polus"
     },
     "movePolusVents": {
         "0": "Adjust Vents",
@@ -4013,8 +4013,8 @@
         "13": "你喝了假酒"
     },
     "InvertShortDesc": {
-        "0": "WASD Opposite Remain Meeting Counts ",
-        "13": "你的移动方向被颠倒了 剩余会议数解除："
+        "0": "WASD Opposite",
+        "13": "你的移动方向被颠倒了"
     },
     "Chameleon": {
         "0": "Chameleon",
@@ -4161,60 +4161,28 @@
         "13": "自杀冷却时间"
     },
     "FraudsterIntroDesc": {
-        "0": "Act Other DieReason",
-        "13": "给队友做证明身份的伪证（赌怪猜测死亡/警长走火）"
+        "0": "Act Sheriff Kill-Self",
+        "13": "给队友做警长走火的伪证"
     },
     "FraudsterShortDesc": {
         "0": "Suicide To Safe Others Impostor",
         "13": "必要时自杀保全其他伪装者"
     },
     "TORR103Title": {
-        "0": "Change without your instead",
-        "13": "（和TOR似乎不太一样？）"
-    },
-    "TORR103TitleTop": {
-        "0": "More And More!",
-        "13": "好多新玩意儿！"
+        "0": "★★★★Language & Roles★★★★",
+        "13": "★★★★多语言 & 职业★★★★"
     },
     "TORR103Text": {
         "0": "\n[Disclaimer] - This mod is not affiliated with Among Us or Innersloth LLC and the content contained therein is not endorsed by or otherwise sponsored by Innersloth LLC Some of the materials contained herein are the property of Innersloth LLC \n\nWelcome Crewmates!</size>\n\nOur Mod Updates to Among Us v11.26s，BepInEx6.0.0-729，Reactor 2.3.1 Base onTheOtherRoles-v4.6.0\n\nNew Role - Prophet:\nProphet can search others type\n\nWe followed up with an update to TheOtherRoles to add the ability to press Shift to enter the lobby\n\nIn addition, we've added a language system to ensure that players from other countries can play our mods as usual\n\nFinally, we have reduced the size of the dll file thanks to Fangkuai, the author of TheOtherRolesCE\n\nHave a good game!\n\n\nELinmei-XtremeWave",
-        "13": "【声明】- 本模组不隶属于 Among Us 或 Innersloth LLC 其中包含的内容未得到 Innersloth LLC 的认可或以其他方式赞助 此模组包含的部分材料是 Innersloth LLC的财产 \n\n好久不见啦！\n\n本次更新我们适配到了Among Us v11.26，BepInEx6.0.0 - be.729，Reactor 2.3.1  基于TheOtherRoles-v4.6.0 部分代码源自于TheOtherRolesCE-Next、TheOTherRolesGMIA、TheOtherUsEdited  在此表示感谢\n\n新职业 - 预言家：\n可以通过调查来查看他人阵营\n\n我们跟进了TheOtherRoles的更新，添加了按Shift进入大厅的功能\n\n此外，我们添加了语言系统，保证了其他国家的玩家可以基本正常的游玩我们的Mod\n\n最后，我们减小了dll文件的体积，这一点要感谢TheOtherRolesCE的作者Fangkuai\n\n尽情游玩吧！\n\n\nELinmei - XtremeWave"
-    },
-    "TORR103Lans": {
-        "0": "Update Girder",
-        "13": "重置架构"
+        "13": "\n【声明】- 本模组不隶属于 Among Us 或 Innersloth LLC 其中包含的内容未得到 Innersloth LLC 的认可或以其他方式赞助 此模组包含的部分材料是 Innersloth LLC的财产 \n\n好久不见啦！\n\n本次更新我们适配到了Among Us v11.26，BepInEx6.0.0 - be.729，Reactor 2.3.1  基于TheOtherRoles-v4.6.0 部分代码源自于TheOtherRolesCE-Next、TheOTherRolesGMIA、TheOtherUsEdited  在此表示感谢\n\n新职业 - 预言家：\n可以通过调查来查看他人阵营\n\n我们跟进了TheOtherRoles的更新，添加了按Shift进入大厅的功能\n\n此外，我们添加了语言系统，保证了其他国家的玩家可以基本正常的游玩我们的Mod\n\n最后，我们减小了dll文件的体积，这一点要感谢TheOtherRolesCE的作者Fangkuai\n\n尽情游玩吧！\n\n\nELinmei - XtremeWave"
     },
     "TORR1031Title": {
-        "0": "（Fxxk GithubDesktop）",
-        "13": "（我要是再用GithubDesktop传代码我就是狗）"
-    },
-    "TORR1031TitleTop": {
-        "0": "0xc0000428",
-        "13": "0xc0000428"
+        "0": "★★★★FixHot & Role★★★★",
+        "13": "★★★★修复bug & 职业★★★★"
     },
     "TORR1031Text": {
-        "0": "\nHello there quickly!\n\nA little Bugs Fixed (EG: Prophet prophecy button error, torch vision error, button text, button cascading)\n\nNew Role - Fraudster:\nCan suicide\n\nAdd Mod Option: ShowFPS\n\nHave a Good Game!\n\n\nXtremeWave - ELinmei",
-        "13": "你好，这么快又见面了，今天有没有认真休息？\n\n 修复了一些错误（例如：预言家预言按钮错误，火炬视野错误，按钮文字，按钮层叠）\n\n新角色 - 伪证师：\n可以自杀\n\n添加模组选项：ShowFPS\n\n生活愉快，玩的开心！\n\n\nXtremeWave - ELinmei"
-    },
-    "TORR1031Lans": {
-        "0": "0xc0000428",
-        "13": "0xc0000428"
-    },
-    "TORR110Title": {
-        "0": "Colorful Roles",
-        "13": "色彩缤纷的职业"
-    },
-    "TORR110TitleTop": {
-        "0": "Last Brother And Devil",
-        "13": "绝境兄弟与厉鬼"
-    },
-    "TORR110Text": {
-        "0": "\nHellooooooooooooooooo\n\nToday's 'New Roles \n- Last Crewmate / Impostor: \nGet the Goal to Be Guesser\n\n - Devil\nA player can be blinded using a button, and no kills are allowed when the lights are not out\n\nDelete Mod Option: Add Vents and more\n\nBy the way we did some small optimization in the game, when you are assigned as a Pretender, we will remind you to remember your teammates in case they are recruited! When there is only 1 difference between the number of Pretenders and the number of crew members on the field, at this time, move your hand to tap the destruction, we will provide the game set meeting start time, kill an innocent crew member within the time to win easily! Also in addition, when you open the root directory of the file where Among Us is located, you'll find a file called ACG, which holds some... Colorful pictures (????). Not to reward you (sweaty) but there's some weird development history behind it! There you go!I am going to play FinalSuspect now!\n\n\nXtremeWave - ELinmei",
-        "13": "今儿怎样？\n\n 新角色 \n- 绝境 船员 / 伪装者：\n达成一定目标可以获得赌怪能力\n - 厉鬼\n可以使用按钮使一位玩家致盲，在非熄灯时不允许击杀\n\n删除部分选项：添加管道\n\n顺带一提我们做了一些小优化在游戏里，当你被分配为伪装者时，我们会提醒你记住自己的队友，以防他们被招募！当场上的伪装者数量和船员数量只差1，这时候，动动小手点一下破坏，我们会提供这局游戏所设置的会议启动时间，在时间内击杀掉一名无辜的船员就可以轻松获得胜利啦！此外的此外，当你打开Among Us所在的文件根目录时，会发现一个名为ACG的文件，里面放着一些...色图（？？），不是为了奖励你（汗）这背后有一些奇怪的开发历史呢！\n好啦！我要去玩TheOtherRoles GM IA啦！\n\n\nXtremeWave - ELinmei"
-    },
-    "TORR110Lans": {
-        "0": "Try New",
-        "13": "新甜点"
+        "0": "\nHello there quickly!\n\nA little Bugs Fixed (EG: Prophet prophecy button error, torch vision error, button text, button cascading)\n\nNew Role - Fraudster:\nCan suicide\n\nAdd Mod Option: ShowFPS\n\nHave a Good Game!\n\n\nXtreme - ELinmei",
+        "13": "\n你好，这么快又见面了，今天有没有认真休息？\n\n 修复了一些错误（例如：预言家预言按钮错误，火炬视野错误，按钮文字，按钮层叠）\n\n新角色 - 伪证师：\n可以自杀\n\n添加模组选项：ShowFPS\n\n生活愉快，玩的开心！\n\n\nXtreme - ELinmei"
     },
     "prophetAccuracy": {
         "0": "Prophet Accruacy",
@@ -4595,67 +4563,6 @@
     "Names": {
         "0": "Name",
         "13": "名称"
-    },
-    "modifierLast": {
-        "0": "Last <color=#00FFFF>Crew</color> / <color=#FF0000>Imp</color>",
-        "13": "绝境<color=#00FFFF>船员</color> / <color=#FF0000>伪装者</color>"
-    },
-    "Last": {
-        "0": "Last",
-        "13": "绝境"
-    },
-    "modifierLastImpostorShotNum": {
-        "0": "Last Impostor Shot Num",
-        "13": "绝境伪装者猜测次数"
-    },
-    "modifierLastCrewmateShotNum": {
-        "0": "Last Crewmate Shot Num",
-        "13": "绝境船员猜测次数"
-    },
-    "modifierLastCrewmateShotTaskNum": {
-        "0": "Last Crewmate Shot Task Num",
-        "13": "绝境船员解锁猜测所需任务数"
-    },
-    "modifierLastCrewmateAliveNum": {
-        "0": "Last Crewmate Need Alive Num",
-        "13": "解锁绝境船员所需场上存活人数"
-    },
-    "modifierLasthasMultipleShots": {
-        "0": "Last has Multiple Shots",
-        "13": "绝境者可以连续猜测"
-    },
-    "modifierLastKillCount": {
-        "0": "Last Kill Count",
-        "13": "绝境者最大击杀数"
-    },
-    "DevilHasBeenBlind": {
-        "0": "Blinded",
-        "13": "失明"
-    },
-    "MinMaxRoles": {
-        "0": "Min/Max Roles",
-        "13": "职业分配调节"
-    },
-
-    "DevilIntimidateAnyone": {
-        "0": "Devil Can Intimidate Anyone",
-        "13": "厉鬼可以恐吓所有人"
-    },
-    "ImpGetEmergencyCooldown": {
-        "0": "Emergency Cooldown ",
-        "13": "场上剩余伪装者人数与剩余非伪装者人数相差1人\n通过紧急破坏，在召开紧急会议之前取得胜利！\n 当前召开紧急会议冷却时间："
-    },
-    "BlindMessage": {
-        "0": "You are blinded and will not return to normal vision until  you die.",
-        "13": "你失明了，除非你死亡，否则将不会恢复到正常视野"
-    },
-    "DevilIntroDesc": {
-        "0": "Intimidate the crew and blinding them",
-        "13": "恐吓船员使他们致盲"
-    },
-    "DevilShortDesc": {
-        "0": "Intimidate Crewmates",
-        "13": "恐吓船员"
     }
 }
 

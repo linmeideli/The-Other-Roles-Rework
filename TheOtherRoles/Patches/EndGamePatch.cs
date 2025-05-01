@@ -6,7 +6,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using System.Text;
- 
+using TheOtherRoles.Players;
 using TheOtherRoles.Utilities;
 using TheOtherRoles.CustomGameModes;
 
@@ -76,7 +76,7 @@ namespace TheOtherRoles.Patches {
         public static void Postfix(AmongUsClient __instance, [HarmonyArgument(0)]ref EndGameResult endGameResult) {
             AdditionalTempData.clear();
 
-            foreach(var playerControl in PlayerControl.AllPlayerControls.ToArray()) {
+            foreach(var playerControl in CachedPlayer.AllPlayers) {
                 var roles = RoleInfo.getRoleInfoForPlayer(playerControl);
                 var (tasksCompleted, tasksTotal) = TasksHandler.taskInfo(playerControl.Data);
                 bool isGuesser = HandleGuesser.isGuesserGm && HandleGuesser.isGuesser(playerControl.PlayerId);
@@ -164,7 +164,7 @@ namespace TheOtherRoles.Patches {
                 if (!Lovers.existingWithKiller()) {
                     AdditionalTempData.winCondition = WinCondition.LoversTeamWin;
                     EndGameResult.CachedWinners = new Il2CppSystem.Collections.Generic.List<CachedPlayerData>();
-                    foreach (PlayerControl p in PlayerControl.AllPlayerControls.ToArray()) {
+                    foreach (PlayerControl p in CachedPlayer.AllPlayers) {
                         if (p == null) continue;
                         if (p == Lovers.lover1 || p == Lovers.lover2)
                             EndGameResult.CachedWinners.Add(new CachedPlayerData(p.Data));
@@ -326,9 +326,9 @@ namespace TheOtherRoles.Patches {
 
             foreach (WinCondition cond in AdditionalTempData.additionalWinConditions) {
                 if (cond == WinCondition.AdditionalLawyerBonusWin) {
-                    textRenderer.text += $"\n{Helpers.cs(Lawyer.color, "律师与客户共同胜利")}";
+                    textRenderer.text += $"\n{Helpers.cs(Lawyer.color, "The Lawyer wins with the client")}";
                 } else if (cond == WinCondition.AdditionalAlivePursuerWin) {
-                    textRenderer.text += $"\n{Helpers.cs(Pursuer.color, "起诉人活了下来")}";
+                    textRenderer.text += $"\n{Helpers.cs(Pursuer.color, "The Pursuer survived")}";
                 }
             }
 
@@ -506,15 +506,7 @@ namespace TheOtherRoles.Patches {
                         endReason = GameOverReason.ImpostorsByVote;
                         break;
                 }
-                bool enable = CustomOptionHolder.enableNoEndGame.getBool();
-                if (enable)
-                {
-
-                }
-                else
-                {
-                    GameManager.Instance.RpcEndGame(endReason, false);
-                }
+                GameManager.Instance.RpcEndGame(endReason, false);
                 return true;
             }
             return false;
