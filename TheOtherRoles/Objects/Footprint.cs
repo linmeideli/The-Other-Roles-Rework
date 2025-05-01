@@ -106,12 +106,12 @@ public class FootprintHolder : MonoBehaviour
 
     private class Footprint
     {
-        public NetworkedPlayerInfo Data;
         public readonly GameObject GameObject;
-        public float Lifetime;
-        public PlayerControl Owner;
         public readonly SpriteRenderer Renderer;
         public readonly Transform Transform;
+        public NetworkedPlayerInfo Data;
+        public float Lifetime;
+        public PlayerControl Owner;
 
         public Footprint()
         {

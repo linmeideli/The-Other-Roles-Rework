@@ -128,6 +128,8 @@ internal class IntroCutsceneOnDestroyPatch
             }
         }
 
+        HudManager.Instance.ShowVanillaKeyGuide();
+
         TORMapOptions.firstKillName = "";
 
         EventUtility.gameStartsUpdate();

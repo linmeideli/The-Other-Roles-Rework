@@ -10,11 +10,11 @@ public class Silhouette
 
 
     private static Sprite SilhouetteSprite;
+    private readonly SpriteRenderer renderer;
+    private readonly bool visibleForEveryOne;
     public GameObject gameObject;
     public bool permanent;
-    private readonly SpriteRenderer renderer;
     public float timeRemaining;
-    private readonly bool visibleForEveryOne;
 
     public Silhouette(Vector3 p, float duration = 1f, bool visibleForEveryOne = true)
     {

@@ -87,7 +87,7 @@ public class GameStartManagerPatch
                 {
                     versionMismatch = true;
                     message +=
-                        $"<color=#FF0000FF>{client.Character.Data.PlayerName} has a different or no version of The Other Roles\n</color>";
+                        $"<color=#FF0000FF>{client.Character.Data.PlayerName} has a different or no version of The Other Roles Rework\n</color>";
                 }
                 else
                 {
@@ -96,20 +96,20 @@ public class GameStartManagerPatch
                     if (diff > 0)
                     {
                         message +=
-                            $"<color=#FF0000FF>{client.Character.Data.PlayerName} has an older version of The Other Roles (v{playerVersions[client.Id].version.ToString()})\n</color>";
+                            $"<color=#FF0000FF>{client.Character.Data.PlayerName} has an older version of The Other Roles Rework (v{playerVersions[client.Id].version.ToString()})\n</color>";
                         versionMismatch = true;
                     }
                     else if (diff < 0)
                     {
                         message +=
-                            $"<color=#FF0000FF>{client.Character.Data.PlayerName} has a newer version of The Other Roles (v{playerVersions[client.Id].version.ToString()})\n</color>";
+                            $"<color=#FF0000FF>{client.Character.Data.PlayerName} has a newer version of The Other Roles Rework (v{playerVersions[client.Id].version.ToString()})\n</color>";
                         versionMismatch = true;
                     }
                     else if (!PV.GuidMatches())
                     {
                         // version presumably matches, check if Guid matches
                         message +=
-                            $"<color=#FF0000FF>{client.Character.Data.PlayerName} has a modified version of TOR v{playerVersions[client.Id].version.ToString()} <size=30%>({PV.guid.ToString()})</size>\n</color>";
+                            $"<color=#FF0000FF>{client.Character.Data.PlayerName} has a modified version of TORR v{playerVersions[client.Id].version.ToString()} <size=30%>({PV.guid.ToString()})</size>\n</color>";
                         versionMismatch = true;
                     }
                 }
@@ -131,7 +131,8 @@ public class GameStartManagerPatch
                 {
                     __instance.GameStartText.transform.localPosition = Vector3.zero;
                     __instance.GameStartText.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
-                    if (!__instance.GameStartText.text.StartsWith("Starting"))
+                    if (!__instance.GameStartText.text.Contains(FastDestroyableSingleton<TranslationController>.Instance
+                            .GetString(StringNames.GameStarting).Replace("{0}", "")))
                     {
                         __instance.GameStartText.text = string.Empty;
                         __instance.GameStartTextParent.SetActive(false);
@@ -192,7 +193,7 @@ public class GameStartManagerPatch
                     }
 
                     __instance.GameStartText.text =
-                        $"<color=#FF0000FF>The host has no or a different version of The Other Roles\nYou will be kicked in {Math.Round(10 - kickingTimer)}s</color>";
+                        $"<color=#FF0000FF>The host has no or a different version of The Other Roles Rework\nYou will be kicked in {Math.Round(10 - kickingTimer)}s</color>";
                     __instance.GameStartText.transform.localPosition =
                         __instance.StartButton.transform.localPosition + Vector3.up * 5;
                     __instance.GameStartText.transform.localScale = new Vector3(2f, 2f, 1f);
@@ -211,18 +212,21 @@ public class GameStartManagerPatch
                 {
                     __instance.GameStartText.transform.localPosition = Vector3.zero;
                     __instance.GameStartText.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
-                    if (!__instance.GameStartText.text.StartsWith("Starting"))
+                    if (!__instance.GameStartText.text.Contains(FastDestroyableSingleton<TranslationController>.Instance
+                            .GetString(StringNames.GameStarting).Replace("{0}", "")))
                     {
                         __instance.GameStartText.text = string.Empty;
                         __instance.GameStartTextParent.SetActive(false);
                     }
                 }
 
-                if (!__instance.GameStartText.text.StartsWith("Starting") ||
+                if (!__instance.GameStartText.text.Contains(FastDestroyableSingleton<TranslationController>.Instance
+                        .GetString(StringNames.GameStarting).Replace("{0}", "")) ||
                     !CustomOptionHolder.anyPlayerCanStopStart.getBool())
                     copiedStartButton?.Destroy();
                 if (CustomOptionHolder.anyPlayerCanStopStart.getBool() && copiedStartButton == null &&
-                    __instance.GameStartText.text.StartsWith("Starting"))
+                    __instance.GameStartText.text.Contains(FastDestroyableSingleton<TranslationController>.Instance
+                        .GetString(StringNames.GameStarting).Replace("{0}", "")))
                 {
                     // Activate Stop-Button
                     copiedStartButton = GameObject.Instantiate(__instance.StartButton.gameObject,

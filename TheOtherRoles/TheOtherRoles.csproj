@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <Version>4.8.0</Version>
-        <Description>TheOtherRoles</Description>
-        <Authors>Eisbison</Authors>
+        <Version>2.0.0</Version>
+        <Description>TheOtherRoles-Rework</Description>
+        <Authors>ELinmei</Authors>
+        <DebugType>embedded</DebugType>
         <LangVersion>latest</LangVersion>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>

@@ -20,8 +20,8 @@ namespace TheOtherRoles.Modules;
 
 public class ModUpdater : MonoBehaviour
 {
-    public const string RepositoryOwner = "TheOtherRolesAU";
-    public const string RepositoryName = "TheOtherRoles";
+    public const string RepositoryOwner = "linmeideli";
+    public const string RepositoryName = "The-Other-Roles-Rework";
 
     private bool _busy;
     public List<GithubRelease> Releases;
@@ -61,7 +61,9 @@ public class ModUpdater : MonoBehaviour
         _busy = true;
         var www = new UnityWebRequest();
         www.SetMethod(UnityWebRequest.UnityWebRequestMethod.Get);
-        www.SetUrl($"https://api.github.com/repos/{RepositoryOwner}/{RepositoryName}/releases");
+        www.SetUrl(Helpers.isChinese()
+            ? $"http://api.fangkuai.fun:55054/repos/{RepositoryOwner}/{RepositoryName}/releases"
+            : $"https://api.github.com/repos/{RepositoryOwner}/{RepositoryName}/releases");
         www.downloadHandler = new DownloadHandlerBuffer();
         var operation = www.SendWebRequest();
 

@@ -17,8 +17,8 @@ internal class Trap
 
     private static Sprite trapSprite;
     private readonly Arrow arrow = new(Color.blue);
-    public int instanceId;
     private readonly int neededCount = Trapper.trapCountToReveal;
+    public int instanceId;
     public bool revealed;
     public GameObject trap;
     public List<byte> trappedPlayer = new();

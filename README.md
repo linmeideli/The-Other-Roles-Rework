@@ -61,7 +61,7 @@ The [Role Assignment](#role-assignment) section explains how the roles are being
 | 2024.11.26s| v1.0.3.1| [Download](https://github.com/linmeideli/The-Other-Roles-Rework/releases/download/1.0.3.1/TheOtherRolesRework-v1.0.3.1.zip)
 | 2024.11.26s| v1.0.3| [Download](https://github.com/linmeideli/The-Other-Roles-Rework/releases/download/1.0.3/TheOtherRolesRework-v1.0.3.zip)
 | 2024.11.26s| v1.0.2| [Download](https://github.com/linmeideli/The-Other-Roles-Rework/releases/download/1.0.2/TheOtherRolesRework-1.0.2.zip)
-| 2024.6.18s| v1.0.1-BETA3| [Download](https://github.com/linmeideli/The-Other-Roles-Rework/releases/download/1.0.1-BETA3/TORR.1.0.1-beta3.zip)
+| 2024.6.18s| v1.0.1-BETA3| [Download](https://github.com/linmeideli/The-Other-Roles-Rework/releases/download/1.0.1/TORR.1.0.1-beta3.zip)
 </details>
   
   
@@ -180,6 +180,7 @@ Thanks to miniduikboot & GD for hosting modded servers (and so much more)
 [Ninja](#ninja), [Thief](#thief), [Lawyer](#lawyer) / [Pursuer](#pursuer), [Deputy](#deputy), [Portalmaker](#portalmaker), [Guesser Modifier](#guesser-modifier) - Idea: [K3ndo](https://github.com/K3ndoo) ; Developed by [Gendelo](https://github.com/gendelo3) & [Mallöris](https://github.com/Mallaris) \
 [ugackMiner53](https://github.com/ugackMiner53/PropHunt) - Idea and core code for the Prop Hunt game mode
 Role Draft Music: [Unreal Superhero 3 by Kenët & Rez](https://www.youtube.com/watch?v=9STiQ8cCIo0)
+[TheOtherRolesGMIA](https://github.com/dabao40/TheOtherRolesGMIA) - Meta Context from **Imp11**.\
 
 # Settings
 The mod adds a few new settings to Among Us (in addition to the role settings):

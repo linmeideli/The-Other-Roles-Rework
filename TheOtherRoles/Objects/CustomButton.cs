@@ -24,12 +24,16 @@ public class CustomButton
             KeyCode.H; // TheOtherRolesPlugin.Instance.Config.Bind("Buttons", "Action3Keycode", KeyCode.H, "Third Ability Button Key").Value;
 
     private static readonly int Desat = Shader.PropertyToID("_Desat");
+    private readonly Action InitialOnClick;
+    private readonly Action OnEffectEnds;
+    private readonly Action OnMeetingEnds;
     public ActionButton actionButton;
     public GameObject actionButtonGameObject;
     public TextMeshPro actionButtonLabelText;
     public Material actionButtonMat;
     public SpriteRenderer actionButtonRenderer;
-    public string buttonText;
+    public string actionName;
+    public string buttonText = "";
     public Func<bool> CouldUse;
     public float DeputyTimer;
     public float EffectDuration;
@@ -37,23 +41,21 @@ public class CustomButton
     public bool HasEffect;
     public KeyCode? hotkey;
     public HudManager hudManager;
-    private readonly Action InitialOnClick;
     public bool isEffectActive;
     public bool isHandcuffed = false;
     public float MaxTimer = float.MaxValue;
     public bool mirror;
     private Action OnClick;
-    private readonly Action OnEffectEnds;
-    private readonly Action OnMeetingEnds;
     public KeyCode? originalHotkey;
     public Vector3 PositionOffset;
     public bool showButtonText;
     public Sprite Sprite;
     public float Timer;
+    internal GameObject UsesIcon = null!;
 
     public CustomButton(Action OnClick, Func<bool> HasButton, Func<bool> CouldUse, Action OnMeetingEnds, Sprite Sprite,
         Vector3 PositionOffset, HudManager hudManager, KeyCode? hotkey, bool HasEffect, float EffectDuration,
-        Action OnEffectEnds, bool mirror = false, string buttonText = "")
+        Action OnEffectEnds, bool mirror = false, string buttonText = "", string actionName = null)
     {
         this.hudManager = hudManager;
         this.OnClick = OnClick;
@@ -68,7 +70,8 @@ public class CustomButton
         this.Sprite = Sprite;
         this.mirror = mirror;
         this.hotkey = hotkey;
-        this.buttonText = buttonText;
+        this.buttonText = buttonText.Translate();
+        this.actionName = actionName;
         originalHotkey = hotkey;
         Timer = 16.2f;
         buttons.Add(this);
@@ -81,6 +84,7 @@ public class CustomButton
         showButtonText = actionButtonRenderer.sprite == Sprite || buttonText != "";
         button.OnClick = new Button.ButtonClickedEvent();
         button.OnClick.AddListener((UnityAction)onClickEvent);
+        setKeyBind();
         setActive(false);
     }
 
@@ -189,16 +193,8 @@ public class CustomButton
 
     public void setActive(bool isActive)
     {
-        if (isActive)
-        {
-            actionButtonGameObject.SetActive(true);
-            actionButtonRenderer.enabled = true;
-        }
-        else
-        {
-            actionButtonGameObject.SetActive(false);
-            actionButtonRenderer.enabled = false;
-        }
+        actionButtonGameObject.SetActive(isActive);
+        actionButtonRenderer.enabled = isActive;
     }
 
     public void Update()
@@ -290,6 +286,25 @@ public class CustomButton
             OnClick = () => { Deputy.setHandcuffedKnows(); };
         else // Reset.
             OnClick = InitialOnClick;
+    }
+
+    public TextMeshPro ShowUsesIcon(int iconVariation)
+    {
+        if (UsesIcon) GameObject.Destroy(UsesIcon);
+        UsesIcon = actionButton.ShowUsesIcon(iconVariation, out var text);
+        return text;
+    }
+
+    public void setKeyBind()
+    {
+        if (hotkey is not null and not KeyCode.None)
+        {
+            actionButtonGameObject.ForEachChild((Il2CppSystem.Action<GameObject>)(c =>
+            {
+                if (c.name.Equals("HotKeyGuide")) GameObject.Destroy(c);
+            }));
+            ButtonEffect.SetKeyGuide(actionButtonGameObject, (KeyCode)hotkey, action: actionName);
+        }
     }
 
     public static class ButtonPositions

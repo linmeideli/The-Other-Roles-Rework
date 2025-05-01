@@ -3,6 +3,7 @@ using AmongUs.Data;
 using Assets.InnerNet;
 using HarmonyLib;
 using Il2CppSystem.Collections.Generic;
+using TheOtherRoles.MetaContext;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,6 +25,9 @@ public class MainMenuPatch
     {
         // Force Reload of SoundEffectHolder
         SoundEffectsManager.Load();
+
+        VanillaAsset.LoadAssetAtInitialize();
+        VanillaAsset.LoadAssetsOnTitle();
 
         var template = GameObject.Find("ExitGameButton");
         var template2 = GameObject.Find("CreditsButton");
@@ -60,7 +64,7 @@ public class MainMenuPatch
 
         var textCreditsButton = creditsButton.transform.GetComponentInChildren<TMP_Text>();
         __instance.StartCoroutine(Effects.Lerp(0.5f,
-            new Action<float>(p => { textCreditsButton.SetText("TOR Credits"); })));
+            new Action<float>(p => { textCreditsButton.SetText("TORR Credits"); })));
         var passiveCreditsButton = creditsButton.GetComponent<PassiveButton>();
 
         passiveCreditsButton.OnClick = new ButtonClickedEvent();
@@ -119,22 +123,23 @@ Crowded-Mod - Our implementation for 10+ player lobbies was inspired by the one 
 Goose-Goose-Duck - Idea for the Vulture role came from Slushiegoose
 TheEpicRoles - Idea for the first kill shield (partly) and the (old) tabbed option menu (fully + some code), by LaicosVK DasMonschta Nova
 ugackMiner53 - Idea and core code for the Prop Hunt game mode
+TheOtherRolesGMIA - Meta Context from Imp11
 Role Draft Music: [https://www.youtube.com/watch?v=9STiQ8cCIo0]Unreal Superhero 3 by Kenët & Rez[]
 
-License: TheOtherRoles is licensed under the [https://github.com/TheOtherRolesAU/TheOtherRoles?tab=GPL-3.0-1-ov-file#readme]GPLv3[]
+License: TheOtherRoles-Rework is licensed under the [https://github.com/TheOtherRolesAU/TheOtherRoles?tab=GPL-3.0-1-ov-file#readme]GPLv3[]
 </size>";
             creditsString += "</align>";
 
             Announcement creditsAnnouncement = new()
             {
-                Id = "torCredits",
+                Id = "torrCredits",
                 Language = 0,
                 Number = 500,
-                Title = "The Other Roles\nCredits & Resources",
-                ShortTitle = "TOR Credits",
+                Title = "The Other Roles Rework\nCredits & Resources",
+                ShortTitle = "TORR Credits",
                 SubTitle = "",
                 PinState = false,
-                Date = "01.07.2021",
+                Date = "05.01.2025",
                 Text = creditsString
             };
             __instance.StartCoroutine(Effects.Lerp(0.1f, new Action<float>(p =>

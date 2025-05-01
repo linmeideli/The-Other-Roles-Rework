@@ -1,0 +1,182 @@
+{
+  "buttonLeftClick": {
+    "0": "Left Click: {0}",
+    "13": "\u5de6\u952e: {0}"
+  },
+  "buttonsDescription": {
+    "0": "Action : {0}",
+    "13": "\u6309\u4e0b : {0}"
+  },
+  "engineerRepair": {
+    "0": "Repair",
+    "13": "\u4fee\u7406"
+  },
+  "cleanerClean": {
+    "0": "Clean",
+    "13": "\u6e05\u7406"
+  },
+  "deputyHandcuff": {
+    "0": "Handcuff",
+    "13": "\u902e\u6355"
+  },
+  "timemasterShield": {
+    "0": "Time Shield",
+    "13": "\u65f6\u95f4\u4e4b\u76fe"
+  },
+  "medicShield": {
+    "0": "Shield",
+    "13": "\u62a4\u76fe"
+  },
+  "shifterShift": {
+    "0": "Shift",
+    "13": "\u4ea4\u6362"
+  },
+  "morphlingMorph": {
+    "0": "Morph",
+    "13": "\u5316\u5f62"
+  },
+  "morphlingSample": {
+    "0": "Sample",
+    "13": "\u53d6\u6837"
+  },
+  "camouflagerCamo": {
+    "0": "Camo",
+    "13": "\u9690\u853d"
+  },
+  "hackerHack": {
+    "0": "Hack",
+    "13": "\u9ed1\u5165"
+  },
+  "trackerTrackPlayer": {
+    "0": "Track",
+    "13": "\u8ffd\u8e2a"
+  },
+  "trackerTrackCorpses": {
+    "0": "Find",
+    "13": "\u5bfb\u627e"
+  },
+  "vampireBite": {
+    "0": "Bite",
+    "13": "\u6495\u54ac"
+  },
+  "planGarlic": {
+    "0": "Garlic",
+    "13": "\u5927\u849c"
+  },
+  "tricksterPlaceBox": {
+    "0": "Place",
+    "13": "\u653e\u7f6e"
+  },
+  "jackalSidekick": {
+    "0": "Sidekick",
+    "13": "\u62db\u52df"
+  },
+  "lightOutButton": {
+    "0": "Light",
+    "13": "\u5173\u706f"
+  },
+  "eraserErase": {
+    "0": "Erase",
+    "13": "\u62b9\u9664"
+  },
+  "warlockCurse": {
+    "0": "Curse",
+    "13": "\u8bc5\u5492"
+  },
+  "securityGuardPlaceCam": {
+    "0": "Camera",
+    "13": "\u6444\u50cf\u5934"
+  },
+  "securityGuardSealVent": {
+    "0": "Seal",
+    "13": "\u5c01\u9501"
+  },
+  "arsonistIgnite": {
+    "0": "Ignite",
+    "13": "\u70b9\u706b"
+  },
+  "arsonistDouse": {
+    "0": "Douse",
+    "13": "\u6d47\u6cb9"
+  },
+  "vultureEat": {
+    "0": "Eat",
+    "13": "\u541e\u566c"
+  },
+  "mediumAsk": {
+    "0": "Ask",
+    "13": "\u8be2\u95ee"
+  },
+  "pursuerBlank": {
+    "0": "Blank",
+    "13": "\u7a7a\u5305\u5f39"
+  },
+  "witchSpell": {
+    "0": "Spell",
+    "13": "\u4e0b\u5492"
+  },
+  "ninjaAssassinateButton": {
+    "0": "Assassinate",
+    "13": "\u523a\u6740"
+  },
+  "ninjaMarkButton": {
+    "0": "Mark",
+    "13": "\u6807\u8bb0"
+  },
+  "mayorMeetingButton": {
+    "0": "Emergency",
+    "13": "\u7d27\u6025\u4f1a\u8bae"
+  },
+  "trapperTrap": {
+    "0": "Trap",
+    "13": "\u9677\u9631"
+  },
+  "bomberPlantButton": {
+    "0": "Plant",
+    "13": "\u5b89\u88c5"
+  },
+  "defuseButtonText": {
+    "0": "Defuse",
+    "13": "\u62c6\u9664"
+  },
+  "yoyoButtonBlink": {
+    "0": "Blink",
+    "13": "\u8f6c\u79fb"
+  },
+  "yoyoButtonBlinkReturning": {
+    "0": "Returning...",
+    "13": "\u5373\u5c06\u8fd4\u56de\u2026\u2026"
+  },
+  "yoyoButtonMark": {
+    "0": "Mark Location",
+    "13": "\u6807\u8bb0\u5730\u70b9"
+  },
+  "lighterLightOn": {
+    "0": "Light",
+    "13": "\u70b9\u706f"
+  },
+  "propDisguiseButtonText": {
+    "0": "Disguise",
+    "13": "\u53d8\u5f62"
+  },
+  "propHuntUnstuckButtonText": {
+    "0": "Unstuck",
+    "13": "\u7a7f\u5899"
+  },
+  "propHuntRevealButtonText": {
+    "0": "Reveal",
+    "13": "\u63ed\u793a"
+  },
+  "propHuntInvisButtonText": {
+    "0": "Invis",
+    "13": "\u9690\u5f62"
+  },
+  "propHuntSpeedboostButtonText": {
+    "0": "Boost",
+    "13": "\u51b2\u523a"
+  },
+  "eventKickButtonText": {
+    "0": "Kick",
+    "13": "\u8e22\u51fa"
+  }
+}

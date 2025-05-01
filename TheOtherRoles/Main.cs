@@ -19,23 +19,26 @@ using Il2CppSystem.Text;
 using InnerNet;
 using Reactor.Networking;
 using Reactor.Networking.Attributes;
+using TheOtherRoles.MetaContext;
 using TheOtherRoles.Modules;
 using TheOtherRoles.Modules.CustomHats;
 using TheOtherRoles.Patches;
 using TheOtherRoles.Utilities;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using Random = System.Random;
 
 namespace TheOtherRoles;
 
-[BepInPlugin(Id, "The Other Roles", VersionString)]
+[BepInPlugin(Id, "The Other Roles - Rework", VersionString)]
 [BepInDependency(SubmergedCompatibility.SUBMERGED_GUID, BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Among Us.exe")]
 [ReactorModFlags(ModFlags.RequireOnAllClients)]
 public class TheOtherRolesPlugin : BasePlugin
 {
-    public const string Id = "me.eisbison.theotherroles";
-    public const string VersionString = "4.8.0";
+    public const string Id = "me.elinmei.theotherrolesrework";
+    public const string VersionString = "2.0.0";
     public static uint betaDays = 0; // amount of days for the build to be usable (0 for infinite!)
 
     public static Version Version = Version.Parse(VersionString);
@@ -105,6 +108,7 @@ public class TheOtherRolesPlugin : BasePlugin
     {
         Logger = Log;
         Instance = this;
+        ModTranslation.Load();
 
         _ = Helpers.checkBeta(); // Exit if running an expired beta
         _ = CredentialsPatch.MOTD.loadMOTDs();
@@ -151,6 +155,10 @@ public class TheOtherRolesPlugin : BasePlugin
         MainMenuPatch.addSceneChangeCallbacks();
         _ = RoleInfo.loadReadme();
         AddToKillDistanceSetting.addKillDistance();
+        SceneManager.sceneLoaded += (UnityAction<Scene, LoadSceneMode>)((scene, loadMode) =>
+        {
+            new GameObject("TORManager").AddComponent<TORGUIManager>();
+        });
         Logger.LogInfo("Loading TOR completed!");
     }
 }

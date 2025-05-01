@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using AmongUs.GameOptions;
 using HarmonyLib;
@@ -12,10 +13,13 @@ using Hazel;
 using InnerNet;
 using Reactor.Utilities.Extensions;
 using TheOtherRoles.CustomGameModes;
+using TheOtherRoles.MetaContext;
 using TheOtherRoles.Modules;
 using TheOtherRoles.Patches;
 using TheOtherRoles.Utilities;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 using static TheOtherRoles.TheOtherRoles;
 using Object = Il2CppSystem.Object;
 
@@ -871,5 +875,161 @@ public static class Helpers
     {
         return AccessTools.Method(self.GetType(), nameof(Il2CppObjectBase.TryCast)).MakeGenericMethod(type)
             .Invoke(self, Array.Empty<object>());
+    }
+
+    public static GameObject CreateObject(string objName, Transform parent, Vector3 localPosition, int? layer = null)
+    {
+        var obj = new GameObject(objName);
+        obj.transform.SetParent(parent);
+        obj.transform.localPosition = localPosition;
+        obj.transform.localScale = new Vector3(1f, 1f, 1f);
+        if (layer.HasValue) obj.layer = layer.Value;
+        else if (parent != null) obj.layer = parent.gameObject.layer;
+        return obj;
+    }
+
+    public static T CreateObject<T>(string objName, Transform parent, Vector3 localPosition, int? layer = null)
+        where T : Component
+    {
+        return CreateObject(objName, parent, localPosition, layer).AddComponent<T>();
+    }
+
+    public static Camera FindCamera(int cameraLayer)
+    {
+        return Camera.allCameras.FirstOrDefault(c => (c.cullingMask & (1 << cameraLayer)) != 0);
+    }
+
+    public static Vector3 WorldToScreenPoint(Vector3 worldPos, int cameraLayer)
+    {
+        return FindCamera(cameraLayer)?.WorldToScreenPoint(worldPos) ?? Vector3.zero;
+    }
+
+    public static Vector3 ScreenToWorldPoint(Vector3 screenPos, int cameraLayer)
+    {
+        return FindCamera(cameraLayer)?.ScreenToWorldPoint(screenPos) ?? Vector3.zero;
+    }
+
+    public static PassiveButton SetUpButton(this GameObject gameObject, bool withSound = false,
+        SpriteRenderer buttonRenderer = null, Color? defaultColor = null, Color? selectedColor = null)
+    {
+        var button = gameObject.AddComponent<PassiveButton>();
+        button.OnClick = new Button.ButtonClickedEvent();
+        button.OnMouseOut = new UnityEvent();
+        button.OnMouseOver = new UnityEvent();
+
+        if (withSound)
+        {
+            button.OnClick.AddListener((Action)(() =>
+                SoundManager.Instance.PlaySound(VanillaAsset.SelectClip, false, 0.8f)));
+            button.OnMouseOver.AddListener((Action)(() =>
+                SoundManager.Instance.PlaySound(VanillaAsset.HoverClip, false, 0.8f)));
+        }
+
+        if (buttonRenderer != null)
+        {
+            button.OnMouseOut.AddListener((Action)(() => buttonRenderer!.color = defaultColor ?? Color.white));
+            button.OnMouseOver.AddListener((Action)(() => buttonRenderer!.color = selectedColor ?? Color.green));
+        }
+
+        if (buttonRenderer != null) buttonRenderer.color = defaultColor ?? Color.white;
+
+        return button;
+    }
+
+    public static SpriteRenderer CreateSharpBackground(Vector2 size, Color color, Transform transform)
+    {
+        var renderer = CreateObject<SpriteRenderer>("Background", transform, new Vector3(0, 0, 0.25f));
+        return CreateSharpBackground(renderer, color, size);
+    }
+
+    public static SpriteRenderer CreateSharpBackground(SpriteRenderer renderer, Color color, Vector2 size)
+    {
+        renderer.sprite = loadSpriteFromResources("StatisticsBackground.png", 100f);
+        renderer.drawMode = SpriteDrawMode.Sliced;
+        renderer.tileMode = SpriteTileMode.Continuous;
+        renderer.color = color;
+        renderer.size = size;
+        return renderer;
+    }
+
+    public static T FindAsset<T>(string name) where T : Il2CppObjectBase
+    {
+        foreach (var asset in UnityEngine.Object.FindObjectsOfTypeIncludingAssets(Il2CppType.Of<T>()))
+            if (asset.name == name)
+                return asset.Cast<T>();
+        return null;
+    }
+
+    public static string GetClipboardString()
+    {
+        uint type = 0;
+        if (ClipboardHelper.IsClipboardFormatAvailable(1U))
+        {
+            type = 1U;
+            Debug.Log("ASCII");
+        }
+
+        if (ClipboardHelper.IsClipboardFormatAvailable(13U))
+        {
+            type = 13U;
+            Debug.Log("UNICODE");
+        }
+
+        if (type == 0) return "";
+
+        string result;
+        try
+        {
+            if (!ClipboardHelper.OpenClipboard(IntPtr.Zero))
+            {
+                result = "";
+            }
+            else
+            {
+                var clipboardData = ClipboardHelper.GetClipboardData(type);
+                if (clipboardData == IntPtr.Zero)
+                {
+                    result = "";
+                }
+                else
+                {
+                    var intPtr = IntPtr.Zero;
+                    try
+                    {
+                        intPtr = ClipboardHelper.GlobalLock(clipboardData);
+                        var len = ClipboardHelper.GlobalSize(clipboardData);
+
+                        if (type == 1U)
+                            result = Marshal.PtrToStringAnsi(clipboardData, len);
+                        else
+                            result = Marshal.PtrToStringUni(clipboardData) ?? "";
+                    }
+                    finally
+                    {
+                        if (intPtr != IntPtr.Zero) ClipboardHelper.GlobalUnlock(intPtr);
+                    }
+                }
+            }
+        }
+        finally
+        {
+            ClipboardHelper.CloseClipboard();
+        }
+
+        return result;
+    }
+
+    public static bool isChinese()
+    {
+        try
+        {
+            var name = CultureInfo.CurrentUICulture.Name;
+            if (name.StartsWith("zh")) return true;
+            return false;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

@@ -29,7 +29,7 @@ public static class SoundEffectsManager
             }
         }*/
 
-        var resourceBundle = assembly.GetManifestResourceStream("SoundEffects.toraudio");
+        var resourceBundle = assembly.GetManifestResourceStream("TheOtherRoles.Resources.SoundEffects.toraudio");
         var assetBundle = AssetBundle.LoadFromMemory(resourceBundle.ReadFully());
         foreach (var f in assetBundle.GetAllAssetNames())
             soundEffects.Add(f, assetBundle.LoadAsset<AudioClip>(f).DontUnload());

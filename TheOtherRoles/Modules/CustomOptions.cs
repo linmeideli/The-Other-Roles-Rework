@@ -607,8 +607,8 @@ internal class LobbyViewSettingsPatch
                         { CustomOptionType.Impostor, "Impostor Roles" }, { CustomOptionType.Neutral, "Neutral Roles" },
                         { CustomOptionType.Crewmate, "Crewmate Roles" }, { CustomOptionType.Modifier, "Modifiers" }
                     }[curType];
-                categoryHeaderMasked.Title.outlineColor = Color.white;
-                categoryHeaderMasked.Title.outlineWidth = 0.2f;
+                //categoryHeaderMasked.Title.outlineColor = Color.white;
+                //categoryHeaderMasked.Title.outlineWidth = 0.2f;
                 categoryHeaderMasked.transform.SetParent(__instance.settingsContainer);
                 categoryHeaderMasked.transform.localScale = Vector3.one;
                 categoryHeaderMasked.transform.localPosition = new Vector3(-9.77f, num, -2f);
@@ -653,13 +653,11 @@ internal class LobbyViewSettingsPatch
                  option.type == CustomOptionType.Impostor ||
                  option.type == CustomOptionType.Modifier)) viewSettingsInfoPanel.titleText.text = "Spawn Chance";
             if ((int)optionType == 99)
-            {
-                viewSettingsInfoPanel.titleText.outlineColor = Color.white;
-                viewSettingsInfoPanel.titleText.outlineWidth = 0.2f;
+                //viewSettingsInfoPanel.titleText.outlineColor = Color.white;
+                //viewSettingsInfoPanel.titleText.outlineWidth = 0.2f;
                 if (option.type == CustomOptionType.Modifier)
                     viewSettingsInfoPanel.settingText.text = viewSettingsInfoPanel.settingText.text +
                                                              LegacyGameOptionsPatch.buildModifierExtras(option);
-            }
 
             __instance.settingsInfo.Add(viewSettingsInfoPanel.gameObject);
 
@@ -890,8 +888,8 @@ internal class GameOptionsMenuStartPatch
                     Quaternion.identity, menu.settingsContainer);
                 categoryHeaderMasked.SetHeader(StringNames.ImpostorsCategory, 20);
                 categoryHeaderMasked.Title.text = option.heading != "" ? option.heading : option.name;
-                categoryHeaderMasked.Title.outlineColor = Color.white;
-                categoryHeaderMasked.Title.outlineWidth = 0.2f;
+                //categoryHeaderMasked.Title.outlineColor = Color.white;
+                //categoryHeaderMasked.Title.outlineWidth = 0.2f;
                 categoryHeaderMasked.transform.localScale = Vector3.one * 0.63f;
                 categoryHeaderMasked.transform.localPosition = new Vector3(-0.903f, num, -2f);
                 num -= 0.63f;
@@ -1130,7 +1128,7 @@ public class StringOptionFixedUpdate
 {
     public static void Postfix(StringOption __instance)
     {
-        if (!IL2CPPChainloader.Instance.Plugins.TryGetValue("com.DigiWorm.LevelImposter", out var _)) return;
+        if (!IL2CPPChainloader.Instance.Plugins.TryGetValue("com.DigiWorm.LevelImposter", out _)) return;
         var option = options.FirstOrDefault(option => option.optionBehaviour == __instance);
         if (option == null || !CustomOptionHolder.isMapSelectionOption(option)) return;
         if (GameOptionsManager.Instance.CurrentGameOptions.MapId == 6)

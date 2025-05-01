@@ -37,9 +37,7 @@ Based on <color=#FCCE03FF>TheOtherRoles</color>";
     {
         private static void Postfix(PingTracker __instance)
         {
-            __instance.text.alignment = TextAlignmentOptions.Top;
             var position = __instance.GetComponent<AspectPosition>();
-            position.Alignment = AspectPosition.EdgeAlignments.Top;
             if (AmongUsClient.Instance.GameState == InnerNetClient.GameStates.Started)
             {
                 var gameModeText = "";
@@ -51,8 +49,9 @@ Based on <color=#FCCE03FF>TheOtherRoles</color>";
                 __instance.text.text =
                     $"<size=130%>{modName}</size> v{TheOtherRolesPlugin.Version + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}\n{gameModeText}" +
                     __instance.text.text;
-                position.DistanceFromEdge =
-                    MeetingHud.Instance ? new Vector3(1.25f, 0.15f, 0) : new Vector3(1.55f, 0.15f, 0);
+                __instance.text.alignment = TextAlignmentOptions.Top;
+                position.Alignment = AspectPosition.EdgeAlignments.Top;
+                position.DistanceFromEdge = new Vector3(1.5f, 0.11f, 0);
             }
             else
             {
@@ -63,7 +62,9 @@ Based on <color=#FCCE03FF>TheOtherRoles</color>";
                 if (gameModeText != "") gameModeText = Helpers.cs(Color.yellow, gameModeText);
 
                 __instance.text.text = $"{fullCredentialsVersion}\n{fullCredentials}\n {__instance.text.text}";
-                position.DistanceFromEdge = new Vector3(0f, 0.1f, 0);
+                position.Alignment = AspectPosition.EdgeAlignments.LeftTop;
+                __instance.text.alignment = TextAlignmentOptions.TopLeft;
+                position.DistanceFromEdge = new Vector3(0.5f, 0.11f);
 
                 try
                 {
