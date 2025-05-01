@@ -7,15 +7,14 @@ using static TheOtherRoles.TheOtherRoles;
 using static TheOtherRoles.GameHistory;
 using static TheOtherRoles.TORMapOptions;
 using System.Collections.Generic;
- 
+
 using TheOtherRoles.Utilities;
 using TheOtherRoles.Objects;
 using TheOtherRoles.CustomGameModes;
 using Reactor.Utilities.Extensions;
 using AmongUs.GameOptions;
-using TheOtherRoles.Modules;
 
-namespace TheOtherRoles.Patches  {
+namespace TheOtherRoles.Patches {
 
     [HarmonyPatch(typeof(Vent), nameof(Vent.CanUse))]
     public static class VentCanUsePatch
@@ -105,12 +104,12 @@ namespace TheOtherRoles.Patches  {
                 Deputy.setHandcuffedKnows();
                 return false;
             }
-            if (Trapper.playersOnMap.Contains(PlayerControl.LocalPlayer)) return false;
+            if (Trapper.playersOnMap.Contains(PlayerControl.LocalPlayer.PlayerId)) return false;
 
             bool canUse;
             bool couldUse;
             __instance.CanUse(PlayerControl.LocalPlayer.Data, out canUse, out couldUse);
-            bool canMoveInVents = PlayerControl.LocalPlayer != Spy.spy && !Trapper.playersOnMap.Contains(PlayerControl.LocalPlayer);
+            bool canMoveInVents = PlayerControl.LocalPlayer != Spy.spy && !Trapper.playersOnMap.Contains(PlayerControl.LocalPlayer.PlayerId);
             if (!canUse) return false; // No need to execute the native method as using is disallowed anyways
 
             bool isEnter = !PlayerControl.LocalPlayer.inVent;
@@ -140,7 +139,7 @@ namespace TheOtherRoles.Patches  {
     [HarmonyPatch(typeof(Vent), nameof(Vent.TryMoveToVent))]
     public static class MoveToVentPatch {
         public static bool Prefix(Vent otherVent) {
-            return !Trapper.playersOnMap.Contains(PlayerControl.LocalPlayer);
+            return !Trapper.playersOnMap.Contains(PlayerControl.LocalPlayer.PlayerId);
         }
     }
 
@@ -166,7 +165,6 @@ namespace TheOtherRoles.Patches  {
             }
         }
     }
-
 
     [HarmonyPatch(typeof(KillButton), nameof(KillButton.DoClick))]
     class KillButtonDoClickPatch {
@@ -233,24 +231,20 @@ namespace TheOtherRoles.Patches  {
             // Deactivate emergency button for Swapper
             if (Swapper.swapper != null && Swapper.swapper == PlayerControl.LocalPlayer && !Swapper.canCallEmergency) {
                 roleCanCallEmergency = false;
-                statusText = "swapperMeetingButton".Translate();
+                statusText = "The Swapper can't start an emergency meeting";
             }
             // Potentially deactivate emergency button for Jester
             if (Jester.jester != null && Jester.jester == PlayerControl.LocalPlayer && !Jester.canCallEmergency) {
                 roleCanCallEmergency = false;
-                statusText = "jesterMeetingButton".Translate();
+                statusText = "The Jester can't start an emergency meeting";
             }
             // Potentially deactivate emergency button for Lawyer/Prosecutor
             if (Lawyer.lawyer != null && Lawyer.lawyer == PlayerControl.LocalPlayer && !Lawyer.canCallEmergency) {
                 roleCanCallEmergency = false;
-                statusText = "lawyerMeetingButton".Translate();
-                if (Lawyer.isProsecutor) statusText = "prosecutorMeetingButton".Translate();
+                statusText = "The Lawyer can't start an emergency meeting";
+                if (Lawyer.isProsecutor) statusText = "The Prosecutor can't start an emergency meeting";
             }
-            if (Prophet.prophet != null && Prophet.prophet == PlayerControl.LocalPlayer && !Prophet.canCallEmergency)
-            {
-                roleCanCallEmergency = false;
-                statusText = ModTranslation.GetString("prophetMeetingButton");
-            }
+
             if (!roleCanCallEmergency) {
                 __instance.StatusText.text = statusText;
                 __instance.NumberText.text = string.Empty;
@@ -265,7 +259,7 @@ namespace TheOtherRoles.Patches  {
                 int localRemaining = PlayerControl.LocalPlayer.RemainingEmergencies;
                 int teamRemaining = Mathf.Max(0, maxNumberOfMeetings - meetingsCount);
                 int remaining = Mathf.Min(localRemaining, (Mayor.mayor != null && Mayor.mayor == PlayerControl.LocalPlayer) ? 1 : teamRemaining);
-                __instance.NumberText.text = $"{localRemaining.ToString()} TOTAL: {teamRemaining.ToString()}";
+                __instance.NumberText.text = $"{localRemaining.ToString()} and the ship has {teamRemaining.ToString()}";
                 __instance.ButtonActive = remaining > 0;
                 __instance.ClosedLid.gameObject.SetActive(!__instance.ButtonActive);
                 __instance.OpenLid.gameObject.SetActive(__instance.ButtonActive);
@@ -659,7 +653,7 @@ namespace TheOtherRoles.Patches  {
             bool nightVisionEnabled = CustomOptionHolder.camsNightVision.getBool();
 
             if (isLightsOut && !nightVisionIsActive && nightVisionEnabled && !ignoreNightVision) {  // only update when something changed!
-                foreach (PlayerControl pc in PlayerControl.AllPlayerControls.ToArray()) {
+                foreach (PlayerControl pc in PlayerControl.AllPlayerControls) {
                     if (pc == Ninja.ninja && Ninja.invisibleTimer > 0f) {
                         continue;
                     }
@@ -688,7 +682,7 @@ namespace TheOtherRoles.Patches  {
 
             if (nightVisionIsActive) {
                 nightVisionIsActive = false;
-                foreach (PlayerControl pc in PlayerControl.AllPlayerControls.ToArray()) {
+                foreach (PlayerControl pc in PlayerControl.AllPlayerControls) {
                     if (Camouflager.camouflageTimer > 0) {
                         pc.setLook("", 6, "", "", "", "", false);
                     } else if (pc == Morphling.morphling && Morphling.morphTimer > 0) {

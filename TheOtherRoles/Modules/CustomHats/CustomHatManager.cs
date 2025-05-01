@@ -21,7 +21,7 @@ public static class CustomHatManager
         get
         {
             var (owner, repository) = Repository;
-            return $"http://sq.fangkuai.fun:33050/ModFiles/TheOtherRoles/TheOtherHats";
+            return $"https://raw.githubusercontent.com/{owner}/{repository}/master";
         }
     }
 

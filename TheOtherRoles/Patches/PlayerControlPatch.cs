@@ -6,7 +6,7 @@ using System.Linq;
 using static TheOtherRoles.TheOtherRoles;
 using static TheOtherRoles.GameHistory;
 using TheOtherRoles.Objects;
- 
+
 using TheOtherRoles.Utilities;
 using UnityEngine;
 using TheOtherRoles.CustomGameModes;
@@ -21,9 +21,9 @@ namespace TheOtherRoles.Patches {
     public static class PlayerControlFixedUpdatePatch {
         // Helpers
 
-        static PlayerControl setTarget(bool onlyCrewmates = false, bool targetPlayersInVents = false, List<PlayerControl> untargetablePlayers = null, PlayerControl targetingPlayer = null) {
+        public static PlayerControl setTarget(bool onlyCrewmates = false, bool targetPlayersInVents = false, List<PlayerControl> untargetablePlayers = null, PlayerControl targetingPlayer = null) {
             PlayerControl result = null;
-            float num = AmongUs.GameOptions.LegacyGameOptions.KillDistances[Mathf.Clamp(GameOptionsManager.Instance.currentNormalGameOptions.KillDistance, 0, 2)];
+            float num = AmongUs.GameOptions.GameOptionsData.KillDistances[Mathf.Clamp(GameOptionsManager.Instance.currentNormalGameOptions.KillDistance, 0, 2)];
             if (!MapUtilities.CachedShipStatus) return result;
             if (targetingPlayer == null) targetingPlayer = PlayerControl.LocalPlayer;
             if (targetingPlayer.Data.IsDead) return result;
@@ -51,7 +51,7 @@ namespace TheOtherRoles.Patches {
             return result;
         }
 
-        static void setPlayerOutline(PlayerControl target, Color color) {
+        public static void setPlayerOutline(PlayerControl target, Color color) {
             if (target == null || target.cosmetics?.currentBodySprite?.BodySprite == null) return;
 
             color = color.SetAlpha(Chameleon.visibility(target.PlayerId));
@@ -63,7 +63,7 @@ namespace TheOtherRoles.Patches {
         // Update functions
 
         static void setBasePlayerOutlines() {
-            foreach (PlayerControl target in PlayerControl.AllPlayerControls.ToArray()) {
+            foreach (PlayerControl target in PlayerControl.AllPlayerControls) {
                 if (target == null || target.cosmetics?.currentBodySprite?.BodySprite == null) continue;
 
                 bool isMorphedMorphling = target == Morphling.morphling && Morphling.morphTarget != null && Morphling.morphTimer > 0f;
@@ -77,19 +77,24 @@ namespace TheOtherRoles.Patches {
                     color = Color.blue;
                 }
 
+                if (PlayerControl.LocalPlayer.Data.IsDead && Armored.armored != null && target == Armored.armored && !Armored.isBrokenArmor && !hasVisibleShield) {
+                    hasVisibleShield = true;
+                    color = Color.yellow;
+                }
+
                 if (hasVisibleShield) {
                 target.cosmetics.currentBodySprite.BodySprite.material.SetFloat("_Outline", 1f);
                 target.cosmetics.currentBodySprite.BodySprite.material.SetColor("_OutlineColor", color);
                 }
                 else {
                     target.cosmetics.currentBodySprite.BodySprite.material.SetFloat("_Outline", 0f);
-                }
+                }                
             }
         }
 
         static void setPetVisibility() {
-            bool localalive = !PlayerControl.LocalPlayer.Data.IsDead;
-            foreach (var player in PlayerControl.AllPlayerControls.ToArray())
+            bool localalive = PlayerControl.LocalPlayer.Data.IsDead;
+            foreach (var player in PlayerControl.AllPlayerControls)
             {
                 bool playeralive = !player.Data.IsDead;
                 player.cosmetics.SetPetVisible((localalive && playeralive) || !localalive);
@@ -183,6 +188,7 @@ namespace TheOtherRoles.Patches {
                 RPCProcedure.deputyPromotes();
             }
         }
+
         static void trackerSetTarget() {
             if (Tracker.tracker == null || Tracker.tracker != PlayerControl.LocalPlayer) return;
             Tracker.currentTarget = setTarget();
@@ -195,7 +201,7 @@ namespace TheOtherRoles.Patches {
             Detective.timer -= Time.fixedDeltaTime;
             if (Detective.timer <= 0f) {
                 Detective.timer = Detective.footprintIntervall;
-                foreach (PlayerControl player in PlayerControl.AllPlayerControls.ToArray()) {
+                foreach (PlayerControl player in PlayerControl.AllPlayerControls) {
                     if (player != null && player != PlayerControl.LocalPlayer && !player.Data.IsDead && !player.inVent) 
                     {
                         FootprintHolder.Instance.MakeFootprint(player);
@@ -391,48 +397,7 @@ namespace TheOtherRoles.Patches {
                 }
             }
         }
-        static void prophetSetTarget()
-        {
-            if (Prophet.prophet == null || PlayerControl.LocalPlayer != Prophet.prophet) return;
-            Prophet.currentTarget = setTarget();
-            if (Prophet.examinesLeft > 0) setPlayerOutline(Prophet.currentTarget, Prophet.color);
-        }
 
-        static void prophetUpdate()
-        {
-            if (Prophet.arrows == null) return;
-
-            foreach (var arrow in Prophet.arrows) arrow.arrow.SetActive(false);
-
-            if (Prophet.prophet == null || Prophet.prophet.Data.IsDead) return;
-
-            if (Prophet.isRevealed && Helpers.isKiller(PlayerControl.LocalPlayer))
-            {
-                if (Prophet.arrows.Count == 0) Prophet.arrows.Add(new Arrow(Prophet.color));
-                if (Prophet.arrows.Count != 0 && Prophet.arrows[0] != null)
-                {
-                    Prophet.arrows[0].arrow.SetActive(true);
-                    Prophet.arrows[0].Update(Prophet.prophet.transform.position);
-                }
-            }
-        }
-
-        static void devilSetTarget()
-        {
-            if (Devil.devil == null || Devil.devil != PlayerControl.LocalPlayer) return;
-
-            List<PlayerControl> untargetables = new List<PlayerControl>();
-            if (Spy.spy != null) untargetables.Add(Spy.spy);
-            if (Sidekick.wasTeamRed) untargetables.Add(Sidekick.sidekick);
-            if (Jackal.wasTeamRed) untargetables.Add(Jackal.jackal);
-            Devil.currentTarget = setTarget(onlyCrewmates: !Devil.canIntimidateAnyone, untargetablePlayers: Devil.canIntimidateAnyone ? new List<PlayerControl>() : untargetables); 
-            setPlayerOutline(Devil.currentTarget, Devil.color);
-        }
-        static void FraudsterSetTarget()
-        {
-            if (Fraudster.fraudster == null || PlayerControl.LocalPlayer != Fraudster.fraudster) return;
-            Fraudster.currentTarget = setTarget();
-        }
         static void trackerUpdate() {
             // Handle player tracking
             if (Tracker.arrow?.arrow != null) {
@@ -523,7 +488,7 @@ namespace TheOtherRoles.Patches {
         public static void updatePlayerInfo() {
             Vector3 colorBlindTextMeetingInitialLocalPos = new Vector3(0.3384f, -0.16666f, -0.01f);
             Vector3 colorBlindTextMeetingInitialLocalScale = new Vector3(0.9f, 1f, 1f);
-            foreach (PlayerControl p in PlayerControl.AllPlayerControls.ToArray()) {
+            foreach (PlayerControl p in PlayerControl.AllPlayerControls) {
                 
                 // Colorblind Text in Meeting
                 PlayerVoteArea playerVoteArea = MeetingHud.Instance?.playerStates?.FirstOrDefault(x => x.TargetPlayerId == p.PlayerId);
@@ -636,11 +601,11 @@ namespace TheOtherRoles.Patches {
             if (Arsonist.douseTarget != null)
             {
                 untargetables = new();
-                foreach (PlayerControl PlayerControl in PlayerControl.AllPlayerControls.ToArray())
+                foreach (PlayerControl player in PlayerControl.AllPlayerControls)
                 {
-                    if (PlayerControl.PlayerId != Arsonist.douseTarget.PlayerId)
+                    if (player.PlayerId != Arsonist.douseTarget.PlayerId)
                     {
-                        untargetables.Add(PlayerControl);
+                        untargetables.Add(player);
                     }
                 }
             }
@@ -669,8 +634,8 @@ namespace TheOtherRoles.Patches {
                     Snitch.text.transform.localPosition += new Vector3(0f, 1.8f, -69f);
                     Snitch.text.gameObject.SetActive(true);
                 } else {
-                    Snitch.text.text = $"告密者任务: " + playerCompleted + "/" + playerTotal;
-                    if (snitchIsDead) Snitch.text.text = $"告密者死啦!";
+                    Snitch.text.text = $"Snitch is alive: " + playerCompleted + "/" + playerTotal;
+                    if (snitchIsDead) Snitch.text.text = $"Snitch is dead!";
                 }
             } else if (Snitch.text != null)
                 Snitch.text.Destroy();
@@ -706,7 +671,7 @@ namespace TheOtherRoles.Patches {
                 BountyHunter.arrowUpdateTimer = 0f; // Force arrow to update
                 BountyHunter.bountyUpdateTimer = BountyHunter.bountyDuration;
                 var possibleTargets = new List<PlayerControl>();
-                foreach (PlayerControl p in PlayerControl.AllPlayerControls.ToArray()) {
+                foreach (PlayerControl p in PlayerControl.AllPlayerControls) {
                     if (!p.Data.IsDead && !p.Data.Disconnected && p != p.Data.Role.IsImpostor && p != Spy.spy && (p != Sidekick.sidekick || !Sidekick.wasTeamRed) && (p != Jackal.jackal || !Jackal.wasTeamRed) && (p != Mini.mini || Mini.isGrownUp()) && (Lovers.getPartner(BountyHunter.bountyHunter) == null || p != Lovers.getPartner(BountyHunter.bountyHunter))) possibleTargets.Add(p);
                 }
                 BountyHunter.bounty = possibleTargets[TheOtherRoles.rnd.Next(0, possibleTargets.Count)];
@@ -820,7 +785,7 @@ namespace TheOtherRoles.Patches {
                     Morphling.morphling.setLook(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
                 }
                 if (Camouflager.camouflageTimer > 0) {
-                    foreach (PlayerControl player in PlayerControl.AllPlayerControls.ToArray())
+                    foreach (PlayerControl player in PlayerControl.AllPlayerControls)
                         player.setLook("", 6, "", "", "", "");
                 }
             }
@@ -1015,7 +980,7 @@ namespace TheOtherRoles.Patches {
             foreach (Arrow arrow in Hunter.localArrows) arrow.arrow.SetActive(false);
             if (Hunter.arrowActive) {
                 int arrowIndex = 0;
-                foreach (PlayerControl p in PlayerControl.AllPlayerControls.ToArray()) {
+                foreach (PlayerControl p in PlayerControl.AllPlayerControls) {
                     if (!p.Data.IsDead && !p.Data.Role.IsImpostor) {
                         if (arrowIndex >= Hunter.localArrows.Count) {
                             Hunter.localArrows.Add(new Arrow(Color.blue));
@@ -1122,13 +1087,6 @@ namespace TheOtherRoles.Patches {
                 thiefSetTarget();
                 // yoyo
                 Silhouette.UpdateAll();
-                //prophet
-                prophetSetTarget();
-                prophetUpdate();
-                //fraudster
-                FraudsterSetTarget();
-                //devil
-                devilSetTarget();
 
                 hackerUpdate();
                 swapperUpdate();
@@ -1194,15 +1152,15 @@ namespace TheOtherRoles.Patches {
                     string msg = "";
 
                     if (isMedicReport) {
-                        msg = $"尸检报告: 死于 {Math.Round(timeSinceDeath / 1000)} 秒前!";
+                        msg = $"Body Report: Killed {Math.Round(timeSinceDeath / 1000)}s ago!";
                     } else if (isDetectiveReport) {
                         if (timeSinceDeath < Detective.reportNameDuration * 1000) {
-                            msg =  $"尸检报告: 凶手似乎是 {deadPlayer.killerIfExisting.Data.PlayerName}!";
+                            msg =  $"Body Report: The killer appears to be {deadPlayer.killerIfExisting.Data.PlayerName}!";
                         } else if (timeSinceDeath < Detective.reportColorDuration * 1000) {
-                            var typeOfColor = Helpers.isLighterColor(deadPlayer.killerIfExisting) ? "亮色" : "暗色";
-                            msg =  $"尸检报告: 凶手似乎是 {typeOfColor} 色!";
+                            var typeOfColor = Helpers.isLighterColor(deadPlayer.killerIfExisting) ? "lighter" : "darker";
+                            msg =  $"Body Report: The killer appears to be a {typeOfColor} color!";
                         } else {
-                            msg = $"尸检报告: 已经巨人观了 无法获取信息!";
+                            msg = $"Body Report: The corpse is too old to gain information from!";
                         }
                     }
 
@@ -1286,7 +1244,7 @@ namespace TheOtherRoles.Patches {
 
             // Seer show flash and add dead player position
             if (Seer.seer != null && (PlayerControl.LocalPlayer == Seer.seer || Helpers.shouldShowGhostInfo()) && !Seer.seer.Data.IsDead && Seer.seer != target && Seer.mode <= 1) {
-                Helpers.showFlash(new Color(42f / 255f, 187f / 255f, 245f / 255f), message : "灵媒通知: 有人死了");
+                Helpers.showFlash(new Color(42f / 255f, 187f / 255f, 245f / 255f), message : "Seer Info: Someone Died");
             }
             if (Seer.deadBodyPositions != null) Seer.deadBodyPositions.Add(target.transform.position);
 
@@ -1340,19 +1298,9 @@ namespace TheOtherRoles.Patches {
 
                 if (Bait.showKillFlash && __instance == PlayerControl.LocalPlayer) Helpers.showFlash(new Color(204f / 255f, 102f / 255f, 0f / 255f));
             }
-            //Last
-			if (target.Data.Role.IsImpostor && AmongUsClient.Instance.AmHost)
-				LastImp.promoteToLastImpostor();
 
-			if (__instance == LastImp.lastimp && target != LastImp.lastimp) LastImp.killCounter++;
-
-			if (!target.Data.Role.IsImpostor && !Helpers.isNeutral(target) && AmongUsClient.Instance.AmHost)
-				LastCrew.promoteToLastCrewmate();
-
-			if (__instance == LastCrew.lastcrew && target != LastCrew.lastcrew) LastCrew.killCounter++;
-
-			// Add Bloody Modifier
-			if (Bloody.bloody.FindAll(x => x.PlayerId == target.PlayerId).Count > 0) {
+            // Add Bloody Modifier
+            if (Bloody.bloody.FindAll(x => x.PlayerId == target.PlayerId).Count > 0) {
                 MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.Bloody, Hazel.SendOption.Reliable, -1);
                 writer.Write(__instance.PlayerId);
                 writer.Write(target.PlayerId);
@@ -1375,7 +1323,7 @@ namespace TheOtherRoles.Patches {
             if (HideNSeek.isHideNSeekGM) {
                 int visibleCounter = 0;
                 Vector3 bottomLeft = IntroCutsceneOnDestroyPatch.bottomLeft + new Vector3(-0.25f, -0.25f, 0);
-                foreach (PlayerControl p in PlayerControl.AllPlayerControls.ToArray()) {
+                foreach (PlayerControl p in PlayerControl.AllPlayerControls) {
                     if (!TORMapOptions.playerIcons.ContainsKey(p.PlayerId) || p.Data.Role.IsImpostor) continue;
                     if (p.Data.IsDead || p.Data.Disconnected) {
                         TORMapOptions.playerIcons[p.PlayerId].gameObject.SetActive(false);
@@ -1388,8 +1336,8 @@ namespace TheOtherRoles.Patches {
             }
 
             // Snitch
-            if (Snitch.snitch != null && PlayerControl.LocalPlayer.PlayerId == Snitch.snitch.PlayerId && MapBehaviourPatch.herePoints.Keys.Any(x => x.PlayerId == target.PlayerId)) {
-                foreach (var a in MapBehaviourPatch.herePoints.Where(x => x.Key.PlayerId == target.PlayerId)) {
+            if (Snitch.snitch != null && PlayerControl.LocalPlayer.PlayerId == Snitch.snitch.PlayerId && MapBehaviourPatch.herePoints.Keys.Any(x => x == target.PlayerId)) {
+                foreach (var a in MapBehaviourPatch.herePoints.Where(x => x.Key == target.PlayerId)) {
                     UnityEngine.Object.Destroy(a.Value);
                     MapBehaviourPatch.herePoints.Remove(a.Key);
                 }
@@ -1454,16 +1402,8 @@ namespace TheOtherRoles.Patches {
             if (__instance.hasFakeTasks() || __instance == Lawyer.lawyer || __instance == Pursuer.pursuer || __instance == Thief.thief)
                 __instance.clearAllTasks();
 
-			//Last
-			if (__instance.Data.Role.IsImpostor && AmongUsClient.Instance.AmHost)
-				LastImp.promoteToLastImpostor();
-
-			if (!__instance.Data.Role.IsImpostor && !Helpers.isNeutral(__instance) && AmongUsClient.Instance.AmHost)
-				LastCrew.promoteToLastCrewmate();
-
-
-			// Lover suicide trigger on exile
-			if ((Lovers.lover1 != null && __instance == Lovers.lover1) || (Lovers.lover2 != null && __instance == Lovers.lover2)) {
+            // Lover suicide trigger on exile
+            if ((Lovers.lover1 != null && __instance == Lovers.lover1) || (Lovers.lover2 != null && __instance == Lovers.lover2)) {
                 PlayerControl otherLover = __instance == Lovers.lover1 ? Lovers.lover2 : Lovers.lover1;
                 if (otherLover != null && !otherLover.Data.IsDead && Lovers.bothDie) {
                     otherLover.Exiled();
@@ -1554,16 +1494,5 @@ namespace TheOtherRoles.Patches {
                 MeetingHudPatch.swapperCheckAndReturnSwap(MeetingHud.Instance, player.PlayerId);
             }
         }
-		public static void Postfix(GameData __instance, PlayerControl player, DisconnectReasons reason)
-		{
-			if (AmongUsClient.Instance.GameState == InnerNet.InnerNetClient.GameStates.Started)
-			{
-				if (AmongUsClient.Instance.AmHost && player != null && player.Data?.Role?.IsImpostor == true) LastImp.promoteToLastImpostor();
-			}
-            else if (AmongUsClient.Instance.GameState == InnerNet.InnerNetClient.GameStates.Started)
-			{
-				if (AmongUsClient.Instance.AmHost && player != null && !player.Data?.Role?.IsImpostor == true && !Helpers.isNeutral(player) == true) LastCrew.promoteToLastCrewmate();
-			}
-		}
-	}
+    }
 }

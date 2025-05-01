@@ -4,18 +4,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TheOtherRoles.Objects;
- 
+
 using TheOtherRoles.Utilities;
 using TheOtherRoles.CustomGameModes;
 using static TheOtherRoles.TheOtherRoles;
 using AmongUs.Data;
 using Hazel;
 using Reactor.Utilities.Extensions;
-using TheOtherRoles.Modules;
-using TheOtherRoles .Helper;
-using static Il2CppSystem.Globalization.CultureInfo;
-using TheOtherRoles.Patches;
-using Epic.OnlineServices;
 
 namespace TheOtherRoles
 {
@@ -42,7 +37,6 @@ namespace TheOtherRoles
             Swapper.clearAndReload();
             Lovers.clearAndReload();
             Seer.clearAndReload();
-            Prophet.clearAndReload();
             Morphling.clearAndReload();
             Camouflager.clearAndReload();
             Hacker.clearAndReload();
@@ -69,7 +63,6 @@ namespace TheOtherRoles
             Trapper.clearAndReload();
             Bomber.clearAndReload();
             Yoyo.clearAndReload();
-            Fraudster.clearAndReload();
 
             // Modifier
             Bait.clearAndReload();
@@ -77,13 +70,11 @@ namespace TheOtherRoles
             AntiTeleport.clearAndReload();
             Tiebreaker.clearAndReload();
             Sunglasses.clearAndReload();
-            Lighterln.clearAndReload();
             Mini.clearAndReload();
             Vip.clearAndReload();
             Invert.clearAndReload();
             Chameleon.clearAndReload();
-            LastCrew.clearAndReload();
-            LastImp.clearAndReload();
+            Armored.clearAndReload();
 
             // Gamemodes
             HandleGuesser.clearAndReload();
@@ -125,13 +116,13 @@ namespace TheOtherRoles
 
             public static Sprite getPlacePortalButtonSprite() {
                 if (placePortalButtonSprite) return placePortalButtonSprite;
-                placePortalButtonSprite = CustomMain.customZips.PlacePortalButton;
+                placePortalButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PlacePortalButton.png", 115f);
                 return placePortalButtonSprite;
             }
 
             public static Sprite getUsePortalButtonSprite() {
                 if (usePortalButtonSprite) return usePortalButtonSprite;
-                usePortalButtonSprite = CustomMain.customZips.UsePortalButton;
+                usePortalButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.UsePortalButton.png", 115f);
                 return usePortalButtonSprite;
             }
 
@@ -210,7 +201,7 @@ namespace TheOtherRoles
 
             public static Sprite getButtonSprite() {
                 if (buttonSprite) return buttonSprite;
-                buttonSprite = CustomMain.customZips.RepairButton;
+                buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.RepairButton.png", 115f);
                 return buttonSprite;
             }
 
@@ -250,7 +241,7 @@ namespace TheOtherRoles
             private static Sprite buttonSprite;
             public static Sprite getButtonSprite() {
                 if (buttonSprite) return buttonSprite;
-                buttonSprite = CustomMain.customZips.CleanButton;
+                buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CleanButton.png", 115f);
                 return buttonSprite;
             }
 
@@ -320,18 +311,8 @@ namespace TheOtherRoles
             public static Sprite getHandcuffedButtonSprite()
             {
                 if (handcuffedSprite) return handcuffedSprite;
- 
-                if (Helpers.IsChinese())
-                {
-                    handcuffedSprite = CustomMain.customZips.DeputyHandcuffedCN;
-                    return handcuffedSprite;
-                }
-                else
-                {
-                    handcuffedSprite = CustomMain.customZips.DeputyHandcuffedEN;
-                    return handcuffedSprite;
-                }
- 
+                handcuffedSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.DeputyHandcuffed.png", 115f);
+                return handcuffedSprite;
             }
 
             // Can be used to enable / disable the handcuff effect on the target's buttons
@@ -429,7 +410,7 @@ namespace TheOtherRoles
         private static Sprite buttonSprite;
         public static Sprite getButtonSprite() {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = CustomMain.customZips.TimeShieldButton;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.TimeShieldButton.png", 115f);
             return buttonSprite;
         }
 
@@ -464,7 +445,7 @@ namespace TheOtherRoles
         private static Sprite buttonSprite;
         public static Sprite getButtonSprite() {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = CustomMain.customZips.ShieldButton;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.ShieldButton.png", 115f);
             return buttonSprite;
         }
 
@@ -643,13 +624,13 @@ namespace TheOtherRoles
 
         public static Sprite getSampleSprite() {
             if (sampleSprite) return sampleSprite;
-            sampleSprite = CustomMain.customZips.SampleButton;
+            sampleSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SampleButton.png", 115f);
             return sampleSprite;
         }
 
         public static Sprite getMorphSprite() {
             if (morphSprite) return morphSprite;
-            morphSprite = CustomMain.customZips.MorphButton;
+            morphSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.MorphButton.png", 115f);
             return morphSprite;
         }
     }
@@ -665,13 +646,13 @@ namespace TheOtherRoles
         private static Sprite buttonSprite;
         public static Sprite getButtonSprite() {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = CustomMain.customZips.CamoButton;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CamoButton.png", 115f);
             return buttonSprite;
         }
 
         public static void resetCamouflage() {
             camouflageTimer = 0f;
-            foreach (PlayerControl p in PlayerControl.AllPlayerControls.ToArray()) {
+            foreach (PlayerControl p in PlayerControl.AllPlayerControls) {
                 if (p == Ninja.ninja && Ninja.isInvisble)
                     continue;
                 p.setDefaultLook();
@@ -711,7 +692,7 @@ namespace TheOtherRoles
 
         public static Sprite getButtonSprite() {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = CustomMain.customZips.HackerButton;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.HackerButton.png", 115f);
             return buttonSprite;
         }
 
@@ -783,14 +764,14 @@ namespace TheOtherRoles
         public static Sprite getTrackCorpsesButtonSprite()
         {
             if (trackCorpsesButtonSprite) return trackCorpsesButtonSprite;
-            trackCorpsesButtonSprite = CustomMain.customZips.PathfindButton;
+            trackCorpsesButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PathfindButton.png", 115f);
             return trackCorpsesButtonSprite;
         }
 
         private static Sprite buttonSprite;
         public static Sprite getButtonSprite() {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = CustomMain.customZips.TrackerButton;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.TrackerButton.png", 115f);
             return buttonSprite;
         }
 
@@ -843,14 +824,14 @@ namespace TheOtherRoles
         private static Sprite buttonSprite;
         public static Sprite getButtonSprite() {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = CustomMain.customZips.VampireButton;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.VampireButton.png", 115f);
             return buttonSprite;
         }
 
         private static Sprite garlicButtonSprite;
         public static Sprite getGarlicButtonSprite() {
             if (garlicButtonSprite) return garlicButtonSprite;
-            garlicButtonSprite = CustomMain.customZips.GarlicButton;
+            garlicButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.GarlicButton.png", 115f);
             return garlicButtonSprite;
         }
 
@@ -924,7 +905,7 @@ namespace TheOtherRoles
 
         public static Sprite getSidekickButtonSprite() {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = CustomMain.customZips.SidekickButton;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SidekickButton.png", 115f);
             return buttonSprite;
         }
 
@@ -999,7 +980,7 @@ namespace TheOtherRoles
         private static Sprite buttonSprite;
         public static Sprite getButtonSprite() {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = CustomMain.customZips.EraserButton;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.EraserButton.png", 115f);
             return buttonSprite;
         }
 
@@ -1043,19 +1024,19 @@ namespace TheOtherRoles
 
         public static Sprite getPlaceBoxButtonSprite() {
             if (placeBoxButtonSprite) return placeBoxButtonSprite;
-            placeBoxButtonSprite = CustomMain.customZips.PlaceJackInTheBoxButton;
+            placeBoxButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PlaceJackInTheBoxButton.png", 115f);
             return placeBoxButtonSprite;
         }
 
         public static Sprite getLightsOutButtonSprite() {
             if (lightOutButtonSprite) return lightOutButtonSprite;
-            lightOutButtonSprite = CustomMain.customZips.LightsOutButton;
+            lightOutButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.LightsOutButton.png", 115f);
             return lightOutButtonSprite;
         }
 
         public static Sprite getTricksterVentButtonSprite() {
             if (tricksterVentButtonSprite) return tricksterVentButtonSprite;
-            tricksterVentButtonSprite = CustomMain.customZips.TricksterVentButton;
+            tricksterVentButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.TricksterVentButton.png", 115f);
             return tricksterVentButtonSprite;
         }
 
@@ -1079,7 +1060,7 @@ namespace TheOtherRoles
         private static Sprite buttonSprite;
         public static Sprite getButtonSprite() {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = CustomMain.customZips.CleanButton;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CleanButton.png", 115f);
             return buttonSprite;
         }
 
@@ -1106,13 +1087,13 @@ namespace TheOtherRoles
 
         public static Sprite getCurseButtonSprite() {
             if (curseButtonSprite) return curseButtonSprite;
-            curseButtonSprite = CustomMain.customZips.CurseButton;
+            curseButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CurseButton.png", 115f);
             return curseButtonSprite;
         }
 
         public static Sprite getCurseKillButtonSprite() {
             if (curseKillButtonSprite) return curseKillButtonSprite;
-            curseKillButtonSprite = CustomMain.customZips.CurseKillButton;
+            curseKillButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CurseKillButton.png", 115f);
             return curseKillButtonSprite;
         }
 
@@ -1157,14 +1138,14 @@ namespace TheOtherRoles
         private static Sprite closeVentButtonSprite;
         public static Sprite getCloseVentButtonSprite() {
             if (closeVentButtonSprite) return closeVentButtonSprite;
-            closeVentButtonSprite = CustomMain.customZips.CloseVentButton;
+            closeVentButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.CloseVentButton.png", 115f);
             return closeVentButtonSprite;
         }
 
         private static Sprite placeCameraButtonSprite;
         public static Sprite getPlaceCameraButtonSprite() {
             if (placeCameraButtonSprite) return placeCameraButtonSprite;
-            placeCameraButtonSprite = CustomMain.customZips.PlaceCameraButton;
+            placeCameraButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PlaceCameraButton.png", 115f);
             return placeCameraButtonSprite;
         }
 
@@ -1258,14 +1239,14 @@ namespace TheOtherRoles
         private static Sprite douseSprite;
         public static Sprite getDouseSprite() {
             if (douseSprite) return douseSprite;
-            douseSprite = CustomMain.customZips.DouseButton;
+            douseSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.DouseButton.png", 115f);
             return douseSprite;
         }
 
         private static Sprite igniteSprite;
         public static Sprite getIgniteSprite() {
             if (igniteSprite) return igniteSprite;
-            igniteSprite = CustomMain.customZips.IgniteButton;
+            igniteSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.IgniteButton.png", 115f);
             return igniteSprite;
         }
 
@@ -1334,7 +1315,6 @@ namespace TheOtherRoles
         public static float bountyKillCooldown = 0f;
         public static float punishmentTime = 15f;
         public static float arrowUpdateIntervall = 10f;
-        public static bool bountyHunterShowCooldownForGhosts = true;
 
         public static float arrowUpdateTimer = 0f;
         public static float bountyUpdateTimer = 0f;
@@ -1377,7 +1357,7 @@ namespace TheOtherRoles
         private static Sprite buttonSprite;
         public static Sprite getButtonSprite() {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = CustomMain.customZips.VultureButton;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.VultureButton.png", 115f);
             return buttonSprite;
         }
 
@@ -1438,7 +1418,7 @@ namespace TheOtherRoles
         private static Sprite question;
         public static Sprite getQuestionSprite() {
             if (question) return question;
-            question = CustomMain.customZips.MediumButton;
+            question = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.MediumButton.png", 115f);
             return question;
         }
 
@@ -1456,17 +1436,17 @@ namespace TheOtherRoles
             chanceAdditionalInfo = CustomOptionHolder.mediumChanceAdditionalInfo.getSelection() / 10f;
         }
 
-        public static string getInfo(PlayerControl target, PlayerControl killer) {
+        public static string getInfo(PlayerControl target, PlayerControl killer, DeadPlayer.CustomDeathReason deathReason) {
             string msg = "";
 
             List<SpecialMediumInfo> infos = new List<SpecialMediumInfo>();
             // collect fitting death info types.
             // suicides:
             if (killer == target) {
-                if (target == Sheriff.sheriff || target == Sheriff.formerSheriff) infos.Add(SpecialMediumInfo.SheriffSuicide);
+                if ((target == Sheriff.sheriff || target == Sheriff.formerSheriff) && deathReason != DeadPlayer.CustomDeathReason.LoverSuicide) infos.Add(SpecialMediumInfo.SheriffSuicide);
                 if (target == Lovers.lover1 || target == Lovers.lover2) infos.Add(SpecialMediumInfo.PassiveLoverSuicide);
-                if (target == Thief.thief) infos.Add(SpecialMediumInfo.ThiefSuicide);
-                if (target == Warlock.warlock) infos.Add(SpecialMediumInfo.WarlockSuicide);
+                if (target == Thief.thief && deathReason != DeadPlayer.CustomDeathReason.LoverSuicide) infos.Add(SpecialMediumInfo.ThiefSuicide);
+                if (target == Warlock.warlock && deathReason != DeadPlayer.CustomDeathReason.LoverSuicide) infos.Add(SpecialMediumInfo.WarlockSuicide);
             } else {
                 if (target == Lovers.lover1 || target == Lovers.lover2) infos.Add(SpecialMediumInfo.ActiveLoverDies);
                 if (target.Data.Role.IsImpostor && killer.Data.Role.IsImpostor && Thief.formerThief != killer) infos.Add(SpecialMediumInfo.ImpostorTeamkill);
@@ -1478,47 +1458,47 @@ namespace TheOtherRoles
             if (infos.Count > 0) {
                 var selectedInfo = infos[rnd.Next(infos.Count)];
                 switch (selectedInfo) {
-                  case Medium.SpecialMediumInfo.SheriffSuicide:
-					msg = "SheriffSuicide".Translate();
-					break;
-				case Medium.SpecialMediumInfo.ThiefSuicide:
-					msg = "ThiefSuicide".Translate();
-					break;
-				case Medium.SpecialMediumInfo.ActiveLoverDies:
-					msg = "ActiveLoverDies".Translate();
-					break;
-				case Medium.SpecialMediumInfo.PassiveLoverSuicide:
-					msg = "PassiveLoverSuicide".Translate();
-					break;
-				case Medium.SpecialMediumInfo.LawyerKilledByClient:
-					msg = "LawyerKilledByClient".Translate();
-					break;
-				case Medium.SpecialMediumInfo.JackalKillsSidekick:
-					msg = "JackalKillsSidekick".Translate();
-					break;
-				case Medium.SpecialMediumInfo.ImpostorTeamkill:
-					msg = "ImpostorTeamkill".Translate();
-					break;
-				case Medium.SpecialMediumInfo.WarlockSuicide:
-					msg = "WarlockSuicide".Translate();
-					break;
-				case Medium.SpecialMediumInfo.BodyCleaned:
-					msg = "BodyCleaned".Translate();
-					break;
+                    case SpecialMediumInfo.SheriffSuicide:
+                        msg = "Yikes, that Sheriff shot backfired.";
+                        break;
+                    case SpecialMediumInfo.WarlockSuicide:
+                        msg = "MAYBE I cursed the person next to me and killed myself. Oops.";
+                        break;
+                    case SpecialMediumInfo.ThiefSuicide:
+                        msg = "I tried to steal the gun from their pocket, but they were just happy to see me.";
+                        break;
+                    case SpecialMediumInfo.ActiveLoverDies:
+                        msg = "I wanted to get out of this toxic relationship anyways.";
+                        break;
+                    case SpecialMediumInfo.PassiveLoverSuicide:
+                        msg = "The love of my life died, thus with a kiss I die.";
+                        break;
+                    case SpecialMediumInfo.LawyerKilledByClient:
+                        msg = "My client killed me. Do I still get paid?";
+                        break;
+                    case SpecialMediumInfo.JackalKillsSidekick:
+                        msg = "First they sidekicked me, then they killed me. At least I don't need to do tasks anymore.";
+                        break;
+                    case SpecialMediumInfo.ImpostorTeamkill:
+                        msg = "I guess they confused me for the Spy, is there even one?";
+                        break;
+                    case SpecialMediumInfo.BodyCleaned:
+                        msg = "Is my dead body some kind of art now or... aaand it's gone.";
+                        break;
                 }
             } else {
                 int randomNumber = rnd.Next(4);
-                string typeOfColor = Helpers.isLighterColor(Medium.target.killerIfExisting) ? "L" : "D";
+                string typeOfColor = Helpers.isLighterColor(Medium.target.killerIfExisting) ? "lighter" : "darker";
                 float timeSinceDeath = ((float)(Medium.meetingStartTime - Medium.target.timeOfDeath).TotalMilliseconds);
                 var roleString = RoleInfo.GetRolesString(Medium.target.player, false);
                 if (randomNumber == 0) {
                     if (!roleString.Contains("Impostor") && !roleString.Contains("Crewmate"))
-                        msg = "如果我的角色尚未保存，则没有 " + roleString + " 出现在游戏中。";
+                        msg = "If my role hasn't been saved, there's no " + roleString + " in the game anymore.";
                     else
-                        msg = "我是一名" + roleString + "而伴随着一些职业。"; 
-                } else if (randomNumber == 1) msg = "我肯定是" + typeOfColor + " 颜色的人杀了我。";
-                else if (randomNumber == 2) msg = "如果我没算错，我死在直至会议开启前的" + Math.Round(timeSinceDeath / 1000) + "秒前";
-                else msg = "杀死我的人应该是一名" + RoleInfo.GetRolesString(Medium.target.killerIfExisting, false, false, true) + "。";
+                        msg = "I was a " + roleString + " without another role."; 
+                } else if (randomNumber == 1) msg = "I'm not sure, but I guess a " + typeOfColor + " color killed me.";
+                else if (randomNumber == 2) msg = "If I counted correctly, I died " + Math.Round(timeSinceDeath / 1000) + "s before the next meeting started.";
+                else msg = "It seems like my killer is the " + RoleInfo.GetRolesString(Medium.target.killerIfExisting, false, false, true) + ".";
             }
 
             if (rnd.NextDouble() < chanceAdditionalInfo) {
@@ -1580,7 +1560,7 @@ namespace TheOtherRoles
             vision = CustomOptionHolder.lawyerVision.getFloat();
             lawyerKnowsRole = CustomOptionHolder.lawyerKnowsRole.getBool();
             targetCanBeJester = CustomOptionHolder.lawyerTargetCanBeJester.getBool();
-            canCallEmergency = CustomOptionHolder.jesterCanCallEmergency.getBool();
+            canCallEmergency = CustomOptionHolder.lawyerCanCallEmergency.getBool();
         }
     }
 
@@ -1598,7 +1578,7 @@ namespace TheOtherRoles
 
         public static Sprite getTargetSprite() {
             if (blank) return blank;
-            blank = CustomMain.customZips.PursuerButton;
+            blank = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.PursuerButton.png", 115f);
             return blank;
         }
 
@@ -1632,7 +1612,7 @@ namespace TheOtherRoles
         private static Sprite buttonSprite;
         public static Sprite getButtonSprite() {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = CustomMain.customZips.SpellButton;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SpellButton.png", 115f);
             return buttonSprite;
         }
 
@@ -1676,13 +1656,13 @@ namespace TheOtherRoles
         public static Arrow arrow = new Arrow(Color.black);
         public static Sprite getMarkButtonSprite() {
             if (markButtonSprite) return markButtonSprite;
-            markButtonSprite = CustomMain.customZips.NinjaMarkButton;
+            markButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.NinjaMarkButton.png", 115f);
             return markButtonSprite;
         }
 
         public static Sprite getKillButtonSprite() {
             if (killButtonSprite) return killButtonSprite;
-            killButtonSprite = CustomMain.customZips.NinjaAssassinateButton;
+            killButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.NinjaAssassinateButton.png", 115f);
             return killButtonSprite;
         }
 
@@ -1743,7 +1723,7 @@ namespace TheOtherRoles
         public static int rechargedTasks = 3;
         public static int charges = 1;
         public static int trapCountToReveal = 2;
-        public static List<PlayerControl> playersOnMap = new List<PlayerControl>();
+        public static List<byte> playersOnMap = new List<Byte>();
         public static bool anonymousMap = false;
         public static int infoType = 0; // 0 = Role, 1 = Good/Evil, 2 = Name
         public static float trapDuration = 5f; 
@@ -1752,7 +1732,7 @@ namespace TheOtherRoles
 
         public static Sprite getButtonSprite() {
             if (trapButtonSprite) return trapButtonSprite;
-            trapButtonSprite = CustomMain.customZips.Trapper_Place_Button;
+            trapButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Trapper_Place_Button.png", 115f);
             return trapButtonSprite;
         }
 
@@ -1764,7 +1744,7 @@ namespace TheOtherRoles
             rechargedTasks = Mathf.RoundToInt(CustomOptionHolder.trapperRechargeTasksNumber.getFloat());
             charges = Mathf.RoundToInt(CustomOptionHolder.trapperMaxCharges.getFloat()) / 2;
             trapCountToReveal = Mathf.RoundToInt(CustomOptionHolder.trapperTrapNeededTriggerToReveal.getFloat());
-            playersOnMap = new List<PlayerControl>();
+            playersOnMap = new ();
             anonymousMap = CustomOptionHolder.trapperAnonymousMap.getBool();
             infoType = CustomOptionHolder.trapperInfoType.getSelection();
             trapDuration = CustomOptionHolder.trapperTrapDuration.getFloat();
@@ -1789,11 +1769,12 @@ namespace TheOtherRoles
 
         public static Sprite getButtonSprite() {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = CustomMain.customZips.Bomb_Button_Plant;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Bomb_Button_Plant.png", 115f);
             return buttonSprite;
         }
 
         public static void clearBomb(bool flag = true) {
+            TheOtherRolesPlugin.Logger.LogDebug("Clearing Bomb!");
             if (bomb != null) {
                 UnityEngine.Object.Destroy(bomb.bomb);
                 UnityEngine.Object.Destroy(bomb.background);
@@ -1838,14 +1819,14 @@ namespace TheOtherRoles
 
         public static Sprite getMarkButtonSprite() {
             if (markButtonSprite) return markButtonSprite;
-            markButtonSprite = CustomMain.customZips.YoyoMarkButtonSprite;
+            markButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.YoyoMarkButtonSprite.png", 115f);
             return markButtonSprite;
         }
         private static Sprite blinkButtonSprite;
 
         public static Sprite getBlinkButtonSprite() {
             if (blinkButtonSprite) return blinkButtonSprite;
-            blinkButtonSprite = CustomMain.customZips.YoyoBlinkButtonSprite;
+            blinkButtonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.YoyoBlinkButtonSprite.png", 115f);
             return blinkButtonSprite;
         }
 
@@ -1864,117 +1845,6 @@ namespace TheOtherRoles
             markedLocation = null;
             
         }
-    }
-
-    public static class Prophet
-    {
-        public static PlayerControl prophet;
-        public static Color32 color = new(255, 204, 127, byte.MaxValue);
-
-        public static float cooldown = 30f;
-        public static float accuracy = 20f;
-        public static bool canCallEmergency = false;
-        public static int examineNum = 3;
-        public static int examinesToBeRevealed = 1;
-        public static int examinesLeft;
-        public static bool revealProphet = true;
-        public static bool isRevealed = false;
-        public static List<Arrow> arrows = new();
-
-        public static Dictionary<PlayerControl, bool> examined = new();
-        public static PlayerControl currentTarget;
-
-       
-
-        private static Sprite buttonSprite;
-        public static Sprite getButtonSprite()
-        {
-            if (buttonSprite) return buttonSprite;
-            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SeerButton.png", 115f);
-            return buttonSprite;
- 
-        }
-
-        public static bool isKiller(PlayerControl p)
-        {
-            var rand = rnd.Next(1, 101);
-            return (Helpers.isEvil(p) && rand <= accuracy) || (!Helpers.isEvil(p) && rand > accuracy);
-        }
-
-        public static void clearAndReload()
-        {
-            prophet = null;
-            currentTarget = null;
-            isRevealed = false;
-            examined = new Dictionary<PlayerControl, bool>();
-            revealProphet = CustomOptionHolder.prophetIsRevealed.getBool();
-            cooldown = CustomOptionHolder.prophetCooldown.getFloat();
-            examineNum = Mathf.RoundToInt(CustomOptionHolder.prophetNumExamines.getFloat());
-            accuracy = CustomOptionHolder.prophetAccuracy.getFloat();
-            canCallEmergency = CustomOptionHolder.prophetCanCallEmergency.getBool();
-            examinesToBeRevealed = Math.Min(examineNum, Mathf.RoundToInt(CustomOptionHolder.prophetExaminesToBeRevealed.getFloat()));
-            examinesLeft = examineNum;
-            if (arrows != null)
-            {
-                foreach (Arrow arrow in arrows)
-                    if (arrow?.arrow != null)
-                        UnityEngine.Object.Destroy(arrow.arrow);
-            }
-            arrows = new List<Arrow>();
-        }
-    }
-    public static class Fraudster
-    {
-        public static PlayerControl fraudster;
-        public static PlayerControl currentTarget;
-        public static Color color = new Color32(255, 165, 0, byte.MaxValue);
-        public static bool fraudstermeeting;
-        public static float cooldown = Sheriff.cooldown;
-        
-        private static Sprite buttonSprite; 
-        public static Sprite getButtonSprite()
-        {
-            if (buttonSprite) return buttonSprite;
-            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SuicideButton.png", 115f);
-            return buttonSprite;
-        }
-
-        public static void clearAndReload()
-        {
-            Fraudster.fraudster = null;
-            Fraudster.cooldown = CustomOptionHolder.fraudstercooldown.getFloat();
-            
-        }
-
-    }
-    public static class Devil
-    {
-        public static PlayerControl devil;
-        public static PlayerControl currentTarget;
-        public static Color color = Palette.ImpostorRed;
-        public static List<PlayerControl> devilIntimidate = new List<PlayerControl>();
-        public static List<byte> already = new List<byte>();
-        public static bool canIntimidateAnyone = false;
-
-        public static float cooldown = 30f;
-
-        private static Sprite buttonSprite;
-
-        public static Sprite getButtonSprite()
-        {
-            if (buttonSprite) return buttonSprite;
-            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.IntimidateButton.png", 115f);
-            return buttonSprite;
-        }
-
-        public static void clearAndReload()
-        {
-            Devil.devil = null;
-            Devil.cooldown = CustomOptionHolder.fraudstercooldown.getFloat();
-            devilIntimidate = new List<PlayerControl> ();
-            already = new List<byte> ();
-        }
-
     }
 
     // Modifier
@@ -2050,17 +1920,6 @@ namespace TheOtherRoles
         public static void clearAndReload() {
             sunglasses = new List<PlayerControl>();
             vision = CustomOptionHolder.modifierSunglassesVision.getSelection() + 1;
-        }
-    }
-    public static class Lighterln
-    {
-        public static List<PlayerControl> lighterln = new List<PlayerControl>();
-        public static float vision = 2;
-
-        public static void clearAndReload()
-        {
-            lighterln.Clear();
-            lighterln = new List<PlayerControl>();
         }
     }
     public static class Mini {
@@ -2177,126 +2036,96 @@ namespace TheOtherRoles
         }
     }
 
+    public static class Armored {
+        public static PlayerControl armored;
+        
+        public static bool isBrokenArmor = false;
+
+        public static void clearAndReload() {
+            armored = null;
+            isBrokenArmor = false;
+        }
+    }
+
     public static class Shifter {
         public static PlayerControl shifter;
 
         public static PlayerControl futureShift;
         public static PlayerControl currentTarget;
 
+        public static bool shiftsMedicShield = false;
+
         private static Sprite buttonSprite;
         public static Sprite getButtonSprite() {
             if (buttonSprite) return buttonSprite;
-            buttonSprite = CustomMain.customZips.ShiftButton;
+            buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.ShiftButton.png", 115f);
             return buttonSprite;
         }
 
-        public static void shiftRole(PlayerControl player1, PlayerControl player2, bool repeat = true)
-        {
-            if (Mayor.mayor != null && Mayor.mayor == player2)
-            {
+        public static void shiftRole (PlayerControl player1, PlayerControl player2, bool repeat = true) {
+            if (Mayor.mayor != null && Mayor.mayor == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Mayor.mayor = player1;
-            }
-            else if (Portalmaker.portalmaker != null && Portalmaker.portalmaker == player2)
-            {
+            } else if (Portalmaker.portalmaker != null && Portalmaker.portalmaker == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Portalmaker.portalmaker = player1;
-            }
-            else if (Engineer.engineer != null && Engineer.engineer == player2)
-            {
+            } else if (Engineer.engineer != null && Engineer.engineer == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Engineer.engineer = player1;
-            }
-            else if (Sheriff.sheriff != null && Sheriff.sheriff == player2)
-            {
+            } else if (Sheriff.sheriff != null && Sheriff.sheriff == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 if (Sheriff.formerDeputy != null && Sheriff.formerDeputy == Sheriff.sheriff) Sheriff.formerDeputy = player1;  // Shifter also shifts info on promoted deputy (to get handcuffs)
                 Sheriff.sheriff = player1;
-            }
-            else if (Deputy.deputy != null && Deputy.deputy == player2)
-            {
+            } else if (Deputy.deputy != null && Deputy.deputy == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Deputy.deputy = player1;
-            }
-            else if (Lighter.lighter != null && Lighter.lighter == player2)
-            {
+            } else if (Lighter.lighter != null && Lighter.lighter == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Lighter.lighter = player1;
-            }
-            else if (Detective.detective != null && Detective.detective == player2)
-            {
+            } else if (Detective.detective != null && Detective.detective == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Detective.detective = player1;
-            }
-            else if (TimeMaster.timeMaster != null && TimeMaster.timeMaster == player2)
-            {
+            } else if (TimeMaster.timeMaster != null && TimeMaster.timeMaster == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 TimeMaster.timeMaster = player1;
-            }
-            else if (Medic.medic != null && Medic.medic == player2)
-            {
+            }  else if (Medic.medic != null && Medic.medic == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Medic.medic = player1;
-            }
-            else if (Swapper.swapper != null && Swapper.swapper == player2)
-            {
+                if (Medic.shielded != null && Medic.shielded == player1 && shiftsMedicShield)
+                    Medic.shielded = player2;
+            } else if (Swapper.swapper != null && Swapper.swapper == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Swapper.swapper = player1;
-            }
-            else if (Seer.seer != null && Seer.seer == player2)
-            {
+            } else if (Seer.seer != null && Seer.seer == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Seer.seer = player1;
-            }
-            else if (Hacker.hacker != null && Hacker.hacker == player2)
-            {
+            } else if (Hacker.hacker != null && Hacker.hacker == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Hacker.hacker = player1;
-            }
-            else if (Tracker.tracker != null && Tracker.tracker == player2)
-            {
+            } else if (Tracker.tracker != null && Tracker.tracker == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Tracker.tracker = player1;
-            }
-            else if (Snitch.snitch != null && Snitch.snitch == player2)
-            {
+            } else if (Snitch.snitch != null && Snitch.snitch == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Snitch.snitch = player1;
-            }
-            else if (Spy.spy != null && Spy.spy == player2)
-            {
+            } else if (Spy.spy != null && Spy.spy == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Spy.spy = player1;
-            }
-            else if (SecurityGuard.securityGuard != null && SecurityGuard.securityGuard == player2)
-            {
+            } else if (SecurityGuard.securityGuard != null && SecurityGuard.securityGuard == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 SecurityGuard.securityGuard = player1;
-            }
-            else if (Guesser.niceGuesser != null && Guesser.niceGuesser == player2)
-            {
+            } else if (Guesser.niceGuesser != null && Guesser.niceGuesser == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Guesser.niceGuesser = player1;
-            }
-            else if (Medium.medium != null && Medium.medium == player2)
-            {
+            } else if (Medium.medium != null && Medium.medium == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Medium.medium = player1;
-            }
-            else if (Pursuer.pursuer != null && Pursuer.pursuer == player2)
-            {
+            } else if (Pursuer.pursuer != null && Pursuer.pursuer == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Pursuer.pursuer = player1;
-            }
-            else if (Trapper.trapper != null && Trapper.trapper == player2)
-            {
+            } else if (Trapper.trapper != null && Trapper.trapper == player2) {
                 if (repeat) shiftRole(player2, player1, false);
                 Trapper.trapper = player1;
-            }
-            else if (Prophet.prophet != null && Prophet.prophet == player2)
-            {
-                if (repeat) shiftRole(player2, player1, false);
-                Prophet.prophet = player1;
             }
         }
 
@@ -2304,111 +2133,7 @@ namespace TheOtherRoles
             shifter = null;
             currentTarget = null;
             futureShift = null;
+            shiftsMedicShield = CustomOptionHolder.modifierShifterShiftsMedicShield.getBool();
         }
-    }
-    public static class LastImp
-    {
-        public static PlayerControl lastimp;
-
-        public static bool isLastImp = false;
-        public static int shotnum = 2;
-        public static bool isOriginalGuesser;
-        public static bool hasMultipleShots;
-        public static int killCounter;
-        public static int maxKillCounter;
-        public static bool isEnable()
-        {
-            if(CustomOptionHolder.modifierLast.getSelection() == 10f) return true;
-            else return false;
-        }
-
-        public static void promoteToLastImpostor()
-        {
-            if (!isEnable() || !HandleGuesser.isGuesserGm) return;
-
-            var impList = new List<PlayerControl>();
-            foreach (var p in PlayerControl.AllPlayerControls.GetFastEnumerator())
-            {
-                if (p.Data.Role.IsImpostor && !p.Data.IsDead && !p.Data.Disconnected) impList.Add(p);
-            }
-            if (impList.Count == 1)
-            {
-                MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.ImpostorPromotesToLastImpostor, Hazel.SendOption.Reliable, -1);
-                writer.Write(impList[0].PlayerId);
-                AmongUsClient.Instance.FinishRpcImmediately(writer);
-                RPCProcedure.impostorPromotesToLastImpostor(impList[0].PlayerId);
-            }
-        }
-        public static bool isCounterMax()
-        {
-            if (maxKillCounter <= killCounter) return true;
-            return false;
-        }
-        public static void clearAndReload()
-        {
-            lastimp = null;
-            isLastImp = false;
-            shotnum = CustomOptionHolder.modifierLastImpostorShotNum.getInt();
-            isOriginalGuesser = false;
-            hasMultipleShots = CustomOptionHolder.modifierLasthasMultipleShots.getBool();
-            killCounter = 0;
-            maxKillCounter = Mathf.RoundToInt(CustomOptionHolder.modifierLastKillCount.getFloat());
-        }
-
-    }
-
-    public static class LastCrew
-    {
-        public static PlayerControl lastcrew;
-
-        public static bool isLastCrew = false;
-        public static int shotnum = 2;
-        public static int shottask = 0;
-        public static int shotalive = 4;
-        public static bool hasMultipleShots;
-        public static int killCounter;
-        public static int maxKillCounter;
-        public static bool isEnable()
-        {
-            if (CustomOptionHolder.modifierLast.getSelection() == 10f) return true;
-            else return false;
-        }
-        public static void promoteToLastCrewmate()
-        {
-            if (!isEnable() || !HandleGuesser.isGuesserGm) return;
-
-            var crewList = new List<PlayerControl>();
-            foreach (var p in PlayerControl.AllPlayerControls.GetFastEnumerator())
-            {
-                foreach (var data in AdditionalTempData.playerRoles)
-                {
-                    if (!p.Data.Role.IsImpostor && !p.Data.IsDead && !p.Data.Disconnected && !Helpers.isNeutral(p) && data.TasksTotal > 0 && data.TasksTotal - data.TasksCompleted >= LastCrew.shottask) crewList.Add(p);
-                }
-            }
-
-            if (crewList.Count >= shotalive)
-            {
-                MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.CrewPromotesToLastCrewmate, Hazel.SendOption.Reliable, -1);
-                writer.Write(crewList[0].PlayerId);
-                AmongUsClient.Instance.FinishRpcImmediately(writer);
-                RPCProcedure.crewPromotesToLastCrewmate(crewList[0].PlayerId);
-            }
-        }
-        public static bool isCounterMax()
-        {
-            if (maxKillCounter <= killCounter) return true;
-            return false;
-        }
-        public static void clearAndReload()
-        {
-            lastcrew = null;
-            isLastCrew = false;
-            shotnum = CustomOptionHolder.modifierLastCrewmateShotNum.getInt();
-            shottask = CustomOptionHolder.modifierLastCrewmateShotTaskNum.getInt();
-            shotalive = CustomOptionHolder.modifierLastCrewmateAliveNum.getInt();
-            hasMultipleShots = CustomOptionHolder.modifierLasthasMultipleShots.getBool();
-            maxKillCounter = Mathf.RoundToInt(CustomOptionHolder.modifierLastKillCount.getFloat());
-        }
-
     }
 }

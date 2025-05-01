@@ -11,7 +11,6 @@ using UnityEngine;
 using static UnityEngine.UI.Button;
 using UnityEngine.Events;
 using Hazel;
- 
 
 namespace TheOtherRoles.CustomGameModes {
     [HarmonyPatch]

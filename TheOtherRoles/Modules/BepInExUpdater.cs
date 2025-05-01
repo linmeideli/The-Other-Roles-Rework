@@ -19,8 +19,8 @@ namespace TheOtherRoles.Modules;
 
 public class BepInExUpdater : MonoBehaviour
 {
-    public const string RequiredBepInExVersion = "6.0.0-be.729+35f6b1b541819897e2d80fc08b98e0f8e4880f33";
-    public const string BepInExDownloadURL = "https://builds.bepinex.dev/projects/bepinex_be/729/BepInEx-Unity.IL2CPP-win-x86-6.0.0-be.729%2B35f6b1b.zip";
+    public const string RequiredBepInExVersion = "6.0.0-be.697+53625800b86f6c68751445248260edf0b27a71c2";
+    public const string BepInExDownloadURL = "https://builds.bepinex.dev/projects/bepinex_be/697/BepInEx-Unity.IL2CPP-win-x86-6.0.0-be.697%2B5362580.zip";
     public static bool UpdateRequired => Paths.BepInExVersion.ToString() != RequiredBepInExVersion;
 
     public void Awake()
@@ -34,7 +34,7 @@ public class BepInExUpdater : MonoBehaviour
     [HideFromIl2Cpp]
     public IEnumerator CoUpdate()
     {
-        Task.Run(() => MessageBox(GetForegroundWindow(), "Required BepInEx update is downloading, please wait...","The Other Roles Rework", 0));
+        Task.Run(() => MessageBox(GetForegroundWindow(), "Required BepInEx update is downloading, please wait...","The Other Roles", 0));
         UnityWebRequest www = UnityWebRequest.Get(BepInExDownloadURL);
         yield return www.Send();        
         if (www.isNetworkError || www.isHttpError)

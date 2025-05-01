@@ -13,9 +13,6 @@ using TheOtherRoles.Utilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
-using static TheOtherRoles.Snitch;
-using static UnityEngine.GraphicsBuffer;
-
 
 namespace TheOtherRoles.CustomGameModes {
     [HarmonyPatch]
@@ -79,7 +76,6 @@ namespace TheOtherRoles.CustomGameModes {
         public static float dangerMeterActive = 0f;
 
         private static List<GameObject> duplicatedCollider = new();
-        private static GameObject introObject;
 
         public static void clearAndReload() {
             remainingShots.Clear();
@@ -261,16 +257,19 @@ namespace TheOtherRoles.CustomGameModes {
                 float dist = 55f;
                 float dist2 = 15f;
                 float curr = float.MaxValue;
-                foreach (PlayerControl playerControl in PlayerControl.AllPlayerControls.ToArray().Where(x => !x.Data.IsDead && (PlayerControl.LocalPlayer.Data.Role.IsImpostor ? !x.Data.Role.IsImpostor : x.Data.Role.IsImpostor))) {
-                    if (invisPlayers.ContainsKey(playerControl.PlayerId)) continue;  // Dont light up for invisible players
-                    if (!(playerControl == null)) {
+                try {
+                    foreach (PlayerControl playerControl in PlayerControl.AllPlayerControls.ToArray().Where(x => !x.Data.IsDead && (PlayerControl.LocalPlayer.Data.Role.IsImpostor ? !x.Data.Role.IsImpostor : x.Data.Role.IsImpostor))) {
+                        if (invisPlayers.ContainsKey(playerControl.PlayerId)) continue;  // Dont light up for invisible players
+                        if (!(playerControl == null)) {
 
-                        float sqrMagnitude = (playerControl.transform.position - PlayerControl.LocalPlayer.transform.position).sqrMagnitude;
-                        if (sqrMagnitude < dist && curr > sqrMagnitude) {
-                            curr = sqrMagnitude;
+                            float sqrMagnitude = (playerControl.transform.position - PlayerControl.LocalPlayer.transform.position).sqrMagnitude;
+                            if (sqrMagnitude < dist && curr > sqrMagnitude) {
+                                curr = sqrMagnitude;
+                            }
                         }
                     }
                 }
+                catch { }
                 float dangerLevel1 = Mathf.Clamp01((dist - curr) / (dist - dist2));
                 float dangerLevel2 = Mathf.Clamp01((dist2 - curr) / dist2);
                 HudManager.Instance.DangerMeter.SetDangerValue(dangerLevel1, dangerLevel2);
@@ -358,7 +357,7 @@ namespace TheOtherRoles.CustomGameModes {
                 Collider2D bestCollider = null;
                 float bestDist = 9999;
                 if (whitelistedObjects == null || whitelistedObjects.Count == 0 || verbose) {
-                    updateWhitelistedObjects(true);
+                    updateWhitelistedObjects(verbose);
                 }
                 foreach (Collider2D collider in Physics2D.OverlapCircleAll(origin.transform.position, radius)) {
                     if (verbose) {
@@ -366,7 +365,7 @@ namespace TheOtherRoles.CustomGameModes {
                     }
                     bool whiteListed = false;
                     foreach (var whiteListedWord in whitelistedObjects) {
-                        if (collider.gameObject.name.Contains(whiteListedWord)) whiteListed = true;
+                        if ((bool)(collider.gameObject?.name?.Contains(whiteListedWord))) whiteListed = true;
                     }
                     if (collider.GetComponent<Console>() != null || whiteListed) {
                         float dist = Vector2.Distance(origin.transform.position, collider.transform.position);
@@ -377,7 +376,9 @@ namespace TheOtherRoles.CustomGameModes {
                     }
                 }
                 return bestCollider.gameObject;
-            } catch { return null; }
+            } catch (Exception e) {
+                TheOtherRolesPlugin.Logger.LogError($"Error in find closest disguise object: {e}");
+                return null; }
         }
 
         public static GameObject FindPropByNameAndPos(string propName, float posX) {
@@ -400,8 +401,7 @@ namespace TheOtherRoles.CustomGameModes {
 
         [HarmonyPatch(typeof(CustomNetworkTransform), nameof(CustomNetworkTransform.FixedUpdate))]
         [HarmonyPostfix]
-        public static void PostfixNetworkSpeed(CustomNetworkTransform __instance)
-        {
+        public static void PostfixNetworkSpeed(CustomNetworkTransform __instance) {
             if (__instance.AmOwner || !speedboostActive.ContainsKey(__instance.myPlayer.PlayerId)) return;
             if (GameData.Instance && __instance.myPlayer.CanMove)
                 __instance.body.velocity *= speedboostRatio;
@@ -409,8 +409,7 @@ namespace TheOtherRoles.CustomGameModes {
 
         [HarmonyPatch(typeof(IntroCutscene), nameof(IntroCutscene.OnDestroy))]
         [HarmonyPostfix]
-        public static void IntroCutsceneDestroyPatch(IntroCutscene __instance)
-        {
+        public static void IntroCutsceneDestroyPatch(IntroCutscene __instance) {
             if (!isPropHuntGM || !PlayerControl.LocalPlayer.Data.Role.IsImpostor) return;
             PlayerControl.LocalPlayer.moveable = false;
             MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.PropHuntStartTimer, Hazel.SendOption.Reliable, -1);
@@ -420,7 +419,7 @@ namespace TheOtherRoles.CustomGameModes {
 
 
             // Play mp4 video in Full Screen:
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            Assembly assembly = Assembly.GetExecutingAssembly();
             string[] resourceNames = assembly.GetManifestResourceNames();
             var resourceBundle = assembly.GetManifestResourceStream("TheOtherRoles.Resources.IntroAnimation.intro");
             var assetBundle = AssetBundle.LoadFromMemory(resourceBundle.ReadFully());
@@ -439,9 +438,8 @@ namespace TheOtherRoles.CustomGameModes {
             videoPlayer.Play();
 
 
-            FastDestroyableSingleton<HudManager>.Instance.StartCoroutine(Effects.Lerp(initialBlackoutTime + 10f / 25, new Action<float>((p) => {
-                if (p == 1f)
-                {
+            FastDestroyableSingleton<HudManager>.Instance.StartCoroutine(Effects.Lerp(initialBlackoutTime + 10f/25, new Action<float>((p) => {
+                if (p == 1f) {
                     // start timer
                     MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.PropHuntStartTimer, Hazel.SendOption.Reliable, -1);
                     writer.Write(false);
@@ -451,16 +449,12 @@ namespace TheOtherRoles.CustomGameModes {
                     HudManager.Instance.FullScreen.enabled = false;
                     videoPlayer.Destroy();
                     assetBundle.Unload(false);
-                    introObject.Destroy();
-                }
-                else
-                {
+                } else {
                     HudManager.Instance.FullScreen.enabled = true;
                     HudManager.Instance.FullScreen.gameObject.SetActive(true);
                 }
             })));
         }
-
 
         [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.FixedUpdate))]
         [HarmonyPostfix]
@@ -527,14 +521,15 @@ namespace TheOtherRoles.CustomGameModes {
         [HarmonyPostfix]
         public static void MapSetPostfix() {  // Make sure the map in the settings is in sync with the map from li
             if (TORMapOptions.gameMode != CustomGamemodes.PropHunt && TORMapOptions.gameMode != CustomGamemodes.HideNSeek || AmongUsClient.Instance.IsGameStarted) return;
-            int map = GameOptionsManager.Instance.currentGameOptions.MapId;
+            int? map = GameOptionsManager.Instance?.currentGameOptions?.MapId;
+            if (map == null) return;
             if (map > 3) map--;
             if (TORMapOptions.gameMode == CustomGamemodes.HideNSeek)
                 if (CustomOptionHolder.hideNSeekMap.selection != map)
-                    CustomOptionHolder.hideNSeekMap.updateSelection(map);
+                    CustomOptionHolder.hideNSeekMap.updateSelection((int)map);
             if (TORMapOptions.gameMode == CustomGamemodes.PropHunt)
                 if (CustomOptionHolder.propHuntMap.selection != map)
-                    CustomOptionHolder.propHuntMap.updateSelection(map);
+                    CustomOptionHolder.propHuntMap.updateSelection((int)map);
         }
 
 

@@ -1,10 +1,9 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
- 
+
 using TheOtherRoles.Utilities;
 using static TheOtherRoles.TheOtherRoles;
-using TheOtherRoles.Modules;
 
 namespace TheOtherRoles.Objects {
 
@@ -49,12 +48,12 @@ namespace TheOtherRoles.Objects {
             firstPortal.animationFgRenderer.flipX = flip;
             secondPortal.animationFgRenderer.flipX = flip;
             if (Morphling.morphling != null && Morphling.morphTimer > 0) playerControl = Morphling.morphTarget;  // Will output info of morph-target instead
-            string playerNameDisplay = Portalmaker.logOnlyHasColors ? $"{ModTranslation.GetString("PortalAPlayer")} (" + (Helpers.isLighterColor(playerControl) ? "L" : "D") + ")" : playerControl.Data.PlayerName;
+            string playerNameDisplay = Portalmaker.logOnlyHasColors ? "A player (" + (Helpers.isLighterColor(playerControl) ? "L" : "D") + ")" : playerControl.Data.PlayerName;
 
             int colorId = playerControl.Data.DefaultOutfit.ColorId;
 
             if (Camouflager.camouflageTimer > 0 || Helpers.MushroomSabotageActive()) {
-                playerNameDisplay = "ACamoPlayer".Translate();
+                playerNameDisplay = "A camouflaged player";
                 colorId = 6;
             }
             
@@ -109,7 +108,7 @@ namespace TheOtherRoles.Objects {
             else if (secondPortal == null) {
                 secondPortal = this;
             }
-            var lastRoom = FastDestroyableSingleton<HudManager>.Instance?.roomTracker.LastRoom.RoomId;
+            var lastRoom = FastDestroyableSingleton<HudManager>.Instance?.roomTracker?.LastRoom?.RoomId;
             this.room = lastRoom != null ? DestroyableSingleton<TranslationController>.Instance.GetString((SystemTypes)lastRoom) : "Open Field";
         }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using Hazel;
- 
+
 using TheOtherRoles.Utilities;
 using TheOtherRoles.CustomGameModes;
 using TheOtherRoles.Modules;
@@ -27,7 +27,7 @@ namespace TheOtherRoles.Patches {
                 float ypos = 0.15f - safeOrthographicSize * 1.7f;
                 bottomLeft = new Vector3(xpos / 2, ypos/2, -61f);
 
-                foreach (PlayerControl p in PlayerControl.AllPlayerControls.ToArray()) {
+                foreach (PlayerControl p in PlayerControl.AllPlayerControls) {
                     NetworkedPlayerInfo data = p.Data;
                     PoolablePlayer player = UnityEngine.Object.Instantiate<PoolablePlayer>(__instance.PlayerPrefab, FastDestroyableSingleton<HudManager>.Instance.transform);
                     playerPrefab = __instance.PlayerPrefab;
@@ -49,7 +49,7 @@ namespace TheOtherRoles.Patches {
                         if (HideNSeek.isHunted() && p.Data.Role.IsImpostor) {
                             player.transform.localPosition = bottomLeft + new Vector3(-0.25f, 0.4f, 0) + Vector3.right * playerCounter++ * 0.6f;
                             player.transform.localScale = Vector3.one * 0.3f;
-                            player.cosmetics.nameText.text += $"{Helpers.cs(Color.red, $" ({ModTranslation.GetString("Hunter")})")}";
+                            player.cosmetics.nameText.text += $"{Helpers.cs(Color.red, " (Hunter)")}";
                             player.gameObject.SetActive(true);
                         } else if (!p.Data.Role.IsImpostor) {
                             player.transform.localPosition = bottomLeft + new Vector3(-0.35f, -0.25f, 0) + Vector3.right * hideNSeekCounter++ * 0.35f;
@@ -83,10 +83,7 @@ namespace TheOtherRoles.Patches {
                     BountyHunter.cooldownText.transform.localScale = Vector3.one * 0.4f;
                     BountyHunter.cooldownText.gameObject.SetActive(true);
                 }
-            }
-
-            // Force Reload of SoundEffectHolder
-            SoundEffectsManager.Load();
+            }           
 
             // First kill
             if (AmongUsClient.Instance.AmHost && TORMapOptions.shieldFirstKill && TORMapOptions.firstKillName != "" && !HideNSeek.isHideNSeekGM && !PropHunt.isPropHuntGM) {
@@ -100,7 +97,7 @@ namespace TheOtherRoles.Patches {
             }
             TORMapOptions.firstKillName = "";
 
-			EventUtility.gameStartsUpdate();
+            EventUtility.gameStartsUpdate();
 
             if (HideNSeek.isHideNSeekGM) {
                 foreach (PlayerControl player in HideNSeek.getHunters()) {
@@ -170,16 +167,28 @@ namespace TheOtherRoles.Patches {
                 }
                 yourTeam = fakeImpostorTeam;
             }
+
+            // Role draft: If spy is enabled, don't show the team
+            if (CustomOptionHolder.spySpawnRate.getSelection() > 0 && PlayerControl.AllPlayerControls.ToArray().ToList().Where(x => x.Data.Role.IsImpostor).Count() > 1) {
+                var fakeImpostorTeam = new Il2CppSystem.Collections.Generic.List<PlayerControl>(); // The local player always has to be the first one in the list (to be displayed in the center)
+                fakeImpostorTeam.Add(PlayerControl.LocalPlayer);
+                yourTeam = fakeImpostorTeam;
+            }
         }
 
         public static void setupIntroTeam(IntroCutscene __instance, ref  Il2CppSystem.Collections.Generic.List<PlayerControl> yourTeam) {
             List<RoleInfo> infos = RoleInfo.getRoleInfoForPlayer(PlayerControl.LocalPlayer);
             RoleInfo roleInfo = infos.Where(info => !info.isModifier).FirstOrDefault();
-            if (roleInfo == null) return;
-            if (roleInfo.isNeutral) {
-                var neutralColor = new Color32(76, 84, 78, 255);
+            var neutralColor = new Color32(76, 84, 78, 255);
+            if (roleInfo == null || roleInfo == RoleInfo.crewmate) {
+                if (RoleDraft.isEnabled && CustomOptionHolder.neutralRolesCountMax.getSelection() > 0) {
+                    __instance.TeamTitle.text = "<size=60%>Crewmate" + Helpers.cs(Color.white, " / ") + Helpers.cs(neutralColor, "Neutral") + "</size>";
+                }
+                return;
+            }
+            if (roleInfo.isNeutral) {                
                 __instance.BackgroundBar.material.color = neutralColor;
-                __instance.TeamTitle.text = "NeutralRolesText".Translate();
+                __instance.TeamTitle.text = "Neutral";
                 __instance.TeamTitle.color = neutralColor;
             }
         }
@@ -231,15 +240,14 @@ namespace TheOtherRoles.Patches {
                         __instance.RoleBlurbText.text += Helpers.cs(modifierInfo.color, $"\n{modifierInfo.introDescription}");
                     else {
                         PlayerControl otherLover = PlayerControl.LocalPlayer == Lovers.lover1 ? Lovers.lover2 : Lovers.lover1;
-                        __instance.RoleBlurbText.text += Helpers.cs(Lovers.color, $"\n"+ "anotherDecTextLover".Translate() + $" {otherLover?.Data?.PlayerName ?? ""} ");
+                        __instance.RoleBlurbText.text += Helpers.cs(Lovers.color, $"\n♥ You are in love with {otherLover?.Data?.PlayerName ?? ""} ♥");
                     }
                 }
                 if (Deputy.knowsSheriff && Deputy.deputy != null && Sheriff.sheriff != null) {
-                    
                     if (infos.Any(info => info.roleId == RoleId.Sheriff))
-                        __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color, $"\n"+ "anotherDecTextSheriff".Translate() + $"{Deputy.deputy?.Data?.PlayerName ?? ""}");
+                        __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color, $"\nYour Deputy is {Deputy.deputy?.Data?.PlayerName ?? ""}");
                     else if (infos.Any(info => info.roleId == RoleId.Deputy))
-                        __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color, $"\n"+ "anotherDecTextDeputy".Translate() + $"{Sheriff.sheriff?.Data?.PlayerName ?? ""}");
+                        __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color, $"\nYour Sheriff is {Sheriff.sheriff?.Data?.PlayerName ?? ""}");
                 }
             }
             public static bool Prefix(IntroCutscene __instance) {

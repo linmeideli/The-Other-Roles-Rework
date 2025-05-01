@@ -6,7 +6,7 @@ using BepInEx;
 using BepInEx.Unity.IL2CPP;
 using HarmonyLib;
 using TheOtherRoles.Patches;
- 
+
 using UnityEngine;
 using Object = UnityEngine.Object;
 

@@ -1,5 +1,5 @@
 using HarmonyLib;
- 
+
 using UnityEngine;
 
 namespace TheOtherRoles.Patches {

@@ -9,14 +9,12 @@ using static TheOtherRoles.TheOtherRoles;
 using TheOtherRoles.Modules;
 using HarmonyLib;
 using Hazel;
- 
 using TheOtherRoles.Utilities;
 using System.Threading.Tasks;
 using TheOtherRoles.CustomGameModes;
 using Reactor.Utilities.Extensions;
 using AmongUs.GameOptions;
 using TheOtherRoles.Patches;
-using Il2CppSystem.IO;
 
 namespace TheOtherRoles {
 
@@ -33,19 +31,11 @@ namespace TheOtherRoles {
         HideNSeek,
         PropHunt
     }
-    public enum RoleType
-    {
-        Crewmate,
-        Impostor,
-        Neutral,
-        Modifier
-    }
-
     public static class Helpers
     {
-
+        public static string previousEndGameSummary = "";
         public static Dictionary<string, Sprite> CachedSprites = new();
-        public static bool IsCountDown => GameStartManager.InstanceExists && GameStartManager.Instance.startState == GameStartManager.StartingStates.Countdown;
+
         public static Sprite loadSpriteFromResources(string path, float pixelsPerUnit, bool cache=true) {
             try
             {
@@ -56,92 +46,51 @@ namespace TheOtherRoles {
                 if (!cache) return sprite;
                 return CachedSprites[path + pixelsPerUnit] = sprite;
             } catch {
-                System.Console.WriteLine("加载路径时出错: " + path);
+                System.Console.WriteLine("Error loading sprite from path: " + path);
             }
             return null;
         }
-       
-        public static Sprite LoadSpriteFromDisk(string path, float pixelsPerUnit)
-        {
-            var texture = Helpers.loadTextureFromDisk(path);
-            if (texture == null)
-                texture = Helpers.loadTextureFromResources(path);
-            if (texture == null) return null;
-            var sprite = Sprite.Create(texture,
-                new Rect(0, 0, texture.width, texture.height),
-                new Vector2(0.53f, 0.575f),
-                pixelsPerUnit);
-            if (sprite == null) return null;
-            texture.hideFlags |= HideFlags.HideAndDontSave | HideFlags.DontUnloadUnusedAsset;
-            sprite.hideFlags |= HideFlags.HideAndDontSave | HideFlags.DontUnloadUnusedAsset;
 
-            return sprite;
-           
-        }
-        /*
-        public static bool checkAndDoVetKill(PlayerControl target)
-        {
-            var shouldVetKill = Veteran.veteran == target && Veteran.alertActive;
-            if (shouldVetKill)
-            {
-                var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                    (byte)CustomRPC.VeteranKill, SendOption.Reliable);
-                writer.Write(PlayerControl.LocalPlayer.PlayerId);
-                AmongUsClient.Instance.FinishRpcImmediately(writer);
-                RPCProcedure.veteranKill(PlayerControl.LocalPlayer.PlayerId);
-            }
-
-            return shouldVetKill;//老兵反弹
-        }*/
-        public static Color getTeamColor(RoleType team)
-        {
-            return team switch
-            {
-                RoleType.Crewmate => Palette.CrewmateBlue,
-                RoleType.Impostor => Palette.ImpostorRed,
-                RoleType.Neutral => Color.gray,
-                RoleType.Modifier => Color.yellow,
-                _ => Palette.White
-            };
-        }
         public static unsafe Texture2D loadTextureFromResources(string path) {
             try {
                 Texture2D texture = new Texture2D(2, 2, TextureFormat.ARGB32, true);
                 Assembly assembly = Assembly.GetExecutingAssembly();
-                System.IO.Stream stream = assembly.GetManifestResourceStream(path);
+                Stream stream = assembly.GetManifestResourceStream(path);
                 var length = stream.Length;
                 var byteTexture = new Il2CppStructArray<byte>(length);
                 stream.Read(new Span<byte>(IntPtr.Add(byteTexture.Pointer, IntPtr.Size * 4).ToPointer(), (int) length));
-                if (path.Contains("马帽子")) {
+                if (path.Contains("HorseHats")) {
                     byteTexture = new Il2CppStructArray<byte>(byteTexture.Reverse().ToArray());
                 }
                 ImageConversion.LoadImage(texture, byteTexture, false);
                 return texture;
             } catch {
-                System.Console.WriteLine("加载资源时出错: " + path);
+                System.Console.WriteLine("Error loading texture from resources: " + path);
             }
             return null;
         }
 
         public static Texture2D loadTextureFromDisk(string path) {
             try {          
-                if (System.IO.File.Exists(path))     {
+                if (File.Exists(path))     {
                     Texture2D texture = new Texture2D(2, 2, TextureFormat.ARGB32, true);
                     var byteTexture = Il2CppSystem.IO.File.ReadAllBytes(path);
                     ImageConversion.LoadImage(texture, byteTexture, false);
                     return texture;
                 }
             } catch {
-                TheOtherRolesPlugin.Logger.LogError("从磁盘加载纹理时出错: " + path);
+                TheOtherRolesPlugin.Logger.LogError("Error loading texture from disk: " + path);
             }
             return null;
         }
 
+        /* This function has been removed from TOR because we switched to assetbundles for compressed audio. leaving it here for reference - Gendelo
         public static AudioClip loadAudioClipFromResources(string path, string clipName = "UNNAMED_TOR_AUDIO_CLIP") {
-            // must be "raw (headerless) 2-channel signed 32 bit pcm (le)" (can e.g. use Audacity® to export)
+
+            // must be "raw (headerless) 2-channel signed 32 bit pcm (le) 48kHz" (can e.g. use Audacity® to export )
             try {
                 Assembly assembly = Assembly.GetExecutingAssembly();
-                System.IO.Stream stream = assembly.GetManifestResourceStream(path);
+                Stream stream = assembly.GetManifestResourceStream(path);
                 var byteAudio = new byte[stream.Length];
                 _ = stream.Read(byteAudio, 0, (int)stream.Length);
                 float[] samples = new float[byteAudio.Length / 4]; // 4 bytes per sample
@@ -157,32 +106,32 @@ namespace TheOtherRoles {
                 audioClip.SetData(samples, 0);
                 return audioClip;
             } catch {
-                System.Console.WriteLine("从资源加载AudioClip时出错: " + path);
+                System.Console.WriteLine("Error loading AudioClip from resources: " + path);
             }
             return null;
 
-            /* Usage example:
-            AudioClip exampleClip = Helpers.loadAudioClipFromResources("TheOtherRoles.Resources.exampleClip.raw");
-            if (Constants.ShouldPlaySfx()) SoundManager.Instance.PlaySound(exampleClip, false, 0.8f);
-            */
-        }
+            // Usage example:
+            //AudioClip exampleClip = Helpers.loadAudioClipFromResources("TheOtherRoles.Resources.exampleClip.raw");
+            //if (Constants.ShouldPlaySfx()) SoundManager.Instance.PlaySound(exampleClip, false, 0.8f);
+            
+        }*/
 
         public static string readTextFromResources(string path) {
             Assembly assembly = Assembly.GetExecutingAssembly();
-            System.IO.Stream stream = assembly.GetManifestResourceStream(path);
-            System.IO.StreamReader textStreamReader = new System.IO.StreamReader(stream);
+            Stream stream = assembly.GetManifestResourceStream(path);
+            StreamReader textStreamReader = new StreamReader(stream);
             return textStreamReader.ReadToEnd();
         }
 
         public static string readTextFromFile(string path) {
-            System.IO.Stream stream = System.IO.File.OpenRead(path);
-            System.IO.StreamReader textStreamReader = new System.IO.StreamReader(stream);
+            Stream stream = File.OpenRead(path);
+            StreamReader textStreamReader = new StreamReader(stream);
             return textStreamReader.ReadToEnd();
         }
 
         public static PlayerControl playerById(byte id)
         {
-            foreach (PlayerControl player in PlayerControl.AllPlayerControls.ToArray())
+            foreach (PlayerControl player in PlayerControl.AllPlayerControls)
                 if (player.PlayerId == id)
                     return player;
             return null;
@@ -191,7 +140,7 @@ namespace TheOtherRoles {
         public static Dictionary<byte, PlayerControl> allPlayersById()
         {
             Dictionary<byte, PlayerControl> res = new Dictionary<byte, PlayerControl>();
-            foreach (PlayerControl player in PlayerControl.AllPlayerControls.ToArray())
+            foreach (PlayerControl player in PlayerControl.AllPlayerControls)
                 res.Add(player.PlayerId, player);
             return res;
         }
@@ -235,7 +184,7 @@ namespace TheOtherRoles {
 
             // Add TextTask for remaining RoleInfos
             foreach (string title in taskTexts) {
-                var task = new GameObject("职业任务").AddComponent<ImportantTextTask>();
+                var task = new GameObject("RoleTask").AddComponent<ImportantTextTask>();
                 task.transform.SetParent(player.transform, false);
                 task.Text = title;
                 player.myTasks.Insert(0, task);
@@ -244,33 +193,18 @@ namespace TheOtherRoles {
 
         internal static string getRoleString(RoleInfo roleInfo)
         {
-            if (roleInfo.name == "豺狼") 
+            if (roleInfo.name == "Jackal") 
             {
-                var getSidekickText = Jackal.canCreateSidekick ? " 招募一个跟班" : "";
-                return cs(roleInfo.color, $"{roleInfo.name}: 杀死所有人{getSidekickText}");  
+                var getSidekickText = Jackal.canCreateSidekick ? " and recruit a Sidekick" : "";
+                return cs(roleInfo.color, $"{roleInfo.name}: Kill everyone{getSidekickText}");  
             }
 
-            if (roleInfo.name == "醉鬼") 
+            if (roleInfo.name == "Invert") 
             {
-                return cs(roleInfo.color, $"{roleInfo.name}: {roleInfo.shortDescription}{Invert.meetings}");
+                return cs(roleInfo.color, $"{roleInfo.name}: {roleInfo.shortDescription} ({Invert.meetings})");
             }
-
-
-                if (PlayerControl.LocalPlayer.Data.Role.IsImpostor && PlayerControl.AllPlayerControls.ToArray().Where(x => !x.Data.IsDead).ToList().Count - ExileController.Instance.initData.remainingImpostorCount <= 1)
-                {
-                    return cs(roleInfo.color, $"{roleInfo.name}: {roleInfo.shortDescription}\n{ModTranslation.GetString("ImpGetEmergencyCooldown")} {GameManager.Instance.LogicOptions.GetEmergencyCooldown()}");
-                }
-
             
-
             return cs(roleInfo.color, $"{roleInfo.name}: {roleInfo.shortDescription}");
-        }
-
-        public static bool IsChinese()
-        {
-            int lang = (int)AmongUs.Data.DataManager.Settings.Language.CurrentLanguage;
-            if (lang == 13) return true;
-            return false;
         }
 
         public static bool isD(byte playerId) {
@@ -287,13 +221,6 @@ namespace TheOtherRoles {
             return n != StringNames.ServerNA && n != StringNames.ServerEU && n != StringNames.ServerAS;
         }
 
-        public static  bool isAprilDay()
-        {
-            int currentMonth = DateTime.Now.Month;
-            int currentDay = DateTime.Now.Day;
-            if (currentDay == 1 && currentMonth == 4) return true;
-            else return false;
-        }
         public static bool hasFakeTasks(this PlayerControl player) {
             return (player == Jester.jester || player == Jackal.jackal || player == Sidekick.sidekick || player == Arsonist.arsonist || player == Vulture.vulture || Jackal.formerJackals.Any(x => x == player));
         }
@@ -524,9 +451,23 @@ namespace TheOtherRoles {
             return roleCouldUse;
         }
 
+        public static bool checkArmored(PlayerControl target, bool breakShield, bool showShield, bool additionalCondition = true) {
+            if (target != null && Armored.armored != null && Armored.armored == target && !Armored.isBrokenArmor && additionalCondition) {
+                if (breakShield) {
+                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.BreakArmor, Hazel.SendOption.Reliable, -1);
+                    AmongUsClient.Instance.FinishRpcImmediately(writer);
+                    RPCProcedure.breakArmor();
+                }
+                if (showShield) {
+                    target.ShowFailedMurder();
+                }
+                return true;
+            }
+            return false;
+        }
+
         public static MurderAttemptResult checkMuderAttempt(PlayerControl killer, PlayerControl target, bool blockRewind = false, bool ignoreBlank = false, bool ignoreIfKillerIsDead = false, bool ignoreMedic = false) {
             var targetRole = RoleInfo.getRoleInfoForPlayer(target, false).FirstOrDefault();
-
             // Modified vanilla checks
             if (AmongUsClient.Instance.IsGameOver) return MurderAttemptResult.SuppressKill;
             if (killer == null || killer.Data == null || (killer.Data.IsDead && !ignoreIfKillerIsDead) || killer.Data.Disconnected) return MurderAttemptResult.SuppressKill; // Allow non Impostor kills compared to vanilla code
@@ -573,8 +514,15 @@ namespace TheOtherRoles {
 
             // Thief if hit crew only kill if setting says so, but also kill the thief.
             else if (Thief.isFailedThiefKill(target, killer, targetRole)) {
-                Thief.suicideFlag = true;
+                if (!checkArmored(killer, true, true))
+                    Thief.suicideFlag = true;
                 return MurderAttemptResult.SuppressKill;
+            }
+
+            // Block Armored with armor kill
+            
+            else if (checkArmored(target, true, killer == PlayerControl.LocalPlayer, Sheriff.sheriff == null || killer.PlayerId != Sheriff.sheriff.PlayerId || isEvil(target) && Sheriff.canKillNeutrals || isKiller(target))) {
+                return MurderAttemptResult.BlankKill;
             }
 
             // Block hunted with time shield kill
@@ -639,7 +587,7 @@ namespace TheOtherRoles {
 
         public static List<PlayerControl> getKillerTeamMembers(PlayerControl player) {
             List<PlayerControl> team = new List<PlayerControl>();
-            foreach(PlayerControl p in PlayerControl.AllPlayerControls.ToArray()) {
+            foreach(PlayerControl p in PlayerControl.AllPlayerControls) {
                 if (player.Data.Role.IsImpostor && p.Data.Role.IsImpostor && player.PlayerId != p.PlayerId && team.All(x => x.PlayerId != p.PlayerId)) team.Add(p);
                 else if (player == Jackal.jackal && p == Sidekick.sidekick) team.Add(p); 
                 else if (player == Sidekick.sidekick && p == Jackal.jackal) team.Add(p);
@@ -740,21 +688,11 @@ namespace TheOtherRoles {
                 || (Spy.spy != null && Spy.spy.PlayerId == player.PlayerId && Spy.hasImpostorVision)
                 || (Jester.jester != null && Jester.jester.PlayerId == player.PlayerId && Jester.hasImpostorVision)
                 || (Thief.thief != null && Thief.thief.PlayerId == player.PlayerId && Thief.hasImpostorVision);
-
         }
         
         public static object TryCast(this Il2CppObjectBase self, Type type)
         {
             return AccessTools.Method(self.GetType(), nameof(Il2CppObjectBase.TryCast)).MakeGenericMethod(type).Invoke(self, Array.Empty<object>());
-        }
-        public static string SerializeObject(object value)
-        {
-            Type type = TheOtherRolesPlugin.JsonNet.GetType("Newtonsoft.Json.JsonConvert");
-            MethodInfo method = type.GetMethods().FirstOrDefault(c =>
-            {
-                return c.Name == "SerializeObject" && c.GetParameters().Length == 1;
-            });
-            return method.Invoke(null, new[] { value }) as string;
         }
     }
 }

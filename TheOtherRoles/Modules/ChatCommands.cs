@@ -1,11 +1,8 @@
 using System;
 using HarmonyLib;
 using System.Linq;
- 
 using TheOtherRoles.Utilities;
 using Hazel;
-using AmongUs.Data;
-using InnerNet;
 
 namespace TheOtherRoles.Modules {
     [HarmonyPatch]
@@ -110,21 +107,6 @@ namespace TheOtherRoles.Modules {
             public static void Postfix(HudManager __instance) {
                 if (!__instance.Chat.isActiveAndEnabled && (AmongUsClient.Instance.NetworkMode == NetworkModes.FreePlay || (PlayerControl.LocalPlayer.isLover() && Lovers.enableChat)))
                     __instance.Chat.SetVisible(true);
-            }
-        }
-        public static class ChatControllerAwakePatch
-        {
-            public static void Prefix()
-            {
-                DataManager.Settings.Multiplayer.ChatMode = QuickChatModes.FreeChatOrQuickChat;
-            }
-            public static void Postfix(ChatController __instance)
-            {
-                DataManager.Settings.Multiplayer.ChatMode = QuickChatModes.FreeChatOrQuickChat;
-                if (__instance.IsOpenOrOpening)
-                {
-                    __instance.banButton.MenuButton.enabled = !__instance.IsAnimating;
-                }
             }
         }
 

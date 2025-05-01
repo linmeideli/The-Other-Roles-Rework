@@ -4,7 +4,7 @@ using AmongUs.GameOptions;
 using HarmonyLib;
 using Hazel;
 using InnerNet;
- 
+
 using TheOtherRoles.Utilities;
 
 namespace TheOtherRoles.Modules {
@@ -45,7 +45,7 @@ namespace TheOtherRoles.Modules {
         }
         [HarmonyPatch(typeof(InnerNetClient), nameof(InnerNetClient.HostGame))]
         public static class InnerNetClientHostPatch {
-            public static void Prefix(InnerNet.InnerNetClient __instance, [HarmonyArgument(0)] LegacyGameOptions settings) {
+            public static void Prefix(InnerNet.InnerNetClient __instance, [HarmonyArgument(0)] GameOptionsData settings) {
                 int maxPlayers;
                 try {
                     maxPlayers = GameOptionsManager.Instance.currentNormalGameOptions.MaxPlayers;
@@ -57,7 +57,7 @@ namespace TheOtherRoles.Modules {
                 settings.MaxPlayers = 15; // Force 15 Player Lobby on Server
                 DataManager.Settings.Multiplayer.ChatMode = InnerNet.QuickChatModes.FreeChatOrQuickChat;
             }
-            public static void Postfix(InnerNet.InnerNetClient __instance, [HarmonyArgument(0)] LegacyGameOptions settings) {
+            public static void Postfix(InnerNet.InnerNetClient __instance, [HarmonyArgument(0)] GameOptionsData settings) {
                 settings.MaxPlayers = DynamicLobbies.LobbyLimit;
             }
         }

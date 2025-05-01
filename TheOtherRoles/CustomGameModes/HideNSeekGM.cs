@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using TheOtherRoles.Objects;
- 
 using UnityEngine;
 
 namespace TheOtherRoles.CustomGameModes {

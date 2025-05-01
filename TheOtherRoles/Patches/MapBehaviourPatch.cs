@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TheOtherRoles.Objects;
- 
+
 using TheOtherRoles.Utilities;
 using UnityEngine;
 
@@ -13,7 +13,7 @@ namespace TheOtherRoles.Patches {
 
 	[HarmonyPatch(typeof(MapBehaviour))]
 	static class MapBehaviourPatch {
-		public static Dictionary<PlayerControl, SpriteRenderer> herePoints = new();
+		public static Dictionary<Byte, SpriteRenderer> herePoints = new();
 
 		public static Sprite Vent = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.Vent.png", 150f);
 
@@ -40,23 +40,25 @@ namespace TheOtherRoles.Patches {
 
 			__instance.HerePoint.transform.SetLocalZ(-2.1f);
 			if (Trapper.trapper != null && PlayerControl.LocalPlayer.PlayerId == Trapper.trapper.PlayerId) {
-				foreach (PlayerControl player in Trapper.playersOnMap) {
-					if (herePoints.ContainsKey(player)) continue;
-					Vector3 v = Trap.trapPlayerIdMap[player.PlayerId].trap.transform.position;
+				foreach (byte playerId in Trapper.playersOnMap) {
+					if (herePoints.ContainsKey(playerId)) continue;
+					Vector3 v = Trap.trapPlayerIdMap[playerId].trap.transform.position;
 					v /= MapUtilities.CachedShipStatus.MapScale;
 					v.x *= Mathf.Sign(MapUtilities.CachedShipStatus.transform.localScale.x);
 					v.z = -2.1f;
 					var herePoint = UnityEngine.Object.Instantiate(__instance.HerePoint, __instance.HerePoint.transform.parent, true);
 					herePoint.transform.localPosition = v;
 					herePoint.enabled = true;
-					int colorId = player.CurrentOutfit.ColorId;
+					PlayerControl player = Helpers.playerById(playerId);
+					if (player == null) continue;
+                    int colorId = player.CurrentOutfit.ColorId;
 					if (Trapper.anonymousMap) player.CurrentOutfit.ColorId = 6;
 					player.SetPlayerMaterialColors(herePoint);
 					player.CurrentOutfit.ColorId = colorId;
-					herePoints.Add(player, herePoint);
+					herePoints.Add(playerId, herePoint);
 				}
 				foreach (var s in herePoints.Where(x => !Trapper.playersOnMap.Contains(x.Key)).ToList()) {
-					UnityEngine.Object.Destroy(s.Value);
+					UnityEngine.Object.Destroy(s.Value.gameObject);
 					herePoints.Remove(s.Key);
 				}
 			} else if (Snitch.snitch != null && PlayerControl.LocalPlayer.PlayerId == Snitch.snitch.PlayerId && !Snitch.snitch.Data.IsDead && Snitch.mode != Snitch.Mode.Chat) {
@@ -65,7 +67,7 @@ namespace TheOtherRoles.Patches {
 
 				if (numberOfTasks == 0) {
 					if (MeetingHud.Instance == null) {
-						foreach (PlayerControl player in PlayerControl.AllPlayerControls.ToArray()) {
+						foreach (PlayerControl player in PlayerControl.AllPlayerControls) {
 							if (Snitch.targets == Snitch.Targets.EvilPlayers && !Helpers.isEvil(player)) continue;
 							else if (Snitch.targets == Snitch.Targets.Killers && !Helpers.isKiller(player)) continue;
 							if (player.Data.IsDead) continue;
@@ -73,8 +75,8 @@ namespace TheOtherRoles.Patches {
 							v /= MapUtilities.CachedShipStatus.MapScale;
 							v.x *= Mathf.Sign(MapUtilities.CachedShipStatus.transform.localScale.x);
 							v.z = -2.1f;
-							if (herePoints.ContainsKey(player)) {
-								herePoints[player].transform.localPosition = v;
+							if (herePoints.ContainsKey(player.PlayerId)) {
+								herePoints[player.PlayerId].transform.localPosition = v;
 								continue;
 							}
 							var herePoint = UnityEngine.Object.Instantiate(__instance.HerePoint, __instance.HerePoint.transform.parent, true);
@@ -84,11 +86,11 @@ namespace TheOtherRoles.Patches {
 							player.CurrentOutfit.ColorId = 6;
 							player.SetPlayerMaterialColors(herePoint);
 							player.CurrentOutfit.ColorId = colorId;
-							herePoints.Add(player, herePoint);
+							herePoints.Add(player.PlayerId, herePoint);
 						}
 					} else {
 						foreach (var s in herePoints) {
-							UnityEngine.Object.Destroy(s.Value);
+							UnityEngine.Object.Destroy(s.Value.gameObject);
 							herePoints.Remove(s.Key);
 						}
 					}
@@ -96,33 +98,41 @@ namespace TheOtherRoles.Patches {
 			}
 
 			// Show location of all players on the map for ghosts!
-			if (PlayerControl.LocalPlayer.Data.IsDead && (!PlayerControl.LocalPlayer.Data.Role.IsImpostor || CustomOptionHolder.deadImpsBlockSabotage.getBool()))
-			{
-				foreach (PlayerControl player in PlayerControl.AllPlayerControls.ToArray())
-				{
-					if (player == PlayerControl.LocalPlayer)
-						continue;
-					var alpha = player.Data.IsDead ? 0.25f : 1f;
-					Vector3 v = player.transform.position;
-					v /= MapUtilities.CachedShipStatus.MapScale;
-					v.x *= Mathf.Sign(MapUtilities.CachedShipStatus.transform.localScale.x);
-					v.z = -2.1f;
-					if (herePoints.ContainsKey(player))
-					{
-						herePoints[player].transform.localPosition = v;
-						herePoints[player].color = herePoints[player].color.SetAlpha(alpha);
-						continue;
-					}
-					var herePoint = UnityEngine.Object.Instantiate(__instance.HerePoint, __instance.HerePoint.transform.parent, true);
-					herePoint.transform.localPosition = v;
-					herePoint.enabled = true;
+			if (PlayerControl.LocalPlayer.Data.IsDead && (!PlayerControl.LocalPlayer.Data.Role.IsImpostor || CustomOptionHolder.deadImpsBlockSabotage.getBool())) {
+				foreach (PlayerControl player in PlayerControl.AllPlayerControls) {
+                    if (player == PlayerControl.LocalPlayer)
+                        continue;
+                    var alpha = player.Data.IsDead ? 0.25f : 1f;
+                    Vector3 v = player.transform.position;
+                    v /= MapUtilities.CachedShipStatus.MapScale;
+                    v.x *= Mathf.Sign(MapUtilities.CachedShipStatus.transform.localScale.x);
+                    v.z = -2.1f;
+                    if (herePoints.TryGetValue(player.PlayerId, out _)) {
+                        herePoints[player.PlayerId].transform.localPosition = v;
+						herePoints[player.PlayerId].color = herePoints[player.PlayerId].color.SetAlpha(alpha);
+                        continue;
+                    }
 
-					int colorId = player.CurrentOutfit.ColorId;
-					player.SetPlayerMaterialColors(herePoint);
-					herePoints.Add(player, herePoint);
-				}
+                    string pointName = $"TOR HerePoint {player.PlayerId}";
+                    var doublePoint = GameObject.Find(pointName);
+					if (doublePoint != null) {
+						doublePoint.Destroy();
+					}
+
+					var herePoint = UnityEngine.Object.Instantiate(__instance.HerePoint, __instance.HerePoint.transform.parent, true);
+					
+					herePoint.name = pointName;
+                    herePoint.transform.localPosition = v;
+                    herePoint.enabled = true;
+
+
+					
+                    int colorId = player.CurrentOutfit.ColorId;
+                    player.SetPlayerMaterialColors(herePoint);
+                    herePoints.Add(player.PlayerId, herePoint);
+                }
 			}
-            foreach (var vent in MapUtilities.CachedShipStatus.AllVents) {
+			foreach (var vent in MapUtilities.CachedShipStatus.AllVents) {
 				if ((vent.name.StartsWith("JackInThe") && !(PlayerControl.LocalPlayer == Trickster.trickster || PlayerControl.LocalPlayer.Data.IsDead))) continue; //for trickster vents
 
 				if (!TheOtherRolesPlugin.ShowVentsOnMap.Value) {

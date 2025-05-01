@@ -5,17 +5,15 @@ using System.Linq;
 using static TheOtherRoles.TheOtherRoles;
 using TheOtherRoles.Objects;
 using System;
- 
+
 using TheOtherRoles.Utilities;
 using UnityEngine;
 
 namespace TheOtherRoles.Patches {
-    [HarmonyPatch(typeof(ExileController), nameof(ExileController.Begin))]
+    [HarmonyPatch(typeof(ExileController), nameof(ExileController.BeginForGameplay))]
     [HarmonyPriority(Priority.First)]
     class ExileControllerBeginPatch {
-        public static NetworkedPlayerInfo lastExiled;
         public static void Prefix(ExileController __instance, [HarmonyArgument(0)]ref NetworkedPlayerInfo exiled) {
-            lastExiled = exiled;
 
             // Medic shield
             if (Medic.medic != null && AmongUsClient.Instance.AmHost && Medic.futureShielded != null && !Medic.medic.Data.IsDead) { // We need to send the RPC from the host here, to make sure that the order of shifting and setting the shield is correct(for that reason the futureShifted and futureShielded are being synced)
@@ -47,19 +45,6 @@ namespace TheOtherRoles.Patches {
             }
             Eraser.futureErased = new List<PlayerControl>();
 
-            if (Devil.devil != null && AmongUsClient.Instance.AmHost && Devil.devilIntimidate != null)
-            {  
-                foreach (PlayerControl target in Devil.devilIntimidate)
-                {
-                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.DevilIntimidate, Hazel.SendOption.Reliable, -1);
-                    writer.Write(target.PlayerId);
-                    AmongUsClient.Instance.FinishRpcImmediately(writer);
-                    RPCProcedure.DevilIntimidate(target.PlayerId);
-                    Devil.already.Add(target.PlayerId);
-                }
-            }
-            Devil.devilIntimidate = new List<PlayerControl>();
-
             // Trickster boxes
             if (Trickster.trickster != null && JackInTheBox.hasJackInTheBoxLimitReached()) {
                 JackInTheBox.convertToVents();
@@ -72,7 +57,7 @@ namespace TheOtherRoles.Patches {
             if (Witch.witch != null && Witch.futureSpelled != null && AmongUsClient.Instance.AmHost) {
                 bool exiledIsWitch = exiled != null && exiled.PlayerId == Witch.witch.PlayerId;
                 bool witchDiesWithExiledLover = exiled != null && Lovers.existing() && Lovers.bothDie && (Lovers.lover1.PlayerId == Witch.witch.PlayerId || Lovers.lover2.PlayerId == Witch.witch.PlayerId) && (exiled.PlayerId == Lovers.lover1.PlayerId || exiled.PlayerId == Lovers.lover2.PlayerId);
-
+                
                 if ((witchDiesWithExiledLover || exiledIsWitch) && Witch.witchVoteSavesTargets) Witch.futureSpelled = new List<PlayerControl>();
                 foreach (PlayerControl target in Witch.futureSpelled) {
                     if (target != null && !target.Data.IsDead && Helpers.checkMuderAttempt(Witch.witch, target, true) == MurderAttemptResult.PerformKill){
@@ -141,14 +126,16 @@ namespace TheOtherRoles.Patches {
         [HarmonyPatch(typeof(ExileController), nameof(ExileController.WrapUp))]
         class BaseExileControllerPatch {
             public static void Postfix(ExileController __instance) {
-                WrapUpPostfix(__instance.initData.networkedPlayer);
+                NetworkedPlayerInfo networkedPlayer = __instance.initData.networkedPlayer;
+                WrapUpPostfix((networkedPlayer != null) ? networkedPlayer.Object : null);
             }
         }
 
         [HarmonyPatch(typeof(AirshipExileController), nameof(AirshipExileController.WrapUpAndSpawn))]
         class AirshipExileControllerPatch {
             public static void Postfix(AirshipExileController __instance) {
-                WrapUpPostfix(__instance.initData.networkedPlayer);
+                NetworkedPlayerInfo networkedPlayer = __instance.initData.networkedPlayer;
+                WrapUpPostfix((networkedPlayer != null) ? networkedPlayer.Object : null);
             }
         }
 
@@ -164,14 +151,14 @@ namespace TheOtherRoles.Patches {
             // submerged
             if (!SubmergedCompatibility.IsSubmerged) return;
             if (obj.name.Contains("ExileCutscene")) {
-                WrapUpPostfix(ExileControllerBeginPatch.lastExiled);
+                WrapUpPostfix(obj.GetComponent<ExileController>().initData.networkedPlayer?.Object);
             } else if (obj.name.Contains("SpawnInMinigame")) {
                 AntiTeleport.setPosition();
                 Chameleon.lastMoved.Clear();
             }
         }
 
-        static void WrapUpPostfix(NetworkedPlayerInfo exiled) {
+        static void WrapUpPostfix(PlayerControl exiled) {
             // Prosecutor win condition
             if (exiled != null && Lawyer.lawyer != null && Lawyer.target != null && Lawyer.isProsecutor && Lawyer.target.PlayerId == exiled.PlayerId && !Lawyer.lawyer.Data.IsDead)
                 Lawyer.triggerProsecutorWin = true;
@@ -228,7 +215,7 @@ namespace TheOtherRoles.Patches {
                 int visibleCounter = 0;
                 Vector3 newBottomLeft = IntroCutsceneOnDestroyPatch.bottomLeft;
                 var BottomLeft = newBottomLeft + new Vector3(-0.25f, -0.25f, 0);
-                foreach (PlayerControl p in PlayerControl.AllPlayerControls.ToArray()) {
+                foreach (PlayerControl p in PlayerControl.AllPlayerControls) {
                     if (!TORMapOptions.playerIcons.ContainsKey(p.PlayerId)) continue;
                     if (p.Data.IsDead || p.Data.Disconnected) {
                         TORMapOptions.playerIcons[p.PlayerId].gameObject.SetActive(false);
@@ -302,18 +289,18 @@ namespace TheOtherRoles.Patches {
     class ExileControllerMessagePatch {
         static void Postfix(ref string __result, [HarmonyArgument(0)]StringNames id) {
             try {
-                if (ExileController.Instance != null && ExileController.Instance.initData.networkedPlayer != null) {
-                    PlayerControl player = Helpers.playerById(ExileController.Instance.initData.networkedPlayer.Object.PlayerId);
+                if (ExileController.Instance != null && ExileController.Instance.initData != null) {
+                    PlayerControl player = ExileController.Instance.initData.networkedPlayer.Object;
                     if (player == null) return;
                     // Exile role text
                     if (id == StringNames.ExileTextPN || id == StringNames.ExileTextSN || id == StringNames.ExileTextPP || id == StringNames.ExileTextSP) {
-                        __result = player.Data.PlayerName + " 的职业是 " + String.Join(" ", RoleInfo.getRoleInfoForPlayer(player, false).Select(x => x.name).ToArray());
+                        __result = player.Data.PlayerName + " was The " + String.Join(" ", RoleInfo.getRoleInfoForPlayer(player, false).Select(x => x.name).ToArray());
                     }
                     // Hide number of remaining impostors on Jester win
                     if (id == StringNames.ImpostorsRemainP || id == StringNames.ImpostorsRemainS) {
                         if (Jester.jester != null && player.PlayerId == Jester.jester.PlayerId) __result = "";
                     }
-                    if (Tiebreaker.isTiebreak) __result += " (紊乱秩序)";
+                    if (Tiebreaker.isTiebreak) __result += " (Tiebreaker)";
                     Tiebreaker.isTiebreak = false;
                 }
             } catch {
