@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TheOtherRoles.Objects;
-using TheOtherRoles.Players;
+ 
 using TheOtherRoles.Utilities;
 using TheOtherRoles.CustomGameModes;
 using static TheOtherRoles.TheOtherRoles;
@@ -14,6 +14,8 @@ using Reactor.Utilities.Extensions;
 using TheOtherRoles.Modules;
 using TheOtherRoles .Helper;
 using static Il2CppSystem.Globalization.CultureInfo;
+using TheOtherRoles.Patches;
+using Epic.OnlineServices;
 
 namespace TheOtherRoles
 {
@@ -80,6 +82,8 @@ namespace TheOtherRoles
             Vip.clearAndReload();
             Invert.clearAndReload();
             Chameleon.clearAndReload();
+            LastCrew.clearAndReload();
+            LastImp.clearAndReload();
 
             // Gamemodes
             HandleGuesser.clearAndReload();
@@ -317,7 +321,7 @@ namespace TheOtherRoles
             {
                 if (handcuffedSprite) return handcuffedSprite;
  
-                if (RPCProcedure.isChineseAfter())
+                if (Helpers.IsChinese())
                 {
                     handcuffedSprite = CustomMain.customZips.DeputyHandcuffedCN;
                     return handcuffedSprite;
@@ -334,11 +338,11 @@ namespace TheOtherRoles
             public static void setHandcuffedKnows(bool active = true, byte playerId = Byte.MaxValue)
             {
                 if (playerId == Byte.MaxValue)
-                    playerId = CachedPlayer.LocalPlayer.PlayerId;
+                    playerId = PlayerControl.LocalPlayer.PlayerId;
 
-                if (active && playerId == CachedPlayer.LocalPlayer.PlayerId) {
-                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(CachedPlayer.LocalPlayer.PlayerControl.NetId, (byte)CustomRPC.ShareGhostInfo, Hazel.SendOption.Reliable, -1);
-                    writer.Write(CachedPlayer.LocalPlayer.PlayerId);
+                if (active && playerId == PlayerControl.LocalPlayer.PlayerId) {
+                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.ShareGhostInfo, Hazel.SendOption.Reliable, -1);
+                    writer.Write(PlayerControl.LocalPlayer.PlayerId);
                     writer.Write((byte)RPCProcedure.GhostInfoTypes.HandcuffNoticed);
                     AmongUsClient.Instance.FinishRpcImmediately(writer);
                 }
@@ -348,7 +352,7 @@ namespace TheOtherRoles
                     handcuffedPlayers.RemoveAll(x => x == playerId);
                }
 
-                if (playerId == CachedPlayer.LocalPlayer.PlayerId) {
+                if (playerId == PlayerControl.LocalPlayer.PlayerId) {
                     HudManagerStartPatch.setAllButtonsHandcuffedStatus(active);
                     SoundEffectsManager.play("deputyHandcuff");
 		}
@@ -470,10 +474,10 @@ namespace TheOtherRoles
             bool isMorphedMorphling = target == Morphling.morphling && Morphling.morphTarget != null && Morphling.morphTimer > 0f;
             if (Medic.shielded != null && ((target == Medic.shielded && !isMorphedMorphling) || (isMorphedMorphling && Morphling.morphTarget == Medic.shielded))) {
                 hasVisibleShield = Medic.showShielded == 0 || Helpers.shouldShowGhostInfo() // Everyone or Ghost info
-                    || (Medic.showShielded == 1 && (CachedPlayer.LocalPlayer.PlayerControl == Medic.shielded || CachedPlayer.LocalPlayer.PlayerControl == Medic.medic)) // Shielded + Medic
-                    || (Medic.showShielded == 2 && CachedPlayer.LocalPlayer.PlayerControl == Medic.medic); // Medic only
+                    || (Medic.showShielded == 1 && (PlayerControl.LocalPlayer == Medic.shielded || PlayerControl.LocalPlayer == Medic.medic)) // Shielded + Medic
+                    || (Medic.showShielded == 2 && PlayerControl.LocalPlayer == Medic.medic); // Medic only
                 // Make shield invisible till after the next meeting if the option is set (the medic can already see the shield)
-                hasVisibleShield = hasVisibleShield && (Medic.meetingAfterShielding || !Medic.showShieldAfterMeeting || CachedPlayer.LocalPlayer.PlayerControl == Medic.medic || Helpers.shouldShowGhostInfo());
+                hasVisibleShield = hasVisibleShield && (Medic.meetingAfterShielding || !Medic.showShieldAfterMeeting || PlayerControl.LocalPlayer == Medic.medic || Helpers.shouldShowGhostInfo());
             }
             return hasVisibleShield;            
         }
@@ -667,7 +671,7 @@ namespace TheOtherRoles
 
         public static void resetCamouflage() {
             camouflageTimer = 0f;
-            foreach (PlayerControl p in CachedPlayer.AllPlayers) {
+            foreach (PlayerControl p in PlayerControl.AllPlayerControls.ToArray()) {
                 if (p == Ninja.ninja && Ninja.isInvisble)
                     continue;
                 p.setDefaultLook();
@@ -1266,7 +1270,7 @@ namespace TheOtherRoles
         }
 
         public static bool dousedEveryoneAlive() {
-            return CachedPlayer.AllPlayers.All(x => { return x.PlayerControl == Arsonist.arsonist || x.Data.IsDead || x.Data.Disconnected || Arsonist.dousedPlayers.Any(y => y.PlayerId == x.PlayerId); });
+            return PlayerControl.AllPlayerControls.ToArray().All(x => { return x == Arsonist.arsonist || x.Data.IsDead || x.Data.Disconnected || Arsonist.dousedPlayers.Any(y => y.PlayerId == x.PlayerId); });
         }
 
         public static void clearAndReload() {
@@ -1948,6 +1952,9 @@ namespace TheOtherRoles
         public static PlayerControl devil;
         public static PlayerControl currentTarget;
         public static Color color = Palette.ImpostorRed;
+        public static List<PlayerControl> devilIntimidate = new List<PlayerControl>();
+        public static List<byte> already = new List<byte>();
+        public static bool canIntimidateAnyone = false;
 
         public static float cooldown = 30f;
 
@@ -1964,7 +1971,8 @@ namespace TheOtherRoles
         {
             Devil.devil = null;
             Devil.cooldown = CustomOptionHolder.fraudstercooldown.getFloat();
-
+            devilIntimidate = new List<PlayerControl> ();
+            already = new List<byte> ();
         }
 
     }
@@ -2015,8 +2023,8 @@ namespace TheOtherRoles
 
         public static void setPosition() {
             if (position == Vector3.zero) return;  // Check if this has been set, otherwise first spawn on submerged will fail
-            if (antiTeleport.FindAll(x => x.PlayerId == CachedPlayer.LocalPlayer.PlayerId).Count > 0) {
-                CachedPlayer.LocalPlayer.NetTransform.RpcSnapTo(position);
+            if (antiTeleport.FindAll(x => x.PlayerId == PlayerControl.LocalPlayer.PlayerId).Count > 0) {
+                PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(position);
                 if (SubmergedCompatibility.IsSubmerged) {
                     SubmergedCompatibility.ChangeFloor(position.y > -7);
                 }
@@ -2053,15 +2061,6 @@ namespace TheOtherRoles
         {
             lighterln.Clear();
             lighterln = new List<PlayerControl>();
-        }
-    }
-    public static class LastImpostor
-    {
-        public static PlayerControl lastimp;
-
-        public static void clearAndReload()
-        {
-            lastimp = null;
         }
     }
     public static class Mini {
@@ -2191,68 +2190,113 @@ namespace TheOtherRoles
             return buttonSprite;
         }
 
-        public static void shiftRole (PlayerControl player1, PlayerControl player2, bool repeat = true) {
-            if (Mayor.mayor != null && Mayor.mayor == player2) {
+        public static void shiftRole(PlayerControl player1, PlayerControl player2, bool repeat = true)
+        {
+            if (Mayor.mayor != null && Mayor.mayor == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Mayor.mayor = player1;
-            } else if (Portalmaker.portalmaker != null && Portalmaker.portalmaker == player2) {
+            }
+            else if (Portalmaker.portalmaker != null && Portalmaker.portalmaker == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Portalmaker.portalmaker = player1;
-            } else if (Engineer.engineer != null && Engineer.engineer == player2) {
+            }
+            else if (Engineer.engineer != null && Engineer.engineer == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Engineer.engineer = player1;
-            } else if (Sheriff.sheriff != null && Sheriff.sheriff == player2) {
+            }
+            else if (Sheriff.sheriff != null && Sheriff.sheriff == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 if (Sheriff.formerDeputy != null && Sheriff.formerDeputy == Sheriff.sheriff) Sheriff.formerDeputy = player1;  // Shifter also shifts info on promoted deputy (to get handcuffs)
                 Sheriff.sheriff = player1;
-            } else if (Deputy.deputy != null && Deputy.deputy == player2) {
+            }
+            else if (Deputy.deputy != null && Deputy.deputy == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Deputy.deputy = player1;
-            } else if (Lighter.lighter != null && Lighter.lighter == player2) {
+            }
+            else if (Lighter.lighter != null && Lighter.lighter == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Lighter.lighter = player1;
-            } else if (Detective.detective != null && Detective.detective == player2) {
+            }
+            else if (Detective.detective != null && Detective.detective == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Detective.detective = player1;
-            } else if (TimeMaster.timeMaster != null && TimeMaster.timeMaster == player2) {
+            }
+            else if (TimeMaster.timeMaster != null && TimeMaster.timeMaster == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 TimeMaster.timeMaster = player1;
-            }  else if (Medic.medic != null && Medic.medic == player2) {
+            }
+            else if (Medic.medic != null && Medic.medic == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Medic.medic = player1;
-            } else if (Swapper.swapper != null && Swapper.swapper == player2) {
+            }
+            else if (Swapper.swapper != null && Swapper.swapper == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Swapper.swapper = player1;
-            } else if (Seer.seer != null && Seer.seer == player2) {
+            }
+            else if (Seer.seer != null && Seer.seer == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Seer.seer = player1;
-            } else if (Hacker.hacker != null && Hacker.hacker == player2) {
+            }
+            else if (Hacker.hacker != null && Hacker.hacker == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Hacker.hacker = player1;
-            } else if (Tracker.tracker != null && Tracker.tracker == player2) {
+            }
+            else if (Tracker.tracker != null && Tracker.tracker == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Tracker.tracker = player1;
-            } else if (Snitch.snitch != null && Snitch.snitch == player2) {
+            }
+            else if (Snitch.snitch != null && Snitch.snitch == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Snitch.snitch = player1;
-            } else if (Spy.spy != null && Spy.spy == player2) {
+            }
+            else if (Spy.spy != null && Spy.spy == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Spy.spy = player1;
-            } else if (SecurityGuard.securityGuard != null && SecurityGuard.securityGuard == player2) {
+            }
+            else if (SecurityGuard.securityGuard != null && SecurityGuard.securityGuard == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 SecurityGuard.securityGuard = player1;
-            } else if (Guesser.niceGuesser != null && Guesser.niceGuesser == player2) {
+            }
+            else if (Guesser.niceGuesser != null && Guesser.niceGuesser == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Guesser.niceGuesser = player1;
-            } else if (Medium.medium != null && Medium.medium == player2) {
+            }
+            else if (Medium.medium != null && Medium.medium == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Medium.medium = player1;
-            } else if (Pursuer.pursuer != null && Pursuer.pursuer == player2) {
+            }
+            else if (Pursuer.pursuer != null && Pursuer.pursuer == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Pursuer.pursuer = player1;
-            } else if (Trapper.trapper != null && Trapper.trapper == player2) {
+            }
+            else if (Trapper.trapper != null && Trapper.trapper == player2)
+            {
                 if (repeat) shiftRole(player2, player1, false);
                 Trapper.trapper = player1;
+            }
+            else if (Prophet.prophet != null && Prophet.prophet == player2)
+            {
+                if (repeat) shiftRole(player2, player1, false);
+                Prophet.prophet = player1;
             }
         }
 
@@ -2261,5 +2305,110 @@ namespace TheOtherRoles
             currentTarget = null;
             futureShift = null;
         }
+    }
+    public static class LastImp
+    {
+        public static PlayerControl lastimp;
+
+        public static bool isLastImp = false;
+        public static int shotnum = 2;
+        public static bool isOriginalGuesser;
+        public static bool hasMultipleShots;
+        public static int killCounter;
+        public static int maxKillCounter;
+        public static bool isEnable()
+        {
+            if(CustomOptionHolder.modifierLast.getSelection() == 10f) return true;
+            else return false;
+        }
+
+        public static void promoteToLastImpostor()
+        {
+            if (!isEnable() || !HandleGuesser.isGuesserGm) return;
+
+            var impList = new List<PlayerControl>();
+            foreach (var p in PlayerControl.AllPlayerControls.GetFastEnumerator())
+            {
+                if (p.Data.Role.IsImpostor && !p.Data.IsDead && !p.Data.Disconnected) impList.Add(p);
+            }
+            if (impList.Count == 1)
+            {
+                MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.ImpostorPromotesToLastImpostor, Hazel.SendOption.Reliable, -1);
+                writer.Write(impList[0].PlayerId);
+                AmongUsClient.Instance.FinishRpcImmediately(writer);
+                RPCProcedure.impostorPromotesToLastImpostor(impList[0].PlayerId);
+            }
+        }
+        public static bool isCounterMax()
+        {
+            if (maxKillCounter <= killCounter) return true;
+            return false;
+        }
+        public static void clearAndReload()
+        {
+            lastimp = null;
+            isLastImp = false;
+            shotnum = CustomOptionHolder.modifierLastImpostorShotNum.getInt();
+            isOriginalGuesser = false;
+            hasMultipleShots = CustomOptionHolder.modifierLasthasMultipleShots.getBool();
+            killCounter = 0;
+            maxKillCounter = Mathf.RoundToInt(CustomOptionHolder.modifierLastKillCount.getFloat());
+        }
+
+    }
+
+    public static class LastCrew
+    {
+        public static PlayerControl lastcrew;
+
+        public static bool isLastCrew = false;
+        public static int shotnum = 2;
+        public static int shottask = 0;
+        public static int shotalive = 4;
+        public static bool hasMultipleShots;
+        public static int killCounter;
+        public static int maxKillCounter;
+        public static bool isEnable()
+        {
+            if (CustomOptionHolder.modifierLast.getSelection() == 10f) return true;
+            else return false;
+        }
+        public static void promoteToLastCrewmate()
+        {
+            if (!isEnable() || !HandleGuesser.isGuesserGm) return;
+
+            var crewList = new List<PlayerControl>();
+            foreach (var p in PlayerControl.AllPlayerControls.GetFastEnumerator())
+            {
+                foreach (var data in AdditionalTempData.playerRoles)
+                {
+                    if (!p.Data.Role.IsImpostor && !p.Data.IsDead && !p.Data.Disconnected && !Helpers.isNeutral(p) && data.TasksTotal > 0 && data.TasksTotal - data.TasksCompleted >= LastCrew.shottask) crewList.Add(p);
+                }
+            }
+
+            if (crewList.Count >= shotalive)
+            {
+                MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.CrewPromotesToLastCrewmate, Hazel.SendOption.Reliable, -1);
+                writer.Write(crewList[0].PlayerId);
+                AmongUsClient.Instance.FinishRpcImmediately(writer);
+                RPCProcedure.crewPromotesToLastCrewmate(crewList[0].PlayerId);
+            }
+        }
+        public static bool isCounterMax()
+        {
+            if (maxKillCounter <= killCounter) return true;
+            return false;
+        }
+        public static void clearAndReload()
+        {
+            lastcrew = null;
+            isLastCrew = false;
+            shotnum = CustomOptionHolder.modifierLastCrewmateShotNum.getInt();
+            shottask = CustomOptionHolder.modifierLastCrewmateShotTaskNum.getInt();
+            shotalive = CustomOptionHolder.modifierLastCrewmateAliveNum.getInt();
+            hasMultipleShots = CustomOptionHolder.modifierLasthasMultipleShots.getBool();
+            maxKillCounter = Mathf.RoundToInt(CustomOptionHolder.modifierLastKillCount.getFloat());
+        }
+
     }
 }

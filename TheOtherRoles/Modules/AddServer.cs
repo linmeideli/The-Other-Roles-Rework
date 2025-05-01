@@ -12,7 +12,7 @@ namespace TheOtherRoles.Modules
     {
         [HarmonyPatch(typeof(ServerManager), nameof(ServerManager.LoadServers))]
         [HarmonyPostfix]
-        private static void AddServer(ServerManager __instance)
+        public static void AddServer(ServerManager __instance)
         {
             IRegionInfo[] regionInfos =
             {

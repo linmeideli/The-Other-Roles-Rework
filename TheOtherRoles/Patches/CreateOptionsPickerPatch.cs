@@ -9,7 +9,8 @@ using static UnityEngine.UI.Button;
 
 namespace TheOtherRoles.Patches {
     [HarmonyPatch(typeof(CreateOptionsPicker))]
-    class CreateOptionsPickerPatch {
+    class CreateOptionsPickerPatch
+    {
         private static List<SpriteRenderer> renderers = new List<SpriteRenderer>();
 
         [HarmonyPatch(typeof(CreateOptionsPicker), nameof(CreateOptionsPicker.SetGameMode))]

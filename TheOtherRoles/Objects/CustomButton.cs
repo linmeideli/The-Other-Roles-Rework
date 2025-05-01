@@ -278,8 +278,6 @@ namespace TheOtherRoles.Objects
         public static GameObject SetKeyGuide(GameObject button, KeyCode key, Vector2 pos)
         {
             Sprite numSprite = null;
-            if (ModInputManager.allKeyCodes.ContainsKey(key))
-                numSprite = ModInputManager.allKeyCodes[key].GetSprite();
 
             if (numSprite == null)
                 return null;

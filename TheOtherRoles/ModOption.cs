@@ -1,7 +1,7 @@
 ﻿/*using System.Collections.Generic;
 using AmongUs.GameOptions;
 using Rewired.Utils.Platforms.Windows;
-using TheOtherRoles.Players;
+ 
 using TheOtherRoles.Utilities;
 
 namespace TheOtherRoles.Options;
@@ -62,25 +62,25 @@ internal class ModOption
     public static string firstKillName;
     public static PlayerControl firstKillPlayer;
 
-    // public static bool canUseAdmin  { get { return restrictDevices == 0 || restrictAdminTime > 0f || CachedPlayer.LocalPlayer.PlayerControl == Hacker.hacker || CachedPlayer.LocalPlayer.Data.IsDead; }}
+    // public static bool canUseAdmin  { get { return restrictDevices == 0 || restrictAdminTime > 0f || PlayerControl.LocalPlayer == Hacker.hacker || PlayerControl.LocalPlayer.Data.IsDead; }}
 
-    //public static bool couldUseAdmin { get { return restrictDevices == 0 || restrictAdminTimeMax > 0f  || CachedPlayer.LocalPlayer.PlayerControl == Hacker.hacker || CachedPlayer.LocalPlayer.Data.IsDead; }}
+    //public static bool couldUseAdmin { get { return restrictDevices == 0 || restrictAdminTimeMax > 0f  || PlayerControl.LocalPlayer == Hacker.hacker || PlayerControl.LocalPlayer.Data.IsDead; }}
 
     public static bool canUseCameras => restrictDevices == 0 || restrictCamerasTime > 0f ||
-                                        CachedPlayer.LocalPlayer.PlayerControl == Hacker.hacker ||
-                                        CachedPlayer.LocalPlayer.Data.IsDead;
+                                        PlayerControl.LocalPlayer == Hacker.hacker ||
+                                        PlayerControl.LocalPlayer.Data.IsDead;
 
     public static bool couldUseCameras => restrictDevices == 0 || restrictCamerasTimeMax > 0f ||
-                                          CachedPlayer.LocalPlayer.PlayerControl == Hacker.hacker ||
-                                          CachedPlayer.LocalPlayer.Data.IsDead;
+                                          PlayerControl.LocalPlayer == Hacker.hacker ||
+                                          PlayerControl.LocalPlayer.Data.IsDead;
 
     public static bool canUseVitals => restrictDevices == 0 || restrictVitalsTime > 0f ||
-                                       CachedPlayer.LocalPlayer.PlayerControl == Hacker.hacker ||
-                                       CachedPlayer.LocalPlayer.Data.IsDead;
+                                       PlayerControl.LocalPlayer == Hacker.hacker ||
+                                       PlayerControl.LocalPlayer.Data.IsDead;
 
     public static bool couldUseVitals => restrictDevices == 0 || restrictVitalsTimeMax > 0f ||
-                                         CachedPlayer.LocalPlayer.PlayerControl == Hacker.hacker ||
-                                         CachedPlayer.LocalPlayer.Data.IsDead;
+                                         PlayerControl.LocalPlayer == Hacker.hacker ||
+                                         PlayerControl.LocalPlayer.Data.IsDead;
 
     public static void clearAndReloadMapOptions()
     {
