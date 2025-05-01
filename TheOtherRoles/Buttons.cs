@@ -20,7 +20,7 @@ namespace TheOtherRoles
     static class HudManagerStartPatch
     {
         private static bool initialized = false;
-
+        //buttons
         private static CustomButton engineerRepairButton;
         private static CustomButton janitorCleanButton;
         public static CustomButton sheriffKillButton;
