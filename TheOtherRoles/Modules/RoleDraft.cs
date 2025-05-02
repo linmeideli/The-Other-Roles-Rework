@@ -317,12 +317,10 @@ internal class RoleDraft
                             actionButton.SetCoolDown(0, 0);
                             var textHolder = new GameObject("textHolder");
                             var text = textHolder.AddComponent<TextMeshPro>();
-                            text.text = roleInfo.name.Replace(" ", "\n");
+                            text.text = "<b>" +roleInfo.name.Replace(" ", "\n") + "</b>";
                             text.horizontalAlignment = HorizontalAlignmentOptions.Center;
                             text.fontSize = 5;
                             textHolder.layer = actionButton.gameObject.layer;
-                            text.outlineWidth = 0.1f;
-                            text.outlineColor = Color.white;
                             text.color = roleInfo.color;
                             textHolder.transform.SetParent(actionButton.transform, false);
                             textHolder.transform.localPosition =
@@ -412,6 +410,12 @@ internal class RoleDraft
             {
                 roleString = Helpers.cs(Palette.Blue, "Neutral Role");
                 roleLength = "Neutral Role".Length;
+            }
+            else if (CustomOptionHolder.draftModeHideCrewRoles.getBool() && !roleInfo.isImpostor && !roleInfo.isNeutral &&
+                     !(playerId == PlayerControl.LocalPlayer.PlayerId))
+            {
+                roleString = Helpers.cs(Palette.Blue, "Crewmate Role");
+                roleLength = "Crewmate Role".Length;
             }
 
             var line = $"{(playerId == PlayerControl.LocalPlayer.PlayerId ? "You" : alreadyPicked.Count)}:";

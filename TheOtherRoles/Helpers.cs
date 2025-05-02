@@ -226,13 +226,13 @@ public static class Helpers
 
     internal static string getRoleString(RoleInfo roleInfo)
     {
-        if (roleInfo.name == "Jackal")
+        if (roleInfo.roleId == RoleId.Jackal)
         {
             var getSidekickText = Jackal.canCreateSidekick ? " and recruit a Sidekick" : "";
             return cs(roleInfo.color, $"{roleInfo.name}: Kill everyone{getSidekickText}");
         }
 
-        if (roleInfo.name == "Invert")
+        if (roleInfo.roleId == RoleId.Invert)
             return cs(roleInfo.color, $"{roleInfo.name}: {roleInfo.shortDescription} ({Invert.meetings})");
 
         return cs(roleInfo.color, $"{roleInfo.name}: {roleInfo.shortDescription}");
