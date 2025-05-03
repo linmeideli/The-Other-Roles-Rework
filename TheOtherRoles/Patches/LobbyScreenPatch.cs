@@ -13,6 +13,7 @@ public sealed class LobbyJoinBind
     private static int GameId;
 
     private static GameObject LobbyText;
+    internal static TMP_FontAsset fontAssetPingTracker;
 
     [HarmonyPatch(typeof(InnerNetClient), nameof(InnerNetClient.JoinGame))]
     [HarmonyPostfix]
@@ -21,7 +22,7 @@ public sealed class LobbyJoinBind
         GameId = __instance.GameId;
     }
 
-    [HarmonyPatch(typeof(MMOnlineManager), nameof(MMOnlineManager.Start))]
+    [HarmonyPatch(typeof(MainMenuManager), nameof(MainMenuManager.Start))]
     [HarmonyPostfix]
     public static void Postfix()
     {
@@ -30,14 +31,16 @@ public sealed class LobbyJoinBind
             LobbyText = new GameObject("lobbycode");
             var comp = LobbyText.AddComponent<TextMeshPro>();
             comp.fontSize = 2.5f;
-            LobbyText.transform.localPosition = new Vector3(10.3f, -3.9f, 0);
+            comp.font = fontAssetPingTracker;
+            comp.outlineWidth = -2f;
+            LobbyText.transform.localPosition = new Vector3(10.9f, -0.6f, 0);
             LobbyText.SetActive(true);
         }
     }
 
-    [HarmonyPatch(typeof(MMOnlineManager), nameof(MMOnlineManager.Update))]
+    [HarmonyPatch(typeof(MainMenuManager), nameof(MainMenuManager.LateUpdate))]
     [HarmonyPostfix]
-    public static void Postfix(MMOnlineManager __instance)
+    public static void Postfix(MainMenuManager __instance)
     {
         var code2 = GUIUtility.systemCopyBuffer;
 

@@ -37,6 +37,7 @@ Based on <color=#FCCE03FF>TheOtherRoles</color>";
     {
         private static void Postfix(PingTracker __instance)
         {
+            LobbyJoinBind.fontAssetPingTracker = __instance.text.font;
             var position = __instance.GetComponent<AspectPosition>();
             if (AmongUsClient.Instance.GameState == InnerNetClient.GameStates.Started)
             {
