@@ -13,16 +13,32 @@ internal class CreateGameOptionsPatch
     public static PassiveButton modeButtonHK;
     public static PassiveButton modeButtonPH;
 
+    public static bool One = true;
+
+    [HarmonyPatch(typeof(CreateGameOptions), nameof(CreateGameOptions.Show))]
+    static class CreateGameOptionsOpenShowPatch
+    {
+        static void Postfix(CreateGameOptions __instance)
+        {
+            if ((modeButtonGS != null && modeButtonGS.IsSelected()) ||
+                (modeButtonHK != null && modeButtonHK.IsSelected()) ||
+                (modeButtonPH != null && modeButtonPH.IsSelected()))
+            {
+                __instance.modeButtons[0].SelectButton(false);
+                __instance.modeButtons[1].SelectButton(false);
+            }
+        }
+    }
+
     [HarmonyPatch(typeof(CreateGameOptions), nameof(CreateGameOptions.Start))]
     public static class CreateGameOptionsStartPatch
     {
         private static void Postfix(CreateGameOptions __instance)
         {
-            var blackSquare = GameObject.Find("BlackSquare");
-            blackSquare.transform.localPosition = new Vector3(-2.35f, -4.04f, -1f);
-            __instance.modeButtons[0].transform.localPosition = new Vector3(-0f, -4f, -3f);
-            __instance.modeButtons[1].transform.localPosition = new Vector3(2.91f, -4f, -3f);
-            __instance.serverDropdown.transform.SetLocalY(-2.63f);
+            __instance.levelButtons[0].transform.parent.gameObject.SetActive(false);
+            GameObject.Find("ModeOptions").transform.SetLocalY(-2.52f);
+            GameObject.Find("ServerOption").transform.SetLocalY(-0.86f);
+            __instance.serverDropdown.transform.SetLocalY(-0.6f);
 
             __instance.modeButtons[0].OnClick.AddListener((Action)(() =>
             {
@@ -40,12 +56,10 @@ internal class CreateGameOptionsPatch
             }
             ));
 
-            TORMapOptions.gameMode = CustomGamemodes.Classic;
-
             modeButtonGS = Object.Instantiate(__instance.modeButtons[0], __instance.modeButtons[0].transform);
             modeButtonGS.name = "TORGUESSER";
             changeButtonText(modeButtonGS, "TOR Guesser");
-            modeButtonGS.transform.localPosition = new Vector3(5.8f, -0f, -3f);
+            modeButtonGS.transform.SetLocalX(5.86f);
             modeButtonGS.OnClick.RemoveAllListeners();
             __instance.StartCoroutine(Effects.Lerp(0.1f, new Action<float>(p => modeButtonGS.SelectButton(false))));
             modeButtonGS.OnMouseOver.AddListener((Action)(() => __instance.tooltip.SetText("An extension to the Classic-Gamemode and gives you a multitude of new options for Guessers.")));
@@ -63,7 +77,8 @@ internal class CreateGameOptionsPatch
             modeButtonHK = Object.Instantiate(modeButtonGS, __instance.modeButtons[0].transform);
             modeButtonHK.name = "TORHIDENSEEK";
             changeButtonText(modeButtonHK, "TOR Hide N Seek");
-            modeButtonHK.transform.localPosition = new Vector3(0, -0.8f, -3f);
+            modeButtonHK.transform.SetLocalX(0);
+            modeButtonHK.transform.SetLocalY(-0.9f);
             modeButtonHK.OnClick.RemoveAllListeners();
             __instance.StartCoroutine(Effects.Lerp(0.1f, new Action<float>(p => modeButtonHK.SelectButton(false))));
             modeButtonHK.OnMouseOver.AddListener((Action)(() => __instance.tooltip.SetText("A standalone Gamemode where Hunter have to catch their prey (\"Hunted\" players).")));
@@ -81,7 +96,7 @@ internal class CreateGameOptionsPatch
             modeButtonPH = Object.Instantiate(modeButtonHK, __instance.modeButtons[0].transform);
             modeButtonPH.name = "TORPROPHUNT";
             changeButtonText(modeButtonPH, "TOR Prop Hunt");
-            modeButtonPH.transform.localPosition = new Vector3(2.9f, -0.8f, -3f);
+            modeButtonPH.transform.SetLocalX(2.91f);
             modeButtonPH.OnClick.RemoveAllListeners();
             __instance.StartCoroutine(Effects.Lerp(0.1f, new Action<float>(p => modeButtonPH.SelectButton(false))));
             modeButtonPH.OnMouseOver.AddListener((Action)(() => __instance.tooltip.SetText("A standalone Gamemode where Hunters have to find the disguised players (\"Props\").")));
@@ -107,6 +122,33 @@ internal class CreateGameOptionsPatch
             passiveButton.transform.FindChild("Inactive/ClassicText").gameObject.GetComponentInChildren<TMP_Text>().SetText(buttonText);
             passiveButton.transform.FindChild("Highlight/ClassicText").gameObject.GetComponentInChildren<TMP_Text>().SetText(buttonText);
             passiveButton.transform.FindChild("SelectedHighlight/ClassicText").gameObject.GetComponentInChildren<TMP_Text>().SetText(buttonText);
+        }
+    }
+    [HarmonyPatch(typeof(CreateGameOptions), nameof(CreateGameOptions.OpenConfirmPopup))]
+    static class CreateGameOptionsOpenConfirmPopupPatch
+    {
+        static string getModeText(CustomGamemodes customGamemodes)
+        {
+            switch (customGamemodes)
+            {
+                case CustomGamemodes.Classic:
+                    return DestroyableSingleton<TranslationController>.Instance.GetString(StringNames.GameTypeClassic);
+                case CustomGamemodes.Guesser:
+                    return "TOR Guesser";
+                case CustomGamemodes.HideNSeek:
+                    return "TOR Hide N Seek";
+                case CustomGamemodes.PropHunt:
+                    return "TOR Prop Hunt";
+                default:
+                    return DestroyableSingleton<TranslationController>.Instance.GetString(StringNames.GameTypeHideAndSeek);
+            }
+        }
+
+        static void Postfix(CreateGameOptions __instance)
+        {            
+            __instance.containerConfirm.GetChild(10).gameObject.SetActive(false);
+            __instance.containerConfirm.GetChild(8).localPosition = new(4f, -0.47f, -0.1f);
+            __instance.containerConfirm.GetChild(5).GetChild(2).GetComponent<TextMeshPro>().SetText(getModeText(TORMapOptions.gameMode));
         }
     }
 }

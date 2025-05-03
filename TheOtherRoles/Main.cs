@@ -19,7 +19,6 @@ using Il2CppSystem.Text;
 using InnerNet;
 using Reactor.Networking;
 using Reactor.Networking.Attributes;
-using TheOtherRoles.MetaContext;
 using TheOtherRoles.Modules;
 using TheOtherRoles.Modules.CustomHats;
 using TheOtherRoles.Patches;
@@ -155,10 +154,6 @@ public class TheOtherRolesPlugin : BasePlugin
         MainMenuPatch.addSceneChangeCallbacks();
         _ = RoleInfo.loadReadme();
         AddToKillDistanceSetting.addKillDistance();
-        SceneManager.sceneLoaded += (UnityAction<Scene, LoadSceneMode>)((scene, loadMode) =>
-        {
-            new GameObject("TORManager").AddComponent<TORGUIManager>();
-        });
         Logger.LogInfo("Loading TOR completed!");
     }
 }

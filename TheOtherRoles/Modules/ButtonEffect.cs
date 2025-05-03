@@ -4,6 +4,7 @@ using Rewired;
 using TheOtherRoles.MetaContext;
 using TMPro;
 using UnityEngine;
+using static TheOtherRoles.Helpers;
 using Object = UnityEngine.Object;
 
 namespace TheOtherRoles.Modules;
@@ -61,8 +62,6 @@ public static class ButtonEffect
         renderer.transform.localPosition = new Vector3(0, 0, -1f);
         renderer.sprite = numSprite;
 
-        SetHintOverlay(obj, key, action);
-
         return obj;
     }
 
@@ -70,28 +69,6 @@ public static class ButtonEffect
         string action = null)
     {
         return AddKeyGuide(button, key, new Vector2(0.48f, 0.48f), removeExistingGuide, action);
-    }
-
-    public static void SetHintOverlay(GameObject gameObj, KeyCode keyCode, string action = null)
-    {
-        var button = gameObj.SetUpButton();
-        var collider = gameObj.AddComponent<CircleCollider2D>();
-        collider.isTrigger = true;
-        collider.radius = 0.125f;
-        button.OnMouseOver.AddListener((System.Action)(() =>
-        {
-            var str = keyCode != KeyCode.None
-                ? string.Format("buttonsDescription".Translate(), KeyCodeInfo.GetKeyDisplayName(keyCode))
-                : "";
-            if (action != null)
-            {
-                if (str.Length > 0) str += "<br>";
-                str += "<line-indent=0.8em>" + action;
-            }
-
-            TORGUIManager.Instance.SetHelpContext(button, str);
-        }));
-        button.OnMouseOut.AddListener((System.Action)(() => TORGUIManager.Instance.HideHelpContextIf(button)));
     }
 
     public static GameObject SetMouseActionIcon(GameObject button, bool show, string action = "mouseClick",
@@ -118,8 +95,6 @@ public static class ButtonEffect
             renderer.sprite = actionType == ActionIconType.NonClickAction
                 ? mouseDisableActionSprite.GetSprite()
                 : infoActionSprite.GetSprite();
-
-            if (action != null) SetHintOverlay(obj, KeyCode.None, action);
 
             return obj;
         }

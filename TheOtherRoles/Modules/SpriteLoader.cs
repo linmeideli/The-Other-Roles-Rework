@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
+using static TheOtherRoles.Helpers;
 
 namespace TheOtherRoles.MetaContext;
 
@@ -215,20 +216,9 @@ public class XOnlyDividedSpriteLoader : Image, IDividedSpriteLoader
     {
         return GetSprite(0);
     }
-
-    public Image WrapLoader(int index)
-    {
-        return new WrapSpriteLoader(() => GetSprite(index));
-    }
-
     public static XOnlyDividedSpriteLoader FromResource(string address, float pixelsPerUnit, int x, bool isSize = false)
     {
         return new XOnlyDividedSpriteLoader(new ResourceTextureLoader(address), pixelsPerUnit, x, isSize);
-    }
-
-    public static XOnlyDividedSpriteLoader FromDisk(string address, float pixelsPerUnit, int x, bool isSize = false)
-    {
-        return new XOnlyDividedSpriteLoader(new DiskTextureLoader(address), pixelsPerUnit, x, isSize);
     }
 }
 
@@ -303,19 +293,9 @@ public class DividedSpriteLoader : Image, IDividedSpriteLoader
         return GetSprite(0);
     }
 
-    public ISpriteLoader WrapLoader(int index)
-    {
-        return new WrapSpriteLoader(() => GetSprite(index));
-    }
-
     public static DividedSpriteLoader FromResource(string address, float pixelsPerUnit, int x, int y,
         bool isSize = false)
     {
         return new DividedSpriteLoader(new ResourceTextureLoader(address), pixelsPerUnit, x, y, isSize);
-    }
-
-    public static DividedSpriteLoader FromDisk(string address, float pixelsPerUnit, int x, int y, bool isSize = false)
-    {
-        return new DividedSpriteLoader(new DiskTextureLoader(address), pixelsPerUnit, x, y, isSize);
     }
 }

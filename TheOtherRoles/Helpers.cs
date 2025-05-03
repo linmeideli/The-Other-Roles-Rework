@@ -903,39 +903,6 @@ public static class Helpers
     {
         return FindCamera(cameraLayer)?.WorldToScreenPoint(worldPos) ?? Vector3.zero;
     }
-
-    public static Vector3 ScreenToWorldPoint(Vector3 screenPos, int cameraLayer)
-    {
-        return FindCamera(cameraLayer)?.ScreenToWorldPoint(screenPos) ?? Vector3.zero;
-    }
-
-    public static PassiveButton SetUpButton(this GameObject gameObject, bool withSound = false,
-        SpriteRenderer buttonRenderer = null, Color? defaultColor = null, Color? selectedColor = null)
-    {
-        var button = gameObject.AddComponent<PassiveButton>();
-        button.OnClick = new Button.ButtonClickedEvent();
-        button.OnMouseOut = new UnityEvent();
-        button.OnMouseOver = new UnityEvent();
-
-        if (withSound)
-        {
-            button.OnClick.AddListener((Action)(() =>
-                SoundManager.Instance.PlaySound(VanillaAsset.SelectClip, false, 0.8f)));
-            button.OnMouseOver.AddListener((Action)(() =>
-                SoundManager.Instance.PlaySound(VanillaAsset.HoverClip, false, 0.8f)));
-        }
-
-        if (buttonRenderer != null)
-        {
-            button.OnMouseOut.AddListener((Action)(() => buttonRenderer!.color = defaultColor ?? Color.white));
-            button.OnMouseOver.AddListener((Action)(() => buttonRenderer!.color = selectedColor ?? Color.green));
-        }
-
-        if (buttonRenderer != null) buttonRenderer.color = defaultColor ?? Color.white;
-
-        return button;
-    }
-
     public static SpriteRenderer CreateSharpBackground(Vector2 size, Color color, Transform transform)
     {
         var renderer = CreateObject<SpriteRenderer>("Background", transform, new Vector3(0, 0, 0.25f));
@@ -1031,5 +998,23 @@ public static class Helpers
         {
             return false;
         }
+    }
+    public interface Image
+    {
+        internal Sprite GetSprite();
+    }
+    public interface ISpriteLoader : Image
+    {
+    }
+    public class WrapSpriteLoader : ISpriteLoader
+    {
+        Func<Sprite> supplier;
+
+        public WrapSpriteLoader(Func<Sprite> supplier)
+        {
+            this.supplier = supplier;
+        }
+
+        public Sprite GetSprite() => supplier.Invoke();
     }
 }

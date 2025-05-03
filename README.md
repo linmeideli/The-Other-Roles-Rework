@@ -180,7 +180,7 @@ Thanks to miniduikboot & GD for hosting modded servers (and so much more)
 [Ninja](#ninja), [Thief](#thief), [Lawyer](#lawyer) / [Pursuer](#pursuer), [Deputy](#deputy), [Portalmaker](#portalmaker), [Guesser Modifier](#guesser-modifier) - Idea: [K3ndo](https://github.com/K3ndoo) ; Developed by [Gendelo](https://github.com/gendelo3) & [Mallöris](https://github.com/Mallaris) \
 [ugackMiner53](https://github.com/ugackMiner53/PropHunt) - Idea and core code for the Prop Hunt game mode
 Role Draft Music: [Unreal Superhero 3 by Kenët & Rez](https://www.youtube.com/watch?v=9STiQ8cCIo0)
-[TheOtherRolesGMIA](https://github.com/dabao40/TheOtherRolesGMIA) - Meta Context from **Imp11**.\
+[TheOtherRolesGMIA](https://github.com/dabao40/TheOtherRolesGMIA) - Some code from **Imp11**.\
 
 # Settings
 The mod adds a few new settings to Among Us (in addition to the role settings):
