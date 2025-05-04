@@ -16,6 +16,7 @@ using UnityEngine;
 using static TheOtherRoles.TheOtherRoles;
 using static TheOtherRoles.GameHistory;
 using Object = UnityEngine.Object;
+using TheOtherRoles.Modules;
 
 namespace TheOtherRoles.Patches;
 
@@ -677,7 +678,7 @@ public static class PlayerControlFixedUpdatePatch
                     {
                         var tabText = HudManager.Instance.TaskPanel.tab.transform.FindChild("TabText_TMP")
                             .GetComponent<TextMeshPro>();
-                        tabText.SetText($"Tasks {taskInfo}");
+                        tabText.SetText($"{"tabTaskText".Translate()} {taskInfo}");
                     }
 
                     meetingInfoText = $"{roleNames} {taskInfo}".Trim();
@@ -796,8 +797,8 @@ public static class PlayerControlFixedUpdatePatch
             }
             else
             {
-                Snitch.text.text = "Snitch is alive: " + playerCompleted + "/" + playerTotal;
-                if (snitchIsDead) Snitch.text.text = "Snitch is dead!";
+                Snitch.text.text = "snitchUpdateAliveText".Translate() + playerCompleted + "/" + playerTotal;
+                if (snitchIsDead) Snitch.text.text = "snitchUpdateDeadText".Translate();
             }
         }
         else if (Snitch.text != null)
@@ -1406,7 +1407,7 @@ internal class PlayerControlCmdReportDeadBodyPatch
 [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.LocalPlayer.CmdReportDeadBody))]
 internal class BodyReportPatch
 {
-    private static void Postfix(PlayerControl __instance, [HarmonyArgument(0)] NetworkedPlayerInfo target)
+    static void Postfix(PlayerControl __instance, [HarmonyArgument(0)] NetworkedPlayerInfo target)
     {
         // Medic or Detective report
         var isMedicReport = Medic.medic != null && Medic.medic == PlayerControl.LocalPlayer &&
@@ -1424,22 +1425,22 @@ internal class BodyReportPatch
 
                 if (isMedicReport)
                 {
-                    msg = $"Body Report: Killed {Math.Round(timeSinceDeath / 1000)}s ago!";
+                    msg = string.Format(ModTranslation.GetString("medicReport"), Math.Round(timeSinceDeath / 1000));
                 }
                 else if (isDetectiveReport)
                 {
                     if (timeSinceDeath < Detective.reportNameDuration * 1000)
                     {
-                        msg = $"Body Report: The killer appears to be {deadPlayer.killerIfExisting.Data.PlayerName}!";
+                        msg = string.Format(ModTranslation.GetString("detectiveReportName"), deadPlayer.killerIfExisting.Data.PlayerName);
                     }
                     else if (timeSinceDeath < Detective.reportColorDuration * 1000)
                     {
-                        var typeOfColor = Helpers.isLighterColor(deadPlayer.killerIfExisting) ? "lighter" : "darker";
-                        msg = $"Body Report: The killer appears to be a {typeOfColor} color!";
+                        var typeOfColor = Helpers.isLighterColor(deadPlayer.killerIfExisting) ? "colorLight".Translate() : "colorDark".Translate();
+                        msg = string.Format(ModTranslation.GetString("detectiveReportColor"), typeOfColor);
                     }
                     else
                     {
-                        msg = "Body Report: The corpse is too old to gain information from!";
+                        msg = ModTranslation.GetString("detectiveReportNone");
                     }
                 }
 
@@ -1531,7 +1532,7 @@ public static class MurderPlayerPatch
         // Seer show flash and add dead player position
         if (Seer.seer != null && (PlayerControl.LocalPlayer == Seer.seer || Helpers.shouldShowGhostInfo()) &&
             !Seer.seer.Data.IsDead && Seer.seer != target && Seer.mode <= 1)
-            Helpers.showFlash(new Color(42f / 255f, 187f / 255f, 245f / 255f), message: "Seer Info: Someone Died");
+            Helpers.showFlash(new Color(42f / 255f, 187f / 255f, 245f / 255f), message: "seerInfoText");
         if (Seer.deadBodyPositions != null) Seer.deadBodyPositions.Add(target.transform.position);
 
         // Tracker store body positions

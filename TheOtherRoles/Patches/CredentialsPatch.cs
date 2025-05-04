@@ -8,6 +8,7 @@ using BepInEx.Unity.IL2CPP.Utils;
 using HarmonyLib;
 using InnerNet;
 using TheOtherRoles.CustomGameModes;
+using TheOtherRoles.Modules;
 using TheOtherRoles.Utilities;
 using TMPro;
 using UnityEngine;
@@ -30,9 +31,6 @@ Based on <color=#FCCE03FF>TheOtherRoles</color></size>";
     public static string mainMenuCredentials =
         @"Modded by <color=#00FFFF>ELinmei</color>
 Based on <color=#FCCE03FF>TheOtherRoles</color>";
-
-    public static string contributorsCredentials =
-        @"<size=60%> <color=#FCCE03FF>Special thanks to <color=#00FFFF>FangkuaiYa</color></color></size>";
 
     [HarmonyPatch(typeof(PingTracker), nameof(PingTracker.Update))]
     internal static class PingTrackerPatch
@@ -115,26 +113,27 @@ Based on <color=#FCCE03FF>TheOtherRoles</color>";
             loadSprites();
             // renderer.sprite = TORMapOptions.enableHorseMode ? horseBannerSprite : bannerSprite;
             renderer.sprite = EventUtility.isEnabled ? banner2Sprite : bannerSprite;
+
             var credentialObject = new GameObject("credentialsTOR");
             var credentials = credentialObject.AddComponent<TextMeshPro>();
-            credentials.SetText(
-                $"v{TheOtherRolesPlugin.Version + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}\n<size=30f%>\n</size>{mainMenuCredentials}\n<size=30%>\n</size>{contributorsCredentials}");
             credentials.alignment = TextAlignmentOptions.Center;
-            credentials.fontSize *= 0.05f;
+            credentials.horizontalAlignment = HorizontalAlignmentOptions.Center;
+            credentials.SetText(
+                $"v{TheOtherRolesPlugin.Version + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}\n<size=30f%>\n</size>{mainMenuCredentials}\n<size=30%>\n</size>{"contributorsCredentials".Translate()}");
+            credentials.fontSize = 1.5f;
+            credentials.transform.localPosition = new Vector3(2.14f, -1f, 200f);
 
-            credentials.transform.SetParent(GameObject.Find("RightPanel").transform);
-            credentials.transform.localPosition = Vector3.down * 1.1f;
             motdObject = new GameObject("torMOTD");
             motdText = motdObject.AddComponent<TextMeshPro>();
             motdText.alignment = TextAlignmentOptions.Center;
             motdText.fontSize *= 0.04f;
 
-            motdText.transform.SetParent(GameObject.Find("RightPanel").transform);
+            motdText.transform.SetParent(credentialObject.transform);
             motdText.enableWordWrapping = true;
             var rect = motdText.gameObject.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2(5.2f, 0.25f);
 
-            motdText.transform.localPosition = Vector3.down * 2.1f;
+            motdText.transform.localPosition = new Vector3(0, -1f, 0);
             motdText.color = new Color(1, 53f / 255, 31f / 255);
             var mat = motdText.fontSharedMaterial;
             mat.shaderKeywords = new[] { "OUTLINE_ON" };
@@ -229,7 +228,7 @@ Based on <color=#FCCE03FF>TheOtherRoles</color>";
         {
             var client = new HttpClient();
             var response =
-                await client.GetAsync("https://raw.githubusercontent.com/TheOtherRolesAU/MOTD/main/motd.txt");
+                await client.GetAsync("http://api.fangkuai.fun:22022/TheOtherRolesAU/MOTD/main/motd.txt");
             response.EnsureSuccessStatusCode();
             var motds = await response.Content.ReadAsStringAsync();
             foreach (var line in motds.Split("\n", StringSplitOptions.RemoveEmptyEntries)) MOTD.motds.Add(line);

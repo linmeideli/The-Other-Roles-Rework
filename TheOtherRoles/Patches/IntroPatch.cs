@@ -63,7 +63,7 @@ internal class IntroCutsceneOnDestroyPatch
                         player.transform.localPosition = bottomLeft + new Vector3(-0.25f, 0.4f, 0) +
                                                          Vector3.right * playerCounter++ * 0.6f;
                         player.transform.localScale = Vector3.one * 0.3f;
-                        player.cosmetics.nameText.text += $"{Helpers.cs(Color.red, " (Hunter)")}";
+                        player.cosmetics.nameText.text += $"{Helpers.cs(Color.red, "nameTextHunter".Translate())}";
                         player.gameObject.SetActive(true);
                     }
                     else if (!p.Data.Role.IsImpostor)
@@ -239,15 +239,15 @@ internal class IntroPatch
         if (roleInfo == null || roleInfo == RoleInfo.crewmate)
         {
             if (RoleDraft.isEnabled && CustomOptionHolder.neutralRolesCountMax.getSelection() > 0)
-                __instance.TeamTitle.text = "<size=60%>Crewmate" + Helpers.cs(Color.white, " / ") +
-                                            Helpers.cs(neutralColor, "Neutral") + "</size>";
+                __instance.TeamTitle.text = $"<size=60%>{"crewmate".Translate()}" + Helpers.cs(Color.white, " / ") +
+                                            Helpers.cs(neutralColor, "introNeutral".Translate()) + "</size>";
             return;
         }
 
         if (roleInfo.isNeutral)
         {
             __instance.BackgroundBar.material.color = neutralColor;
-            __instance.TeamTitle.text = "Neutral";
+            __instance.TeamTitle.text = "introNeutral".Translate();
             __instance.TeamTitle.color = neutralColor;
         }
     }
@@ -314,7 +314,7 @@ internal class IntroPatch
                 {
                     var otherLover = PlayerControl.LocalPlayer == Lovers.lover1 ? Lovers.lover2 : Lovers.lover1;
                     __instance.RoleBlurbText.text += Helpers.cs(Lovers.color,
-                        $"\n♥ You are in love with {otherLover?.Data?.PlayerName ?? ""} ♥");
+                        string.Format("loverRoleBlurbText".Translate(), otherLover?.Data?.PlayerName ?? ""));
                 }
             }
 
@@ -322,10 +322,10 @@ internal class IntroPatch
             {
                 if (infos.Any(info => info.roleId == RoleId.Sheriff))
                     __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color,
-                        $"\nYour Deputy is {Deputy.deputy?.Data?.PlayerName ?? ""}");
+                        string.Format("sheriffRoleBlurbText".Translate(), Deputy.deputy?.Data?.PlayerName ?? ""));
                 else if (infos.Any(info => info.roleId == RoleId.Deputy))
                     __instance.RoleBlurbText.text += Helpers.cs(Sheriff.color,
-                        $"\nYour Sheriff is {Sheriff.sheriff?.Data?.PlayerName ?? ""}");
+                        string.Format("deputyRoleBlurbText".Translate(), Sheriff.sheriff?.Data?.PlayerName ?? ""));
             }
         }
 

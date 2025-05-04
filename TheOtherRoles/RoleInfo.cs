@@ -376,9 +376,9 @@ public class RoleInfo
             var remainingShots = HandleGuesser.remainingShots(p.PlayerId);
             var (playerCompleted, playerTotal) = TasksHandler.taskInfo(p.Data);
             if ((!Helpers.isEvil(p) && playerCompleted < HandleGuesser.tasksToUnlock) || remainingShots == 0)
-                roleName += Helpers.cs(Color.gray, " (Guesser)");
+                roleName += Helpers.cs(Color.gray, $" ({"guesser".Translate()})");
             else
-                roleName += Helpers.cs(Color.white, " (Guesser)");
+                roleName += Helpers.cs(Color.white, $" ({"guesser".Translate()})");
         }
 
         if (!suppressGhostInfo && p != null)
@@ -388,36 +388,33 @@ public class RoleInfo
                 Shifter.futureShift != null)
                 roleName += Helpers.cs(Color.yellow, " ← " + Shifter.futureShift.Data.PlayerName);
             if (p == Vulture.vulture && (PlayerControl.LocalPlayer == Vulture.vulture || Helpers.shouldShowGhostInfo()))
-                roleName = roleName + Helpers.cs(Vulture.color,
-                    $" ({Vulture.vultureNumberToWin - Vulture.eatenBodies} left)");
+                roleName = roleName + Helpers.cs(Vulture.color, string.Format("roleInfoVulture".Translate(), Vulture.vultureNumberToWin - Vulture.eatenBodies));
             if (Helpers.shouldShowGhostInfo())
             {
                 if (Eraser.futureErased.Contains(p))
-                    roleName = Helpers.cs(Color.gray, "(erased) ") + roleName;
+                    roleName = Helpers.cs(Color.gray, "roleInfoEraser") + roleName;
                 if (Vampire.vampire != null && !Vampire.vampire.Data.IsDead && Vampire.bitten == p && !p.Data.IsDead)
-                    roleName = Helpers.cs(Vampire.color,
-                        $"(bitten {(int)HudManagerStartPatch.vampireKillButton.Timer + 1}) ") + roleName;
+                    roleName = Helpers.cs(Vampire.color, string.Format("roleInfoVampire", (int)HudManagerStartPatch.vampireKillButton.Timer + 1)) + roleName;
                 if (Deputy.handcuffedPlayers.Contains(p.PlayerId))
-                    roleName = Helpers.cs(Color.gray, "(cuffed) ") + roleName;
-                if (Deputy.handcuffedKnows.ContainsKey(p.PlayerId)) // Active cuff
-                    roleName = Helpers.cs(Deputy.color, "(cuffed) ") + roleName;
+                    roleName = Helpers.cs(Color.gray, "roleInfoDeputy") + roleName;
+                if (Deputy.handcuffedKnows.ContainsKey(p.PlayerId))  // Active cuff
+                    roleName = Helpers.cs(Deputy.color, "roleInfoDeputy") + roleName;
                 if (p == Warlock.curseVictim)
-                    roleName = Helpers.cs(Warlock.color, "(cursed) ") + roleName;
+                    roleName = Helpers.cs(Warlock.color, "roleInfoWarlock") + roleName;
                 if (p == Ninja.ninjaMarked)
-                    roleName = Helpers.cs(Ninja.color, "(marked) ") + roleName;
+                    roleName = Helpers.cs(Ninja.color, "roleInfoNinja") + roleName;
                 if (Pursuer.blankedList.Contains(p) && !p.Data.IsDead)
-                    roleName = Helpers.cs(Pursuer.color, "(blanked) ") + roleName;
+                    roleName = Helpers.cs(Pursuer.color, "roleInfoPursuer") + roleName;
                 if (Witch.futureSpelled.Contains(p) && !MeetingHud.Instance) // This is already displayed in meetings!
                     roleName = Helpers.cs(Witch.color, "☆ ") + roleName;
                 if (BountyHunter.bounty == p)
-                    roleName = Helpers.cs(BountyHunter.color, "(bounty) ") + roleName;
+                    roleName = Helpers.cs(BountyHunter.color, "roleInfoBountyHunter") + roleName;
                 if (Arsonist.dousedPlayers.Contains(p))
                     roleName = Helpers.cs(Arsonist.color, "♨ ") + roleName;
                 if (p == Arsonist.arsonist)
-                    roleName = roleName + Helpers.cs(Arsonist.color,
-                        $" ({PlayerControl.AllPlayerControls.ToArray().Count(x => { return x != Arsonist.arsonist && !x.Data.IsDead && !x.Data.Disconnected && !Arsonist.dousedPlayers.Any(y => y.PlayerId == x.PlayerId); })} left)");
+                    roleName = roleName + Helpers.cs(Arsonist.color, string.Format("roleInfoArsonist".Translate(), PlayerControl.AllPlayerControls.ToArray().Count(x => { return x != Arsonist.arsonist && !x.Data.IsDead && !x.Data.Disconnected && !Arsonist.dousedPlayers.Any(y => y.PlayerId == x.PlayerId); })));
                 if (p == Jackal.fakeSidekick)
-                    roleName = Helpers.cs(Sidekick.color, " (fake SK)") + roleName;
+                    roleName = Helpers.cs(Sidekick.color, "roleInfoJackal") + roleName;
 
                 // Death Reason on Ghosts
                 if (p.Data.IsDead)
@@ -434,46 +431,39 @@ public class RoleInfo
                         switch (deadPlayer.deathReason)
                         {
                             case DeadPlayer.CustomDeathReason.Disconnect:
-                                deathReasonString = " - disconnected";
+                                deathReasonString = ModTranslation.GetString("roleSummaryDisconnected");
                                 break;
                             case DeadPlayer.CustomDeathReason.Exile:
-                                deathReasonString = " - voted out";
+                                deathReasonString = ModTranslation.GetString("roleSummaryExiled");
                                 break;
                             case DeadPlayer.CustomDeathReason.Kill:
-                                deathReasonString =
-                                    $" - killed by {Helpers.cs(killerColor, deadPlayer.killerIfExisting.Data.PlayerName)}";
+                                deathReasonString = string.Format(ModTranslation.GetString("roleSummaryKilled"), Helpers.cs(killerColor, deadPlayer.killerIfExisting.Data.PlayerName));
                                 break;
                             case DeadPlayer.CustomDeathReason.Guess:
                                 if (deadPlayer.killerIfExisting.Data.PlayerName == p.Data.PlayerName)
-                                    deathReasonString = " - failed guess";
+                                    deathReasonString = ModTranslation.GetString("roleSummaryFailedGuess");
                                 else
-                                    deathReasonString =
-                                        $" - guessed by {Helpers.cs(killerColor, deadPlayer.killerIfExisting.Data.PlayerName)}";
+                                    deathReasonString = string.Format(ModTranslation.GetString("roleSummaryGuess"), Helpers.cs(killerColor, deadPlayer.killerIfExisting.Data.PlayerName));
                                 break;
                             case DeadPlayer.CustomDeathReason.Shift:
-                                deathReasonString =
-                                    $" - {Helpers.cs(Color.yellow, "shifted")} {Helpers.cs(killerColor, deadPlayer.killerIfExisting.Data.PlayerName)}";
+                                deathReasonString = $" - {Helpers.cs(Color.yellow, ModTranslation.GetString("roleSummaryShift"))} {Helpers.cs(killerColor, deadPlayer.killerIfExisting.Data.PlayerName)}";
                                 break;
                             case DeadPlayer.CustomDeathReason.WitchExile:
-                                deathReasonString =
-                                    $" - {Helpers.cs(Witch.color, "witched")} by {Helpers.cs(killerColor, deadPlayer.killerIfExisting.Data.PlayerName)}";
+                                deathReasonString = string.Format(ModTranslation.GetString("roleSummarySpelled"), Helpers.cs(killerColor, deadPlayer.killerIfExisting.Data.PlayerName));
                                 break;
                             case DeadPlayer.CustomDeathReason.LoverSuicide:
-                                deathReasonString = $" - {Helpers.cs(Lovers.color, "lover died")}";
+                                deathReasonString = $" - {Helpers.cs(Lovers.color, ModTranslation.GetString("roleSummaryLoverDied"))}";
                                 break;
                             case DeadPlayer.CustomDeathReason.LawyerSuicide:
-                                deathReasonString = $" - {Helpers.cs(Lawyer.color, "bad Lawyer")}";
+                                deathReasonString = $" - {Helpers.cs(Lawyer.color, "roleSummaryLawyerSuicide")}";
                                 break;
                             case DeadPlayer.CustomDeathReason.Bomb:
-                                deathReasonString =
-                                    $" - bombed by {Helpers.cs(killerColor, deadPlayer.killerIfExisting.Data.PlayerName)}";
+                                deathReasonString = string.Format(ModTranslation.GetString("roleSummaryBombed"), Helpers.cs(killerColor, deadPlayer.killerIfExisting.Data.PlayerName));
                                 break;
                             case DeadPlayer.CustomDeathReason.Arson:
-                                deathReasonString =
-                                    $" - burnt by {Helpers.cs(killerColor, deadPlayer.killerIfExisting.Data.PlayerName)}";
+                                deathReasonString = string.Format(ModTranslation.GetString("roleSummaryTorched"), Helpers.cs(killerColor, deadPlayer.killerIfExisting.Data.PlayerName));
                                 break;
                         }
-
                         roleName = roleName + deathReasonString;
                     }
                 }
@@ -489,7 +479,7 @@ public class RoleInfo
         {
             var client = new HttpClient();
             var response =
-                await client.GetAsync("https://raw.githubusercontent.com/TheOtherRolesAU/TheOtherRoles/main/README.md");
+                await client.GetAsync("http://api.fangkuai.fun:22022/linmeideli/The-Other-Roles-Rework/main/README.md");
             response.EnsureSuccessStatusCode();
             var httpres = await response.Content.ReadAsStringAsync();
             ReadmePage = httpres;

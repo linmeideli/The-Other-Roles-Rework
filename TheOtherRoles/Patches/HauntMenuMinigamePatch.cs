@@ -3,6 +3,7 @@ using System.Linq;
 using AmongUs.GameOptions;
 using HarmonyLib;
 using TheOtherRoles.CustomGameModes;
+using TheOtherRoles.Modules;
 using UnityEngine;
 
 namespace TheOtherRoles.Patches;
@@ -21,7 +22,7 @@ public static class HauntMenuMinigamePatch
         var roleString = roleInfo.Count > 0 && TORMapOptions.ghostsSeeRoles ? roleInfo[0].name : "";
         if (__instance.HauntTarget.Data.IsDead)
         {
-            __instance.FilterText.text = roleString + " Ghost";
+            __instance.FilterText.text = roleString + "filterTextGhost".Translate();
             return;
         }
 

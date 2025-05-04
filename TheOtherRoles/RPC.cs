@@ -273,7 +273,7 @@ public static class RPCProcedure
         {
             GameStartManager.Instance.ResetStartState();
             PlayerControl.LocalPlayer.RpcSendChat(
-                $"{Helpers.playerById(playerId).Data.PlayerName} stopped the game start!");
+                string.Format("stopStartChatText".Translate(), Helpers.playerById(playerId).Data.PlayerName));
         }
     }
 
@@ -571,7 +571,7 @@ public static class RPCProcedure
         Engineer.remainingFixes--;
         if (Helpers.shouldShowGhostInfo())
         {
-            Helpers.showFlash(Engineer.color, 0.5f, "Engineer Fix");
+            Helpers.showFlash(Engineer.color, 0.5f, "engineerUsedRepairText".Translate());
             ;
         }
     }
@@ -652,7 +652,7 @@ public static class RPCProcedure
         var isMedicAndShow = Medic.medic == PlayerControl.LocalPlayer && Medic.showAttemptToMedic;
 
         if (isShieldedAndShow || isMedicAndShow || Helpers.shouldShowGhostInfo())
-            Helpers.showFlash(Palette.ImpostorRed, 0.5f, "Failed Murder Attempt on Shielded Player");
+            Helpers.showFlash(Palette.ImpostorRed, 0.5f, "shieldedMurderAttemptText".Translate());
     }
 
     public static void shifterShift(byte targetId)
@@ -991,7 +991,7 @@ public static class RPCProcedure
         Trickster.lightsOutTimer = Trickster.lightsOutDuration;
         // If the local player is impostor indicate lights out
         if (Helpers.hasImpVision(GameData.Instance.GetPlayerById(PlayerControl.LocalPlayer.PlayerId)))
-            new CustomMessage("Lights are out", Trickster.lightsOutDuration);
+            new CustomMessage("lightsOutText".Translate(), Trickster.lightsOutDuration);
     }
 
     public static void placeCamera(byte[] buff)
@@ -1219,7 +1219,7 @@ public static class RPCProcedure
         {
             var roleInfo = RoleInfo.allRoleInfos.FirstOrDefault(x => (byte)x.roleId == guessedRoleId);
             var msg =
-                $"{guesser.Data.PlayerName} guessed the role {roleInfo?.name ?? ""} for {guessedTarget.Data.PlayerName}!";
+                string.Format("guessedChatText".Translate(), guesser.Data.PlayerName, roleInfo?.name ?? "", guessedTarget.Data.PlayerName);
             if (AmongUsClient.Instance.AmClient && FastDestroyableSingleton<HudManager>.Instance)
                 FastDestroyableSingleton<HudManager>.Instance.Chat.AddChat(guesser, msg);
             if (msg.IndexOf("who", StringComparison.OrdinalIgnoreCase) >= 0)

@@ -6,6 +6,7 @@ using HarmonyLib;
 using Hazel;
 using Reactor.Utilities.Extensions;
 using TheOtherRoles.CustomGameModes;
+using TheOtherRoles.Modules;
 using TheOtherRoles.Objects;
 using TheOtherRoles.Utilities;
 using TMPro;
@@ -1663,61 +1664,49 @@ public static class Medium
             switch (selectedInfo)
             {
                 case SpecialMediumInfo.SheriffSuicide:
-                    msg = "Yikes, that Sheriff shot backfired.";
+                    msg = ModTranslation.GetString("mediumSheriffSuicide");
                     break;
                 case SpecialMediumInfo.WarlockSuicide:
-                    msg = "MAYBE I cursed the person next to me and killed myself. Oops.";
+                    msg = ModTranslation.GetString("mediumWarlockSuicide");
                     break;
                 case SpecialMediumInfo.ThiefSuicide:
-                    msg = "I tried to steal the gun from their pocket, but they were just happy to see me.";
+                    msg = ModTranslation.GetString("mediumThiefSuicide");
                     break;
                 case SpecialMediumInfo.ActiveLoverDies:
-                    msg = "I wanted to get out of this toxic relationship anyways.";
+                    msg = ModTranslation.GetString("mediumActiveLoverDies");
                     break;
                 case SpecialMediumInfo.PassiveLoverSuicide:
-                    msg = "The love of my life died, thus with a kiss I die.";
+                    msg = ModTranslation.GetString("mediumPassiveLoverSuicide");
                     break;
                 case SpecialMediumInfo.LawyerKilledByClient:
-                    msg = "My client killed me. Do I still get paid?";
+                    msg = ModTranslation.GetString("mediumLawyerKilledByClient");
                     break;
                 case SpecialMediumInfo.JackalKillsSidekick:
-                    msg = "First they sidekicked me, then they killed me. At least I don't need to do tasks anymore.";
+                    msg = ModTranslation.GetString("mediumJackalKillsSidekick");
                     break;
                 case SpecialMediumInfo.ImpostorTeamkill:
-                    msg = "I guess they confused me for the Spy, is there even one?";
+                    msg = ModTranslation.GetString("mediumImpostorTeamkill");
                     break;
                 case SpecialMediumInfo.BodyCleaned:
-                    msg = "Is my dead body some kind of art now or... aaand it's gone.";
+                    msg = ModTranslation.GetString("mediumBodyCleaned");
                     break;
             }
         }
         else
         {
             var randomNumber = rnd.Next(4);
-            var typeOfColor = Helpers.isLighterColor(Medium.target.killerIfExisting) ? "lighter" : "darker";
+            var typeOfColor = Helpers.isLighterColor(Medium.target.killerIfExisting) ? "colorLight".Translate() : "colorDark".Translate();
             var timeSinceDeath = (float)(meetingStartTime - Medium.target.timeOfDeath).TotalMilliseconds;
             var roleString = RoleInfo.GetRolesString(Medium.target.player, false);
+            var roleInfo = RoleInfo.getRoleInfoForPlayer(Medium.target.player);
             if (randomNumber == 0)
             {
-                if (!roleString.Contains("Impostor") && !roleString.Contains("Crewmate"))
-                    msg = "If my role hasn't been saved, there's no " + roleString + " in the game anymore.";
-                else
-                    msg = "I was a " + roleString + " without another role.";
+                if (!roleInfo.Contains(RoleInfo.impostor) && !roleInfo.Contains(RoleInfo.crewmate)) msg = string.Format(ModTranslation.GetString("mediumQuestion1"), RoleInfo.GetRolesString(Medium.target.player, false));
+                else msg = string.Format(ModTranslation.GetString("mediumQuestion5"), roleString);
             }
-            else if (randomNumber == 1)
-            {
-                msg = "I'm not sure, but I guess a " + typeOfColor + " color killed me.";
-            }
-            else if (randomNumber == 2)
-            {
-                msg = "If I counted correctly, I died " + Math.Round(timeSinceDeath / 1000) +
-                      "s before the next meeting started.";
-            }
-            else
-            {
-                msg = "It seems like my killer is the " +
-                      RoleInfo.GetRolesString(Medium.target.killerIfExisting, false, false, true) + ".";
-            }
+            else if (randomNumber == 1) msg = string.Format(ModTranslation.GetString("mediumQuestion2"), typeOfColor);
+            else if (randomNumber == 2) msg = string.Format(ModTranslation.GetString("mediumQuestion3"), Math.Round(timeSinceDeath / 1000));
+            else msg = string.Format(ModTranslation.GetString("mediumQuestion4"), RoleInfo.GetRolesString(Medium.target.killerIfExisting, false, false, true)) + ".";
         }
 
         if (rnd.NextDouble() < chanceAdditionalInfo)
@@ -1728,33 +1717,24 @@ public static class Medium
             switch (rnd.Next(3))
             {
                 case 0:
-                    count = alivePlayersList.Where(pc =>
-                        pc.Data.Role.IsImpostor ||
-                        new List<RoleInfo> { RoleInfo.jackal, RoleInfo.sidekick, RoleInfo.sheriff, RoleInfo.thief }
-                            .Contains(RoleInfo.getRoleInfoForPlayer(pc, false).FirstOrDefault())).Count();
-                    condition = "killer" + (count == 1 ? "" : "s");
+                    count = alivePlayersList.Where(pc => pc.Data.Role.IsImpostor || new List<RoleInfo>() { RoleInfo.jackal, RoleInfo.sidekick, RoleInfo.sheriff, RoleInfo.thief }.Contains(RoleInfo.getRoleInfoForPlayer(pc, false).FirstOrDefault())).Count();
+                    condition = ModTranslation.GetString($"mediumKiller{(count == 1 ? "" : "Plural")}");
                     break;
                 case 1:
                     count = alivePlayersList.Where(Helpers.roleCanUseVents).Count();
-                    condition = "player" + (count == 1 ? "" : "s") + " who can use vents";
+                    condition = ModTranslation.GetString($"mediumPlayerUseVents{(count == 1 ? "" : "Plural")}");
                     break;
                 case 2:
-                    count = alivePlayersList.Where(pc =>
-                            Helpers.isNeutral(pc) && pc != Jackal.jackal && pc != Sidekick.sidekick &&
-                            pc != Thief.thief)
-                        .Count();
-                    condition = "player" + (count == 1 ? "" : "s") + " who " + (count == 1 ? "is" : "are") +
-                                " neutral but cannot kill";
+                    count = alivePlayersList.Where(pc => Helpers.isNeutral(pc) && pc != Jackal.jackal && pc != Sidekick.sidekick && pc != Thief.thief).Count();
+                    condition = ModTranslation.GetString($"mediumPlayerNeutral{(count == 1 ? "" : "Plural")}");
                     break;
                 case 3:
                     //count = alivePlayersList.Where(pc =>
                     break;
             }
-
-            msg += $"\nWhen you asked, {count} " + condition + (count == 1 ? " was" : " were") + " still alive";
+            msg += $"\n" + string.Format(ModTranslation.GetString("mediumAskPrefix"), string.Format(ModTranslation.GetString($"mediumStillAlive{(count == 1 ? "" : "Plural")}"), string.Format(condition, count)));
         }
-
-        return Medium.target.player.Data.PlayerName + "'s Soul:\n" + msg;
+        return string.Format(ModTranslation.GetString("mediumSoulPlayerPrefix"), Medium.target.player.Data.PlayerName) + msg;
     }
 
     private enum SpecialMediumInfo

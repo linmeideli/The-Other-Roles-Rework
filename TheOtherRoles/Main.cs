@@ -198,21 +198,22 @@ public static class DebugManager
 
 
         // Spawn dummys
-        /*if (Input.GetKeyDown(KeyCode.F)) {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
             var playerControl = UnityEngine.Object.Instantiate(AmongUsClient.Instance.PlayerPrefab);
-            var i = playerControl.PlayerId = (byte) GameData.Instance.GetAvailableId();
+            var i = playerControl.PlayerId = (byte)GameData.Instance.GetAvailableId();
 
             bots.Add(playerControl);
-            GameData.Instance.AddPlayer(playerControl, new InnerNet.ClientData(0));
+            GameData.Instance.AddDummy(playerControl);
             AmongUsClient.Instance.Spawn(playerControl, -2, InnerNet.SpawnFlags.None);
 
             playerControl.transform.position = PlayerControl.LocalPlayer.transform.position;
             playerControl.GetComponent<DummyBehaviour>().enabled = true;
             playerControl.NetTransform.enabled = false;
             playerControl.SetName(RandomString(10));
-            playerControl.SetColor((byte) random.Next(Palette.PlayerColors.Length));
+            playerControl.SetColor((byte)random.Next(Palette.PlayerColors.Length));
             playerControl.Data.RpcSetTasks(new byte[0]);
-        }*/
+        }
 
         // Terminate round
         if (Input.GetKeyDown(KeyCode.L))

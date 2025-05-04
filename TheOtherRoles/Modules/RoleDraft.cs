@@ -402,7 +402,7 @@ internal class RoleDraft
                 }
 
                 __instance.TeamTitle.text =
-                    $"{Helpers.cs(Color.red, $"<size=280%>{"welcomeText".Translate()}</size>")}\n\n\n<size=200%> {"currentlyPicking".Translate()}</size>\n\n\n<size=250%>{playerText}</size>";
+                    $"{Helpers.cs(Color.red, $"<size=300%>{"welcomeText".Translate()}</size>")}\n\n\n<size=200%> {"currentlyPicking".Translate()}</size>\n\n\n<size=250%>{playerText}</size>";
                 var waitMore = pickOrder.IndexOf(PlayerControl.LocalPlayer.PlayerId);
                 var waitMoreText = "";
                 if (waitMore > 0) waitMoreText = string.Format("untilYourTurnText".Translate(), waitMore);
@@ -476,7 +476,8 @@ internal class RoleDraft
             }
 
             var line = $"{(playerId == PlayerControl.LocalPlayer.PlayerId ? "youText2".Translate() : alreadyPicked.Count)}:";
-            line = line + string.Concat(Enumerable.Repeat(" ", 6 - line.Length)) + roleString;
+            int spaceCount = Math.Max(0, 6 - line.Length);
+            line += string.Concat(Enumerable.Repeat(" ", spaceCount)) + roleString;
             feedText.text += line + "\n";
             SoundEffectsManager.play("select");
         }

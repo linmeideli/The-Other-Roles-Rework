@@ -79,64 +79,18 @@ public class MainMenuPatch
             popUp = Object.Instantiate(popUpTemplate);
 
             popUp.gameObject.SetActive(true);
-            var creditsString = @"<align=""center""><b>Team:</b>
-Mallöris    K3ndo    Bavari    Gendelo
-
-<b>Former Team Members:</b>
-Eisbison (GOAT)    Thunderstorm584    EndOfFile
-
-<b>Additional Devs:</b>
-EnoPM    twix    NesTT
-
-<b>Github Contributors:</b>
-Alex2911    amsyarasyiq    MaximeGillot
-Psynomit    probablyadnf    JustASysAdmin
-
-<b>[https://discord.gg/77RkMJHWsM]Discord[] Moderators:</b>
-Draco Cordraconis    Streamblox (formerly)
-Thanks to all our discord helpers!
-
-Thanks to miniduikboot & GD for hosting modded servers (and so much more)
-
-";
-            creditsString += @"<size=60%> <b>Other Credits & Resources:</b>
-OxygenFilter - For the versions v2.3.0 to v2.6.1, we were using the OxygenFilter for automatic deobfuscation
-Reactor - The framework used for all versions before v2.0.0, and again since 4.2.0
-BepInEx - Used to hook game functions
-Essentials - Custom game options by DorCoMaNdO:
-Before v1.6: We used the default Essentials release
-v1.6-v1.8: We slightly changed the default Essentials.
-v2.0.0 and later: As we were not using Reactor anymore, we are using our own implementation, inspired by the one from DorCoMaNdO
-Jackal and Sidekick - Original idea for the Jackal and Sidekick came from Dhalucard
-Among-Us-Love-Couple-Mod - Idea for the Lovers modifier comes from Woodi-dev
-Jester - Idea for the Jester role came from Maartii
-ExtraRolesAmongUs - Idea for the Engineer and Medic role came from NotHunter101. Also some code snippets from their implementation were used.
-Among-Us-Sheriff-Mod - Idea for the Sheriff role came from Woodi-dev
-TooManyRolesMods - Idea for the Detective and Time Master roles comes from Hardel-DW. Also some code snippets from their implementation were used.
-TownOfUs - Idea for the Swapper, Shifter, Arsonist and a similar Mayor role came from Slushiegoose
-Ottomated - Idea for the Morphling, Snitch and Camouflager role came from Ottomated
-Crowded-Mod - Our implementation for 10+ player lobbies was inspired by the one from the Crowded Mod Team
-Goose-Goose-Duck - Idea for the Vulture role came from Slushiegoose
-TheEpicRoles - Idea for the first kill shield (partly) and the (old) tabbed option menu (fully + some code), by LaicosVK DasMonschta Nova
-ugackMiner53 - Idea and core code for the Prop Hunt game mode
-TheOtherRolesGMIA - Some code from Imp11
-Role Draft Music: [https://www.youtube.com/watch?v=9STiQ8cCIo0]Unreal Superhero 3 by Kenët & Rez[]
-
-License: TheOtherRoles-Rework is licensed under the [https://github.com/TheOtherRolesAU/TheOtherRoles?tab=GPL-3.0-1-ov-file#readme]GPLv3[]
-</size>";
-            creditsString += "</align>";
 
             Announcement creditsAnnouncement = new()
             {
                 Id = "torrCredits",
                 Language = 0,
                 Number = 500,
-                Title = "The Other Roles Rework\nCredits & Resources",
-                ShortTitle = "TORR Credits",
-                SubTitle = "",
+                Title = "creditsAnnouncementTittle".Translate(),
+                ShortTitle = "creditsAnnouncementShortTittle".Translate(),
+                SubTitle = "creditsAnnouncementSubTitle".Translate(),
                 PinState = false,
                 Date = "05.01.2025",
-                Text = creditsString
+                Text = "mianMenuManagerCreditsMenuText".Translate()
             };
             __instance.StartCoroutine(Effects.Lerp(0.1f, new Action<float>(p =>
             {
@@ -205,9 +159,9 @@ License: TheOtherRoles-Rework is licensed under the [https://github.com/TheOther
 
             template.StartCoroutine(Effects.Lerp(0.1f, new Action<float>(p =>
             {
-                guesserButtonText.SetText("TOR Guesser");
-                HideNSeekButtonText.SetText("TOR Hide N Seek");
-                PropHuntButtonText.SetText("TOR Prop Hunt");
+                guesserButtonText.SetText("guesserButtonText".Translate());
+                HideNSeekButtonText.SetText("HideNSeekButtonText".Translate());
+                PropHuntButtonText.SetText("PropHuntButtonText".Translate());
             })));
         }));
     }

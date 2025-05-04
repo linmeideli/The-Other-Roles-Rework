@@ -228,8 +228,8 @@ public static class Helpers
     {
         if (roleInfo.roleId == RoleId.Jackal)
         {
-            var getSidekickText = Jackal.canCreateSidekick ? " and recruit a Sidekick" : "";
-            return cs(roleInfo.color, $"{roleInfo.name}: Kill everyone{getSidekickText}");
+            var getSidekickText = Jackal.canCreateSidekick ? "getSidekickText".Translate() : "";
+            return cs(roleInfo.color, string.Format("getJackalRoleString".Translate(), roleInfo.name, getSidekickText));
         }
 
         if (roleInfo.roleId == RoleId.Invert)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using HarmonyLib;
+using TheOtherRoles.Modules;
 using TheOtherRoles.Utilities;
 using TMPro;
 using UnityEngine;
@@ -15,39 +16,39 @@ public static class ClientOptionsPatch
 {
     private static readonly SelectionBehaviour[] AllOptions =
     {
-        new("Ghosts See Tasks & Other Info",
+        new("ghostsSeeInformation",
             () => TORMapOptions.ghostsSeeInformation = TheOtherRolesPlugin.GhostsSeeInformation.Value =
                 !TheOtherRolesPlugin.GhostsSeeInformation.Value, TheOtherRolesPlugin.GhostsSeeInformation.Value),
-        new("Ghosts Can See Votes",
+        new("ghostsSeeVotes",
             () => TORMapOptions.ghostsSeeVotes =
                 TheOtherRolesPlugin.GhostsSeeVotes.Value = !TheOtherRolesPlugin.GhostsSeeVotes.Value,
             TheOtherRolesPlugin.GhostsSeeVotes.Value),
-        new("Ghosts Can See Roles",
+        new("ghostsSeeRoles",
             () => TORMapOptions.ghostsSeeRoles =
                 TheOtherRolesPlugin.GhostsSeeRoles.Value = !TheOtherRolesPlugin.GhostsSeeRoles.Value,
             TheOtherRolesPlugin.GhostsSeeRoles.Value),
-        new("Ghosts Can Additionally See Modifier",
+        new("ghostsSeeModifier",
             () => TORMapOptions.ghostsSeeModifier = TheOtherRolesPlugin.GhostsSeeModifier.Value =
                 !TheOtherRolesPlugin.GhostsSeeModifier.Value, TheOtherRolesPlugin.GhostsSeeModifier.Value),
-        new("Show Role Summary",
+        new("showRoleSummary",
             () => TORMapOptions.showRoleSummary =
                 TheOtherRolesPlugin.ShowRoleSummary.Value = !TheOtherRolesPlugin.ShowRoleSummary.Value,
             TheOtherRolesPlugin.ShowRoleSummary.Value),
-        new("Show Lighter / Darker",
+        new("showLighterDarker",
             () => TORMapOptions.showLighterDarker = TheOtherRolesPlugin.ShowLighterDarker.Value =
                 !TheOtherRolesPlugin.ShowLighterDarker.Value, TheOtherRolesPlugin.ShowLighterDarker.Value),
-        new("Enable Sound Effects", () =>
+        new("enableSoundEffects", () =>
         {
             TORMapOptions.enableSoundEffects = TheOtherRolesPlugin.EnableSoundEffects.Value =
                 !TheOtherRolesPlugin.EnableSoundEffects.Value;
             if (!TORMapOptions.enableSoundEffects) SoundEffectsManager.stopAll();
             return TORMapOptions.enableSoundEffects;
         }, TheOtherRolesPlugin.EnableSoundEffects.Value),
-        new("Show Vents On Map",
+        new("showVentsOnMap",
             () => TORMapOptions.ShowVentsOnMap =
                 TheOtherRolesPlugin.ShowVentsOnMap.Value = !TheOtherRolesPlugin.ShowVentsOnMap.Value,
             TheOtherRolesPlugin.ShowVentsOnMap.Value),
-        new("Show Chat Notifications",
+        new("showChatNotifications",
             () => TORMapOptions.ShowChatNotifications = TheOtherRolesPlugin.ShowChatNotifications.Value =
                 !TheOtherRolesPlugin.ShowChatNotifications.Value, TheOtherRolesPlugin.ShowChatNotifications.Value)
     };
@@ -126,7 +127,7 @@ public static class ClientOptionsPatch
         moreOptions.transform.localScale = new Vector3(0.66f, 1, 1);
 
         moreOptions.gameObject.SetActive(true);
-        moreOptions.Text.text = "Mod Options...";
+        moreOptions.Text.text = "moreOptionsText".Translate();
         moreOptions.Text.transform.localScale = new Vector3(1 / 0.66f, 1, 1);
         var moreOptionsButton = moreOptions.GetComponent<PassiveButton>();
         moreOptionsButton.OnClick = new ButtonClickedEvent();
@@ -169,7 +170,7 @@ public static class ClientOptionsPatch
         var title = Object.Instantiate(titleText, popUp.transform);
         title.GetComponent<RectTransform>().localPosition = Vector3.up * 2.3f;
         title.gameObject.SetActive(true);
-        title.text = "More Options...";
+        title.text = "modOptionsText".Translate();
         title.name = "TitleText";
     }
 
@@ -238,7 +239,7 @@ public static class ClientOptionsPatch
 
         public SelectionBehaviour(string title, Func<bool> onClick, bool defaultValue)
         {
-            Title = title;
+            Title = title.Translate();
             OnClick = onClick;
             DefaultValue = defaultValue;
         }
