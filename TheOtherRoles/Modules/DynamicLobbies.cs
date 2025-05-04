@@ -29,7 +29,7 @@ public static class DynamicLobbies
                         handled = true;
                         if (!int.TryParse(text.Substring(6), out LobbyLimit))
                         {
-                            __instance.AddChat(PlayerControl.LocalPlayer, "Invalid Size\nUsage: /size {amount}");
+                            __instance.AddChat(PlayerControl.LocalPlayer, "changeLobbySizeUsage".Translate());
                         }
                         else
                         {
@@ -43,11 +43,11 @@ public static class DynamicLobbies
                                         GameOptionsManager.Instance.currentGameOptions,
                                         false)); // TODO Maybe simpler?? 
                                 __instance.AddChat(PlayerControl.LocalPlayer,
-                                    $"Lobby Size changed to {LobbyLimit} players");
+                                    string.Format("changeLobbySizeTo".Translate(), LobbyLimit));
                             }
                             else
                             {
-                                __instance.AddChat(PlayerControl.LocalPlayer, $"Lobby Size is already {LobbyLimit}");
+                                __instance.AddChat(PlayerControl.LocalPlayer, string.Format("changeLobbySizeAl".Translate(), LobbyLimit));
                             }
                         }
                     }

@@ -84,6 +84,18 @@ public class CustomOption
         options.Add(this);
     }
     public static int numId = 0;
+    public static CustomOption CreateRoleOption(CustomOptionType type, RoleId roleId, string[] selections,
+        CustomOption parent = null, bool isHeader = false, Action onChange = null, string heading = "",
+        bool invertedParent = false, int id2 = 0)
+    {
+        return new CustomOption(numId++, type, Helpers.cs(RoleInfo.roleInfoById[roleId].color, RoleInfo.roleInfoById[roleId].name), selections, "", parent, isHeader, onChange, heading, invertedParent, id2);
+    }
+    public static CustomOption CreateModifierOption(CustomOptionType type, RoleId roleId, string[] selections,
+        CustomOption parent = null, bool isHeader = false, Action onChange = null, string heading = "",
+        bool invertedParent = false, int id2 = 0)
+    {
+        return new CustomOption(numId++, type, Helpers.cs(RoleInfo.roleInfoById[roleId].color, RoleInfo.roleInfoById[roleId].name), selections, "", parent, isHeader, onChange, heading, invertedParent, id2);
+    }
     public static CustomOption Create(CustomOptionType type, string name, string[] selections,
         CustomOption parent = null, bool isHeader = false, Action onChange = null, string heading = "",
         bool invertedParent = false, int id2 = 0)

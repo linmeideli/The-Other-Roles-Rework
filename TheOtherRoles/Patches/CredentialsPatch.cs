@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AmongUs.GameOptions;
+using BepInEx.Unity.IL2CPP.Utils;
 using HarmonyLib;
 using InnerNet;
 using TheOtherRoles.CustomGameModes;
@@ -120,24 +122,44 @@ Based on <color=#FCCE03FF>TheOtherRoles</color>";
             credentials.alignment = TextAlignmentOptions.Center;
             credentials.fontSize *= 0.05f;
 
-            credentials.transform.SetParent(torLogo.transform);
-            credentials.transform.localPosition = Vector3.down * 1.25f;
+            credentials.transform.SetParent(GameObject.Find("RightPanel").transform);
+            credentials.transform.localPosition = Vector3.down * 1.1f;
             motdObject = new GameObject("torMOTD");
             motdText = motdObject.AddComponent<TextMeshPro>();
             motdText.alignment = TextAlignmentOptions.Center;
             motdText.fontSize *= 0.04f;
 
-            motdText.transform.SetParent(torLogo.transform);
+            motdText.transform.SetParent(GameObject.Find("RightPanel").transform);
             motdText.enableWordWrapping = true;
             var rect = motdText.gameObject.GetComponent<RectTransform>();
             rect.sizeDelta = new Vector2(5.2f, 0.25f);
 
-            motdText.transform.localPosition = Vector3.down * 2.25f;
+            motdText.transform.localPosition = Vector3.down * 2.1f;
             motdText.color = new Color(1, 53f / 255, 31f / 255);
             var mat = motdText.fontSharedMaterial;
             mat.shaderKeywords = new[] { "OUTLINE_ON" };
             motdText.SetOutlineColor(Color.white);
             motdText.SetOutlineThickness(0.025f);
+
+            __instance.StartCoroutine(AnimateLogoScale(torLogo.transform));
+        }
+
+        private static IEnumerator AnimateLogoScale(Transform logoTransform)
+        {
+            const float animationSpeed = 0.8f;
+            const float scaleAmplitude = 0.2f;
+            const float baseScale = 1.2f;
+
+            while (true)
+            {
+                float sineValue = Mathf.Sin(Time.time * animationSpeed);
+
+                float currentScale = baseScale * (1 + sineValue * scaleAmplitude);
+
+                logoTransform.localScale = new Vector3(currentScale, currentScale, 1f);
+
+                yield return null;
+            }
         }
 
         public static void loadSprites()

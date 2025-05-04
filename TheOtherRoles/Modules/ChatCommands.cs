@@ -77,7 +77,7 @@ public static class ChatCommands
                     else
                     {
                         __instance.AddChat(PlayerControl.LocalPlayer,
-                            "Nice try, but you have to be the host to use this feature");
+                            "shareGamemodeNoHost".Translate());
                     }
 
                     handled = true;
@@ -98,10 +98,10 @@ public static class ChatCommands
                     handled = true;
                     int col;
                     if (!int.TryParse(text.Substring(7), out col))
-                        __instance.AddChat(PlayerControl.LocalPlayer, "Unable to parse color id\nUsage: /color {id}");
+                        __instance.AddChat(PlayerControl.LocalPlayer, "chatChangeColorNo".Translate());
                     col = Math.Clamp(col, 0, Palette.PlayerColors.Length - 1);
                     PlayerControl.LocalPlayer.SetColor(col);
-                    __instance.AddChat(PlayerControl.LocalPlayer, "Changed color succesfully");
+                    __instance.AddChat(PlayerControl.LocalPlayer, "chatChangeColorYes".Translate());
                     ;
                 }
             }

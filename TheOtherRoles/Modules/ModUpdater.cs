@@ -23,6 +23,9 @@ public class ModUpdater : MonoBehaviour
     public const string RepositoryOwner = "linmeideli";
     public const string RepositoryName = "The-Other-Roles-Rework";
 
+    private long _lastDownloadBytes;
+    private float _lastDownloadTime;
+
     private bool _busy;
     public List<GithubRelease> Releases;
     private bool showPopUp = true;
@@ -82,6 +85,8 @@ public class ModUpdater : MonoBehaviour
     private IEnumerator CoDownloadRelease(GithubRelease release)
     {
         _busy = true;
+        _lastDownloadBytes = 0;
+        _lastDownloadTime = 0;
 
         var popup = Instantiate(TwitchManager.Instance.TwitchPopup);
         popup.TextAreaTMP.fontSize *= 0.7f;
@@ -91,31 +96,63 @@ public class ModUpdater : MonoBehaviour
 
         var button = popup.transform.GetChild(2).gameObject;
         button.SetActive(false);
-        popup.TextAreaTMP.text = "Updating TOR\nPlease wait...";
+        popup.TextAreaTMP.text = $"updatingText".Translate();
 
         var asset = release.Assets.Find(FilterPluginAsset);
         var www = new UnityWebRequest();
         www.SetMethod(UnityWebRequest.UnityWebRequestMethod.Get);
-        www.SetUrl(asset.DownloadUrl);
+        www.SetUrl(Helpers.isChinese() ? "https://ghproxy.net/" + asset.DownloadUrl : asset.DownloadUrl);
         www.downloadHandler = new DownloadHandlerBuffer();
         var operation = www.SendWebRequest();
 
+        _lastDownloadTime = Time.realtimeSinceStartup;
+
         while (!operation.isDone)
         {
-            var stars = Mathf.CeilToInt(www.downloadProgress * 10);
-            var progress =
-                $"Updating TOR\nPlease wait...\nDownloading...\n{new string((char)0x25A0, stars) + new string((char)0x25A1, 10 - stars)}";
-            popup.TextAreaTMP.text = progress;
+            int stars = Mathf.CeilToInt(www.downloadProgress * 10);
+
+            long currentBytes = (long)www.downloadedBytes;
+            float currentTime = Time.realtimeSinceStartup;
+
+            var downloadText = new String((char)0x25A0, stars) + new String((char)0x25A1, 10 - stars);
+            if (_lastDownloadTime > 0 && _lastDownloadBytes > 0)
+            {
+                float timeDelta = currentTime - _lastDownloadTime;
+                long bytesDelta = currentBytes - _lastDownloadBytes;
+
+                if (timeDelta > 0)
+                {
+                    float speed = bytesDelta / timeDelta;
+                    string speedText;
+                    if (speed > 1048576)
+                    {
+                        speedText = $"{(speed / 1048576):0.00} MB/s";
+                    }
+                    else
+                    {
+                        speedText = $"{(speed / 1024):0.00} KB/s";
+                    }
+                    popup.TextAreaTMP.text = string.Format("downliadingText".Translate(), downloadText, speedText);
+                }
+            }
+            else
+            {
+                var speedText = "0.00 KB/s";
+                popup.TextAreaTMP.text = string.Format("downliadingText".Translate(), downloadText, speedText);
+            }
+
+            _lastDownloadBytes = currentBytes;
+            _lastDownloadTime = currentTime;
+
             yield return new WaitForEndOfFrame();
         }
 
         if (www.isNetworkError || www.isHttpError)
         {
-            popup.TextAreaTMP.text = "Update wasn't successful\nTry again later,\nor update manually.";
+            popup.TextAreaTMP.text = "updateFailedText".Translate();
             yield break;
         }
-
-        popup.TextAreaTMP.text = "Updating TOR\nPlease wait...\n\nDownload complete\ncopying file...";
+        popup.TextAreaTMP.text = $"copyingFileText".Translate();
 
         var filePath = Path.Combine(Paths.PluginPath, asset.Name);
 
@@ -138,7 +175,10 @@ public class ModUpdater : MonoBehaviour
         www.downloadHandler.Dispose();
         www.Dispose();
 
-        if (!hasError) popup.TextAreaTMP.text = "TheOtherRoles\nupdated successfully\nPlease restart the game.";
+        if (!hasError)
+        {
+            popup.TextAreaTMP.text = $"updateEndText".Translate();
+        }
         button.SetActive(true);
         _busy = false;
     }
@@ -173,6 +213,8 @@ public class ModUpdater : MonoBehaviour
         var template = GameObject.Find("ExitGameButton");
         if (!template) return;
 
+        string parsedDescription = ParseLocalizedDescription(latestRelease.Description);
+
         var button = Instantiate(template, null);
         var buttonTransform = button.transform;
         //buttonTransform.localPosition = new Vector3(-2f, -2f);
@@ -187,21 +229,50 @@ public class ModUpdater : MonoBehaviour
         }));
 
         var text = button.transform.GetComponentInChildren<TMP_Text>();
-        var t = "Update TOR";
+        var t = "updateButtonText".Translate();
         StartCoroutine(Effects.Lerp(0.1f, (Action<float>)(p => text.SetText(t))));
         passiveButton.OnMouseOut.AddListener((Action)(() => text.color = Color.red));
         passiveButton.OnMouseOver.AddListener((Action)(() => text.color = Color.white));
-        var announcement =
-            $"<size=150%>A new THE OTHER ROLES update to {latestRelease.Tag} is available</size>\n{latestRelease.Description}";
+        var announcement = string.Format("announcementText".Translate(), latestRelease.Tag, parsedDescription);
         var mgr = FindObjectOfType<MainMenuManager>(true);
         if (showPopUp)
-            mgr.StartCoroutine(CoShowAnnouncement(announcement, shortTitle: "TOR Update",
+            mgr.StartCoroutine(CoShowAnnouncement(announcement, shortTitle: "TORR Update",
                 date: latestRelease.PublishedAt));
         showPopUp = false;
     }
 
     [HideFromIl2Cpp]
-    public IEnumerator CoShowAnnouncement(string announcement, bool show = true, string shortTitle = "TOR Update",
+    private string ParseLocalizedDescription(string rawDescription)
+    {
+        try
+        {
+            var lang = DataManager.Settings.Language.CurrentLanguage;
+            string targetSection = lang == SupportedLangs.SChinese ? "### CN" : "### EN";
+            string nextSection = lang == SupportedLangs.SChinese ? "### EN" : "### CN";
+
+            string normalized = rawDescription.Replace("\r\n", "\n");
+            int startIndex = normalized.IndexOf(targetSection);
+
+            if (startIndex == -1) return rawDescription;
+
+            startIndex += targetSection.Length;
+            int endIndex = normalized.IndexOf("###", startIndex);
+
+            string result = endIndex == -1 ?
+                normalized.Substring(startIndex) :
+                normalized.Substring(startIndex, endIndex - startIndex);
+
+            return result.Trim('\n', '\r', ' ')
+                         .Replace("\n#", "\n##");
+        }
+        catch
+        {
+            return rawDescription;
+        }
+    }
+
+    [HideFromIl2Cpp]
+    public IEnumerator CoShowAnnouncement(string announcement, bool show = true, string shortTitle = "TORR Update",
         string title = "", string date = "")
     {
         var mgr = FindObjectOfType<MainMenuManager>(true);
@@ -218,10 +289,10 @@ public class ModUpdater : MonoBehaviour
 
         Announcement creditsAnnouncement = new()
         {
-            Id = "torAnnouncement",
+            Id = "torrAnnouncement",
             Language = 0,
             Number = 6969,
-            Title = title == "" ? "The Other Roles Announcement" : title,
+            Title = title == "" ? "TheOtherRoles-Rework Announcement" : title,
             ShortTitle = shortTitle,
             SubTitle = "",
             PinState = false,

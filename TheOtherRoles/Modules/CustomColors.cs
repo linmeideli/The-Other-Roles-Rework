@@ -122,7 +122,7 @@ public class CustomColors
         // 30
         colors.Add(new CustomColor
         {
-            longname = "Signal\nOrange",
+            longname = "SignalOrange",
             color = new Color32(0xF7, 0x44, 0x17, byte.MaxValue),
             shadow = new Color32(0x9B, 0x2E, 0x0F, byte.MaxValue),
             isLighterColor = true
@@ -167,7 +167,7 @@ public class CustomColors
         });
         colors.Add(new CustomColor
         {
-            longname = "Royal\nGreen", //36
+            longname = "RoyalGreen", //36
             color = new Color32(9, 82, 33, byte.MaxValue),
             shadow = new Color32(0, 46, 8, byte.MaxValue),
             isLighterColor = false
@@ -215,7 +215,7 @@ public class CustomColors
         foreach (var cc in colors)
         {
             longlist.Add((StringNames)id);
-            ColorStrings[id++] = cc.longname;
+            ColorStrings[id++] = ("color" + cc.longname).Translate();
             colorlist.Add(cc.color);
             shadowlist.Add(cc.shadow);
             if (cc.isLighterColor)

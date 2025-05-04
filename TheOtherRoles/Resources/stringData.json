@@ -21,7 +21,7 @@
     },
     "categoryHeaderMaskedImp": {
         "0": "Impostor Roles",
-        "13": "\u4f2a\u88c5\u8005\u804c\u4e1a"
+        "13": "\u5185\u9b3c\u804c\u4e1a"
     },
     "categoryHeaderMaskedNeut": {
         "0": "Neutral Roles",
@@ -69,7 +69,7 @@
     },
     "ImpostorSettingsText": {
         "0": "Impostor Roles",
-        "13": "\u4f2a\u88c5\u8005\u804c\u4e1a\u8bbe\u7f6e"
+        "13": "\u5185\u9b3c\u804c\u4e1a\u8bbe\u7f6e"
     },
     "NeutralSettingsText": {
         "0": "Neural Roles",
@@ -105,7 +105,7 @@
     },
     "page4": {
         "0": "Page 4: Impostor Role Settings \n",
-        "13": "\u7b2c\u56db\u9875\uff1a\u4f2a\u88c5\u8005\u804c\u4e1a\u8bbe\u7f6e \n"
+        "13": "\u7b2c\u56db\u9875\uff1a\u5185\u9b3c\u804c\u4e1a\u8bbe\u7f6e \n"
     },
     "page5": {
         "0": "Page 5: Neutral Role Settings \n",
@@ -190,9 +190,17 @@
         "0": "Enable Special Mode",
         "13": "\u542f\u7528\u611a\u4eba\u8282\u6076\u641e\u6a21\u5f0f"
     },
+    "headingRoleDraft": {
+        "0": "Role Draft",
+        "13": "\u8f6e\u62bd\u9009\u89d2"
+    },
     "enableDraftMode": {
         "0": "Enable Role Draft",
         "13": "\u5f00\u542f\u8f6e\u62bd\u9009\u89d2\u6a21\u5f0f"
+    },
+    "draftModeCanChat": {
+        "0": "Can Use Chat",
+        "13": "\u53ef\u4ee5\u4f7f\u7528\u804a\u5929\u6846"
     },
     "draftModeAmountOfChoices": {
         "0": "Max Amount Of Roles\nTo Choose From",
@@ -240,11 +248,11 @@
     },
     "impostorRolesCountMin": {
         "0": "Minimum Impostor Roles",
-        "13": "\u6700\u5c0f\u4f2a\u88c5\u8005\u804c\u4e1a\u6570\u91cf"
+        "13": "\u6700\u5c0f\u5185\u9b3c\u804c\u4e1a\u6570\u91cf"
     },
     "impostorRolesCountMax": {
         "0": "Maximum Impostor Roles",
-        "13": "\u6700\u5927\u4f2a\u88c5\u8005\u804c\u4e1a\u6570\u91cf"
+        "13": "\u6700\u5927\u5185\u9b3c\u804c\u4e1a\u6570\u91cf"
     },
     "modifiersCountMin": {
         "0": "Minimum Modifiers",
@@ -260,416 +268,479 @@
     },
     "mafia": {
         "0": "Mafia",
-        "1": "\"mafia\"",
         "13": "\u9ed1\u624b\u515a"
+    },
+    "godfather": {
+        "0": "Godfather"
+    },
+    "godfatherIntroDesc": {
+        "0": "Kill all Crewmates"
+    },
+    "godfatherShortDesc": {
+        "0": "Kill all Crewmates"
+    },
+    "mafioso": {
+        "0": "Mafioso"
+    },
+    "mafiosoIntroDesc": {
+        "0": "Work with the <color=#FF1919FF>Mafia</color> to kill the Crewmates"
+    },
+    "mafiosoShortDesc": {
+        "0": "Kill all Crewmates"
+    },
+    "janitor": {
+        "0": "Ianitor"
+    },
+    "janitorIntroDesc": {
+        "0": "Work with the <color=#FF1919FF>Mafia</color> by hiding dead bodies"
+    },
+    "janitorShortDesc": {
+        "0": "Hide dead bodies"
     },
     "janitorCooldown": {
         "0": "Janitor Cooldown",
-        "1": "\"janitorCooldown\"",
         "13": "\u6e05\u6d01\u5de5\u6280\u80fd\u51b7\u5374"
     },
     "morphling": {
         "0": "Morphling",
-        "1": "\"morphling\"",
         "13": "\u5316\u5f62\u8005"
+    },
+    "morphlingIntroDesc": {
+        "0": "Change your look to not get caught"
+    },
+    "morphlingShortDesc": {
+        "0": "Change your look"
     },
     "morphlingCooldown": {
         "0": "Morphling Cooldown",
-        "1": "\"morphlingCooldown\"",
         "13": "\u5316\u5f62\u51b7\u5374\u65f6\u95f4"
     },
     "morphlingDuration": {
         "0": "Morph Duration",
-        "1": "\"morphlingDuration\"",
         "13": "\u5316\u5f62\u6301\u7eed\u65f6\u95f4"
     },
     "camouflager": {
         "0": "Camouflager",
-        "1": "\"camouflager\"",
         "13": "\u9690\u853d\u8005"
+    },
+    "camouflagerIntroDesc": {
+        "0": "Camouflage and kill the Crewmates"
+    },
+    "camouflagerShortDesc": {
+        "0": "Hide among others"
     },
     "camouflagerCooldown": {
         "0": "Camouflager Cooldown",
-        "1": "\"camouflagerCooldown\"",
         "13": "\u9690\u853d\u72b6\u6001\u51b7\u5374"
     },
     "camouflagerDuration": {
         "0": "Camo Duration",
-        "1": "\"camouflagerDuration\"",
         "13": "\u9690\u853d\u72b6\u6001\u6301\u7eed\u65f6\u95f4"
     },
     "vampire": {
         "0": "Vampire",
-        "1": "\"vampire\"",
         "13": "\u5438\u8840\u9b3c"
+    },
+    "vampireIntroDesc": {
+        "0": "Kill the Crewmates with your bites"
+    },
+    "vampireShortDesc": {
+        "0": "Bite your enemies"
     },
     "vampireKillDelay": {
         "0": "Vampire Kill Delay",
-        "1": "\"vampireKillDelay\"",
         "13": "\u4ece\u5438\u8840\u5230\u51fb\u6740\u6240\u9700\u65f6\u95f4"
     },
     "vampireCooldown": {
         "0": "Vampire Cooldown",
-        "1": "\"vampireCooldown\"",
         "13": "\u5438\u8840\u6280\u80fd\u51b7\u5374\u65f6\u95f4"
     },
     "vampireCanKillNearGarlics": {
         "0": "Vampire Can Kill Near Garlics",
-        "1": "\"vampireCanKillNearGarlics\"",
         "13": "\u53ef\u5728\u5927\u849c\u9644\u8fd1\u51fb\u6740"
     },
     "eraser": {
         "0": "Eraser",
-        "1": "\"eraser\"",
         "13": "\u62b9\u9664\u8005"
+    },
+    "eraserIntroDesc": {
+        "0": "Kill the Crewmates and erase their roles"
+    },
+    "eraserShortDesc": {
+        "0": "Erase the roles of your enemies"
     },
     "eraserCooldown": {
         "0": "Eraser Cooldown",
-        "1": "\"eraserCooldown\"",
         "13": "\u62b9\u9664\u6280\u80fd\u51b7\u5374\u65f6\u95f4"
     },
     "eraserCanEraseAnyone": {
         "0": "Eraser Can Erase Anyone",
-        "1": "\"eraserCanEraseAnyone\"",
         "13": "\u53ef\u62b9\u9664\u4efb\u4f55\u4eba"
     },
     "trickster": {
         "0": "Trickster",
-        "1": "\"trickster\"",
         "13": "\u9a97\u672f\u5e08"
+    },
+    "tricksterIntroDesc": {
+        "0": "Use your jack-in-the-boxes to surprise others"
+    },
+    "tricksterShortDesc": {
+        "0": "Surprise your enemies"
     },
     "tricksterPlaceBoxCooldown": {
         "0": "Trickster Box Cooldown",
-        "1": "\"tricksterPlaceBoxCooldown\"",
         "13": "\u653e\u7f6e\u60ca\u5413\u76d2\u51b7\u5374"
     },
     "tricksterLightsOutCooldown": {
         "0": "Trickster Lights Out Cooldown",
-        "1": "\"tricksterLightsOutCooldown\"",
         "13": "\u7184\u706f\u51b7\u5374\u65f6\u95f4"
     },
     "tricksterLightsOutDuration": {
         "0": "Trickster Lights Out Duration",
-        "1": "\"tricksterLightsOutDuration\"",
         "13": "\u7184\u706f\u6301\u7eed\u65f6\u95f4"
     },
     "cleaner": {
         "0": "Cleaner",
-        "1": "\"cleaner\"",
         "13": "\u6e05\u7406\u8005"
+    },
+    "cleanerIntroDesc": {
+        "0": "Kill everyone and leave no traces"
+    },
+    "cleanerShortDesc": {
+        "0": "Clean up dead bodies"
     },
     "cleanerCooldown": {
         "0": "Cleaner Cooldown",
-        "1": "\"cleanerCooldown\"",
         "13": "\u6e05\u7406\u6280\u80fd\u51b7\u5374\u65f6\u95f4"
     },
     "warlock": {
         "0": "Warlock",
-        "1": "\"warlock\"",
         "13": "\u672f\u58eb"
+    },
+    "warlockIntroDesc": {
+        "0": "Curse other players and kill everyone"
+    },
+    "warlockShortDesc": {
+        "0": "Curse and kill everyone"
     },
     "warlockCooldown": {
         "0": "Warlock Cooldown",
-        "1": "\"warlockCooldown\"",
         "13": "\u8bc5\u5492\u6280\u80fd\u51b7\u5374\u65f6\u95f4"
     },
     "warlockRootTime": {
         "0": "Warlock Root Time",
-        "1": "\"warlockRootTime\"",
         "13": "\u8bc5\u5492\u540e\u5b9a\u8eab\u65f6\u95f4"
     },
     "bountyHunter": {
         "0": "Bounty Hunter",
-        "1": "\"bountyHunter\"",
         "13": "\u8d4f\u91d1\u730e\u4eba"
+    },
+    "bountyHunterIntroDesc": {
+        "0": "Hunt your bounty down"
+    },
+    "bountyHunterShortDesc": {
+        "0": "Hunt your bounty down"
     },
     "bountyHunterBountyDuration": {
         "0": "Duration After Which Bounty Changes",
-        "1": "\"bountyHunterBountyDuration\"",
         "13": "\u8d4f\u91d1\u76ee\u6807\u66f4\u6362\u95f4\u9694"
     },
     "bountyHunterReducedCooldown": {
         "0": "Cooldown After Killing Bounty",
-        "1": "\"bountyHunterReducedCooldown\"",
         "13": "\u51fb\u6740\u76ee\u6807\u540e\u7684\u5956\u52b1\u51b7\u5374"
     },
     "bountyHunterPunishmentTime": {
         "0": "Additional Cooldown After Killing Others",
-        "1": "\"bountyHunterPunishmentTime\"",
         "13": "\u51fb\u6740\u975e\u76ee\u6807\u540e\u53e0\u52a0\u7684\u60e9\u7f5a\u51b7\u5374"
     },
     "bountyHunterShowArrow": {
         "0": "Show Arrow Pointing Towards The Bounty",
-        "1": "\"bountyHunterShowArrow\"",
         "13": "\u663e\u793a\u6307\u5411\u60ac\u8d4f\u76ee\u6807\u7684\u7bad\u5934"
     },
     "bountyHunterArrowUpdateIntervall": {
         "0": "Arrow Update Intervall",
-        "1": "\"bountyHunterArrowUpdateIntervall\"",
         "13": "\u7bad\u5934\u66f4\u65b0\u95f4\u9694"
     },
     "witch": {
         "0": "Witch",
-        "1": "\"witch\"",
         "13": "\u5973\u5deb"
+    },
+    "witchIntroDesc": {
+        "0": "Cast a spell upon your foes"
+    },
+    "witchShortDesc": {
+        "0": "Cast a spell upon your foes"
     },
     "witchCooldown": {
         "0": "Witch Spell Casting Cooldown",
-        "1": "\"witchCooldown\"",
         "13": "\u8bc5\u5492\u6280\u80fd\u51b7\u5374\u65f6\u95f4"
     },
     "witchAdditionalCooldown": {
         "0": "Witch Additional Cooldown",
-        "1": "\"witchAdditionalCooldown\"",
         "13": "\u8bc5\u5492\u6280\u80fd\u51b7\u5374\u9012\u589e"
     },
     "witchCanSpellAnyone": {
         "0": "Witch Can Spell Anyone",
-        "1": "\"witchCanSpellAnyone\"",
         "13": "\u53ef\u4ee5\u8bc5\u5492\u4efb\u4f55\u4eba"
     },
     "witchSpellCastingDuration": {
         "0": "Spell Casting Duration",
-        "1": "\"witchSpellCastingDuration\"",
         "13": "\u8d34\u8eab\u8bc5\u5492\u6240\u9700\u65f6\u95f4"
     },
     "witchTriggerBothCooldowns": {
         "0": "Trigger Both Cooldowns",
-        "1": "\"witchTriggerBothCooldowns\"",
         "13": "\u8bc5\u5492\u4e0e\u51fb\u6740\u5171\u4eab\u51b7\u5374"
     },
     "witchVoteSavesTargets": {
         "0": "Voting The Witch Saves All The Targets",
-        "1": "\"witchVoteSavesTargets\"",
         "13": "\u9a71\u9010\u5973\u5deb\u53ef\u62ef\u6551\u88ab\u8bc5\u5492\u8005"
     },
     "ninja": {
         "0": "Ninja",
-        "1": "\"ninja\"",
         "13": "\u5fcd\u8005"
+    },
+    "ninjaIntroDesc": {
+        "0": "Surprise and assassinate your foes"
+    },
+    "ninjaShortDesc": {
+        "0": "Surprise and assassinate your foes"
     },
     "ninjaCooldown": {
         "0": "Ninja Mark Cooldown",
-        "1": "\"ninjaCooldown\"",
         "13": "\u6807\u8bb0\u6280\u80fd\u51b7\u5374\u65f6\u95f4"
     },
     "ninjaKnowsTargetLocation": {
         "0": "Ninja Knows Location Of Target",
-        "1": "\"ninjaKnowsTargetLocation\"",
         "13": "\u663e\u793a\u6307\u5411\u523a\u6740\u5bf9\u8c61\u7684\u7bad\u5934"
     },
     "ninjaTraceTime": {
         "0": "Trace Duration",
-        "1": "\"ninjaTraceTime\"",
         "13": "\u523a\u6740\u540e\u6811\u53f6\u75d5\u8ff9\u6301\u7eed\u65f6\u95f4"
     },
     "ninjaTraceColorTime": {
         "0": "Time Till Trace Color Has Faded",
-        "1": "\"ninjaTraceColorTime\"",
         "13": "\u523a\u6740\u540e\u75d5\u8ff9\u892a\u8272\u6240\u9700\u65f6\u95f4"
     },
     "ninjaInvisibleDuration": {
         "0": "Time The Ninja Is Invisible",
-        "1": "\"ninjaInvisibleDuration\"",
         "13": "\u523a\u6740\u540e\u9690\u8eab\u6301\u7eed\u65f6\u95f4"
     },
     "bomber": {
         "0": "Bomber",
-        "1": "\"bomber\"",
         "13": "\u70b8\u5f39\u72c2"
+    },
+    "bomberIntroDesc": {
+        "0": "Bomb all Crewmates"
+    },
+    "bomberShortDesc": {
+        "0": "Bomb all Crewmates"
     },
     "bomberBombDestructionTime": {
         "0": "Bomb Destruction Time",
-        "1": "\"bomberBombDestructionTime\"",
         "13": "\u70b8\u5f39\u5f15\u7206\u65f6\u95f4"
     },
     "bomberBombDestructionRange": {
         "0": "Bomb Destruction Range",
-        "1": "\"bomberBombDestructionRange\"",
         "13": "\u70b8\u5f39\u7206\u70b8\u8303\u56f4"
     },
     "bomberBombHearRange": {
         "0": "Bomb Hear Range",
-        "1": "\"bomberBombHearRange\"",
         "13": "\u7206\u70b8\u524d\u9884\u8b66\u8303\u56f4\n\u58f0\u97f3\u4f20\u64ad\u8ddd\u79bb"
     },
     "bomberDefuseDuration": {
         "0": "Bomb Defuse Duration",
-        "1": "\"bomberDefuseDuration\"",
         "13": "\u62c6\u9664\u70b8\u5f39\u6240\u9700\u65f6\u95f4"
     },
     "bomberBombCooldown": {
         "0": "Bomb Cooldown",
-        "1": "\"bomberBombCooldown\"",
         "13": "\u70b8\u5f39\u653e\u7f6e\u51b7\u5374"
     },
     "bomberBombActiveAfter": {
         "0": "Bomb Is Active After",
-        "1": "\"bomberBombActiveAfter\"",
         "13": "\u70b8\u5f39\u6fc0\u6d3b\u65f6\u95f4"
     },
     "yoyo": {
         "0": "Yo-Yo",
-        "1": "\"yoyo\"",
         "13": "\u60a0\u60a0\u7403"
+    },
+    "yoyoIntroDesc": {
+        "0": "Blink to a marked location and Back"
+    },
+    "yoyoShortDesc": {
+        "0": "Blink to a location"
     },
     "yoyoBlinkDuration": {
         "0": "Blink Duration",
-        "1": "\"yoyoBlinkDuration\"",
         "13": "\u77ac\u79fb\u6280\u80fd\u51b7\u5374\u65f6\u95f4"
     },
     "yoyoMarkCooldown": {
         "0": "Mark Location Cooldown",
-        "1": "\"yoyoMarkCooldown\"",
         "13": "\u6807\u8bb0\u6280\u80fd\u51b7\u5374\u65f6\u95f4"
     },
     "yoyoMarkStaysOverMeeting": {
         "0": "Marked Location Stays After Meeting",
-        "1": "\"yoyoMarkStaysOverMeeting\"",
         "13": "\u4f1a\u8bae\u540e\u4e0d\u91cd\u7f6e\u6807\u8bb0\u5730\u70b9"
     },
     "yoyoHasAdminTable": {
         "0": "Has Admin Table",
-        "1": "\"yoyoHasAdminTable\"",
         "13": "\u53ef\u968f\u8eab\u67e5\u770b\u7ba1\u7406\u5ba4\u5730\u56fe"
     },
     "yoyoAdminTableCooldown": {
         "0": "Admin Table Cooldown",
-        "1": "\"yoyoAdminTableCooldown\"",
         "13": "\u67e5\u770b\u7ba1\u7406\u5ba4\u5730\u56fe\u6280\u80fd\u51b7\u5374"
     },
     "yoyoSilhouetteVisibility": {
         "0": "Silhouette Visibility",
-        "1": "\"yoyoSilhouetteVisibility\"",
         "13": "\u6b8b\u5f71\u900f\u660e\u5ea6"
     },
     "guesser": {
         "0": "Guesser",
-        "1": "\"guesser\"",
         "13": "\u8d4c\u602a"
+    },
+    "niceGuesser": {
+        "0": "Nice Guesser"
+    },
+    "niceGuesserIntroDesc": {
+        "0": "Guess and shoot"
+    },
+    "niceGuesserShortDesc": {
+        "0": "Guess and shoot"
+    },
+    "evilGuesser": {
+        "0": "Evil Guesser"
+    },
+    "evilGuesserIntroDesc": {
+        "0": "Guess and shoot"
+    },
+    "evilGuesserShortDesc": {
+        "0": "Guess and shoot"
     },
     "guesserIsImpGuesserRate": {
         "0": "Chance That The Guesser Is An Impostor",
-        "1": "\"guesserIsImpGuesserRate\"",
-        "13": "\u662f\u4f2a\u88c5\u8005\u9635\u8425\u7684\u7684\u6982\u7387"
+        "13": "\u662f\u5185\u9b3c\u9635\u8425\u7684\u7684\u6982\u7387"
     },
     "guesserNumberOfShots": {
         "0": "Guesser Number Of Shots",
-        "1": "\"guesserNumberOfShots\"",
         "13": "\u53ef\u731c\u6d4b\u6b21\u6570"
     },
     "guesserHasMultipleShotsPerMeeting": {
         "0": "Guesser Can Shoot Multiple Times Per Meeting",
-        "1": "\"guesserHasMultipleShotsPerMeeting\"",
         "13": "\u6bcf\u8f6e\u4f1a\u8bae\u53ef\u591a\u6b21\u731c\u6d4b"
     },
     "guesserKillsThroughShield": {
         "0": "Guesses Ignore The Medic Shield",
-        "1": "\"guesserKillsThroughShield\"",
         "13": "\u731c\u6d4b\u65f6\u65e0\u89c6\u533b\u751f\u62a4\u76fe"
     },
     "guesserEvilCanKillSpy": {
         "0": "Evil Guesser Can Guess The Spy",
-        "1": "\"guesserEvilCanKillSpy\"",
         "13": "\u90aa\u6076\u7684\u8d4c\u602a\u53ef\u4ee5\u731c\u6d4b\u5367\u5e95"
     },
     "guesserSpawnBothRate": {
         "0": "Both Guesser Spawn Rate",
-        "1": "\"guesserSpawnBothRate\"",
         "13": "\u751f\u6210\u53cc\u8d4c\u7684\u6982\u7387"
     },
     "guesserCantGuessSnitchIfTaksDone": {
         "0": "Guesser Can't Guess Snitch When Tasks Completed",
-        "1": "\"guesserCantGuessSnitchIfTaksDone\"",
         "13": "\u65e0\u6cd5\u731c\u6d4b\u5b8c\u6210\u4efb\u52a1\u7684\u544a\u5bc6\u8005"
     },
     "jester": {
         "0": "Jester",
-        "1": "\"jester\"",
         "13": "\u5c0f\u4e11"
+    },
+    "jesterIntroDesc": {
+        "0": "Get voted out"
+    },
+    "jesterShortDesc": {
+        "0": "Get voted out"
     },
     "jesterCanCallEmergency": {
         "0": "Jester Can Call Emergency Meeting",
-        "1": "\"jesterCanCallEmergency\"",
         "13": "\u53ef\u4ee5\u53ec\u5f00\u7d27\u6025\u4f1a\u8bae"
     },
     "jesterHasImpostorVision": {
         "0": "Jester Has Impostor Vision",
-        "1": "\"jesterHasImpostorVision\"",
-        "13": "\u62e5\u6709\u4f2a\u88c5\u8005\u89c6\u91ce"
+        "13": "\u62e5\u6709\u5185\u9b3c\u89c6\u91ce"
     },
     "arsonist": {
         "0": "Arsonist",
-        "1": "\"arsonist\"",
         "13": "\u7eb5\u706b\u72af"
+    },
+    "arsonistIntroDesc": {
+        "0": "Let them burn"
+    },
+    "arsonistShortDesc": {
+        "0": "Let them burn"
     },
     "arsonistCooldown": {
         "0": "Arsonist Cooldown",
-        "1": "\"arsonistCooldown\"",
         "13": "\u6280\u80fd\u51b7\u5374\u65f6\u95f4"
     },
     "arsonistDuration": {
         "0": "Arsonist Douse Duration",
-        "1": "\"arsonistDuration\"",
         "13": "\u6d82\u6cb9\u6240\u9700\u65f6\u95f4"
     },
     "jackal": {
-        "0": "Jackal",
-        "1": "\"jackal\""
+        "0": "Jackal"
     },
-    "jackalKillCooldown": {
-        "0": "Jackal/Sidekick Kill Cooldown",
-        "1": "\"jackalKillCooldown\""
+    "jackalIntroDesc": {
+        "0": "Kill all Crewmates and <color=#FF1919FF>Impostors</color> to win"
     },
-    "jackalCreateSidekickCooldown": {
-        "0": "Jackal Create Sidekick Cooldown",
-        "1": "\"jackalCreateSidekickCooldown\""
-    },
-    "jackalCanUseVents": {
-        "0": "Jackal Can Use Vents",
-        "1": "\"jackalCanUseVents\""
-    },
-    "jackalCanSabotageLights": {
-        "0": "Jackal Can Sabotage Lights",
-        "1": "\"jackalCanSabotageLights\""
-    },
-    "jackalCanCreateSidekick": {
-        "0": "Jackal Can Create A Sidekick",
-        "1": "\"jackalCanCreateSidekick\""
-    },
-    "sidekickPromotesToJackal": {
-        "0": "Sidekick Gets Promoted To Jackal On Jackal Death",
-        "1": "\"sidekickPromotesToJackal\""
-    },
-    "sidekickCanKill": {
-        "0": "Sidekick Can Kill",
-        "1": "\"sidekickCanKill\""
-    },
-    "sidekickCanUseVents": {
-        "0": "Sidekick Can Use Vents",
-        "1": "\"sidekickCanUseVents\""
-    },
-    "sidekickCanSabotageLights": {
-        "0": "Sidekick Can Sabotage Lights",
-        "1": "\"sidekickCanSabotageLights\""
-    },
-    "jackalPromotedFromSidekickCanCreateSidekick": {
-        "0": "Jackals Promoted From Sidekick Can Create A Sidekick",
-        "1": "\"jackalPromotedFromSidekickCanCreateSidekick\""
-    },
-    "jackalCanCreateSidekickFromImpostor": {
-        "0": "Jackals Can Make An Impostor To His Sidekick",
-        "1": "\"jackalCanCreateSidekickFromImpostor\""
-    },
-    "jackalAndSidekickHaveImpostorVision": {
-        "0": "Jackal And Sidekick Have Impostor Vision",
-        "1": "\"jackalAndSidekickHaveImpostorVision\""
+    "jackalShortDesc": {
+        "0": "Kill everyone"
     },
     "sidekick": {
         "0": "Sidekick"
     },
+    "sidekickIntroDesc": {
+        "0": "Help your Jackal to kill everyone"
+    },
+    "sidekickShortDesc": {
+        "0": "Help your Jackal to kill everyone"
+    },
+    "jackalKillCooldown": {
+        "0": "Jackal/Sidekick Kill Cooldown"
+    },
+    "jackalCreateSidekickCooldown": {
+        "0": "Jackal Create Sidekick Cooldown"
+    },
+    "jackalCanUseVents": {
+        "0": "Jackal Can Use Vents"
+    },
+    "jackalCanSabotageLights": {
+        "0": "Jackal Can Sabotage Lights"
+    },
+    "jackalCanCreateSidekick": {
+        "0": "Jackal Can Create A Sidekick"
+    },
+    "sidekickPromotesToJackal": {
+        "0": "Sidekick Gets Promoted To Jackal On Jackal Death"
+    },
+    "sidekickCanKill": {
+        "0": "Sidekick Can Kill"
+    },
+    "sidekickCanUseVents": {
+        "0": "Sidekick Can Use Vents"
+    },
+    "sidekickCanSabotageLights": {
+        "0": "Sidekick Can Sabotage Lights"
+    },
+    "jackalPromotedFromSidekickCanCreateSidekick": {
+        "0": "Jackals Promoted From Sidekick Can Create A Sidekick"
+    },
+    "jackalCanCreateSidekickFromImpostor": {
+        "0": "Jackals Can Make An Impostor To His Sidekick"
+    },
+    "jackalAndSidekickHaveImpostorVision": {
+        "0": "Jackal And Sidekick Have Impostor Vision"
+    },
     "vulture": {
         "0": "Vulture"
+    },
+    "vultureIntroDesc": {
+        "0": "Eat corpses to win"
+    },
+    "vultureShortDesc": {
+        "0": "Eat dead bodies"
     },
     "vultureCooldown": {
         "0": "Vulture Cooldown"
@@ -685,6 +756,30 @@
     },
     "lawyer": {
         "0": "Lawyer"
+    },
+    "lawyerIntroDesc": {
+        "0": "Defend your client"
+    },
+    "lawyerShortDesc": {
+        "0": "Defend your client"
+    },
+    "prosecutor": {
+        "0": "Prosecutor"
+    },
+    "prosecutorIntroDesc": {
+        "0": "Vote out your target"
+    },
+    "prosecutorShortDesc": {
+        "0": "Vote out your target"
+    },
+    "pursuer": {
+        "0": "Pursuer"
+    },
+    "pursuerIntroDesc": {
+        "0": "Blank the Impostors"
+    },
+    "pursuerShortDesc": {
+        "0": "Blank the Impostors"
     },
     "lawyerIsProsecutorChance": {
         "0": "Chance That The Lawyer Is Prosecutor"
@@ -707,11 +802,38 @@
     "pursuerBlanksNumber": {
         "0": "Pursuer Number Of Blanks"
     },
-    "prosecutor": {
-        "0": "Prosecutor"
+    "thief": {
+        "0": "Thief"
+    },
+    "thiefIntroDesc": {
+        "0": "Steal a killers role by killing them"
+    },
+    "thiefShortDesc": {
+        "0": "Steal a killers role"
+    },
+    "thiefCooldown": {
+        "0": "Thief Cooldown"
+    },
+    "thiefCanKillSheriff": {
+        "0": "Thief Can Kill Sheriff"
+    },
+    "thiefHasImpVision": {
+        "0": "Thief Has Impostor Vision"
+    },
+    "thiefCanUseVents": {
+        "0": "Thief Can Use Vents"
+    },
+    "thiefCanStealWithGuess": {
+        "0": "Thief Can Guess To Steal A Role (If Guesser)"
     },
     "mayor": {
         "0": "Mayor"
+    },
+    "mayorIntroDesc": {
+        "0": "Your vote counts twice"
+    },
+    "mayorShortDesc": {
+        "0": "Your vote counts twice"
     },
     "mayorCanSeeVoteColors": {
         "0": "Mayor Can See Vote Colors"
@@ -741,6 +863,12 @@
     "engineer": {
         "0": "Engineer"
     },
+    "engineerIntroDesc": {
+        "0": "Maintain important systems on the ship"
+    },
+    "engineerShortDesc": {
+        "0": "Repair the ship"
+    },
     "engineerNumberOfFixes": {
         "0": "Number Of Sabotage Fixes"
     },
@@ -753,6 +881,12 @@
     "sheriff": {
         "0": "Sheriff"
     },
+    "sheriffIntroDesc": {
+        "0": "Shoot the <color=#FF1919FF>Impostors</color>"
+    },
+    "sheriffShortDesc": {
+        "0": "Shoot the Impostors"
+    },
     "sheriffCooldown": {
         "0": "Sheriff Cooldown"
     },
@@ -761,6 +895,12 @@
     },
     "deputy": {
         "0": "Deputy"
+    },
+    "deputyIntroDesc": {
+        "0": "Handcuff the <color=#FF1919FF>Impostors</color>"
+    },
+    "deputyShortDesc": {
+        "0": "Handcuff the Impostors"
     },
     "deputySpawnRate": {
         "0": "Sheriff Has A Deputy"
@@ -795,6 +935,12 @@
     "lighter": {
         "0": "Lighter"
     },
+    "lighterIntroDesc": {
+        "0": "Your light never goes out"
+    },
+    "lighterShortDesc": {
+        "0": "Your light never goes out"
+    },
     "lighterModeLightsOnVision": {
         "0": "Vision On Lights On"
     },
@@ -806,6 +952,12 @@
     },
     "detective": {
         "0": "Detective"
+    },
+    "detectiveIntroDesc": {
+        "0": "Find the <color=#FF1919FF>Impostors</color> by examining footprints"
+    },
+    "detectiveShortDesc": {
+        "0": "Examine footprints"
     },
     "detectiveAnonymousFootprints": {
         "0": "Anonymous Footprints"
@@ -825,6 +977,12 @@
     "timeMaster": {
         "0": "Time Master"
     },
+    "timeMasterIntroDesc": {
+        "0": "Save yourself with your time shield"
+    },
+    "timeMasterShortDesc": {
+        "0": "Use your time shield"
+    },
     "timeMasterCooldown": {
         "0": "Time Master Cooldown"
     },
@@ -836,6 +994,12 @@
     },
     "medic": {
         "0": "Medic"
+    },
+    "medicIntroDesc": {
+        "0": "Protect someone with your shield"
+    },
+    "medicShortDesc": {
+        "0": "Protect other players"
     },
     "medicShowShielded": {
         "0": "Show Shielded Player"
@@ -870,6 +1034,12 @@
     "swapper": {
         "0": "Swapper"
     },
+    "swapperIntroDesc": {
+        "0": "Swap votes to exile the <color=#FF1919FF>Impostors</color>"
+    },
+    "swapperShortDesc": {
+        "0": "Swap votes"
+    },
     "swapperCanCallEmergency": {
         "0": "Swapper Can Call Emergency Meeting"
     },
@@ -884,6 +1054,12 @@
     },
     "seer": {
         "0": "Seer"
+    },
+    "seerIntroDesc": {
+        "0": "You will see players die"
+    },
+    "seerShortDesc": {
+        "0": "You will see players die"
     },
     "seerMode": {
         "0": "Seer Mode"
@@ -906,6 +1082,12 @@
     "hacker": {
         "0": "Hacker"
     },
+    "hackerIntroDesc": {
+        "0": "Hack systems to find the <color=#FF1919FF>Impostors</color>"
+    },
+    "hackerShortDesc": {
+        "0": "Hack to find the Impostors"
+    },
     "hackerCooldown": {
         "0": "Hacker Cooldown"
     },
@@ -926,6 +1108,12 @@
     },
     "tracker": {
         "0": "Tracker"
+    },
+    "trackerIntroDesc": {
+        "0": "Track the <color=#FF1919FF>Impostors</color> down"
+    },
+    "trackerShortDesc": {
+        "0": "Track the Impostors down"
     },
     "trackerUpdateIntervall": {
         "0": "Tracker Update Intervall"
@@ -957,6 +1145,12 @@
     "snitch": {
         "0": "Snitch"
     },
+    "snitchIntroDesc": {
+        "0": "Finish your tasks to find the <color=#FF1919FF>Impostors</color>"
+    },
+    "snitchShortDesc": {
+        "0": "Finish your tasks"
+    },
     "snitchLeftTasksForReveal": {
         "0": "Task Count Where The Snitch Will Be Revealed"
     },
@@ -984,6 +1178,12 @@
     "spy": {
         "0": "Spy"
     },
+    "spyIntroDesc": {
+        "0": "Confuse the <color=#FF1919FF>Impostors</color>"
+    },
+    "spyShortDesc": {
+        "0": "Confuse the Impostors"
+    },
     "spyCanDieToSheriff": {
         "0": "Spy Can Die To Sheriff"
     },
@@ -998,6 +1198,12 @@
     },
     "portalmaker": {
         "0": "Portalmaker"
+    },
+    "portalmakerIntroDesc": {
+        "0": "You can create portals"
+    },
+    "portalmakerShortDesc": {
+        "0": "You can create portals"
     },
     "portalmakerCooldown": {
         "0": "Portalmaker Cooldown"
@@ -1016,6 +1222,12 @@
     },
     "securityGuard": {
         "0": "Security Guard"
+    },
+    "securityGuardIntroDesc": {
+        "0": "Seal vents and place cameras"
+    },
+    "securityGuardShortDesc": {
+        "0": "Seal vents and place cameras"
     },
     "securityGuardCooldown": {
         "0": "Security Guard Cooldown"
@@ -1044,6 +1256,12 @@
     "medium": {
         "0": "Medium"
     },
+    "mediumIntroDesc": {
+        "0": "Question the souls of the dead to gain information"
+    },
+    "mediumShortDesc": {
+        "0": "Question the souls"
+    },
     "mediumCooldown": {
         "0": "Medium Questioning Cooldown"
     },
@@ -1056,26 +1274,14 @@
     "mediumChanceAdditionalInfo": {
         "0": "Chance That The Answer Contains \n Additional Information"
     },
-    "thief": {
-        "0": "Thief"
-    },
-    "thiefCooldown": {
-        "0": "Thief Cooldown"
-    },
-    "thiefCanKillSheriff": {
-        "0": "Thief Can Kill Sheriff"
-    },
-    "thiefHasImpVision": {
-        "0": "Thief Has Impostor Vision"
-    },
-    "thiefCanUseVents": {
-        "0": "Thief Can Use Vents"
-    },
-    "thiefCanStealWithGuess": {
-        "0": "Thief Can Guess To Steal A Role (If Guesser)"
-    },
     "trapper": {
         "0": "Trapper"
+    },
+    "trapperIntroDesc": {
+        "0": "Place traps to find the Impostors"
+    },
+    "trapperShortDesc": {
+        "0": "Place traps"
     },
     "trapperCooldown": {
         "0": "Trapper Cooldown"
@@ -1116,6 +1322,12 @@
     "modifierBloody": {
         "0": "Bloody"
     },
+    "modifierBloodyIntroDesc": {
+        "0": "Your killer leaves a bloody trail"
+    },
+    "modifierBloodyShortDesc": {
+        "0": "Your killer leaves a bloody trail"
+    },
     "modifierBloodyQuantity": {
         "0": "Bloody Quantity"
     },
@@ -1125,14 +1337,29 @@
     "modifierAntiTeleport": {
         "0": "Anti Teleport"
     },
+    "modifierAntiTeleportIntroDesc": {
+        "0": "You will not get teleported"
+    },
+    "modifierAntiTeleportShortDesc": {
+        "0": "You will not get teleported"
+    },
     "modifierAntiTeleportQuantity": {
         "0": "Anti Teleport Quantity"
     },
     "modifierTieBreaker": {
         "0": "Tie Breaker"
     },
+    "modifierTiebreakerIntroDesc": {
+        "0": "Break the tie"
+    },
     "modifierBait": {
         "0": "Bait"
+    },
+    "modifierBaitIntroDesc": {
+        "0": "Bait your enemies"
+    },
+    "modifierBaitShortDesc": {
+        "0": "Bait your enemies"
     },
     "modifierBaitQuantity": {
         "0": "Bait Quantity"
@@ -1149,6 +1376,12 @@
     "modifierLover": {
         "0": "Lovers"
     },
+    "modifierLoverIntroDesc": {
+        "0": "You are in love"
+    },
+    "modifierLoverShortDesc": {
+        "0": "You are in love"
+    },
     "modifierLoverImpLoverRate": {
         "0": "Chance That One Lover Is Impostor"
     },
@@ -1161,6 +1394,12 @@
     "modifierSunglasses": {
         "0": "Sunglasses"
     },
+    "modifierSunglassesIntroDesc": {
+        "0": "You got the sunglasses"
+    },
+    "modifierSunglassesShortDesc": {
+        "0": "Your vision is reduced"
+    },
     "modifierSunglassesQuantity": {
         "0": "Sunglasses Quantity"
     },
@@ -1169,6 +1408,12 @@
     },
     "modifierMini": {
         "0": "Mini"
+    },
+    "modifierMiniIntroDesc": {
+        "0": "No one will harm you until you grow up"
+    },
+    "modifierMiniShortDesc": {
+        "0": "No one will harm you"
     },
     "modifierMiniGrowingUpDuration": {
         "0": "Mini Growing Up Duration"
@@ -1188,6 +1433,12 @@
     "modifierVip": {
         "0": "VIP"
     },
+    "modifierVipIntroDesc": {
+        "0": "You are the VIP"
+    },
+    "modifierVipShortDesc": {
+        "0": "Everyone is notified when you die"
+    },
     "modifierVipQuantity": {
         "0": "VIP Quantity"
     },
@@ -1197,6 +1448,12 @@
     "modifierInvert": {
         "0": "Invert"
     },
+    "modifierInvertIntroDesc": {
+        "0": "Your movement is inverted"
+    },
+    "modifierInvertShortDesc": {
+        "0": "Your movement is inverted"
+    },
     "modifierInvertQuantity": {
         "0": "Modifier Quantity"
     },
@@ -1205,6 +1462,12 @@
     },
     "modifierChameleon": {
         "0": "Chameleon"
+    },
+    "modifierChameleonIntroDesc": {
+        "0": "You're hard to see when not moving"
+    },
+    "modifierChameleonShortDesc": {
+        "0": "You're hard to see when not moving"
     },
     "modifierChameleonQuantity": {
         "0": "Chameleon Quantity"
@@ -1221,8 +1484,20 @@
     "modifierArmored": {
         "0": "Armored"
     },
+    "modifierArmoredIntroDesc": {
+        "0": "You are protected from one murder attempt"
+    },
+    "modifierArmoredShortDesc": {
+        "0": "You are protected from one murder attempt"
+    },
     "modifierShifter": {
         "0": "Shifter"
+    },
+    "modifierShifterIntroDesc": {
+        "0": "Shift your role"
+    },
+    "modifierShifterShortDesc": {
+        "0": "Shift your role"
     },
     "modifierShifterShiftsMedicShield": {
         "0": "Can Shift Medic Shield"
@@ -1274,6 +1549,24 @@
     },
     "guesserGamemodeCantGuessSnitchIfTaksDone": {
         "0": "Guesser Can't Guess Snitch When Tasks Completed"
+    },
+    "hunter": {
+        "0": "Hunter"
+    },
+    "hunterIntroDesc": {
+        "0": "<color=#FF1919FF>Seek and kill everyone</color>"
+    },
+    "hunterShortDesc": {
+        "0": "Seek and kill everyone"
+    },
+    "hunted": {
+        "0": "Hunted"
+    },
+    "huntedIntroDesc": {
+        "0": "Hide"
+    },
+    "huntedShortDesc": {
+        "0": "Hide"
     },
     "hideNSeekMap": {
         "0": "Map"
@@ -1361,6 +1654,15 @@
     },
     "huntedShieldNumber": {
         "0": "Hunted Shield Number"
+    },
+    "prop": {
+        "0": "Prop"
+    },
+    "propIntroDesc": {
+        "0": "Disguise As An Object and Survive"
+    },
+    "propShortDesc": {
+        "0": "Disguise As An Object"
     },
     "propHuntTimer": {
         "0": "Timer In Min (Prop Hunt)"
@@ -1487,6 +1789,54 @@
     },
     "dynamicMapSeparateSettings": {
         "0": "Use Random Map Setting Presets"
+    },
+    "impostor": {
+        "0": "Impostor"
+    },
+    "impostorIntroDesc": {
+        "0": "Sabotage and kill everyone",
+        "13": "\u51fb\u6740\u4e0e\u7834\u574f"
+    },
+    "impostorShortDesc": {
+        "0": "Sabotage and kill everyone",
+        "13": "\u51fb\u6740\u4e0e\u7834\u574f"
+    },
+    "crewmate": {
+        "0": "Crewmate"
+    },
+    "crewmateIntroDesc": {
+        "0": "Find the Impostors"
+    },
+    "crewmateShortDesc": {
+        "0": "Find the Impostors"
+    },
+    "bepinexUpdaterDownloading": {
+        "0": "Required BepInEx update is downloading, please wait...",
+        "13": "\u6b63\u5728\u4e0b\u8f7d\u6240\u9700\u7684BepInEx\u66f4\u65b0\uff0c\u8bf7\u7a0d\u5019\u2026\u2026"
+    },
+    "shareGamemodeNoHost": {
+        "0": "Nice try, but you have to be the host to use this feature",
+        "13": "\u597d\u597d\u597d\uff0c\u4f46\u4f60\u4e0b\u6b21\u6700\u597d\u662f\u623f\u4e3b"
+    },
+    "chatChangeColorNo": {
+        "0": "Unable to parse color id\nUsage: /color {id}",
+        "13": "\u65e0\u6cd5\u89e3\u6790\u989c\u8272id \n\u7528\u6cd5\uff1a/color {id}"
+    },
+    "chatChangeColorYes": {
+        "0": "Changed color succesfully",
+        "13": "\u6210\u529f\u6539\u53d8\u989c\u8272"
+    },
+    "changeLobbySizeUsage": {
+        "0": "Invalid Size\nUsage: /size {amount}",
+        "13": "\u5927\u5c0f\u65e0\u6548\n\u7528\u6cd5\uff1a/size {amount}"
+    },
+    "changeLobbySizeTo": {
+        "0": "Lobby Size changed to {0} players",
+        "13": "\u623f\u95f4\u6700\u5927\u73a9\u5bb6\u6570\u91cf\u6539\u4e3a {0}"
+    },
+    "changeLobbySizeAl": {
+        "0": "Lobby Size is already {0}",
+        "13": "\u623f\u95f4\u6700\u5927\u73a9\u5bb6\u6570\u91cf\u5df2\u7ecf\u662f {0} \u4e86"
     },
     "buttonLeftClick": {
         "0": "Left Click: {0}",
@@ -1663,5 +2013,181 @@
     "eventKickButtonText": {
         "0": "Kick",
         "13": "\u8e22\u51fa"
+    },
+    "updatingText": {
+        "0": "Updating <b>TheOtherRoles-Rework</b>\nPlease wait...",
+        "13": "\u6b63\u5728\u66f4\u65b0<b>TheOtherRoles-Rework</b>\n\u8bf7\u7a0d\u7b49..."
+    },
+    "downliadingText": {
+        "0": "Updating <b>TheOtherRoles-Rework</b>\nDownloading...\n{0}\nDownload speed: {1}",
+        "13": "\u6b63\u5728\u66f4\u65b0<b>TheOtherRoles-Rework</b>\n\u6b63\u5728\u4e0b\u8f7d\u66f4\u65b0...\n{0}\n\u4e0b\u8f7d\u901f\u5ea6: {1}"
+    },
+    "updateFailedText": {
+        "0": "Update wasn't successful\nTry again later,\nor update manually.",
+        "13": "\u66f4\u65b0\u5931\u8d25 :(\n\u8bf7\u7a0d\u540e\u91cd\u65b0\u6216\u624b\u52a8\u66f4\u65b0"
+    },
+    "copyingFileText": {
+        "0": "Updating <b>TheOtherRoles-Rework</b>\nPlease wait...\n\nDownload complete\ncopying file...",
+        "13": "\u6b63\u5728\u66f4\u65b0<b>TheOtherRoles-Rework</b>\n\u8bf7\u7a0d\u7b49...\n\n\u4e0b\u8f7d\u6210\u529f\uff01\n\u6b63\u5728\u590d\u5236\u6587\u4ef6..."
+    },
+    "updateEndText": {
+        "0": "<b>TheOtherRoles-Rework</b>\nupdated successfully\nPlease restart the game.",
+        "13": "<b>TheOtherRoles-Rework</b>\n\u66f4\u65b0\u6210\u529f\n\u8bf7\u91cd\u542f\u6e38\u620f."
+    },
+    "announcementText": {
+        "0": "<size=150%>A new <b>TheOtherRoles-Rework</b> update to {0} is available</size>\n\n{1}",
+        "13": "<size=150%><b>TheOtherRoles-Rework</b> {0} \u5df2\u7ecf\u53d1\u5e03\u5566\uff01</size>\n\n{1}"
+    },
+    "updateButtonText": {
+        "0": "Update TORR",
+        "13": "\u66f4\u65b0\u6a21\u7ec4"
+    },
+    "colorSalmon": {
+        "0": "Salmon",
+        "13": "\u9c91\u9c7c\u7ea2"
+    },
+    "colorBordeaux": {
+        "0": "Bordeaux",
+        "13": "\u67a3\u7ea2"
+    },
+    "colorOlive": {
+        "0": "Olive",
+        "13": "\u6a44\u6984\u8272"
+    },
+    "colorTurquoise": {
+        "0": "Turquoise",
+        "13": "\u7eff\u677e\u77f3\u8272"
+    },
+    "colorMint": {
+        "0": "Mint",
+        "13": "\u8584\u8377\u7eff"
+    },
+    "colorLavender": {
+        "0": "Lavender",
+        "13": "\u85b0\u8863\u7d2b"
+    },
+    "colorNougat": {
+        "0": "Nougat",
+        "13": "\u68d5\u8910\u8272"
+    },
+    "colorPeach": {
+        "0": "Peach",
+        "13": "\u6843\u7ea2"
+    },
+    "colorWasabi": {
+        "0": "Wasabi",
+        "13": "\u82a5\u672b\u7eff"
+    },
+    "colorHotPink": {
+        "0": "Hot Pink",
+        "13": "\u70ed\u7c89\u8272"
+    },
+    "colorPetrol": {
+        "0": "Petrol Blue",
+        "13": "\u6cb9\u753b\u84dd"
+    },
+    "colorLemon": {
+        "0": "Lemon",
+        "13": "\u67e0\u6aac\u9ec4"
+    },
+    "colorSignalOrange": {
+        "0": "Signal Orange",
+        "13": "\u4fe1\u53f7\u6a59"
+    },
+    "colorTeal": {
+        "0": "Teal",
+        "13": "\u84dd\u7eff\u8272"
+    },
+    "colorBlurple": {
+        "0": "Blurple",
+        "13": "\u84dd\u7d2b\u8272"
+    },
+    "colorSunrise": {
+        "0": "Sunrise",
+        "13": "\u65e5\u51fa\u7ea2"
+    },
+    "colorIce": {
+        "0": "Ice",
+        "13": "\u51b0\u84dd\u8272"
+    },
+    "colorFuchsia": {
+        "0": "Fuchsia",
+        "13": "\u7d2b\u7ea2\u8272"
+    },
+    "colorRoyalGreen": {
+        "0": "Royal Green",
+        "13": "\u7687\u5bb6\u7eff"
+    },
+    "colorSlime": {
+        "0": "Slime",
+        "13": "\u8367\u5149\u7eff"
+    },
+    "colorNavy": {
+        "0": "Navy",
+        "13": "\u85cf\u84dd\u8272"
+    },
+    "colorDarkness": {
+        "0": "Darkness",
+        "13": "\u6697\u9ed1\u8272"
+    },
+    "colorOcean": {
+        "0": "Ocean",
+        "13": "\u6d77\u84dd\u8272"
+    },
+    "colorSundown": {
+        "0": "Sundown",
+        "13": "\u65e5\u843d\u9ec4"
+    },
+    "playerPicks": {
+        "0": "Player's Picks:",
+        "13": "\u73a9\u5bb6\u7684\u9009\u62e9\uff1a"
+    },
+    "currentlyPicking": {
+        "0": "Currently Picking:",
+        "13": "\u5f53\u524d\u73a9\u5bb6\uff1a"
+    },
+    "youText": {
+        "0": "You",
+        "13": "\u4f60\u7684\u56de\u5408"
+    },
+    "randomButtonText": {
+        "0": "Random",
+        "13": "\u968f\u673a"
+    },
+    "anonymousPlayer": {
+        "0": "Anonymous Player {0}",
+        "13": "\u533f\u540d\u73a9\u5bb6{0}"
+    },
+    "welcomeText": {
+        "0": "Welcome to the Role Draft!",
+        "13": "\u6b22\u8fce\u6765\u5230\u8f6e\u62bd\u9009\u89d2\uff01"
+    },
+    "untilYourTurnText": {
+        "0": "{0} rounds until your turn",
+        "13": "\u8fd8\u6709{0}\u540d\u73a9\u5bb6\u5230\u4f60\u7684\u56de\u5408"
+    },
+    "randomSelectionText": {
+        "0": "Random Selection In... {0}",
+        "13": "\u5728{0}\u79d2\u540e\u81ea\u52a8\u9009\u62e9"
+    },
+    "roleDraftMusic": {
+        "0": "\u266b Music: Ultimate Superhero 3 - Ken\u00ebt & Rez \u266b",
+        "13": "\u266b \u97f3\u4e50: Ultimate Superhero 3 - Ken\u00ebt & Rez \u266b"
+    },
+    "roleDraftUnknowRole": {
+        "0": "Unknown Role",
+        "13": "\u672a\u77e5\u804c\u4e1a"
+    },
+    "roleDraftImpRole": {
+        "0": "Impostor Role",
+        "13": "\u5185\u9b3c\u804c\u4e1a"
+    },
+    "roleDraftNeutRole": {
+        "0": "Neutral Role",
+        "13": "\u4e2d\u7acb\u804c\u4e1a"
+    },
+    "roleDraftCrewRole": {
+        "0": "Crewmate Role",
+        "13": "\u8239\u5458\u804c\u4e1a"
     }
 }
