@@ -475,7 +475,7 @@ internal class RoleDraft
                 roleLength = "Crewmate Role".Length;
             }
 
-            var line = $"{(playerId == PlayerControl.LocalPlayer.PlayerId ? "youText".Translate() : alreadyPicked.Count)}:";
+            var line = $"{(playerId == PlayerControl.LocalPlayer.PlayerId ? "youText2".Translate() : alreadyPicked.Count)}:";
             line = line + string.Concat(Enumerable.Repeat(" ", 6 - line.Length)) + roleString;
             feedText.text += line + "\n";
             SoundEffectsManager.play("select");
