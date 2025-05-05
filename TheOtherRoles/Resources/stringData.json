@@ -626,6 +626,30 @@
         "0": "Silhouette Visibility",
         "13": "\u6b8b\u5f71\u900f\u660e\u5ea6"
     },
+    "fraudster": {
+        "0": "Fraudster",
+        "13": "\u4f2a\u8bc1\u5e08"
+    },
+    "fraudsterIntroDesc": {
+        "0": "Creating false death information to confuse the public",
+        "13": "\u5236\u4f5c\u865a\u5047\u7684\u6b7b\u4ea1\u4fe1\u606f\u6df7\u6dc6\u89c6\u542c"
+    },
+    "fraudsterShortDesc": {
+        "0": "Compel the crew",
+        "13": "\u86ca\u60d1\u8239\u5458"
+    },
+    "fraudsterCooldown": {
+        "0": "Suicide Cooldown",
+        "13": "\u4f2a\u8bc1\u5e08\u81ea\u6740\u51b7\u5374\u65f6\u95f4"
+    },
+    "fraudsterCooldownAsSheriff": {
+        "0": "Cooldown As Sheriff",
+        "13": "\u81ea\u6740\u51b7\u5374\u65f6\u95f4\u4e0e\u8b66\u957f\u540c\u6b65"
+    },
+    "fraudsterAllowMeetingSuicide": {
+        "0": "Allow Suicide On Meeting",
+        "13": "\u5141\u8bb8\u4f1a\u8bae\u81ea\u6740"
+    },
     "guesser": {
         "0": "Guesser",
         "13": "\u8d4c\u602a"
@@ -2410,6 +2434,14 @@
         "0": "A standalone Gamemode where Hunters have to find the disguised players (\"Props\").",
         "13": "\u4e00\u4e2a\u72ec\u7acb\u7684\u6e38\u620f\u6a21\u5f0f\uff0c\u6293\u6355\u8005\u5fc5\u987b\u627e\u5230\u4f2a\u88c5\u7684\u73a9\u5bb6\uff08\u201c\u9053\u5177\u201d\uff09\u3002"
     },
+    "meetingFraudsterButtonLabel": {
+        "0": "Confirm Suicide",
+        "13": "\u786e\u8ba4\u81ea\u6740"
+    },
+    "meetingFraudsterButtonText": {
+        "0": "Suicide",
+        "13": "\u81ea\u6740"
+    },
     "meetingSwapperButtonLabel": {
         "0": "Confirm Swap",
         "13": "\u786e\u8ba4\u6362\u7968"
@@ -2801,6 +2833,10 @@
     "contributorsCredentials": {
         "0": "<size=60%><color=#FCCE03FF>Special thanks to <color=#00FFFF>FangkuaiYa</color> & Imp11</color></size>",
         "13": "<size=60%><color=#FCCE03FF>\u7279\u522b\u611f\u8c22 <color=#00FFFF>FangkuaiYa</color> & Imp11</color></size>"
+    },
+    "impostorShowTeamText": {
+        "0": "Remember your companions in case they go rogue.",
+        "13": "\u8bb0\u4f4f\u961f\u53cb\u4ee5\u9632\u4ed6\u4eec\u88ab\u62db\u52df"
     },
     "buttonLeftClick": {
         "0": "Left Click: {0}",
