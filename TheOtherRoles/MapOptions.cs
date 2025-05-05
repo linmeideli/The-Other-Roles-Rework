@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements.UIR;
 
 namespace TheOtherRoles;
 
@@ -23,6 +24,7 @@ internal static class TORMapOptions
     public static bool ShowVentsOnMap = true;
     public static bool ShowChatNotifications = true;
     public static CustomGamemodes gameMode = CustomGamemodes.Classic;
+
 
     // Updating values
     public static int meetingsCount;

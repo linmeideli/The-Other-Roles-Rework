@@ -493,6 +493,7 @@ public class EndGameManagerSetUpPatch
 [HarmonyPatch(typeof(LogicGameFlowNormal), nameof(LogicGameFlowNormal.CheckEndCriteria))]
 internal class CheckEndCriteriaPatch
 {
+
     public static bool Prefix(ShipStatus __instance)
     {
         if (!GameData.Instance) return false;
@@ -519,7 +520,7 @@ internal class CheckEndCriteriaPatch
         if (Mini.triggerMiniLose)
         {
             //__instance.enabled = false;
-            GameManager.Instance.RpcEndGame((GameOverReason)CustomGameOverReason.MiniLose, false);
+            if (!Helpers.CheckDebug()) GameManager.Instance.RpcEndGame((GameOverReason)CustomGameOverReason.MiniLose, false);
             return true;
         }
 
@@ -531,7 +532,7 @@ internal class CheckEndCriteriaPatch
         if (Jester.triggerJesterWin)
         {
             //__instance.enabled = false;
-            GameManager.Instance.RpcEndGame((GameOverReason)CustomGameOverReason.JesterWin, false);
+            if (!Helpers.CheckDebug()) GameManager.Instance.RpcEndGame((GameOverReason)CustomGameOverReason.JesterWin, false);
             return true;
         }
 
@@ -543,7 +544,7 @@ internal class CheckEndCriteriaPatch
         if (Arsonist.triggerArsonistWin)
         {
             //__instance.enabled = false;
-            GameManager.Instance.RpcEndGame((GameOverReason)CustomGameOverReason.ArsonistWin, false);
+            if (!Helpers.CheckDebug()) GameManager.Instance.RpcEndGame((GameOverReason)CustomGameOverReason.ArsonistWin, false);
             return true;
         }
 
@@ -555,7 +556,7 @@ internal class CheckEndCriteriaPatch
         if (Vulture.triggerVultureWin)
         {
             //__instance.enabled = false;
-            GameManager.Instance.RpcEndGame((GameOverReason)CustomGameOverReason.VultureWin, false);
+            if (!Helpers.CheckDebug()) GameManager.Instance.RpcEndGame((GameOverReason)CustomGameOverReason.VultureWin, false);
             return true;
         }
 
@@ -606,7 +607,7 @@ internal class CheckEndCriteriaPatch
         if (GameData.Instance.TotalTasks > 0 && GameData.Instance.TotalTasks <= GameData.Instance.CompletedTasks)
         {
             //__instance.enabled = false;
-            GameManager.Instance.RpcEndGame(GameOverReason.CrewmatesByTask, false);
+            if (!Helpers.CheckDebug()) GameManager.Instance.RpcEndGame(GameOverReason.CrewmatesByTask, false);
             return true;
         }
 
@@ -618,7 +619,7 @@ internal class CheckEndCriteriaPatch
         if (Lawyer.triggerProsecutorWin)
         {
             //__instance.enabled = false;
-            GameManager.Instance.RpcEndGame((GameOverReason)CustomGameOverReason.ProsecutorWin, false);
+            if (!Helpers.CheckDebug()) GameManager.Instance.RpcEndGame((GameOverReason)CustomGameOverReason.ProsecutorWin, false);
             return true;
         }
 
@@ -630,7 +631,7 @@ internal class CheckEndCriteriaPatch
         if (statistics.TeamLoversAlive == 2 && statistics.TotalAlive <= 3)
         {
             //__instance.enabled = false;
-            GameManager.Instance.RpcEndGame((GameOverReason)CustomGameOverReason.LoversWin, false);
+            if (!Helpers.CheckDebug()) GameManager.Instance.RpcEndGame((GameOverReason)CustomGameOverReason.LoversWin, false);
             return true;
         }
 
@@ -644,7 +645,7 @@ internal class CheckEndCriteriaPatch
             !(statistics.TeamJackalHasAliveLover && statistics.TeamLoversAlive == 2))
         {
             //__instance.enabled = false;
-            GameManager.Instance.RpcEndGame((GameOverReason)CustomGameOverReason.TeamJackalWin, false);
+            if (!Helpers.CheckDebug()) GameManager.Instance.RpcEndGame((GameOverReason)CustomGameOverReason.TeamJackalWin, false);
             return true;
         }
 
@@ -676,32 +677,33 @@ internal class CheckEndCriteriaPatch
                     break;
             }
 
-            GameManager.Instance.RpcEndGame(endReason, false);
+            if (!Helpers.CheckDebug()) GameManager.Instance.RpcEndGame(endReason, false);
             return true;
         }
 
         return false;
     }
-
-    private static bool CheckAndEndGameForCrewmateWin(ShipStatus __instance, PlayerStatistics statistics)
+    
+    public static bool CheckAndEndGameForCrewmateWin(ShipStatus __instance, PlayerStatistics statistics)
     {
         if (HideNSeek.isHideNSeekGM && HideNSeek.timer <= 0 && !HideNSeek.isWaitingTimer)
         {
-            //__instance.enabled = false;
-            GameManager.Instance.RpcEndGame(GameOverReason.CrewmatesByVote, false);
+            //__instance.enabled = false;bool enable = CustomOptionHolder.enableNoEndGame.getBool();
+            if (!Helpers.CheckDebug())GameManager.Instance.RpcEndGame(GameOverReason.CrewmatesByVote, false);
             return true;
         }
 
+
         if (PropHunt.isPropHuntGM && PropHunt.timer <= 0 && PropHunt.timerRunning)
         {
-            GameManager.Instance.RpcEndGame(GameOverReason.CrewmatesByVote, false);
+            if (!Helpers.CheckDebug()) GameManager.Instance.RpcEndGame(GameOverReason.CrewmatesByVote, false);
             return true;
         }
 
         if (statistics.TeamImpostorsAlive == 0 && statistics.TeamJackalAlive == 0)
         {
             //__instance.enabled = false;
-            GameManager.Instance.RpcEndGame(GameOverReason.CrewmatesByVote, false);
+            if (!Helpers.CheckDebug()) GameManager.Instance.RpcEndGame(GameOverReason.CrewmatesByVote, false);
             return true;
         }
 
@@ -711,7 +713,7 @@ internal class CheckEndCriteriaPatch
     private static void EndGameForSabotage(ShipStatus __instance)
     {
         //__instance.enabled = false;
-        GameManager.Instance.RpcEndGame(GameOverReason.ImpostorsBySabotage, false);
+        if (!Helpers.CheckDebug()) GameManager.Instance.RpcEndGame(GameOverReason.ImpostorsBySabotage, false);
     }
 }
 

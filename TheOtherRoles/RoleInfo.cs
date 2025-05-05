@@ -50,6 +50,8 @@ public class RoleInfo
 
     public static RoleInfo hunter = new("hunter", Palette.ImpostorRed, RoleId.Impostor);
 
+    public static RoleInfo fraudster = new("fraudster", Fraudster.color, RoleId.Fraudster);
+
 
     // Neutral
     public static RoleInfo goodGuesser = new("niceGuesser", Guesser.color, RoleId.NiceGuesser);
@@ -124,7 +126,7 @@ public class RoleInfo
 
     public static RoleInfo antiTeleport = new("modifierAntiTeleport", Color.yellow, RoleId.AntiTeleport, false, true);
 
-    public static RoleInfo tiebreaker = new("modifierTiebreaker", Color.yellow, RoleId.Tiebreaker, false, true);
+    public static RoleInfo tiebreaker = new("modifierTieBreaker", Color.yellow, RoleId.Tiebreaker, false, true);
 
     public static RoleInfo bait = new("modifierBait", Color.yellow, RoleId.Bait,
         false, true);
@@ -220,44 +222,33 @@ public class RoleInfo
     public string shortDescription;
 
     public RoleInfo(string name, Color color, RoleId roleId,
-        bool isNeutral = false, bool isModifier = false)
+    bool isNeutral = false, bool isModifier = false)
     {
         this.color = color;
-        switch (isModifier)
+        switch (name)
         {
-            case false:
-                switch (name)
-                {
-                    case "impostor":
-                        this.name = name.Translate();
-                        this.introDescription = Helpers.cs(
-                            Palette.ImpostorRed,
-                            (name + "IntroDesc").Translate()
-                        );
-                        this.shortDescription = (name + "ShortDesc").Translate();
-                        break;
-
-                    case "crewmate":
-                        this.name = name.Translate();
-                        this.introDescription = Helpers.cs(
-                            Color.white,
-                            (name + "IntroDesc").Translate()
-                        );
-                        this.shortDescription = (name + "ShortDesc").Translate();
-                        break;
-
-                    default:
-                        this.name = name.Translate();
-                        this.introDescription = (name + "IntroDesc").Translate();
-                        this.shortDescription = (name + "ShortDesc").Translate();
-                        break;
-                }
+            case "impostor":
+                this.name = name.Translate();
+                this.introDescription = Helpers.cs(
+                    Palette.ImpostorRed,
+                    (name + "IntroDesc").Translate()
+                );
+                this.shortDescription = (name + "ShortDesc").Translate();
                 break;
 
-            case true:
-                this.name = "modifier" + name.Translate();
-                this.introDescription = ("modifier" + name + "IntroDesc").Translate();
-                this.shortDescription = ("modifier" + name + "ShortDesc").Translate();
+            case "crewmate":
+                this.name = name.Translate();
+                this.introDescription = Helpers.cs(
+                    Color.white,
+                    (name + "IntroDesc").Translate()
+                );
+                this.shortDescription = (name + "ShortDesc").Translate();
+                break;
+
+            default:
+                this.name = name.Translate();
+                this.introDescription = (name + "IntroDesc").Translate();
+                this.shortDescription = (name + "ShortDesc").Translate();
                 break;
         }
         this.roleId = roleId;
@@ -320,6 +311,7 @@ public class RoleInfo
         if (p == Ninja.ninja) infos.Add(ninja);
         if (p == Bomber.bomber) infos.Add(bomber);
         if (p == Yoyo.yoyo) infos.Add(yoyo);
+        if (p == Fraudster.fraudster) infos.Add(fraudster);
         if (p == Detective.detective) infos.Add(detective);
         if (p == TimeMaster.timeMaster) infos.Add(timeMaster);
         if (p == Medic.medic) infos.Add(medic);

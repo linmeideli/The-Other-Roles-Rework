@@ -187,6 +187,22 @@ internal class HudManagerUpdatePatch
                     else if (Janitor.janitor != null && Janitor.janitor.PlayerId == player.TargetPlayerId)
                         player.NameText.text = Janitor.janitor.Data.PlayerName + "setNameTagsJ".Translate();
         }
+        //Fraudster
+        if (PlayerControl.LocalPlayer != null && PlayerControl.LocalPlayer.Data.Role.IsImpostor && Fraudster.fraudster.Data.IsDead && Fraudster.fraudster != null)
+        {
+            foreach (PlayerControl player in PlayerControl.AllPlayerControls.ToArray())
+                if (Sheriff.sheriff != null && Sheriff.sheriff == player)
+                    player.cosmetics.nameText.text = $"<color=#F8CD46>{player.Data.PlayerName}</color>" + $" ({"sheriff".Translate()})";
+                else if (Deputy.deputy != null && Deputy.deputy == player)
+                    player.cosmetics.nameText.text = $"<color=#F8CD46>{player.Data.PlayerName}</color>" + $" ({"deputy".Translate()})";
+
+            if (MeetingHud.Instance != null)
+                foreach (PlayerVoteArea player in MeetingHud.Instance.playerStates)
+                    if (Sheriff.sheriff != null && Sheriff.sheriff.PlayerId == player.TargetPlayerId)
+                        player.NameText.text = $"<color=#F8CD46>{Deputy.deputy.Data.PlayerName}</color>" + " (S)";
+                    else if (Deputy.deputy != null && Deputy.deputy.PlayerId == player.TargetPlayerId)
+                        player.NameText.text = $"<color=#F8CD46>{Deputy.deputy.Data.PlayerName}</color>" + " (D)";
+        }
 
         // Lovers
         if (Lovers.lover1 != null && Lovers.lover2 != null && (Lovers.lover1 == PlayerControl.LocalPlayer ||

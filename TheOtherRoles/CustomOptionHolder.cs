@@ -48,6 +48,8 @@ public class CustomOptionHolder
     public static CustomOption eventHeavyAge;
     public static CustomOption deadImpsBlockSabotage;
 
+    public static CustomOption enableNoEndGame;
+
     public static CustomOption mafiaSpawnRate;
     public static CustomOption janitorCooldown;
 
@@ -289,6 +291,12 @@ public class CustomOptionHolder
     public static CustomOption yoyoAdminTableCooldown;
     public static CustomOption yoyoSilhouetteVisibility;
 
+    public static CustomOption fraudsterSpawnRate;
+    public static CustomOption fraudsterCooldownAsSheriff;
+    public static CustomOption fraudsterCooldown;
+    public static CustomOption fraudsterAllowMeetingSuicide;
+
+
 
     public static CustomOption modifiersAreHidden;
 
@@ -472,6 +480,8 @@ public class CustomOptionHolder
         draftModeHideImpRoles = CustomOption.Create(Types.General, cs(Color.yellow, "draftModeHideImpRoles"), false, draftModeShowRoles, false);
         draftModeHideNeutralRoles = CustomOption.Create(Types.General, cs(Color.yellow, "draftModeHideNeutralRoles"), false, draftModeShowRoles, false);
 
+        enableNoEndGame = CustomOption.Create(Types.General, cs(Color.yellow, "enableNoEndGame"), false, null, true, heading: "inGameSettings");
+
         // Using new id's for the options to not break compatibilty with older versions
         crewmateRolesCountMin = CustomOption.Create(Types.General,
             cs(new Color(204f / 255f, 204f / 255f, 0, 1f), "crewmateRolesCountMin"), 15f, 0f, 15f, 1f, null, true,
@@ -562,6 +572,11 @@ public class CustomOptionHolder
         yoyoHasAdminTable = CustomOption.Create(Types.Impostor, "yoyoHasAdminTable", true, yoyoSpawnRate);
         yoyoAdminTableCooldown = CustomOption.Create(Types.Impostor, "yoyoAdminTableCooldown", 20f, 2.5f, 120f, 2.5f, yoyoHasAdminTable);
         yoyoSilhouetteVisibility = CustomOption.Create(Types.Impostor, "yoyoSilhouetteVisibility", new[] { "0%", "10%", "20%", "30%", "40%", "50%" }, yoyoSpawnRate);
+
+        fraudsterSpawnRate = CustomOption.CreateRoleOption(Types.Impostor, RoleId.Fraudster, rates, null, true);
+        fraudsterCooldown = CustomOption.Create(Types.Impostor, "fraudsterCooldown", 20f, 2.5f, 120f, 2.5f, fraudsterCooldownAsSheriff);
+        fraudsterCooldownAsSheriff = CustomOption.Create(Types.Impostor, "fraudsterCooldownAsSheriff", true, fraudsterSpawnRate);
+        fraudsterAllowMeetingSuicide = CustomOption.Create(Types.Impostor, "fraudsterAllowMeetingSuicide", true, fraudsterSpawnRate);
 
         guesserSpawnRate = CustomOption.Create(Types.Neutral, cs(Guesser.color, "guesser"), rates, null, true);
         guesserIsImpGuesserRate = CustomOption.Create(Types.Neutral, "guesserIsImpGuesserRate", rates, guesserSpawnRate);

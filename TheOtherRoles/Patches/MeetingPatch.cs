@@ -183,6 +183,18 @@ internal class MeetingHudPatch
         meetingExtraButtonLabel.text = Helpers.cs(Mayor.color,
             "mayorToggleVoteTwice".Translate() + (Mayor.voteTwice ? Helpers.cs(Color.green, "optionOn".Translate()) : Helpers.cs(Color.red, "optionOff".Translate())));
     }
+    static void FraudsterSuicide(MeetingHud __instance)
+    {
+        __instance.playerStates[0].Cancel();  // This will stop the underlying buttons of the template from showing up
+        if (__instance.state == MeetingHud.VoteStates.Results || Fraudster.fraudster.Data.IsDead) return;
+
+        MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SuicideMeeting, Hazel.SendOption.Reliable, -1);
+        writer.Write(Fraudster.fraudstermeeting);
+        AmongUsClient.Instance.FinishRpcImmediately(writer);
+        RPCProcedure.serialKillerSuicide(PlayerControl.LocalPlayer.PlayerId);
+
+        meetingExtraButtonLabel.text = Helpers.cs(Fraudster.color, ModTranslation.GetString("meetingFraudsterButtonLabel"));
+    }
 
     private static void guesserOnClick(int buttonTarget, MeetingHud __instance)
     {
@@ -371,6 +383,8 @@ internal class MeetingHudPatch
         // Add Swapper Buttons
         var addSwapperButtons = Swapper.swapper != null && PlayerControl.LocalPlayer == Swapper.swapper &&
                                 !Swapper.swapper.Data.IsDead;
+        bool addFraudsterButtons = Fraudster.fraudster != null && PlayerControl.LocalPlayer == Fraudster.fraudster &&
+                                !Fraudster.fraudster.Data.IsDead;
         var addMayorButton = Mayor.mayor != null && PlayerControl.LocalPlayer == Mayor.mayor &&
                              !Mayor.mayor.Data.IsDead && Mayor.mayorChooseSingleVote > 0;
         if (addSwapperButtons)
@@ -410,7 +424,7 @@ internal class MeetingHudPatch
         }
 
         // Add meeting extra button, i.e. Swapper Confirm Button or Mayor Toggle Double Vote Button. Swapper Button uses ExtraButtonText on the Left of the Button. (Future meeting buttons can easily be added here)
-        if (addSwapperButtons || addMayorButton)
+        if (addSwapperButtons || addMayorButton || addFraudsterButtons)
         {
             var meetingUI = Object.FindObjectsOfType<Transform>().FirstOrDefault(x => x.name == "PhoneUI");
 
@@ -454,6 +468,11 @@ internal class MeetingHudPatch
                     "mayorToggleVoteTwice".Translate() +
                     (Mayor.voteTwice ? Helpers.cs(Color.green, "optionOn".Translate()) : Helpers.cs(Color.red, "optionOff".Translate())));
             }
+            else if (addFraudsterButtons)
+            {
+                meetingExtraButtonLabel.transform.localScale = new Vector3(meetingExtraButtonLabel.transform.localScale.x * 1.5f, meetingExtraButtonLabel.transform.localScale.x * 1.7f, meetingExtraButtonLabel.transform.localScale.x * 1.7f);
+                meetingExtraButtonLabel.text = Helpers.cs(Fraudster.color, "meetingFraudsterButtonText".Translate());
+            }
 
             var passiveButton = meetingExtraButton.GetComponent<PassiveButton>();
             passiveButton.OnClick.RemoveAllListeners();
@@ -463,6 +482,8 @@ internal class MeetingHudPatch
                     passiveButton.OnClick.AddListener((Action)(() => swapperConfirm(__instance)));
                 else if (addMayorButton)
                     passiveButton.OnClick.AddListener((Action)(() => mayorToggleVoteTwice(__instance)));
+                else if (addFraudsterButtons)
+                    passiveButton.OnClick.AddListener((Action)(() => FraudsterSuicide(__instance)));
             }
 
             meetingExtraButton.parent.gameObject.SetActive(false);

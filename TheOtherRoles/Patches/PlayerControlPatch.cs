@@ -1161,7 +1161,11 @@ public static class PlayerControlFixedUpdatePatch
             HudManagerStartPatch.thiefKillButton.MaxTimer = Thief.cooldown * multiplier;
         }
     }
-
+    static void FraudsterSetTarget()
+    {
+        if (Fraudster.fraudster == null || PlayerControl.LocalPlayer != Fraudster.fraudster) return;
+        Fraudster.currentTarget = setTarget();
+    }
     public static void trapperUpdate()
     {
         if (Trapper.trapper == null || PlayerControl.LocalPlayer != Trapper.trapper ||
@@ -1346,6 +1350,8 @@ public static class PlayerControlFixedUpdatePatch
             thiefSetTarget();
             // yoyo
             Silhouette.UpdateAll();
+            //fraudster
+            FraudsterSetTarget();
 
             hackerUpdate();
             swapperUpdate();

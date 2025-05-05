@@ -63,6 +63,7 @@ internal static class HudManagerStartPatch
     public static CustomButton bomberButton;
     public static CustomButton yoyoButton;
     public static CustomButton yoyoAdminTableButton;
+    public static CustomButton fraudsterButton;
     public static CustomButton defuseButton;
     public static CustomButton zoomOutButton;
     private static CustomButton hunterLighterButton;
@@ -150,6 +151,7 @@ internal static class HudManagerStartPatch
         yoyoButton.MaxTimer = Yoyo.markCooldown;
         yoyoAdminTableButton.MaxTimer = Yoyo.adminCooldown;
         yoyoAdminTableButton.EffectDuration = 10f;
+        fraudsterButton.MaxTimer = Fraudster.cooldown;
         hunterLighterButton.MaxTimer = Hunter.lightCooldown;
         hunterAdminTableButton.MaxTimer = Hunter.AdminCooldown;
         hunterArrowButton.MaxTimer = Hunter.ArrowCooldown;
@@ -1124,6 +1126,28 @@ internal static class HudManagerStartPatch
             0f,
             () => { vampireKillButton.Timer = vampireKillButton.MaxTimer; },
             buttonText: "vampireBite"
+        );
+
+        fraudsterButton = new CustomButton(
+            () =>
+            {
+
+                byte targetId = PlayerControl.LocalPlayer.PlayerId;
+                MessageWriter killWriter = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.Suicide, Hazel.SendOption.Reliable, -1); killWriter.Write(targetId);
+                AmongUsClient.Instance.FinishRpcImmediately(killWriter);
+                RPCProcedure.serialKillerSuicide(targetId);
+            },
+            () => { return PlayerControl.LocalPlayer == Fraudster.fraudster && !PlayerControl.LocalPlayer.Data.IsDead; },
+            () => { return true; },
+            () =>
+            {
+                fraudsterButton.Timer = fraudsterButton.MaxTimer = 20f;
+            },
+            Fraudster.getButtonSprite(),
+            CustomButton.ButtonPositions.upperRowLeft,
+            __instance,
+            KeyCode.F,
+            buttonText: ModTranslation.GetString("FraudsterText")
         );
 
         garlicButton = new CustomButton(

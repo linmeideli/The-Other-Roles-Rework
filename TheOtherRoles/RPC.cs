@@ -70,6 +70,7 @@ public enum RoleId
     Thief,
     Bomber,
     Yoyo,
+    Fraudster,
     Crewmate,
     Impostor,
 
@@ -161,6 +162,8 @@ internal enum CustomRPC
     YoyoMarkLocation,
     YoyoBlink,
     BreakArmor,
+    Suicide,
+    SuicideMeeting,
 
     // Gamemode
     SetGuesserGm,
@@ -732,7 +735,20 @@ public static class RPCProcedure
             if (player.PlayerId == targetId && !player.Data.IsDead)
                 Vampire.bitten = player;
     }
-
+    public static void serialKillerSuicide(byte PlayerId)
+    {
+        PlayerControl playerid = Helpers.playerById(PlayerId);
+        if (playerid == null) return;
+        playerid.MurderPlayer(playerid, MurderResultFlags.Succeeded);
+        GameHistory.overrideDeathReasonAndKiller(playerid, DeadPlayer.CustomDeathReason.Kill);
+    }
+    public static void serialKillerSuicideMeeting(byte PlayerId)
+    {
+        PlayerControl playerid = Helpers.playerById(PlayerId);
+        if (playerid == null) return;
+        playerid.MurderPlayer(playerid, MurderResultFlags.Succeeded);
+        GameHistory.overrideDeathReasonAndKiller(playerid, DeadPlayer.CustomDeathReason.Guess);
+    }
     public static void placeGarlic(byte[] buff)
     {
         var position = Vector3.zero;
@@ -1826,6 +1842,12 @@ internal class RPCHandlerPatch
                 break;
             case (byte)CustomRPC.BreakArmor:
                 RPCProcedure.breakArmor();
+                break;
+            case (byte)CustomRPC.SuicideMeeting:
+                RPCProcedure.serialKillerSuicideMeeting(reader.ReadByte());
+                break;
+            case (byte)CustomRPC.Suicide:
+                RPCProcedure.serialKillerSuicide(reader.ReadByte());
                 break;
 
             // Game mode

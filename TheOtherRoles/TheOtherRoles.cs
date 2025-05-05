@@ -1923,6 +1923,32 @@ public static class Ninja
     }
 }
 
+public static class Fraudster
+{
+    public static PlayerControl fraudster;
+    public static PlayerControl currentTarget;
+    public static Color color = new Color32(255, 165, 0, byte.MaxValue);
+    public static bool fraudstermeeting;
+    public static float cooldown = Sheriff.cooldown;
+
+    private static Sprite buttonSprite;
+    public static Sprite getButtonSprite()
+    {
+        if (buttonSprite) return buttonSprite;
+        buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SuicideButton.png", 115f);
+        return buttonSprite;
+    }
+
+    public static void clearAndReload()
+    {
+        Fraudster.fraudster = null;
+        if(CustomOptionHolder.fraudsterCooldownAsSheriff.getBool()) cooldown = CustomOptionHolder.sheriffCooldown.getFloat();
+        cooldown = CustomOptionHolder.fraudsterCooldown.getFloat();
+        fraudstermeeting = CustomOptionHolder.fraudsterAllowMeetingSuicide.getBool();
+    }
+
+}
+
 public static class Thief
 {
     public static PlayerControl thief;

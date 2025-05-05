@@ -244,7 +244,7 @@
     },
     "neutralRolesCountMax": {
         "0": "Maximum Neutral Roles",
-        "13": "\u6700\u5c0f\u5927\u4e2d\u7acb\u804c\u4e1a\u6570\u91cf"
+        "13": "\u6700\u5927\u4e2d\u7acb\u804c\u4e1a\u6570\u91cf"
     },
     "impostorRolesCountMin": {
         "0": "Minimum Impostor Roles",
@@ -456,7 +456,7 @@
     },
     "bountyHunter": {
         "0": "Bounty Hunter",
-        "13": "\u8d4f\u91d1\u6293\u6355\u8005"
+        "13": "\u8d4f\u91d1\u730e\u4eba"
     },
     "bountyHunterIntroDesc": {
         "0": "Hunt your bounty down",
@@ -1568,7 +1568,7 @@
     },
     "modifiersAreHidden": {
         "0": "VIP, Bait & Bloody Are Hidden",
-        "13": "\u9690\u85cfVIP\uff0c\u8bf1\u9975\uff0c\u8840\u8bed\u8005"
+        "13": "\u9690\u85cfVIP\uff0c\u8bf1\u9975\uff0c\u6e85\u8840\u8005"
     },
     "modifiersAreHiddenHeading": {
         "0": "Hide After Death Modifiers",
@@ -1844,7 +1844,7 @@
     },
     "guesserForceJackalGuesser": {
         "0": "Force Jackal Guesser",
-        "13": "\uff08\u8fd9\u4e2a\u4e5f\u4e0d\u4f1a\uff09"
+        "13": "\u8c7a\u72fc\u6c38\u8fdc\u4e3a\u8d4c\u602a"
     },
     "guesserGamemodeSidekickIsAlwaysGuesser": {
         "0": "Sidekick Is Always Guesser",
@@ -2206,8 +2206,17 @@
         "0": "Use Random Map Setting Presets",
         "13": "\u4f7f\u7528\u968f\u673a\u5730\u56fe\u9884\u8bbe"
     },
+    "inGameSettings": {
+        "0": "In Game Settings",
+        "13": "\u6e38\u620f\u5185\u8bbe\u7f6e"
+    },
+    "enableNoEndGame": {
+        "0": "Enable No End Game",
+        "13": "\u542f\u7528\u6d4b\u8bd5\u6a21\u5f0f\uff08\u6c38\u4e0d\u7ed3\u675f\uff09"
+    },
     "impostor": {
-        "0": "Impostor"
+        "0": "Impostor",
+        "13": "\u4f2a\u88c5\u8005"
     },
     "impostorIntroDesc": {
         "0": "Sabotage and kill everyone",
@@ -2499,12 +2508,10 @@
     },
     "colorLightMax": {
         "0": "L",
-        "1": "\u6d45",
         "13": "\u6d45"
     },
     "colorDarkMax": {
         "0": "D",
-        "1": "\u6df1",
         "13": "\u6df1"
     },
     "seerInfoText": {
