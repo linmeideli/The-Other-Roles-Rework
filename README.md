@@ -23,27 +23,27 @@ This mod is not affiliated with Among Us or Innersloth LLC, and the content cont
 The **The Other Roles** is a mod for [Among Us](https://store.steampowered.com/app/945360/Among_Us) which adds many new roles, new [Settings](#settings) and new [Custom Hats](#custom-hats) to the game.
 Even more roles are coming soon. :)
 
-| Impostor | Crewmate | Neutral | Modifier | Gamemode |
-|----------|-------------|-----------------|----------------|----------------|
-| [Godfather (Mafia)](#mafia) | [Mayor](#mayor) | [Jester](#jester) | [Bloody](#bloody) | [Classic](#roles) |
-| [Mafioso (Mafia)](#mafia) | [Engineer](#engineer) | [Arsonist](#arsonist) | [Anti Teleport](#anti-teleport) | [Guesser Modifier](#guesser-modifier) |
-| [Janitor (Mafia)](#mafia) | [Sheriff](#sheriff) | [Jackal](#jackal) | [Tie Breaker](#tie-breaker) | [Hide 'n' Seek](#hide-n-seek) |
-| [Morphling](#morphling) | [Deputy](#deputy) | [Sidekick](#sidekick) | [Bait](#bait) | [Vanilla Hide 'n' Seek](https://www.innersloth.com/new-game-mode-hide-n-seek-is-here-emergency-meeting-35/) |
-| [Camouflager](#camouflager) | [Lighter](#lighter) | [Vulture](#vulture) | [Lovers](#lovers) | [PropHunt](#prophunt)|
-| [Vampire](#vampire) | [Detective](#detective) | [Lawyer](#lawyer) | [Sunglasses](#sunglasses) |
-| [Eraser](#eraser) | [Time Master](#time-master) | [Prosecutor](#prosecutor) | [Mini](#mini) |
-| [Trickster](#trickster) | [Medic](#medic) | [Pursuer](#pursuer) | [VIP](#vip) |
-| [Cleaner](#cleaner) | [Swapper](#swapper) | [Thief](#thief) | [Invert](#invert) |
-| [Warlock](#warlock) | [Seer](#seer) |  | [Chameleon](#chameleon) |
+| Impostor                        | Crewmate | Neutral | Modifier | Gamemode |
+|---------------------------------|-------------|-----------------|----------------|----------------|
+| [Godfather (Mafia)](#mafia)     | [Mayor](#mayor) | [Jester](#jester) | [Bloody](#bloody) | [Classic](#roles) |
+| [Mafioso (Mafia)](#mafia)       | [Engineer](#engineer) | [Arsonist](#arsonist) | [Anti Teleport](#anti-teleport) | [Guesser Modifier](#guesser-modifier) |
+| [Janitor (Mafia)](#mafia)       | [Sheriff](#sheriff) | [Jackal](#jackal) | [Tie Breaker](#tie-breaker) | [Hide 'n' Seek](#hide-n-seek) |
+| [Morphling](#morphling)         | [Deputy](#deputy) | [Sidekick](#sidekick) | [Bait](#bait) | [Vanilla Hide 'n' Seek](https://www.innersloth.com/new-game-mode-hide-n-seek-is-here-emergency-meeting-35/) |
+| [Camouflager](#camouflager)     | [Lighter](#lighter) | [Vulture](#vulture) | [Lovers](#lovers) | [PropHunt](#prophunt)|
+| [Vampire](#vampire)             | [Detective](#detective) | [Lawyer](#lawyer) | [Sunglasses](#sunglasses) |
+| [Eraser](#eraser)               | [Time Master](#time-master) | [Prosecutor](#prosecutor) | [Mini](#mini) |
+| [Trickster](#trickster)         | [Medic](#medic) | [Pursuer](#pursuer) | [VIP](#vip) |
+| [Cleaner](#cleaner)             | [Swapper](#swapper) | [Thief](#thief) | [Invert](#invert) |
+| [Warlock](#warlock)             | [Seer](#seer) |  | [Chameleon](#chameleon) |
 | [Bounty Hunter](#bounty-hunter) | [Hacker](#hacker) |  | [Shifter](#shifter)
-| [Witch](#witch) | [Tracker](#tracker) |  | [Armored](#armored) |
-| [Ninja](#ninja) | [Snitch](#snitch) |  |  |
-| [Bomber](#bomber) | [Spy](#spy) |  |  |
-| [Yo-Yo](#yoyo) | [Portalmaker](#portalmaker) |  |  |
-| [Evil Guesser](#guesser) | [Security Guard](#security-guard) |  |  |
-|  | [Medium](#medium) |  |  |
-|  | [Trapper](#trapper) |  |  |
-|  | [Nice Guesser](#guesser) |  |  |
+| [Witch](#witch)                 | [Tracker](#tracker) |  | [Armored](#armored) |
+| [Ninja](#ninja)                 | [Snitch](#snitch) |  |  |
+| [Bomber](#bomber)               | [Spy](#spy) |  |  |
+| [Yo-Yo](#yoyo)                  | [Portalmaker](#portalmaker) |  |  |
+| [Evil Guesser](#guesser)        | [Security Guard](#security-guard) |  |  |
+| [Fraudster](#fraudster)         | [Medium](#medium) |  |  |
+|                                 | [Trapper](#trapper) |  |  |
+|                                 | [Nice Guesser](#guesser) |  |  |
 
 The [Role Assignment](#role-assignment) section explains how the roles are being distributed among the players.
 
@@ -592,6 +592,24 @@ Depending on the options, the Guesser can't guess the shielded player and depend
 | Evil Guesser Can Guess The Spy | -
 | Both Guesser Spawn Rate | -
 | Guesser Can't Guess Snitch When Tasks Completed | -
+
+-----------------------
+## Fraudster
+### **Team: Impostors**
+Fraudster can choose to kill himself during the action\
+Fraudster can do this so that his teammates are not suspected because the sheriff killed a good guy\
+During a meeting, Fraudster can disguise himself as dying during a speculation, which also reduces the likelihood of teammates being suspected (configurable)\
+When Fraudster dies, his teammates will know who the Sheriff and Dupety are
+Jester wins won't be triggered, if the Guesser shoots the Jester before the Jester gets voted out
+
+### Game Options
+| Name                               | Description |
+|------------------------------------|:-------------:|
+| Fraudster Spawn Chance             | -
+| Allow Fraudster Suicide On Meeting | -
+| Suicide Cooldown                   | -
+| Cooldown As Sheriff                |  Set Cooldown As the Cooldown As Sheriff
+
 
 -----------------------
 
@@ -1569,7 +1587,7 @@ TheOtherRolesAU/TheOtherRoles is licensed under the
 Permissions of this strong copyleft license are conditioned on making available **complete source code of licensed works and modifications**, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
 
 # Bugs, suggestions and requests
-If you found any bugs, have an idea for a new role or any other request, join our [Discord server](https://discord.gg/77RkMJHWsM).
+If you found any bugs, have an idea for a new role or any other request, join our [QQ](https://qm.qq.com/cgi-bin/qm/qr?authKey=Dn8MKDZAadw0VHyaPg43rRuSNIK9fOpzmI%2BfZA1%2F6%2BCx2QpqZH1vzHlB6QwVKv3Q&k=qDktOeGaUnZHnx0_U6kBoQ9d0ip8_Myp&noverify=0).
 
 # Copyedit
 Thanks for fixing our typos [jacktose](https://github.com/jacktose) ✌️
