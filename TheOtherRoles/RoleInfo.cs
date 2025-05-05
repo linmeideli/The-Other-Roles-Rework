@@ -167,6 +167,7 @@ public class RoleInfo
         ninja,
         bomber,
         yoyo,
+        fraudster,
         goodGuesser,
         badGuesser,
         lover,

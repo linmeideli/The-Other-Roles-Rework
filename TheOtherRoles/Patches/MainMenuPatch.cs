@@ -44,7 +44,7 @@ public class MainMenuPatch
         buttonDiscord.GetComponent<AspectPosition>().anchorPoint = new Vector2(0.542f, 0.5f);
 
         var textDiscord = buttonDiscord.transform.GetComponentInChildren<TMP_Text>();
-        __instance.StartCoroutine(Effects.Lerp(0.5f, new Action<float>(p => { textDiscord.SetText("TOR Discord"); })));
+        __instance.StartCoroutine(Effects.Lerp(0.5f, new Action<float>(p => { textDiscord.SetText("Discord"); })));
         var passiveButtonDiscord = buttonDiscord.GetComponent<PassiveButton>();
 
         passiveButtonDiscord.OnClick = new ButtonClickedEvent();
@@ -60,7 +60,7 @@ public class MainMenuPatch
 
         var textCreditsButton = creditsButton.transform.GetComponentInChildren<TMP_Text>();
         __instance.StartCoroutine(Effects.Lerp(0.5f,
-            new Action<float>(p => { textCreditsButton.SetText("TORR Credits"); })));
+            new Action<float>(p => { textCreditsButton.SetText("Credits"); })));
         var passiveCreditsButton = creditsButton.GetComponent<PassiveButton>();
 
         passiveCreditsButton.OnClick = new ButtonClickedEvent();

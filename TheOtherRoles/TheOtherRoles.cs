@@ -1935,7 +1935,7 @@ public static class Fraudster
     public static Sprite getButtonSprite()
     {
         if (buttonSprite) return buttonSprite;
-        buttonSprite = Helpers.loadSpriteFromResources("TheOtherRoles.Resources.SuicideButton.png", 115f);
+        buttonSprite = Helpers.loadSpriteFromResources("SuicideButton.png", 115f);
         return buttonSprite;
     }
 

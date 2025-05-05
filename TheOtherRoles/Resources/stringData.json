@@ -3014,6 +3014,10 @@
         "0": "Kick",
         "13": "\u8e22\u51fa"
     },
+    "fraudsterButtonSuicide": {
+        "0": "Suicide",
+        "13": "\u81ea\u6740"
+    },
     "updatingText": {
         "0": "Updating <b>TheOtherRoles-Rework</b>\nPlease wait...",
         "13": "\u6b63\u5728\u66f4\u65b0<b>TheOtherRoles-Rework</b>\n\u8bf7\u7a0d\u7b49..."

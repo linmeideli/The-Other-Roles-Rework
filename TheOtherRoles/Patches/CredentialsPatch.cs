@@ -164,7 +164,7 @@ Based on <color=#FCCE03FF>TheOtherRoles</color>";
         public static void loadSprites()
         {
             if (bannerSprite == null)
-                bannerSprite = Helpers.loadSpriteFromResources("Banner.png", 300f);
+                bannerSprite = Helpers.loadSpriteFromResources("Banner.png", 550f);
             if (banner2Sprite == null)
                 banner2Sprite = Helpers.loadSpriteFromResources("Banner2.png", 300f);
             if (horseBannerSprite == null)

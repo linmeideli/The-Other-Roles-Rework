@@ -1147,7 +1147,7 @@ internal static class HudManagerStartPatch
             CustomButton.ButtonPositions.upperRowLeft,
             __instance,
             KeyCode.F,
-            buttonText: ModTranslation.GetString("FraudsterText")
+            buttonText: "fraudsterButtonSuicide"
         );
 
         garlicButton = new CustomButton(

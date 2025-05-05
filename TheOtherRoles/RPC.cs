@@ -440,6 +440,9 @@ public static class RPCProcedure
                     case RoleId.Yoyo:
                         Yoyo.yoyo = player;
                         break;
+                    case RoleId.Fraudster:
+                        Fraudster.fraudster = player;
+                        break;
                 }
 
                 if (AmongUsClient.Instance.AmHost && player.roleCanUseVents() && !player.Data.Role.IsImpostor)
@@ -873,6 +876,7 @@ public static class RPCProcedure
         if (player == Ninja.ninja) Ninja.clearAndReload();
         if (player == Bomber.bomber) Bomber.clearAndReload();
         if (player == Yoyo.yoyo) Yoyo.clearAndReload();
+        if (player == Fraudster.fraudster) Fraudster.clearAndReload();
 
         // Other roles
         if (player == Jester.jester) Jester.clearAndReload();
@@ -1320,6 +1324,7 @@ public static class RPCProcedure
             Yoyo.yoyo = thief;
             Yoyo.markedLocation = null;
         }
+        if (target == Fraudster.fraudster) Fraudster.fraudster = thief;
 
         if (target.Data.Role.IsImpostor)
         {
