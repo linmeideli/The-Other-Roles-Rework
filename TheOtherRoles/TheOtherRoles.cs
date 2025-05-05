@@ -288,6 +288,7 @@ public static class TheOtherRoles
         public static float cooldown = 30f;
         public static bool canKillNeutrals;
         public static bool spyCanDieToSheriff;
+        public static bool stopsGameEnd;
 
         public static PlayerControl currentTarget;
 
@@ -311,6 +312,7 @@ public static class TheOtherRoles
             cooldown = CustomOptionHolder.sheriffCooldown.getFloat();
             canKillNeutrals = CustomOptionHolder.sheriffCanKillNeutrals.getBool();
             spyCanDieToSheriff = CustomOptionHolder.spyCanDieToSheriff.getBool();
+            stopsGameEnd = CustomOptionHolder.sheriffCanStopGameEnd.getBool();
         }
     }
 
@@ -327,6 +329,7 @@ public static class TheOtherRoles
         public static float remainingHandcuffs;
         public static float handcuffCooldown;
         public static bool knowsSheriff;
+        public static bool stopsGameEnd;
         public static Dictionary<byte, float> handcuffedKnows = new();
 
         private static Sprite buttonSprite;
@@ -387,6 +390,7 @@ public static class TheOtherRoles
             keepsHandcuffsOnPromotion = CustomOptionHolder.deputyKeepsHandcuffs.getBool();
             handcuffDuration = CustomOptionHolder.deputyHandcuffDuration.getFloat();
             knowsSheriff = CustomOptionHolder.deputyKnowsSheriff.getBool();
+            stopsGameEnd = CustomOptionHolder.deputyCanStopGameEnd.getBool();
         }
     }
 

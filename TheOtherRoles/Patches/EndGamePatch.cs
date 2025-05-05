@@ -642,7 +642,8 @@ internal class CheckEndCriteriaPatch
     {
         if (statistics.TeamJackalAlive >= statistics.TotalAlive - statistics.TeamJackalAlive &&
             statistics.TeamImpostorsAlive == 0 &&
-            !(statistics.TeamJackalHasAliveLover && statistics.TeamLoversAlive == 2))
+            !(statistics.TeamJackalHasAliveLover && statistics.TeamLoversAlive == 2)
+            && statistics.TeamSheriffAlive == 0)
         {
             //__instance.enabled = false;
             if (!Helpers.CheckDebug()) GameManager.Instance.RpcEndGame((GameOverReason)CustomGameOverReason.TeamJackalWin, false);
@@ -660,7 +661,8 @@ internal class CheckEndCriteriaPatch
 
         if (statistics.TeamImpostorsAlive >= statistics.TotalAlive - statistics.TeamImpostorsAlive &&
             statistics.TeamJackalAlive == 0 &&
-            !(statistics.TeamImpostorHasAliveLover && statistics.TeamLoversAlive == 2))
+            !(statistics.TeamImpostorHasAliveLover && statistics.TeamLoversAlive == 2)
+            && statistics.TeamSheriffAlive == 0)
         {
             //__instance.enabled = false;
             GameOverReason endReason;
@@ -727,6 +729,7 @@ internal class PlayerStatistics
     public int TeamImpostorsAlive { get; set; }
     public int TeamJackalAlive { get; set; }
     public int TeamLoversAlive { get; set; }
+    public int TeamSheriffAlive { get; set; }
     public int TotalAlive { get; set; }
     public bool TeamImpostorHasAliveLover { get; set; }
     public bool TeamJackalHasAliveLover { get; set; }
@@ -743,6 +746,7 @@ internal class PlayerStatistics
         var numImpostorsAlive = 0;
         var numLoversAlive = 0;
         var numTotalAlive = 0;
+        var numSheriffAlive = 0;
         var impLover = false;
         var jackalLover = false;
 
@@ -772,11 +776,20 @@ internal class PlayerStatistics
                         numJackalAlive++;
                         if (lover) jackalLover = true;
                     }
+                    if (Sheriff.sheriff != null && Sheriff.sheriff.PlayerId == playerInfo.PlayerId && Sheriff.stopsGameEnd)
+                    {
+                        numSheriffAlive++;
+                    }
+                    if (Deputy.deputy != null && Deputy.deputy.PlayerId == playerInfo.PlayerId && Deputy.stopsGameEnd)
+                    {
+                        numSheriffAlive++;
+                    }
                 }
 
         TeamJackalAlive = numJackalAlive;
         TeamImpostorsAlive = numImpostorsAlive;
         TeamLoversAlive = numLoversAlive;
+        TeamSheriffAlive = numSheriffAlive;
         TotalAlive = numTotalAlive;
         TeamImpostorHasAliveLover = impLover;
         TeamJackalHasAliveLover = jackalLover;

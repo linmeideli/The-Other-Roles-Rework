@@ -144,14 +144,16 @@ public class CustomOptionHolder
     public static CustomOption sheriffSpawnRate;
     public static CustomOption sheriffCooldown;
     public static CustomOption sheriffCanKillNeutrals;
-    public static CustomOption deputySpawnRate;
+    public static CustomOption sheriffCanStopGameEnd;
 
+    public static CustomOption deputySpawnRate;
     public static CustomOption deputyNumberOfHandcuffs;
     public static CustomOption deputyHandcuffCooldown;
     public static CustomOption deputyGetsPromoted;
     public static CustomOption deputyKeepsHandcuffs;
     public static CustomOption deputyHandcuffDuration;
     public static CustomOption deputyKnowsSheriff;
+    public static CustomOption deputyCanStopGameEnd;
 
     public static CustomOption lighterSpawnRate;
     public static CustomOption lighterModeLightsOnVision;
@@ -663,7 +665,9 @@ public class CustomOptionHolder
         sheriffCooldown =
             CustomOption.Create(Types.Crewmate, "sheriffCooldown", 30f, 10f, 60f, 2.5f, sheriffSpawnRate);
         sheriffCanKillNeutrals =
-            CustomOption.Create(Types.Crewmate, "sheriffCanKillNeutrals", false, sheriffSpawnRate);
+            CustomOption.Create(Types.Crewmate, "sheriffCanKillNeutrals", true, sheriffSpawnRate);
+        sheriffCanStopGameEnd =
+    CustomOption.Create(Types.Crewmate, "sheriffCanStopGameEnd", true, sheriffSpawnRate);
         deputySpawnRate = CustomOption.Create(Types.Crewmate, "deputySpawnRate", rates, sheriffSpawnRate);
         deputyNumberOfHandcuffs = CustomOption.Create(Types.Crewmate, "deputyNumberOfHandcuffs", 3f, 1f, 10f,
             1f, deputySpawnRate, id2: 1);
@@ -677,6 +681,8 @@ public class CustomOptionHolder
             new[] { "deputyGetsPromoted1", "deputyGetsPromoted2", "deputyGetsPromoted3" }, deputySpawnRate);
         deputyKeepsHandcuffs = CustomOption.Create(Types.Crewmate, "deputyKeepsHandcuffs", true,
             deputyGetsPromoted);
+        deputyCanStopGameEnd =
+CustomOption.Create(Types.Crewmate, "deputyCanStopGameEnd", true, deputySpawnRate);
 
         lighterSpawnRate = CustomOption.CreateRoleOption(Types.Crewmate, RoleId.Lighter, rates, null, true);
         lighterModeLightsOnVision = CustomOption.Create(Types.Crewmate, "lighterModeLightsOnVision", 1.5f, 0.25f, 5f,

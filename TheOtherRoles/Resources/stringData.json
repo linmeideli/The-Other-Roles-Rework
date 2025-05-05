@@ -1030,6 +1030,10 @@
         "0": "Sheriff Can Kill Neutrals",
         "13": "\u8b66\u957f\u53ef\u4ee5\u51fb\u6740\u4e2d\u7acb"
     },
+    "sheriffCanStopGameEnd": {
+        "0": "Sheriff Can Stop Game End",
+        "13": "\u8b66\u957f\u53ef\u4ee5\u963b\u6b62\u6e38\u620f\u7ed3\u675f"
+    },
     "deputy": {
         "0": "Deputy",
         "13": "\u6355\u5feb"
@@ -1081,6 +1085,10 @@
     "deputyKeepsHandcuffs": {
         "0": "Deputy Keeps Handcuffs When Promoted",
         "13": "\u6355\u5feb\u4e0a\u4f4d\u65f6\u4fdd\u7559\u624b\u94d0"
+    },
+    "deputyCanStopGameEnd": {
+        "0": "Deputy Can Stop Game End",
+        "13": "\u6355\u5feb\u53ef\u4ee5\u963b\u6b62\u6e38\u620f\u7ed3\u675f"
     },
     "lighter": {
         "0": "Lighter",

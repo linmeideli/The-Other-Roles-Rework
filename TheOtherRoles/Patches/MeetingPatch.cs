@@ -468,7 +468,7 @@ internal class MeetingHudPatch
                     "mayorToggleVoteTwice".Translate() +
                     (Mayor.voteTwice ? Helpers.cs(Color.green, "optionOn".Translate()) : Helpers.cs(Color.red, "optionOff".Translate())));
             }
-            else if (addFraudsterButtons && CustomOptionHolder.fraudsterAllowMeetingSuicide.getBool())
+            else if (addFraudsterButtons && CustomOptionHolder.fraudsterAllowMeetingSuicide.getBool() && !Fraudster.fraudster.Data.IsDead)
             {
                 meetingExtraButtonLabel.transform.localScale = new Vector3(meetingExtraButtonLabel.transform.localScale.x * 1.5f, meetingExtraButtonLabel.transform.localScale.x * 1.7f, meetingExtraButtonLabel.transform.localScale.x * 1.7f);
                 meetingExtraButtonLabel.text = Helpers.cs(Fraudster.color, "meetingFraudsterButtonText".Translate());
