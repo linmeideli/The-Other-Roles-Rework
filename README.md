@@ -600,7 +600,6 @@ Fraudster can choose to kill himself during the action\
 Fraudster can do this so that his teammates are not suspected because the sheriff killed a good guy\
 During a meeting, Fraudster can disguise himself as dying during a speculation, which also reduces the likelihood of teammates being suspected (configurable)\
 When Fraudster dies, his teammates will know who the Sheriff and Dupety are
-Jester wins won't be triggered, if the Guesser shoots the Jester before the Jester gets voted out
 
 ### Game Options
 | Name                               | Description |
