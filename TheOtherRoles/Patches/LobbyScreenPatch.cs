@@ -13,7 +13,7 @@ public sealed class LobbyJoinBind
 {
     private static int GameId;
 
-    private static GameObject LobbyText;
+    public static GameObject LobbyText;
     internal static TMP_FontAsset fontAssetPingTracker;
 
     [HarmonyPatch(typeof(InnerNetClient), nameof(InnerNetClient.JoinGame))]

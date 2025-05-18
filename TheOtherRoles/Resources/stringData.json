@@ -650,6 +650,54 @@
         "0": "Allow Suicide On Meeting",
         "13": "\u5141\u8bb8\u4f1a\u8bae\u81ea\u6740"
     },
+    "devil": {
+        "0": "Devil",
+        "13": "\u5389\u9b3c"
+    },
+    "devilIntroDesc": {
+        "0": "Blind your enemies.",
+        "13": "\u8ba9\u4f60\u7684\u654c\u4eba\u5931\u660e"
+    },
+    "devilShortDesc": {
+        "0": "Blind your enemies. Kill everyone.",
+        "13": "\u8ba9\u4f60\u7684\u654c\u4eba\u5931\u660e\uff0c\u6740\u6b7b\u6240\u6709\u4eba"
+    },
+    "devilCooldown": {
+        "0": "Blind Cooldown",
+        "13": "\u81f4\u76f2\u51b7\u5374\u65f6\u95f4"
+    },
+    "blinderBeReportFor": {
+        "0": "Blinder Will Be Report For",
+        "13": "\u8c01\u4f1a\u6709\u88ab\u81f4\u76f2\u7684\u901a\u62a5"
+    },
+    "jackal": {
+        "0": "Jackal",
+        "13": "\u8c7a\u72fc"
+    },
+    "netural": {
+        "0": "netural",
+        "13": "\u4e2d\u7acb"
+    },
+    "jackalImp": {
+        "0": "J & Imp",
+        "13": "\u8c7a\u72fc\u4e0e\u4f2a\u88c5\u8005"
+    },
+    "neturalImp": {
+        "0": "N & Imp",
+        "13": "\u4e2d\u7acb\u4e0e\u4f2a\u88c5\u8005"
+    },
+    "imponly": {
+        "0": "Only Imp",
+        "13": "\u4ec5\u4f2a\u88c5\u8005"
+    },
+    "everyoneall": {
+        "0": "Everyone",
+        "13": "\u6240\u6709\u4eba"
+    },
+    "blindDuration": {
+        "0": "Duration Meetings",
+        "13": "\u51e0\u8f6e\u4f1a\u8bae\u540e\u89e3\u9664\u81f4\u76f2"
+    },
     "guesser": {
         "0": "Guesser",
         "13": "\u8d4c\u602a"
@@ -745,10 +793,6 @@
     "arsonistDuration": {
         "0": "Arsonist Douse Duration",
         "13": "\u6d47\u6cb9\u6301\u7eed\u65f6\u95f4"
-    },
-    "jackal": {
-        "0": "Jackal",
-        "13": "\u8c7a\u72fc"
     },
     "jackalIntroDesc": {
         "0": "Kill all Crewmates and <color=#FF1919FF>Impostors</color> to win",
@@ -2846,6 +2890,10 @@
         "0": "Remember your companions in case they go rogue.",
         "13": "\u8bb0\u4f4f\u961f\u53cb\u4ee5\u9632\u4ed6\u4eec\u88ab\u62db\u52df"
     },
+    "deathPopupDevil": {
+        "0": "{0} Has Been Be Blind...",
+        "13": "{0}\u6c38\u8fdc\u89c1\u4e0d\u5230\u5149\u660e\u4e86\u2026"
+    },
     "buttonLeftClick": {
         "0": "Left Click: {0}",
         "13": "\u5de6\u952e: {0}"
@@ -3025,6 +3073,10 @@
     "fraudsterButtonSuicide": {
         "0": "Suicide",
         "13": "\u81ea\u6740"
+    },
+    "devilButtonBlind": {
+        "0": "Blind",
+        "13": "\u81f4\u76f2"
     },
     "updatingText": {
         "0": "Updating <b>TheOtherRoles-Rework</b>\nPlease wait...",
@@ -3206,6 +3258,18 @@
         "0": "You",
         "13": "\u4f60\u7684\u9009\u62e9"
     },
+    "moder": {
+        "0": "Mod by ",
+        "13": "\u6a21\u7ec4\u4f5c\u8005\uff1a"
+    },
+    "baseOnModer": {
+        "0": "Base on ",
+        "13": "\u57fa\u4e8e\u672c\u5bb6\uff1a"
+    },
+    "modTranslators": {
+        "0": "Translate by ",
+        "13": "\u4e2d\u6587\u7ffb\u8bd1\uff1a"
+    },
     "moreOptionsText": {
         "0": "More Options...",
         "13": "\u66f4\u591a\u8bbe\u7f6e..."
@@ -3249,5 +3313,9 @@
     "showChatNotifications": {
         "0": "Show Chat Notifications",
         "13": "\u663e\u793a\u804a\u5929\u901a\u77e5"
+    },
+    "showFPS": {
+        "0": "Show FPS",
+        "13": "\u663e\u793a\u5e27\u7387"
     }
 }

@@ -61,6 +61,21 @@ internal class ExileControllerBeginPatch
 
         Eraser.futureErased = new List<PlayerControl>();
 
+        if (Devil.devil != null && AmongUsClient.Instance.AmHost &&
+           Devil.futureBlinded !=
+           null) // We need to send the RPC from the host here, to make sure that the order of shifting and erasing is correct (for that reason the futureShifted and futureErased are being synced)
+            foreach (var target in Eraser.futureErased)
+            {
+                var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                    (byte)CustomRPC.ErasePlayerRoles, SendOption.Reliable);
+                writer.Write(target.PlayerId);
+                AmongUsClient.Instance.FinishRpcImmediately(writer);
+                RPCProcedure.erasePlayerRoles(target.PlayerId);
+                Eraser.alreadyErased.Add(target.PlayerId);
+            }
+
+        Eraser.futureErased = new List<PlayerControl>();
+
         // Trickster boxes
         if (Trickster.trickster != null && JackInTheBox.hasJackInTheBoxLimitReached()) JackInTheBox.convertToVents();
 

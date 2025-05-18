@@ -17,6 +17,7 @@ using TheOtherRoles.MetaContext;
 using TheOtherRoles.Modules;
 using TheOtherRoles.Patches;
 using TheOtherRoles.Utilities;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -48,9 +49,9 @@ public static class Helpers
 
     public static bool zoomOutStatus;
 
-    public static Sprite loadSpriteFromResources(string path, float pixelsPerUnit, bool cache = true)
+    public static Sprite loadSpriteFromResources(string path, float pixelsPerUnit, bool cache = true, bool simplePath = true)
     {
-        path = "TheOtherRoles.Resources." + path;
+        if (simplePath == true) path = "TheOtherRoles.Resources." + path;
         try
         {
             if (cache && CachedSprites.TryGetValue(path + pixelsPerUnit, out var sprite)) return sprite;
@@ -400,6 +401,19 @@ public static class Helpers
 
         return result;
     }
+    public static bool isSpecialDay(int m , int d)
+    {
+        int currentMonth = DateTime.Now.Month;
+        int currentDay = DateTime.Now.Day;
+        if (currentDay == d && currentMonth == m) return true;
+        else return false;
+    }
+    public static bool IsChinese()
+    {
+        int lang = (int)AmongUs.Data.DataManager.Settings.Language.CurrentLanguage;
+        if (lang == 13) return true;
+        return false;
+    }
 
     public static bool hidePlayerName(PlayerControl source, PlayerControl target)
     {
@@ -441,6 +455,28 @@ public static class Helpers
                 target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId,
                 enforceNightVisionUpdate);
         }
+    }
+
+    public static void showDeathPopUp(string flag, PlayerControl player)
+    {
+        var popup = GameManagerCreator.Instance.HideAndSeekManagerPrefab.DeathPopupPrefab;
+
+        var newPopUp = UnityEngine.Object.Instantiate(popup, HudManager.Instance.transform.parent);
+        if (TORMapOptions.gameMode == CustomGamemodes.Guesser || TORMapOptions.gameMode == CustomGamemodes.Classic)
+        {
+            if (flag != null)
+            {
+                newPopUp.gameObject.transform.GetChild(0).GetComponent<TextTranslatorTMP>().enabled = false;
+            }
+            switch (flag)
+            {
+                case "Devil":
+                    newPopUp.gameObject.transform.GetChild(0).GetComponent<TextMeshPro>().text = string.Format(ModTranslation.GetString("deathPopupDevil"),);
+                    newPopUp.gameObject.transform.position += new Vector3(0, -0.25f, 0);
+                    break;
+            }
+        }
+        newPopUp.Show(player, 0);
     }
 
     public static void setLook(this PlayerControl target, string playerName, int colorId, string hatId, string visorId,

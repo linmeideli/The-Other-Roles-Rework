@@ -31,13 +31,13 @@ using UnityEngine.UIElements.UIR;
 
 namespace TheOtherRoles;
 
-[BepInPlugin(Id, "The Other Roles - Rework", VersionString)]
+[BepInPlugin(Id, "The Other Roles Rework", VersionString)]
 [BepInDependency(SubmergedCompatibility.SUBMERGED_GUID, BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Among Us.exe")]
 [ReactorModFlags(ModFlags.RequireOnAllClients)]
 public class TheOtherRolesPlugin : BasePlugin
 {
-    public const string Id = "me.elinmei.theotherrolesrework";
+    public const string Id = "xtremewave.elinmei.theotherrolesrework";
     public const string VersionString = "2.0.0";
     public static uint betaDays = 0; // amount of days for the build to be usable (0 for infinite!)
 
@@ -67,8 +67,7 @@ public class TheOtherRolesPlugin : BasePlugin
     public static ConfigEntry<string> Ip { get; set; }
     public static ConfigEntry<ushort> Port { get; set; }
     public static ConfigEntry<string> ShowPopUpVersion { get; set; }
-
-
+    public static ConfigEntry<bool> ShowFPS { get; set; }
 
     // This is part of the Mini.RegionInstaller, Licensed under GPLv3
     // file="RegionInstallPlugin.cs" company="miniduikboot">
@@ -126,6 +125,7 @@ public class TheOtherRolesPlugin : BasePlugin
         ShowPopUpVersion = Config.Bind("Custom", "Show PopUp", "0");
         ShowVentsOnMap = Config.Bind("Custom", "Show vent positions on minimap", false);
         ShowChatNotifications = Config.Bind("Custom", "Show Chat Notifications", true);
+        ShowFPS = Config.Bind("Custom", "Show FPS", true);
 
         Ip = Config.Bind("Custom", "Custom Server IP", "127.0.0.1");
         Port = Config.Bind("Custom", "Custom Server Port", (ushort)22023);

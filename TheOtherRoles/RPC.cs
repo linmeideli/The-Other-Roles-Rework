@@ -21,6 +21,7 @@ using static TheOtherRoles.HudManagerStartPatch;
 using static TheOtherRoles.GameHistory;
 using static TheOtherRoles.TORMapOptions;
 using Object = UnityEngine.Object;
+using Il2CppSystem.Collections.Generic;
 
 namespace TheOtherRoles;
 
@@ -71,6 +72,7 @@ public enum RoleId
     Bomber,
     Yoyo,
     Fraudster,
+    Devil,
     Crewmate,
     Impostor,
 
@@ -131,10 +133,13 @@ internal enum CustomRPC
     JackalCreatesSidekick,
     SidekickPromotes,
     ErasePlayerRoles,
+    BlindPlayerVision,
+    ShowBlindedReport,
     SetFutureErased,
     SetFutureShifted,
     SetFutureShielded,
     SetFutureSpelled,
+    SetFutureBlinded,
     PlaceNinjaTrace,
     PlacePortal,
     UsePortal,
@@ -921,12 +926,53 @@ public static class RPCProcedure
             if (player == Armored.armored) Armored.clearAndReload();
         }
     }
+    public static void ShowBlindedReport(byte playerId)
+    {
+        var player = Helpers.playerById(playerId);
+        if (player == null || !player.canBeErased()) return;
+        if (CustomOptionHolder.blinderBeReportFor.getSelection() == 0)
+        {
+            if (PlayerControl.LocalPlayer.PlayerId == Jackal.jackal.PlayerId) Helpers.showDeathPopUp("Devil", player);
+        }
+        else if (CustomOptionHolder.blinderBeReportFor.getSelection() == 1)
+        {
+            if (Helpers.isNeutral(PlayerControl.LocalPlayer)) Helpers.showDeathPopUp("Devil", player);
+        }
+        else if (CustomOptionHolder.blinderBeReportFor.getSelection() == 2)
+        {
+            if (PlayerControl.LocalPlayer.PlayerId == Jackal.jackal.PlayerId || PlayerControl.LocalPlayer.Data.Role.IsImpostor) Helpers.showDeathPopUp("Devil", player);
+        }
+        else if (CustomOptionHolder.blinderBeReportFor.getSelection() == 3)
+        {
+            if (Helpers.isNeutral(PlayerControl.LocalPlayer) || PlayerControl.LocalPlayer.Data.Role.IsImpostor) Helpers.showDeathPopUp("Devil", player);
+        }
+        else if (CustomOptionHolder.blinderBeReportFor.getSelection() == 4)
+        {
+            if (PlayerControl.LocalPlayer.Data.Role.IsImpostor) Helpers.showDeathPopUp("Devil", player);
+        }
+        else if (CustomOptionHolder.blinderBeReportFor.getSelection() == 5)
+        {
+            Helpers.showDeathPopUp("Devil", player);
+        }
+        else
+        {
+            TheOtherRolesPlugin.Logger.LogError("À÷¹íÎÞÖÂÃ¤¶ÔÏó");
+        }
+    }
+    public static System.Collections.Generic.List<PlayerControl> BlindPlayerVision(byte playerId)
+    {
+        var player = Helpers.playerById(playerId);
+        System.Collections.Generic.List<PlayerControl> blinder = new System.Collections.Generic.List<PlayerControl>;
+        if (player == null || !player.canBeErased()) return null;
+        if(Devil.futureBlinded.Any(x => x.PlayerId == player.PlayerId)) blinder.Add(player);
+        return blinder;
+    }
 
     public static void setFutureErased(byte playerId)
     {
         var player = Helpers.playerById(playerId);
         if (Eraser.futureErased == null)
-            Eraser.futureErased = new List<PlayerControl>();
+            Eraser.futureErased = new System.Collections.Generic.List<PlayerControl>();
         if (player != null) Eraser.futureErased.Add(player);
     }
 
@@ -945,8 +991,15 @@ public static class RPCProcedure
     {
         var player = Helpers.playerById(playerId);
         if (Witch.futureSpelled == null)
-            Witch.futureSpelled = new List<PlayerControl>();
+            Witch.futureSpelled = new System.Collections.Generic.List<PlayerControl>();
         if (player != null) Witch.futureSpelled.Add(player);
+    }
+    public static void setFutureBlinded(byte playerId)
+    {
+        var player = Helpers.playerById(playerId);
+        if (Devil.futureBlinded == null)
+            Devil.futureBlinded = new List<PlayerControl>();
+        if (player != null) Devil.futureBlinded.Add(player);
     }
 
     public static void placeNinjaTrace(byte[] buff)
@@ -1312,7 +1365,7 @@ public static class RPCProcedure
             Witch.witch = thief;
             if (MeetingHud.Instance)
                 if (Witch.witchVoteSavesTargets) // In a meeting, if the thief guesses the witch, all targets are saved or no target is saved.
-                    Witch.futureSpelled = new List<PlayerControl>();
+                    Witch.futureSpelled = new System.Collections.Generic.List<PlayerControl>();
                 else // If thief kills witch during the round, remove the thief from the list of spelled people, keep the rest
                     Witch.futureSpelled.RemoveAll(x => x.PlayerId == thief.PlayerId);
         }
@@ -1796,6 +1849,9 @@ internal class RPCHandlerPatch
                 break;
             case (byte)CustomRPC.SetFutureSpelled:
                 RPCProcedure.setFutureSpelled(reader.ReadByte());
+                break;
+            case (byte)CustomRPC.SetFutureBlinded:
+                RPCProcedure.setFutureBlinded(reader.ReadByte());
                 break;
             case (byte)CustomRPC.Bloody:
                 var bloodyKiller = reader.ReadByte();

@@ -24,7 +24,7 @@ internal static class TORMapOptions
     public static bool ShowVentsOnMap = true;
     public static bool ShowChatNotifications = true;
     public static CustomGamemodes gameMode = CustomGamemodes.Classic;
-
+    public static bool showFPS = true;
 
     // Updating values
     public static int meetingsCount;
@@ -63,6 +63,7 @@ internal static class TORMapOptions
         enableHorseMode = TheOtherRolesPlugin.EnableHorseMode.Value;
         ShowVentsOnMap = TheOtherRolesPlugin.ShowVentsOnMap.Value;
         ShowChatNotifications = TheOtherRolesPlugin.ShowChatNotifications.Value;
+        showFPS = TheOtherRolesPlugin.ShowFPS.Value;
 
         //Patches.ShouldAlwaysHorseAround.isHorseMode = TheOtherRolesPlugin.EnableHorseMode.Value;
     }

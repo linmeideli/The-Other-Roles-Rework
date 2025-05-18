@@ -311,6 +311,7 @@ public class CustomButton
     {
         public static readonly Vector3
             lowerRowRight = new(-2f, -0.06f, 0); // Not usable for imps beacuse of new button positions!
+        public static readonly Vector3 farLowerRowLeft = new Vector3(0, -0.06f, 0);//As Garlic Button
 
         public static readonly Vector3 lowerRowCenter = new(-3f, -0.06f, 0);
         public static readonly Vector3 lowerRowLeft = new(-4f, -0.06f, 0);
@@ -324,5 +325,6 @@ public class CustomButton
         public static readonly Vector3 upperRowLeft = new(-2f, 1f, 0f);
         public static readonly Vector3 upperRowFarLeft = new(-3f, 1f, 0f);
         public static readonly Vector3 highRowRight = new(0f, 2.06f, 0f);
+        public static readonly Vector3 farUpperRowLeft = new Vector3(-1, -0.06f, 0);
     }
 }

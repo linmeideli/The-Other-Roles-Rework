@@ -2139,6 +2139,35 @@ public static class Yoyo
         markedLocation = null;
     }
 }
+public static class Devil
+{
+    public static PlayerControl devil;
+    public static List<PlayerControl> futureBlinded = new();
+    public static PlayerControl currentTarget;
+    public static Color color = Palette.ImpostorRed;
+
+    public static float blindDuration;
+    public static float blindCooldown;
+
+    private static Sprite blindButtonSprite;
+
+ 
+    public static Sprite getButtonSprite()
+    {
+        if (blindButtonSprite) return blindButtonSprite;
+        blindButtonSprite = Helpers.loadSpriteFromResources("YoyoBlinkButtonSprite.png", 115f);
+        return blindButtonSprite;
+    }
+
+    public static void clearAndReload()
+    {
+        devil = null;
+        currentTarget = null;
+        futureBlinded = new List<PlayerControl>();
+        blindDuration = CustomOptionHolder.yoyoBlinkDuration.getFloat();
+        blindCooldown = CustomOptionHolder.yoyoMarkCooldown.getFloat();
+    }
+}
 
 // Modifier
 public static class Bait

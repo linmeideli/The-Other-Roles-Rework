@@ -52,6 +52,8 @@ public class RoleInfo
 
     public static RoleInfo fraudster = new("fraudster", Fraudster.color, RoleId.Fraudster);
 
+    public static RoleInfo devil = new("devil", Devil.color, RoleId.Devil);
+
 
     // Neutral
     public static RoleInfo goodGuesser = new("niceGuesser", Guesser.color, RoleId.NiceGuesser);
@@ -168,6 +170,7 @@ public class RoleInfo
         bomber,
         yoyo,
         fraudster,
+        devil,
         goodGuesser,
         badGuesser,
         lover,

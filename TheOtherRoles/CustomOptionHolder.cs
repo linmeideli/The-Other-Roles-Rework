@@ -298,6 +298,10 @@ public class CustomOptionHolder
     public static CustomOption fraudsterCooldown;
     public static CustomOption fraudsterAllowMeetingSuicide;
 
+    public static CustomOption devilSpawnRate;
+    public static CustomOption blindDuration;
+    public static CustomOption devilCooldwon;
+    public static CustomOption blinderBeReportFor;
 
 
     public static CustomOption modifiersAreHidden;
@@ -579,6 +583,11 @@ public class CustomOptionHolder
         fraudsterCooldown = CustomOption.Create(Types.Impostor, "fraudsterCooldown", 20f, 2.5f, 120f, 2.5f, fraudsterCooldownAsSheriff);
         fraudsterCooldownAsSheriff = CustomOption.Create(Types.Impostor, "fraudsterCooldownAsSheriff", true, fraudsterSpawnRate);
         fraudsterAllowMeetingSuicide = CustomOption.Create(Types.Impostor, "fraudsterAllowMeetingSuicide", true, fraudsterSpawnRate);
+
+        devilSpawnRate = CustomOption.CreateRoleOption(Types.Impostor, RoleId.Fraudster, rates, null, true);
+        devilCooldwon = CustomOption.Create(Types.Impostor, "devilCooldwon", 20f, 2.5f, 120f, 2.5f, devilSpawnRate);
+        blindDuration = CustomOption.Create(Types.Impostor, "blindDuration", 3f, 1f, 10f, 1f, devilSpawnRate);
+        blinderBeReportFor = CustomOption.Create(Types.Impostor, "blinderBeReportFor", new [] {"jackal", "netural", "jackalImp", "neturalImp", "imponly", "everyoneall" }, devilSpawnRate);
 
         guesserSpawnRate = CustomOption.Create(Types.Neutral, cs(Guesser.color, "guesser"), rates, null, true);
         guesserIsImpGuesserRate = CustomOption.Create(Types.Neutral, "guesserIsImpGuesserRate", rates, guesserSpawnRate);

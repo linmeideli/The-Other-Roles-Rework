@@ -64,6 +64,7 @@ internal static class HudManagerStartPatch
     public static CustomButton yoyoButton;
     public static CustomButton yoyoAdminTableButton;
     public static CustomButton fraudsterButton;
+    public static CustomButton devilButton;
     public static CustomButton defuseButton;
     public static CustomButton zoomOutButton;
     private static CustomButton hunterLighterButton;
@@ -152,6 +153,7 @@ internal static class HudManagerStartPatch
         yoyoAdminTableButton.MaxTimer = Yoyo.adminCooldown;
         yoyoAdminTableButton.EffectDuration = 10f;
         fraudsterButton.MaxTimer = Fraudster.cooldown;
+        devilButton.MaxTimer = Devil.blindCooldown;
         hunterLighterButton.MaxTimer = Hunter.lightCooldown;
         hunterAdminTableButton.MaxTimer = Hunter.AdminCooldown;
         hunterArrowButton.MaxTimer = Hunter.ArrowCooldown;
@@ -1482,6 +1484,32 @@ internal static class HudManagerStartPatch
             __instance,
             KeyCode.F,
             buttonText: "eraserErase"
+        );
+
+        devilButton = new CustomButton(
+            () =>
+            {
+                devilButton.Timer = devilButton.MaxTimer;
+
+                var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                    (byte)CustomRPC.SetFutureBlinded, SendOption.Reliable);
+                writer.Write(Devil.currentTarget.PlayerId);
+                AmongUsClient.Instance.FinishRpcImmediately(writer);
+                RPCProcedure.setFutureBlinded(Devil.currentTarget.PlayerId);
+                SoundEffectsManager.play("ligherLight");
+            },
+            () =>
+            {
+                return Devil.devil != null && Devil.devil == PlayerControl.LocalPlayer &&
+                       !PlayerControl.LocalPlayer.Data.IsDead;
+            },
+            () => { return PlayerControl.LocalPlayer.CanMove && Devil.currentTarget != null; },
+            () => { devilButton.Timer = devilButton.MaxTimer; },
+            Devil.getButtonSprite(),
+            CustomButton.ButtonPositions.upperRowLeft,
+            __instance,
+            KeyCode.F,
+            buttonText: "devilButtonBlind"
         );
 
         placeJackInTheBoxButton = new CustomButton(
@@ -3078,7 +3106,7 @@ internal static class HudManagerStartPatch
             () =>
             {
                 propHuntAdminButton.PositionOffset = PlayerControl.LocalPlayer.inVent
-                    ? CustomButton.ButtonPositions.lowerRowRight
+                    ? CustomButton.ButtonPositions.farUpperRowLeft
                     : CustomButton.ButtonPositions.upperRowCenter;
                 return !PlayerControl.LocalPlayer.inVent;
             },
@@ -3089,7 +3117,7 @@ internal static class HudManagerStartPatch
                 propHuntAdminButton.actionButton.cooldownTimerText.color = Palette.EnabledColor;
             },
             Hacker.getAdminSprite(),
-            CustomButton.ButtonPositions.upperRowCenter,
+            CustomButton.ButtonPositions.farUpperRowLeft,
             __instance,
             KeyCode.G,
             true,

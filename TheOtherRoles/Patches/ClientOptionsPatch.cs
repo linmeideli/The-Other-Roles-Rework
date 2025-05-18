@@ -50,7 +50,8 @@ public static class ClientOptionsPatch
             TheOtherRolesPlugin.ShowVentsOnMap.Value),
         new("showChatNotifications",
             () => TORMapOptions.ShowChatNotifications = TheOtherRolesPlugin.ShowChatNotifications.Value =
-                !TheOtherRolesPlugin.ShowChatNotifications.Value, TheOtherRolesPlugin.ShowChatNotifications.Value)
+                !TheOtherRolesPlugin.ShowChatNotifications.Value, TheOtherRolesPlugin.ShowChatNotifications.Value),
+        new("showFPS".Translate(), () => TORMapOptions.showFPS = TheOtherRolesPlugin.ShowFPS.Value = !TheOtherRolesPlugin.ShowFPS.Value, TheOtherRolesPlugin.ShowFPS.Value)
     };
 
     private static GameObject popUp;

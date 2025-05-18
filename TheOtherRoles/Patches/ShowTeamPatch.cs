@@ -12,7 +12,7 @@ namespace TheOtherRoles.Patches
         {
             if (GameOptionsManager.Instance.currentGameMode == GameModes.HideNSeek) return;
 
-            if (PlayerControl.LocalPlayer.Data.Role.IsImpostor)
+            if (PlayerControl.LocalPlayer.Data.Role.IsImpostor && TORMapOptions.gameMode == CustomGamemodes.Classic || TORMapOptions.gameMode == CustomGamemodes.Guesser && ExileController.Instance.initData.remainingImpostorCount != 1)
             {
                 __instance.__4__this.ImpostorText.text = ModTranslation.GetString("impostorShowTeamText");
                 __instance.__4__this.ImpostorText.gameObject.SetActive(true);
