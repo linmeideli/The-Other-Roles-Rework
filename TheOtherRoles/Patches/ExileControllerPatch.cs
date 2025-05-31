@@ -67,14 +67,13 @@ internal class ExileControllerBeginPatch
             foreach (var target in Eraser.futureErased)
             {
                 var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                    (byte)CustomRPC.ErasePlayerRoles, SendOption.Reliable);
+                    (byte)CustomRPC.ShowBlindedReportAndSetLookName, SendOption.Reliable);
                 writer.Write(target.PlayerId);
                 AmongUsClient.Instance.FinishRpcImmediately(writer);
-                RPCProcedure.erasePlayerRoles(target.PlayerId);
-                Eraser.alreadyErased.Add(target.PlayerId);
+                RPCProcedure.ShowBlindedReportAndSetLookName(target.PlayerId);
             }
 
-        Eraser.futureErased = new List<PlayerControl>();
+        Devil.futureBlinded = new List<PlayerControl>();
 
         // Trickster boxes
         if (Trickster.trickster != null && JackInTheBox.hasJackInTheBoxLimitReached()) JackInTheBox.convertToVents();

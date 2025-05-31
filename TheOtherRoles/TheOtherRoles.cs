@@ -67,6 +67,9 @@ public static class TheOtherRoles
         Trapper.clearAndReload();
         Bomber.clearAndReload();
         Yoyo.clearAndReload();
+        Fraudster.clearAndReload();
+        Devil.clearAndReload();
+
 
         // Modifier
         Bait.clearAndReload();
@@ -2143,9 +2146,12 @@ public static class Devil
 {
     public static PlayerControl devil;
     public static List<PlayerControl> futureBlinded = new();
+    public static List<PlayerControl> bereadyReported = new();
+    public static List<PlayerControl> visionOfPlayersShouldBeChanged = new();
     public static PlayerControl currentTarget;
     public static Color color = Palette.ImpostorRed;
 
+    public static bool isBlinding;
     public static float blindDuration;
     public static float blindCooldown;
 
@@ -2155,7 +2161,7 @@ public static class Devil
     public static Sprite getButtonSprite()
     {
         if (blindButtonSprite) return blindButtonSprite;
-        blindButtonSprite = Helpers.loadSpriteFromResources("YoyoBlinkButtonSprite.png", 115f);
+        blindButtonSprite = Helpers.loadSpriteFromResources("IntimidateButton.png", 115f);
         return blindButtonSprite;
     }
 

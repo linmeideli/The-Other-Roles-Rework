@@ -471,7 +471,7 @@ public static class Helpers
             switch (flag)
             {
                 case "Devil":
-                    newPopUp.gameObject.transform.GetChild(0).GetComponent<TextMeshPro>().text = string.Format(ModTranslation.GetString("deathPopupDevil"),);
+                    newPopUp.gameObject.transform.GetChild(0).GetComponent<TextMeshPro>().text = string.Format(ModTranslation.GetString("deathPopupDevil"));
                     newPopUp.gameObject.transform.position += new Vector3(0, -0.25f, 0);
                     break;
             }

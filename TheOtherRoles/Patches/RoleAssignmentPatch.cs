@@ -150,6 +150,7 @@ internal class RoleManagerSelectRolesPatch
         impSettings.Add((byte)RoleId.Bomber, CustomOptionHolder.bomberSpawnRate.getSelection());
         impSettings.Add((byte)RoleId.Yoyo, CustomOptionHolder.yoyoSpawnRate.getSelection());
         impSettings.Add((byte)RoleId.Fraudster, CustomOptionHolder.fraudsterSpawnRate.getSelection());
+        impSettings.Add((byte)RoleId.Devil, CustomOptionHolder.devilSpawnRate.getSelection());
 
         neutralSettings.Add((byte)RoleId.Jester, CustomOptionHolder.jesterSpawnRate.getSelection());
         neutralSettings.Add((byte)RoleId.Arsonist, CustomOptionHolder.arsonistSpawnRate.getSelection());

@@ -316,6 +316,7 @@ public class RoleInfo
         if (p == Bomber.bomber) infos.Add(bomber);
         if (p == Yoyo.yoyo) infos.Add(yoyo);
         if (p == Fraudster.fraudster) infos.Add(fraudster);
+        if (p == Devil.devil) infos.Add(devil);
         if (p == Detective.detective) infos.Add(detective);
         if (p == TimeMaster.timeMaster) infos.Add(timeMaster);
         if (p == Medic.medic) infos.Add(medic);

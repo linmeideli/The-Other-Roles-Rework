@@ -28,16 +28,18 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Random = System.Random;
 using UnityEngine.UIElements.UIR;
+using Rewired;
 
 namespace TheOtherRoles;
 
-[BepInPlugin(Id, "The Other Roles Rework", VersionString)]
+[BepInPlugin(Id, "The Other Roles Reworked", VersionString)]
 [BepInDependency(SubmergedCompatibility.SUBMERGED_GUID, BepInDependency.DependencyFlags.SoftDependency)]
 [BepInProcess("Among Us.exe")]
 [ReactorModFlags(ModFlags.RequireOnAllClients)]
 public class TheOtherRolesPlugin : BasePlugin
 {
-    public const string Id = "xtremewave.elinmei.theotherrolesrework";
+    public const string Id = "me.eisbison.tehotherroles";
+    //public const string Id = "xtremewave.elinmei.theotherrolesreworked";
     public const string VersionString = "2.0.0";
     public static uint betaDays = 0; // amount of days for the build to be usable (0 for infinite!)
 
@@ -103,7 +105,6 @@ public class TheOtherRolesPlugin : BasePlugin
             serverManager.SetRegion(currentRegion);
         }
     }
-
     public override void Load()
     {
         Logger = Log;

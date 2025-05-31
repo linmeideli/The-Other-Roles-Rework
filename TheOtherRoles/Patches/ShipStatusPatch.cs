@@ -1,3 +1,4 @@
+using System.Linq;
 using AmongUs.GameOptions;
 using HarmonyLib;
 using TheOtherRoles.CustomGameModes;
@@ -87,7 +88,10 @@ public class ShipStatusPatch
             __result = Mathf.Lerp(__instance.MinLightRadius, __instance.MaxLightRadius, 1 - lerpValue) *
                        GameOptionsManager.Instance.currentNormalGameOptions.CrewLightMod;
         }
-
+        else if (Devil.devil != null && Devil.visionOfPlayersShouldBeChanged.FindAll(x => x.PlayerId == player.PlayerId).Count > 0)
+        {
+            __result *= 1f - Sunglasses.vision * 0.1f;
+        }
         // If player is Lawyer, apply Lawyer vision modifier
         else if (Lawyer.lawyer != null && Lawyer.lawyer.PlayerId == player.PlayerId)
         {

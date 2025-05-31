@@ -19,7 +19,7 @@ namespace TheOtherRoles.Patches
     {
         //        public static string fullCredentialsVersion =
         //$@"<size=130%><color=#ff351f>TheOtherRolesCE</color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
-        public static string ModName = $"<size=130%><color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Rework</color></color></color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
+        public static string ModName = $"<size=130%><color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Reworked</color></color></color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}";
         public static string FangKuai = "<color=#00FFFF>FangKuai</color>";
         public static string TOR = "<color=#FCCE03FF>TheOtherRolesAU</color>";
         public static string ELinmei = "<color=#00FFFF>ELinmei</color>";
@@ -52,7 +52,7 @@ namespace TheOtherRoles.Patches
                     else if (HandleGuesser.isGuesserGm) gameModeText = ModTranslation.GetString("isGuesserGm");
                     else if (PropHunt.isPropHuntGM) gameModeText = ModTranslation.GetString("isPropHuntGM");
                     if (gameModeText != "") gameModeText = Helpers.cs(Color.yellow, gameModeText) + "\n";
-                    __instance.text.text = $"<size=130%><color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Rework</color></color></color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "") + "\n" + $"{gameModeText}" + $"<color={PingColor}>PING: <b>{AmongUsClient.Instance.Ping}</b> MS</color>" + $"  {(TORMapOptions.showFPS ? $"  <color=#00a4ff>FPS: {fps}</color>" : "")}{(Helpers.isSpecialDay(4,1) ? (Helpers.IsChinese() ? "\n<color=#7CFC00>愚人节快乐!!</color>" : "\n<color=#7CFC00>Happy April Fool's Day!!</color>") : "")}"}";
+                    __instance.text.text = $"<size=130%><color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Reworked</color></color></color></size> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "") + "\n" + $"{gameModeText}" + $"<color={PingColor}>PING: <b>{AmongUsClient.Instance.Ping}</b> MS</color>" + $"  {(TORMapOptions.showFPS ? $"  <color=#00a4ff>FPS: {fps}</color>" : "")}{(Helpers.isSpecialDay(4,1) ? (Helpers.IsChinese() ? "\n<color=#7CFC00>愚人节快乐!!</color>" : "\n<color=#7CFC00>Happy April Fool's Day!!</color>") : "")}"}";
 
                     position.DistanceFromEdge = new Vector3(1.5f, 0.11f, 0);
                 }
@@ -117,7 +117,7 @@ namespace TheOtherRoles.Patches
                 motdText.alignment = TMPro.TextAlignmentOptions.Center;
                 motdText.fontSize *= 0.04f;
 
-                motdText.transform.SetParent(torLogo.transform);
+                motdText.transform.SetParent(GameObject.Find("RightPanel").transform, false);
                 motdText.enableWordWrapping = true;
                 var rect = motdText.gameObject.GetComponent<RectTransform>();
                 rect.sizeDelta = new Vector2(5.2f, 0.25f);
@@ -193,7 +193,7 @@ namespace TheOtherRoles.Patches
             public static async Task loadMOTDs()
             {
                 HttpClient client = new HttpClient();
-                HttpResponseMessage response = await client.GetAsync("http://api.fangkuai.fun:22022/TheOtherRolesAU/MOTD/main/motd.txt");
+                HttpResponseMessage response = await client.GetAsync(!Helpers.IsChinese() ?"http://api.fangkuai.fun:22022/TheOtherRolesAU/MOTD/main/motd.txt" : "https://raw.githubusercontent.com/linmeideli/TheOtherRolesReworked-MOTD/main/motd.txt");
                 response.EnsureSuccessStatusCode();
                 string motds = await response.Content.ReadAsStringAsync();
                 foreach (string line in motds.Split("\n", StringSplitOptions.RemoveEmptyEntries))

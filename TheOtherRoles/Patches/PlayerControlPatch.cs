@@ -340,6 +340,18 @@ public static class PlayerControlFixedUpdatePatch
         setPlayerOutline(Eraser.currentTarget, Eraser.color);
     }
 
+    private static void devilSetTarget()
+    {
+        if (Devil.devil == null || Devil.devil != PlayerControl.LocalPlayer) return;
+
+        var untargetables = new List<PlayerControl>();
+        if (Spy.spy != null) untargetables.Add(Spy.spy);
+        if (Sidekick.wasTeamRed) untargetables.Add(Sidekick.sidekick);
+        if (Jackal.wasTeamRed) untargetables.Add(Jackal.jackal);
+        Devil.currentTarget = setTarget(untargetablePlayers: untargetables);
+        setPlayerOutline(Devil.currentTarget, Devil.color);
+    }
+
     private static void deputyUpdate()
     {
         if (PlayerControl.LocalPlayer == null ||
@@ -1359,6 +1371,8 @@ public static class PlayerControlFixedUpdatePatch
             hackerUpdate();
             // Trapper
             trapperUpdate();
+            //Devil
+            devilSetTarget();
 
             // -- MODIFIER--
             // Bait

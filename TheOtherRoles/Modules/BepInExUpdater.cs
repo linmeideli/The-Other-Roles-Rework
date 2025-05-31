@@ -34,7 +34,7 @@ public class BepInExUpdater : MonoBehaviour
     public IEnumerator CoUpdate()
     {
         Task.Run(() => MessageBox(GetForegroundWindow(), "bepinexUpdaterDownloading".Translate(),
-            "The Other Roles Rework", 0));
+            "The Other Roles Reworked", 0));
         var www = UnityWebRequest.Get(BepInExDownloadURL);
         yield return www.Send();
         if (www.isNetworkError || www.isHttpError)
