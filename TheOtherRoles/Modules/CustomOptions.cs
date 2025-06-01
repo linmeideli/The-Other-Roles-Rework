@@ -425,6 +425,13 @@ public class CustomOption
                 vanillaSettings.Value = vanillaSettingsSub;
                 vanillaOptionsFine = loadVanillaOptions();
             }
+            foreach (var option in options)
+            {
+                if (option.id != 0 && option.entry != null)
+                {
+                    option.entry.Value = option.selection;
+                }
+            }
         }
         catch (Exception e)
         {

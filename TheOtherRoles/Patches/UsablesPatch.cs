@@ -219,6 +219,9 @@ internal class KillButtonDoClickPatch
                 Deputy.setHandcuffedKnows();
                 return false;
             }
+            if(PlayerControl.LocalPlayer == Devil.devil && ShipStatus.Instance.Systems.ContainsKey(SystemTypes.Electrical)){
+                return false;
+            }
 
             // Use an unchecked kill command, to allow shorter kill cooldowns etc. without getting kicked
             var res = Helpers.checkMurderAttemptAndKill(PlayerControl.LocalPlayer, __instance.currentTarget);

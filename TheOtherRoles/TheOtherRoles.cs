@@ -2146,7 +2146,6 @@ public static class Devil
 {
     public static PlayerControl devil;
     public static List<PlayerControl> futureBlinded = new();
-    public static List<PlayerControl> bereadyReported = new();
     public static List<PlayerControl> visionOfPlayersShouldBeChanged = new();
     public static PlayerControl currentTarget;
     public static Color color = Palette.ImpostorRed;
@@ -2157,7 +2156,6 @@ public static class Devil
 
     private static Sprite blindButtonSprite;
 
- 
     public static Sprite getButtonSprite()
     {
         if (blindButtonSprite) return blindButtonSprite;

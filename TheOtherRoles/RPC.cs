@@ -170,7 +170,6 @@ internal enum CustomRPC
     BreakArmor,
     Suicide,
     SuicideMeeting, 
-    ShowBlindedReportAndSetLookName,
 
     // Gamemode
     SetGuesserGm,
@@ -932,45 +931,7 @@ public static class RPCProcedure
             if (player == Armored.armored) Armored.clearAndReload();
         }
     }
-    public static void ShowBlindedReportAndSetLookName(byte playerId)
-    {
-        var player = Helpers.playerById(playerId);
-        foreach(PlayerControl p in Devil.bereadyReported)
-        {
-            if (player == null && p != player) return;
-            if (CustomOptionHolder.blinderBeReportFor.getSelection() == 0)
-            {
-                if (PlayerControl.LocalPlayer.PlayerId == Jackal.jackal.PlayerId) Helpers.showDeathPopUp("Devil", player);
-            }
-            else if (CustomOptionHolder.blinderBeReportFor.getSelection() == 1)
-            {
-                if (Helpers.isNeutral(PlayerControl.LocalPlayer)) Helpers.showDeathPopUp("Devil", player);
-            }
-            else if (CustomOptionHolder.blinderBeReportFor.getSelection() == 2)
-            {
-                if (PlayerControl.LocalPlayer.PlayerId == Jackal.jackal.PlayerId || PlayerControl.LocalPlayer.Data.Role.IsImpostor) Helpers.showDeathPopUp("Devil", player);
-            }
-            else if (CustomOptionHolder.blinderBeReportFor.getSelection() == 3)
-            {
-                if (Helpers.isNeutral(PlayerControl.LocalPlayer) || PlayerControl.LocalPlayer.Data.Role.IsImpostor) Helpers.showDeathPopUp("Devil", player);
-            }
-            else if (CustomOptionHolder.blinderBeReportFor.getSelection() == 4)
-            {
-                if (PlayerControl.LocalPlayer.Data.Role.IsImpostor) Helpers.showDeathPopUp("Devil", player);
-            }
-            else if (CustomOptionHolder.blinderBeReportFor.getSelection() == 5)
-            {
-                Helpers.showDeathPopUp("Devil", player);
-            }
-            else
-            {
-                TheOtherRolesPlugin.Logger.LogError("厉鬼无致盲对象");
-            }
-            player.SetName("被致盲");
-            player.setLook("", 6, "", "", "", "");
-            Devil.bereadyReported.Remove(player);
-        }
-    }
+    
 
     public static void setFutureErased(byte playerId)
     {
@@ -1004,20 +965,15 @@ public static class RPCProcedure
 
         if (Devil.futureBlinded == null)
             Devil.futureBlinded = new System.Collections.Generic.List<PlayerControl>();
-        if (Devil.bereadyReported == null)
-            Devil.bereadyReported = new System.Collections.Generic.List<PlayerControl>();
         if(Devil.visionOfPlayersShouldBeChanged == null)
             Devil.visionOfPlayersShouldBeChanged = new System.Collections.Generic.List<PlayerControl>();
 
         if (player != null) 
         {
             Devil.futureBlinded.Add(player);
-            Devil.bereadyReported.Add(player);
             Devil.visionOfPlayersShouldBeChanged.Add(player);
         }
-
     }
-
     public static void placeNinjaTrace(byte[] buff)
     {
         var position = Vector3.zero;
@@ -1926,9 +1882,6 @@ internal class RPCHandlerPatch
                 break;
             case (byte)CustomRPC.Suicide:
                 RPCProcedure.serialKillerSuicide(reader.ReadByte());
-                break;
-            case (byte)CustomRPC.ShowBlindedReportAndSetLookName:
-                RPCProcedure.ShowBlindedReportAndSetLookName(reader.ReadByte());
                 break;
 
             // Game mode

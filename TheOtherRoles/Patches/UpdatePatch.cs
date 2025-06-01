@@ -188,20 +188,29 @@ internal class HudManagerUpdatePatch
                         player.NameText.text = Janitor.janitor.Data.PlayerName + "setNameTagsJ".Translate();
         }
         //Fraudster
-        if (PlayerControl.LocalPlayer != null && PlayerControl.LocalPlayer.Data.Role.IsImpostor && Fraudster.fraudster.Data.IsDead && Fraudster.fraudster != null)
+        if (PlayerControl.LocalPlayer != null && PlayerControl.LocalPlayer.Data.Role.IsImpostor && Fraudster.fraudster != null && Fraudster.fraudster.Data.IsDead && Sheriff.sheriff != null )
         {
             foreach (PlayerControl player in PlayerControl.AllPlayerControls.ToArray())
                 if (Sheriff.sheriff != null && Sheriff.sheriff == player)
-                    player.cosmetics.nameText.text = $"<color=#F8CD46>{player.Data.PlayerName}</color>" + $" ({"sheriff".Translate()})";
-                else if (Deputy.deputy != null && Deputy.deputy == player)
-                    player.cosmetics.nameText.text = $"<color=#F8CD46>{player.Data.PlayerName}</color>" + $" ({"deputy".Translate()})";
+                    player.cosmetics.nameText.text += $" ({"sheriff".Translate()})";
+                
 
             if (MeetingHud.Instance != null)
                 foreach (PlayerVoteArea player in MeetingHud.Instance.playerStates)
                     if (Sheriff.sheriff != null && Sheriff.sheriff.PlayerId == player.TargetPlayerId)
-                        player.NameText.text = $"<color=#F8CD46>{Deputy.deputy.Data.PlayerName}</color>" + " (S)";
-                    else if (Deputy.deputy != null && Deputy.deputy.PlayerId == player.TargetPlayerId)
-                        player.NameText.text = $"<color=#F8CD46>{Deputy.deputy.Data.PlayerName}</color>" + " (D)";
+                        player.NameText.text +=  $" ({"sheriff".Translate()})";
+                    
+        }
+        if (PlayerControl.LocalPlayer != null && PlayerControl.LocalPlayer.Data.Role.IsImpostor && Fraudster.fraudster != null && Fraudster.fraudster.Data.IsDead && Deputy.deputy != null)
+        {
+            foreach (PlayerControl player in PlayerControl.AllPlayerControls.ToArray())
+                if (Deputy.deputy != null && Deputy.deputy == player)
+                    player.cosmetics.nameText.text += $" ({"deputy".Translate()})";
+
+            if (MeetingHud.Instance != null)
+                foreach (PlayerVoteArea player in MeetingHud.Instance.playerStates)
+                    if (Deputy.deputy != null && Deputy.deputy.PlayerId == player.TargetPlayerId)
+                        player.NameText.text += $" ({"deputy".Translate()})";
         }
 
         // Lovers
