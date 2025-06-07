@@ -23,6 +23,7 @@ using static TheOtherRoles.TORMapOptions;
 using Object = UnityEngine.Object;
 using Il2CppSystem.Collections.Generic;
 using static UnityEngine.GraphicsBuffer;
+using TheOtherRoles;
 
 namespace TheOtherRoles;
 
@@ -74,6 +75,7 @@ public enum RoleId
     Yoyo,
     Fraudster,
     Devil,
+    Prophet,
     Crewmate,
     Impostor,
 
@@ -169,7 +171,8 @@ internal enum CustomRPC
     YoyoBlink,
     BreakArmor,
     Suicide,
-    SuicideMeeting, 
+    SuicideMeeting,
+    ProphetExamine,
 
     // Gamemode
     SetGuesserGm,
@@ -451,6 +454,9 @@ public static class RPCProcedure
                         break;
                     case RoleId.Devil:
                         Devil.devil = player;
+                        break;
+                    case RoleId.Prophet:
+                        Prophet.prophet = player;
                         break;
                 }
 
@@ -776,7 +782,15 @@ public static class RPCProcedure
             if (player.PlayerId == targetId)
                 Tracker.tracked = player;
     }
-
+    public static void prophetExamine(byte targetId)
+    {
+        var target = Helpers.playerById(targetId);
+        if (target == null) return;
+        if (Prophet.examined.ContainsKey(target)) Prophet.examined.Remove(target);
+        Prophet.examined.Add(target, Prophet.isKiller(target));
+        Prophet.examinesLeft--;
+        if ((Prophet.examineNum - Prophet.examinesLeft >= Prophet.examinesToBeRevealed) && Prophet.revealProphet) Prophet.isRevealed = true;
+    }
     public static void deputyUsedHandcuffs(byte targetId)
     {
         Deputy.remainingHandcuffs--;
@@ -869,6 +883,7 @@ public static class RPCProcedure
         if (player == SecurityGuard.securityGuard) SecurityGuard.clearAndReload();
         if (player == Medium.medium) Medium.clearAndReload();
         if (player == Trapper.trapper) Trapper.clearAndReload();
+        if(player == Prophet.prophet) Prophet.clearAndReload();
 
         // Impostor roles
         if (player == Morphling.morphling) Morphling.clearAndReload();
@@ -1882,6 +1897,9 @@ internal class RPCHandlerPatch
                 break;
             case (byte)CustomRPC.Suicide:
                 RPCProcedure.serialKillerSuicide(reader.ReadByte());
+                break;
+            case (byte)CustomRPC.ProphetExamine:
+                RPCProcedure.prophetExamine(reader.ReadByte());
                 break;
 
             // Game mode

@@ -2167,9 +2167,66 @@ public static class Devil
     {
         devil = null;
         currentTarget = null;
+        visionOfPlayersShouldBeChanged = new List<PlayerControl> ();
         futureBlinded = new List<PlayerControl>();
         blindDuration = CustomOptionHolder.yoyoBlinkDuration.getFloat();
         blindCooldown = CustomOptionHolder.yoyoMarkCooldown.getFloat();
+    }
+}
+public static class Prophet
+{
+    public static PlayerControl prophet;
+    public static Color32 color = new(255, 204, 127, byte.MaxValue);
+
+    public static float cooldown = 30f;
+    public static float accuracy = 20f;
+    public static bool canCallEmergency = false;
+    public static int examineNum = 3;
+    public static int examinesToBeRevealed = 1;
+    public static int examinesLeft;
+    public static bool revealProphet = true;
+    public static bool isRevealed = false;
+    public static List<Arrow> arrows = new();
+
+    public static Dictionary<PlayerControl, bool> examined = new();
+    public static PlayerControl currentTarget;
+
+
+
+    private static Sprite buttonSprite;
+    public static Sprite getButtonSprite()
+    {
+        if (buttonSprite) return buttonSprite;
+        buttonSprite = Helpers.loadSpriteFromResources("OracleButton.png", 115f);
+        return buttonSprite;
+    }
+
+    public static bool isKiller(PlayerControl p)
+    {
+        var rand = rnd.Next(1, 101);
+        return (Helpers.isEvil(p) && rand <= accuracy) || (!Helpers.isEvil(p) && rand > accuracy);
+    }
+
+    public static void clearAndReload()
+    {
+        prophet = null;
+        currentTarget = null;
+        isRevealed = false;
+        examined = new Dictionary<PlayerControl, bool>();
+        revealProphet = CustomOptionHolder.prophetIsRevealed.getBool();
+        cooldown = CustomOptionHolder.prophetCooldown.getFloat();
+        examineNum = Mathf.RoundToInt(CustomOptionHolder.prophetNumExamines.getFloat());
+        accuracy = CustomOptionHolder.prophetAccuracy.getFloat();
+        canCallEmergency = CustomOptionHolder.prophetCanCallEmergency.getBool();
+        examinesToBeRevealed = Math.Min(examineNum, Mathf.RoundToInt(CustomOptionHolder.prophetExaminesToBeRevealed.getFloat()));
+        examinesLeft = examineNum;
+        if (arrows != null)
+        {
+            foreach (Arrow arrow in arrows)
+                if (arrow?.arrow != null)
+                    UnityEngine.Object.Destroy(arrow.arrow);
+        }
+        arrows = new List<Arrow>();
     }
 }
 

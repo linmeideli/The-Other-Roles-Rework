@@ -307,6 +307,11 @@ internal class EmergencyMinigameUpdatePatch
             statusText = "lawyerCallMeetingText";
             if (Lawyer.isProsecutor) statusText = "prosecutorCallMeetingText";
         }
+        if (Prophet.prophet != null && Prophet.prophet == PlayerControl.LocalPlayer && !Prophet.canCallEmergency)
+        {
+            roleCanCallEmergency = false;
+            statusText = "prophetMeetingText";
+        }
 
         if (!roleCanCallEmergency)
         {

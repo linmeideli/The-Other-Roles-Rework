@@ -9,7 +9,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
-using TheOtherRoles;
 using System.IO;
 using static UnityEngine.UI.Button;
 using TheOtherRoles.Objects;
@@ -115,7 +114,7 @@ namespace TheOtherRoles.Modules
             SpriteRenderer SpriteQQButton = QQButton.transform.FindChild("Inactive").GetComponent<SpriteRenderer>();
             Color QQColor = new Color(0.317f, 0, 1, 0.8f);
             SpriteQQButton.color = QQColor;
-            passiveQQButton.OnMouseOut.AddListener((System.Action)delegate
+            passiveQQButton.OnMouseOver.AddListener((System.Action)delegate
             {
                 SpriteQQButton.color = QQColor;
             });
@@ -155,7 +154,7 @@ namespace TheOtherRoles.Modules
                 VisitText.transform.localPosition = new Vector3(-3.92f, -2.9f, 0f);
                 VisitText.enabled = GameObject.Find("TOR Background") != null;
 
-                __instance.text.text = $"<color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Reworked</color></color></color> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}{(Helpers.isSpecialDay(4,1) ? (Helpers.IsChinese() ? "<color=#7CFC00>愚人节快乐!!</color>" : "<color=#7CFC00>Happy April Fool's Day!!</color>") : "")}";
+                __instance.text.text = $"<color=#C1FFC1>Among Us<color=#FF0000> The Other Roles <color=#8470FF>Rework</color></color></color> v{TheOtherRolesPlugin.Version.ToString() + (TheOtherRolesPlugin.betaDays > 0 ? "-BETA" : "")}{(Helpers.isSpecialDay(4,1) ? (Helpers.IsChinese() ? "<color=#7CFC00>愚人节快乐!!</color>" : "<color=#7CFC00>Happy April Fool's Day!!</color>") : "")}";
                 __instance.text.alignment = TextAlignmentOptions.Left;
                 OVersionShower.transform.localPosition = new Vector3(-4.92f, -3.3f, 0f);
 
@@ -198,7 +197,7 @@ namespace TheOtherRoles.Modules
             //System.Random rnd = new System.Random();
             //int rndnum = rnd.Next(1,MainMenuImage.imgnum);
             //bgRenderer.sprite = Helpers.LoadSpriteFromDisk(@$"{MainMenuImage.FolderPath()}/image_{rndnum}.jpg",160f);
-            bgRenderer.sprite = Helpers.loadSpriteFromResources("paintingbyarcaea.jpg", 320f);
+            bgRenderer.sprite = Helpers.loadSpriteFromResources("MainMenuBackground.png", 240f);
             // bgRenderer.sprite = Helpers.LoadSpriteFromDisk("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Among Us\\Among Us TORR\\ACG\\image_8.jpg", 320f);
 
             if (!(Ambience = GameObject.Find("Ambience"))) return;
@@ -264,7 +263,7 @@ namespace TheOtherRoles.Modules
             CloseRightButton.transform.localScale = new(1f, 1f, 1f);
             CloseRightButton.AddComponent<BoxCollider2D>().size = new(0.6f, 1.5f);
             var closeRightSpriteRenderer = CloseRightButton.AddComponent<SpriteRenderer>();
-            closeRightSpriteRenderer.sprite = null;//我没这个的图片
+            closeRightSpriteRenderer.sprite = Helpers.loadSpriteFromResources("RightPanelCloseButton",100f);
             closeRightSpriteRenderer.color = new(0.38f, 0.04f, 1.01f, 1f);
             var closeRightPassiveButton = CloseRightButton.AddComponent<PassiveButton>();
             closeRightPassiveButton.OnClick = new();

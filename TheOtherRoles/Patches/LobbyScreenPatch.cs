@@ -57,12 +57,14 @@ public sealed class LobbyJoinBind
         if (GameId != 0 && Input.GetKeyDown(KeyCode.LeftShift))
         {
             __instance.StartCoroutine(AmongUsClient.Instance.CoJoinOnlineGameFromCode(GameId));
+            LobbyText.GetComponent<TextMeshPro>().color = CompeletedColor;
             LobbyText.GetComponent<TextMeshPro>().color = CompeletedColor.AlphaMultiplied(0.75f);
         }
 
         else if (Input.GetKeyDown(KeyCode.RightShift) && code2 != "")
         {
             __instance.StartCoroutine(AmongUsClient.Instance.CoJoinOnlineGameFromCode(GameCode.GameNameToInt(code2)));
+            LobbyText.GetComponent<TextMeshPro>().color = CompeletedColor;
             LobbyText.GetComponent<TextMeshPro>().color = CompeletedColor.AlphaMultiplied(0.75f);
         }
 

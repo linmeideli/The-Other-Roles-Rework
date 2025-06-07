@@ -116,6 +116,8 @@ public class RoleInfo
 
     public static RoleInfo trapper = new("trapper", Trapper.color, RoleId.Trapper);
 
+    public static RoleInfo prophet = new("prophet", Prophet.color, RoleId.Prophet);
+
     public static RoleInfo crewmate = new("crewmate", Color.white, RoleId.Crewmate);
 
     public static RoleInfo hunted = new("hunted", Color.white, RoleId.Crewmate);
@@ -342,6 +344,7 @@ public class RoleInfo
         if (p == Trapper.trapper) infos.Add(trapper);
         if (p == Pursuer.pursuer) infos.Add(pursuer);
         if (p == Thief.thief) infos.Add(thief);
+        if (p == Prophet.prophet) infos.Add(prophet);
 
         // Default roles (just impostor, just crewmate, or hunter / hunted for hide n seek, prop hunt prop ...
         if (infos.Count == count)

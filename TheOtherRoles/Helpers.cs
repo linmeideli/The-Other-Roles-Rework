@@ -236,6 +236,11 @@ public static class Helpers
         if (roleInfo.roleId == RoleId.Invert)
             return cs(roleInfo.color, $"{roleInfo.name}: {roleInfo.shortDescription} ({Invert.meetings})");
 
+        if (PlayerControl.LocalPlayer.Data.Role.IsImpostor && PlayerControl.AllPlayerControls.ToArray().Where(x => !x.Data.IsDead).ToList().Count - ExileController.Instance.initData.remainingImpostorCount <= 1)
+        {
+            return cs(roleInfo.color, $"{roleInfo.name}: {roleInfo.shortDescription}\n{ModTranslation.GetString("ImpGetEmergencyCooldown")} {GameManager.Instance.LogicOptions.GetEmergencyCooldown()}");
+        }
+
         return cs(roleInfo.color, $"{roleInfo.name}: {roleInfo.shortDescription}");
     }
 
@@ -269,8 +274,8 @@ public static class Helpers
 
     public static bool shouldShowGhostInfo()
     {
-        return (PlayerControl.LocalPlayer != null && PlayerControl.LocalPlayer.Data.IsDead &&
-                TORMapOptions.ghostsSeeInformation) ||
+        return PlayerControl.LocalPlayer != null && PlayerControl.LocalPlayer.Data.IsDead &&
+                TORMapOptions.ghostsSeeInformation ||
                AmongUsClient.Instance.GameState == InnerNetClient.GameStates.Ended;
     }
 
@@ -424,8 +429,8 @@ public static class Helpers
         if (source == null || target == null) return true;
         if (source == target) return false; // Player sees his own name
         if (source.Data.Role.IsImpostor && (target.Data.Role.IsImpostor || target == Spy.spy ||
-                                            (target == Sidekick.sidekick && Sidekick.wasTeamRed) ||
-                                            (target == Jackal.jackal && Jackal.wasTeamRed)))
+                                            target == Sidekick.sidekick && Sidekick.wasTeamRed ||
+                                            target == Jackal.jackal && Jackal.wasTeamRed))
             return false; // Members of team Impostors see the names of Impostors/Spies
         if ((source == Lovers.lover1 || source == Lovers.lover2) &&
             (target == Lovers.lover1 || target == Lovers.lover2))
@@ -534,7 +539,7 @@ public static class Helpers
         FastDestroyableSingleton<HudManager>.Instance.FullScreen.enabled = true;
         // Message Text
         var messageText =
-            GameObject.Instantiate(FastDestroyableSingleton<HudManager>.Instance.KillButton.cooldownTimerText,
+            UnityEngine.Object.Instantiate(FastDestroyableSingleton<HudManager>.Instance.KillButton.cooldownTimerText,
                 FastDestroyableSingleton<HudManager>.Instance.transform);
         messageText.text = message;
         messageText.enableWordWrapping = false;
@@ -629,7 +634,7 @@ public static class Helpers
         var targetRole = RoleInfo.getRoleInfoForPlayer(target, false).FirstOrDefault();
         // Modified vanilla checks
         if (AmongUsClient.Instance.IsGameOver) return MurderAttemptResult.SuppressKill;
-        if (killer == null || killer.Data == null || (killer.Data.IsDead && !ignoreIfKillerIsDead) ||
+        if (killer == null || killer.Data == null || killer.Data.IsDead && !ignoreIfKillerIsDead ||
             killer.Data.Disconnected)
             return MurderAttemptResult.SuppressKill; // Allow non Impostor kills compared to vanilla code
         if (target == null || target.Data == null || target.Data.IsDead || target.Data.Disconnected)
@@ -696,7 +701,7 @@ public static class Helpers
 
         if (checkArmored(target, true, killer == PlayerControl.LocalPlayer,
                 Sheriff.sheriff == null || killer.PlayerId != Sheriff.sheriff.PlayerId ||
-                (isEvil(target) && Sheriff.canKillNeutrals) || isKiller(target))) return MurderAttemptResult.BlankKill;
+                isEvil(target) && Sheriff.canKillNeutrals || isKiller(target))) return MurderAttemptResult.BlankKill;
         // Block hunted with time shield kill
         if (Hunted.timeshieldActive.Contains(target.PlayerId))
         {
@@ -795,12 +800,12 @@ public static class Helpers
     public static bool isKiller(PlayerControl player)
     {
         return player.Data.Role.IsImpostor ||
-               (isNeutral(player) &&
+               isNeutral(player) &&
                 player != Jester.jester &&
                 player != Arsonist.arsonist &&
                 player != Vulture.vulture &&
                 player != Lawyer.lawyer &&
-                player != Pursuer.pursuer);
+                player != Pursuer.pursuer;
     }
 
     public static bool isEvil(PlayerControl player)
@@ -904,13 +909,13 @@ public static class Helpers
     public static bool hasImpVision(NetworkedPlayerInfo player)
     {
         return player.Role.IsImpostor
-               || (((Jackal.jackal != null && Jackal.jackal.PlayerId == player.PlayerId) ||
-                    Jackal.formerJackals.Any(x => x.PlayerId == player.PlayerId)) && Jackal.hasImpostorVision)
-               || (Sidekick.sidekick != null && Sidekick.sidekick.PlayerId == player.PlayerId &&
-                   Sidekick.hasImpostorVision)
-               || (Spy.spy != null && Spy.spy.PlayerId == player.PlayerId && Spy.hasImpostorVision)
-               || (Jester.jester != null && Jester.jester.PlayerId == player.PlayerId && Jester.hasImpostorVision)
-               || (Thief.thief != null && Thief.thief.PlayerId == player.PlayerId && Thief.hasImpostorVision);
+               || (Jackal.jackal != null && Jackal.jackal.PlayerId == player.PlayerId ||
+                    Jackal.formerJackals.Any(x => x.PlayerId == player.PlayerId)) && Jackal.hasImpostorVision
+               || Sidekick.sidekick != null && Sidekick.sidekick.PlayerId == player.PlayerId &&
+                   Sidekick.hasImpostorVision
+               || Spy.spy != null && Spy.spy.PlayerId == player.PlayerId && Spy.hasImpostorVision
+               || Jester.jester != null && Jester.jester.PlayerId == player.PlayerId && Jester.hasImpostorVision
+               || Thief.thief != null && Thief.thief.PlayerId == player.PlayerId && Thief.hasImpostorVision;
     }
 
     public static object TryCast(this Il2CppObjectBase self, Type type)
@@ -938,7 +943,7 @@ public static class Helpers
 
     public static Camera FindCamera(int cameraLayer)
     {
-        return Camera.allCameras.FirstOrDefault(c => (c.cullingMask & (1 << cameraLayer)) != 0);
+        return Camera.allCameras.FirstOrDefault(c => (c.cullingMask & 1 << cameraLayer) != 0);
     }
 
     public static Vector3 WorldToScreenPoint(Vector3 worldPos, int cameraLayer)

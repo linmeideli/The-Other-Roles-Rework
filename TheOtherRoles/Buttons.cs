@@ -65,6 +65,7 @@ internal static class HudManagerStartPatch
     public static CustomButton yoyoAdminTableButton;
     public static CustomButton fraudsterButton;
     public static CustomButton devilButton;
+    public static CustomButton prophetButton;
     public static CustomButton defuseButton;
     public static CustomButton zoomOutButton;
     private static CustomButton hunterLighterButton;
@@ -154,6 +155,7 @@ internal static class HudManagerStartPatch
         yoyoAdminTableButton.EffectDuration = 10f;
         fraudsterButton.MaxTimer = Fraudster.cooldown;
         devilButton.MaxTimer = Devil.blindCooldown;
+        prophetButton.MaxTimer= Prophet.cooldown;
         hunterLighterButton.MaxTimer = Hunter.lightCooldown;
         hunterAdminTableButton.MaxTimer = Hunter.AdminCooldown;
         hunterArrowButton.MaxTimer = Hunter.ArrowCooldown;
@@ -516,8 +518,8 @@ internal static class HudManagerStartPatch
             },
             () => { return Sheriff.currentTarget && PlayerControl.LocalPlayer.CanMove; },
             () => { sheriffKillButton.Timer = sheriffKillButton.MaxTimer; },
-            __instance.KillButton.graphic.sprite,
-            CustomButton.ButtonPositions.upperRowRight,
+            Helpers.loadSpriteFromResources("SheriffKillButton.png", 115f),
+            CustomButton.ButtonPositions.upperRowCenter,
             __instance,
             KeyCode.Q
         );
@@ -1511,6 +1513,33 @@ internal static class HudManagerStartPatch
             KeyCode.F,
             buttonText: "devilButtonBlind"
         );
+        prophetButton = new CustomButton(
+
+            () =>
+            {
+                if (Prophet.currentTarget != null)
+                {
+
+                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.ProphetExamine, Hazel.SendOption.Reliable, -1);
+                    writer.Write(Prophet.currentTarget.PlayerId);
+                    AmongUsClient.Instance.FinishRpcImmediately(writer);
+                    RPCProcedure.prophetExamine(Prophet.currentTarget.PlayerId);
+
+                    prophetButton.Timer = prophetButton.MaxTimer;
+                }
+            },
+               () => { return Prophet.prophet != null && PlayerControl.LocalPlayer == Prophet.prophet && !PlayerControl.LocalPlayer.Data.IsDead && Prophet.examinesLeft > 0; },
+               () =>
+               {
+                   return Prophet.currentTarget != null && PlayerControl.LocalPlayer.CanMove;
+               },
+               () => { prophetButton.Timer = prophetButton.MaxTimer; },
+               Prophet.getButtonSprite(),
+               CustomButton.ButtonPositions.lowerRowRight,
+               __instance,
+               KeyCode.F,
+               buttonText: "ProphetText"
+           );
 
         placeJackInTheBoxButton = new CustomButton(
             () =>

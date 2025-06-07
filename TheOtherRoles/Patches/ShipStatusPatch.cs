@@ -90,7 +90,7 @@ public class ShipStatusPatch
         }
         else if (Devil.devil != null && Devil.visionOfPlayersShouldBeChanged.FindAll(x => x.PlayerId == player.PlayerId).Count > 0)
         {
-            __result *= 1f - Sunglasses.vision * 0.1f;
+            __result *= 0f;
         }
         // If player is Lawyer, apply Lawyer vision modifier
         else if (Lawyer.lawyer != null && Lawyer.lawyer.PlayerId == player.PlayerId)

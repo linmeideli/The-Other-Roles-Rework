@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using TheOtherRoles.CustomGameModes;
+using TheOtherRoles.Modules;
 using TheOtherRoles.Utilities;
 using UnityEngine;
 using static TheOtherRoles.TheOtherRoles;
@@ -300,7 +302,15 @@ public class CustomOptionHolder
 
     public static CustomOption devilSpawnRate;
     public static CustomOption devilCooldwon;
-    public static CustomOption blinderBeReportFor;
+
+
+    public static CustomOption prophetSpawnRate;
+    public static CustomOption prophetCooldown;
+    public static CustomOption prophetNumExamines;
+    public static CustomOption prophetAccuracy;
+    public static CustomOption prophetCanCallEmergency;
+    public static CustomOption prophetIsRevealed;
+    public static CustomOption prophetExaminesToBeRevealed;
 
 
     public static CustomOption modifiersAreHidden;
@@ -579,13 +589,13 @@ public class CustomOptionHolder
         yoyoSilhouetteVisibility = CustomOption.Create(Types.Impostor, "yoyoSilhouetteVisibility", new[] { "0%", "10%", "20%", "30%", "40%", "50%" }, yoyoSpawnRate);
 
         fraudsterSpawnRate = CustomOption.CreateRoleOption(Types.Impostor, RoleId.Fraudster, rates, null, true);
-        fraudsterCooldownAsSheriff = CustomOption.Create(Types.Impostor, "fraudsterCooldownAsSheriff", true, fraudsterSpawnRate);
-        fraudsterCooldown = CustomOption.Create(Types.Impostor, "fraudsterCooldown", 20f, 2.5f, 120f, 2.5f, fraudsterCooldownAsSheriff);
+        fraudsterCooldownAsSheriff = CustomOption.Create(Types.Impostor, "fraudsterCooldownAsSheriff", true, fraudsterCooldown);
+        fraudsterCooldown = CustomOption.Create(Types.Impostor, "fraudsterCooldown", 20f, 2.5f, 120f, 2.5f, fraudsterSpawnRate);
         fraudsterAllowMeetingSuicide = CustomOption.Create(Types.Impostor, "fraudsterAllowMeetingSuicide", true, fraudsterSpawnRate);
 
         devilSpawnRate = CustomOption.CreateRoleOption(Types.Impostor, RoleId.Devil, rates, null, true);
         devilCooldwon = CustomOption.Create(Types.Impostor, "devilCooldown", 20f, 2.5f, 120f, 2.5f, devilSpawnRate);
-        blinderBeReportFor = CustomOption.Create(Types.Impostor, "blinderBeReportFor", new [] {"jackal", "netural", "jackalImp", "neturalImp", "imponly", "everyoneall" }, devilSpawnRate);
+        
 
         guesserSpawnRate = CustomOption.Create(Types.Neutral, cs(Guesser.color, "guesser"), rates, null, true);
         guesserIsImpGuesserRate = CustomOption.Create(Types.Neutral, "guesserIsImpGuesserRate", rates, guesserSpawnRate);
@@ -830,6 +840,13 @@ CustomOption.Create(Types.Crewmate, "deputyCanStopGameEnd", true, deputySpawnRat
         trapperInfoType = CustomOption.Create(Types.Crewmate, "trapperInfoType", new[] { "trapperInfoType1", "trapperInfoType2", "trapperInfoType3" }, trapperSpawnRate);
         trapperTrapDuration = CustomOption.Create(Types.Crewmate, "trapperTrapDuration", 5f, 1f, 15f, 1f, trapperSpawnRate);
 
+        prophetSpawnRate = CustomOption.CreateRoleOption(Types.Crewmate, RoleId.Prophet ,rates, null, true);
+        prophetCooldown = CustomOption.Create(Types.Crewmate, "prophetCooldown", 30f, 5f, 60f, 1f, prophetSpawnRate);
+        prophetNumExamines = CustomOption.Create( Types.Crewmate, "prophetNumExamines", 4f, 1f, 10f, 1f, prophetSpawnRate);
+        prophetCanCallEmergency = CustomOption.Create(Types.Crewmate, "prophetCanCallEmergency", false, prophetSpawnRate);
+        prophetIsRevealed = CustomOption.Create(Types.Crewmate, "prophetIsRevealed", true, prophetSpawnRate);
+        prophetExaminesToBeRevealed = CustomOption.Create(Types.Crewmate, "prophetExaminesToBeRevealed", 3f, 1f, 10f, 1f, prophetIsRevealed);
+        prophetAccuracy = CustomOption.Create(Types.Crewmate, "prophetAccuracy", 30f, 0f, 100f, 10f, prophetSpawnRate);
         // Modifier (1000 - 1999)
         modifiersAreHidden = CustomOption.Create(Types.Modifier,
             cs(Color.yellow, "modifiersAreHidden"), true, null, true,

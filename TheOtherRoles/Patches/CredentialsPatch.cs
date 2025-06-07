@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using TheOtherRoles;
 using TheOtherRoles.CustomGameModes;
 using TheOtherRoles.Modules;
 

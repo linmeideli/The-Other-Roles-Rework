@@ -96,7 +96,19 @@ internal class HudManagerUpdatePatch
         {
             setPlayerNameColor(Deputy.deputy, Deputy.color);
             if (Sheriff.sheriff != null && Deputy.knowsSheriff) setPlayerNameColor(Sheriff.sheriff, Sheriff.color);
-        } /*else if (Portalmaker.portalmaker != null && Portalmaker.portalmaker == localPlayer)
+        }
+
+        else if (Prophet.prophet != null && Prophet.prophet == localPlayer)
+        {
+            setPlayerNameColor(Prophet.prophet, Prophet.color);
+            if (Prophet.examined != null && !localPlayer.Data.IsDead) // Reset the name tags when Prophet is dead
+            {
+                foreach (var p in Prophet.examined)
+                {
+                    setPlayerNameColor(p.Key, p.Value ? Palette.ImpostorRed : Color.green);
+                }
+            }
+        }/*else if (Portalmaker.portalmaker != null && Portalmaker.portalmaker == localPlayer)
             setPlayerNameColor(Portalmaker.portalmaker, Portalmaker.color);
         else if (Lighter.lighter != null && Lighter.lighter == localPlayer)
             setPlayerNameColor(Lighter.lighter, Lighter.color);
@@ -211,6 +223,18 @@ internal class HudManagerUpdatePatch
                 foreach (PlayerVoteArea player in MeetingHud.Instance.playerStates)
                     if (Deputy.deputy != null && Deputy.deputy.PlayerId == player.TargetPlayerId)
                         player.NameText.text += $" ({"deputy".Translate()})";
+        }
+        //Devil
+        if (PlayerControl.LocalPlayer == Devil.devil &&PlayerControl.LocalPlayer != null && Devil.devil != null && !Devil.devil.Data.IsDead && Deputy.deputy != null)
+        {
+            foreach (PlayerControl player in Devil.visionOfPlayersShouldBeChanged)
+                player.cosmetics.nameText.text.Color(Color.gray);
+
+            if (MeetingHud.Instance != null)
+                foreach (PlayerVoteArea player in MeetingHud.Instance.playerStates)
+                    foreach (PlayerControl vplayer in Devil.visionOfPlayersShouldBeChanged)
+                        if (Devil.visionOfPlayersShouldBeChanged != null && vplayer.PlayerId == player.TargetPlayerId)
+                        player.NameText.text.Color(Color.gray);
         }
 
         // Lovers

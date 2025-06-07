@@ -2314,6 +2314,45 @@
         "0": "Find the Impostors",
         "13": "\u627e\u51fa\u5185\u9b3c"
     },
+    "prophet": {
+        "13": "\u9884\u8a00\u5bb6"
+    },
+    "prophetIntroDesc": {
+        "0": "Prophecy to Find Impostors",
+        "13": "\u901a\u8fc7\u9884\u8a00\u627e\u51fa<color=#ff1919>\u4f2a\u88c5\u8005</color>"
+    },
+    "prophetShortDesc": {
+        "0": "Prophecy to Find Impostors",
+        "13": "\u901a\u8fc7\u9884\u8a00\u627e\u51fa\u4f2a\u88c5\u8005\uff0c\u6ce8\u610f\u4e0d\u8981\u88ab\u53d1\u73b0..."
+    },
+    "prophetCooldown": {
+        "0": "Examination Cooldown",
+        "13": "\u9884\u8a00\u51b7\u5374\u65f6\u95f4"
+    },
+    "prophetNumExamines": {
+        "0": "Number Of Examinations",
+        "13": "\u9884\u8a00\u6700\u5927\u6b21\u6570"
+    },
+    "prophetCanCallEmergency": {
+        "0": "Prophet Can Call Emergency Meeting",
+        "13": "\u9884\u8a00\u5bb6\u4e0d\u53ef\u4ee5\u5f00\u542f\u7d27\u6025\u4f1a\u8bae"
+    },
+    "prophetIsRevealed": {
+        "0": "Prophet Is Revealed To The Killers",
+        "13": "\u9884\u8a00\u5bb6\u53ef\u4ee5\u88ab\u6740\u624b\u53d1\u73b0"
+    },
+    "prophetExaminesToBeRevealed": {
+        "0": "Number Of Examinations Required To Be Revealed",
+        "13": "\u8fbe\u5230\u9884\u8a00\u6b21\u6570\u88ab\u6740\u624b\u53d1\u73b0"
+    },
+    "prophetAccuracy": {
+        "0": "Examination Accuracy",
+        "13": "\u9884\u8a00\u51c6\u786e\u6027"
+    },
+    "prophetBenignNeutralAsRed": {
+        "0": "Benign Neutral Shown As Red",
+        "13": "\u4e2d\u7acb\u663e\u793a\u4e3a\u7ea2\u540d"
+    },
     "bepinexUpdaterDownloading": {
         "0": "Required BepInEx update is downloading, please wait...",
         "13": "\u6b63\u5728\u4e0b\u8f7d\u6240\u9700\u7684BepInEx\u66f4\u65b0\uff0c\u8bf7\u7a0d\u5019\u2026\u2026"
@@ -2630,6 +2669,10 @@
         "0": "The Prosecutor can't start an emergency meeting",
         "13": "\u68c0\u5bdf\u5b98\u4e0d\u80fd\u5f00\u542f\u7d27\u6025\u4f1a\u8bae"
     },
+    "prophetMeetingText": {
+        "0": "The Prophet can't start an emergency meeting",
+        "13": "\u9884\u8a00\u5bb6\u4e0d\u80fd\u5f00\u542f\u7d27\u6025\u4f1a\u8bae"
+    },
     "modNumberText": {
         "0": "{0} and the ship has {1}",
         "13": "{0} \u98de\u8239\u5269\u4f59\u4f1a\u8bae\u603b\u6b21\u6570 {1}"
@@ -2890,9 +2933,13 @@
         "0": "Remember your companions in case they go rogue.",
         "13": "\u8bb0\u4f4f\u961f\u53cb\u4ee5\u9632\u4ed6\u4eec\u88ab\u62db\u52df"
     },
-    "deathPopupDevil": {
-        "0": "{0} Has Been Be Blind...",
-        "13": "{0}\u6c38\u8fdc\u89c1\u4e0d\u5230\u5149\u660e\u4e86\u2026"
+    "impGetEmergencyCooldown": {
+        "0": "The difference between the number of remaining Pretenders on the field and the number of remaining non-Pretenders is 1 person \n through emergency: sabotage, and victory is achieved before an emergency meeting is called! \n Current cooldown for convening an emergency meeting:",
+        "13": "\u573a\u4e0a\u5269\u4f59\u4f2a\u88c5\u8005\u4eba\u6570\u4e0e\u5269\u4f59\u975e\u4f2a\u88c5\u8005\u4eba\u6570\u76f8\u5dee1\u4eba\n\u901a\u8fc7\u7d27\u6025\u7834\u574f\uff0c\u5728\u53ec\u5f00\u7d27\u6025\u4f1a\u8bae\u4e4b\u524d\u53d6\u5f97\u80dc\u5229\uff01\n \u5f53\u524d\u53ec\u5f00\u7d27\u6025\u4f1a\u8bae\u51b7\u5374\u65f6\u95f4\uff1a"
+    },
+    "blindMessage": {
+        "0": "You are blinded and will not return to normal vision until you die.",
+        "13": "\u4f60\u5931\u660e\u4e86\uff0c\u9664\u975e\u4f60\u6b7b\u4ea1\uff0c\u5426\u5219\u5c06\u4e0d\u4f1a\u6062\u590d\u5230\u6b63\u5e38\u89c6\u91ce"
     },
     "buttonLeftClick": {
         "0": "Left Click: {0}",
@@ -3077,6 +3124,10 @@
     "devilButtonBlind": {
         "0": "Blind",
         "13": "\u81f4\u76f2"
+    },
+    "prophetButtonBlind": {
+        "0": "Examine",
+        "13": "\u9884\u8a00"
     },
     "updatingText": {
         "0": "Updating <b>TheOtherRoles-Rework</b>\nPlease wait...",

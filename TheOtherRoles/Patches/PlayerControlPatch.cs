@@ -345,11 +345,40 @@ public static class PlayerControlFixedUpdatePatch
         if (Devil.devil == null || Devil.devil != PlayerControl.LocalPlayer) return;
 
         var untargetables = new List<PlayerControl>();
-        if (Spy.spy != null) untargetables.Add(Spy.spy);
-        if (Sidekick.wasTeamRed) untargetables.Add(Sidekick.sidekick);
-        if (Jackal.wasTeamRed) untargetables.Add(Jackal.jackal);
+        foreach(PlayerControl vp in Devil.visionOfPlayersShouldBeChanged)
+        {
+            if (Spy.spy != null) untargetables.Add(Spy.spy);
+            if (Sidekick.wasTeamRed) untargetables.Add(Sidekick.sidekick);
+            if (Jackal.wasTeamRed) untargetables.Add(Jackal.jackal);
+            untargetables.Add(vp);
+        }
         Devil.currentTarget = setTarget(untargetablePlayers: untargetables);
         setPlayerOutline(Devil.currentTarget, Devil.color);
+    }
+    static void prophetSetTarget()
+    {
+        if (Prophet.prophet == null || PlayerControl.LocalPlayer != Prophet.prophet) return;
+        Prophet.currentTarget = setTarget();
+        if (Prophet.examinesLeft > 0) setPlayerOutline(Prophet.currentTarget, Prophet.color);
+    }
+
+    static void prophetUpdate()
+    {
+        if (Prophet.arrows == null) return;
+
+        foreach (var arrow in Prophet.arrows) arrow.arrow.SetActive(false);
+
+        if (Prophet.prophet == null || Prophet.prophet.Data.IsDead) return;
+
+        if (Prophet.isRevealed && Helpers.isKiller(PlayerControl.LocalPlayer))
+        {
+            if (Prophet.arrows.Count == 0) Prophet.arrows.Add(new Arrow(Prophet.color));
+            if (Prophet.arrows.Count != 0 && Prophet.arrows[0] != null)
+            {
+                Prophet.arrows[0].arrow.SetActive(true);
+                Prophet.arrows[0].Update(Prophet.prophet.transform.position);
+            }
+        }
     }
 
     private static void deputyUpdate()
@@ -1373,6 +1402,9 @@ public static class PlayerControlFixedUpdatePatch
             trapperUpdate();
             //Devil
             devilSetTarget();
+            //Prophet
+            prophetSetTarget();
+            prophetUpdate();
 
             // -- MODIFIER--
             // Bait
