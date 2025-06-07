@@ -2353,6 +2353,30 @@
         "0": "Benign Neutral Shown As Red",
         "13": "\u4e2d\u7acb\u663e\u793a\u4e3a\u7ea2\u540d"
     },
+    "peacedove": {
+        "0": "PeaceDove",
+        "13": "\u548c\u5e73\u4e4b\u9e3d"
+    },
+    "peacedoveIntroDesc": {
+        "0": "Reload The Cooldowns to Impostors",
+        "13": "\u5ba3\u4f20\u548c\u5e73\uff0c\u62b5\u5236\u6218\u4e89"
+    },
+    "peacedoveShortDesc": {
+        "0": "Reload The Cooldowns to Impostors",
+        "13": "\u91cd\u5236\u6740\u624b\u4eec\u7684\u51b7\u5374\u65f6\u95f4"
+    },
+    "peaceDoveCooldown": {
+        "0": "Reload Cooldowns",
+        "13": "\u51b7\u5374\u65f6\u95f4\u4e3a\u8ffd\u52a0\u6740\u624b\u51b7\u5374\u7684"
+    },
+    "peaceDoveReloadMaxNum": {
+        "0": "Reload Max Num",
+        "13": "\u91cd\u5236\u6700\u5927\u6b21\u6570"
+    },
+    "peaceReloadSkills": {
+        "0": "Can Reload Skills",
+        "13": "\u53ef\u4ee5\u91cd\u5236\u6280\u80fd\u51b7\u5374\u65f6\u95f4"
+    },
     "bepinexUpdaterDownloading": {
         "0": "Required BepInEx update is downloading, please wait...",
         "13": "\u6b63\u5728\u4e0b\u8f7d\u6240\u9700\u7684BepInEx\u66f4\u65b0\uff0c\u8bf7\u7a0d\u5019\u2026\u2026"
@@ -2773,6 +2797,10 @@
         "0": "{0} stopped the game start!",
         "13": "{0} \u963b\u6b62\u4e86\u6e38\u620f\u5f00\u59cb\uff01"
     },
+    "peacedoveReloadText": {
+        "0": "Peacedove Reload Your Cooldown",
+        "13": "\u548c\u5e73\u4e4b\u9e3d\u91cd\u7f6e\u4e86\u4f60\u7684\u51b7\u5374\u65f6\u95f4\uff01"
+    },
     "engineerUsedRepairText": {
         "0": "Engineer Fix",
         "13": "\u5de5\u7a0b\u5e08\u4fee\u590d\u7834\u574f\uff01"
@@ -3125,9 +3153,13 @@
         "0": "Blind",
         "13": "\u81f4\u76f2"
     },
-    "prophetButtonBlind": {
+    "prophetButtonExamine": {
         "0": "Examine",
         "13": "\u9884\u8a00"
+    },
+    "peacedoveButtonReload": {
+        "0": "Reload",
+        "13": "\u91cd\u5236"
     },
     "updatingText": {
         "0": "Updating <b>TheOtherRoles-Rework</b>\nPlease wait...",

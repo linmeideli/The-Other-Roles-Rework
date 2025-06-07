@@ -76,6 +76,7 @@ public enum RoleId
     Fraudster,
     Devil,
     Prophet,
+    PeaceDove,
     Crewmate,
     Impostor,
 
@@ -173,6 +174,7 @@ internal enum CustomRPC
     Suicide,
     SuicideMeeting,
     ProphetExamine,
+    ReloadCooldowns,
 
     // Gamemode
     SetGuesserGm,
@@ -457,6 +459,9 @@ public static class RPCProcedure
                         break;
                     case RoleId.Prophet:
                         Prophet.prophet = player;
+                        break;
+                    case RoleId.PeaceDove:
+                        PeaceDove.peacedove = player;
                         break;
                 }
 
@@ -791,6 +796,48 @@ public static class RPCProcedure
         Prophet.examinesLeft--;
         if ((Prophet.examineNum - Prophet.examinesLeft >= Prophet.examinesToBeRevealed) && Prophet.revealProphet) Prophet.isRevealed = true;
     }
+
+    public static void reloadCooldowns()
+    {
+        PeaceDove.reloadMaxNum--;
+        foreach(PlayerControl p in PlayerControl.AllPlayerControls)
+        {
+            if (p.Data.Role.IsImpostor)
+            {
+                if (Mini.mini.Data.Role.IsImpostor && !Mini.isGrownUp()) Mini.mini.SetKillTimer(GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown * 2 + PeaceDove.reloadCooldown);
+                p.SetKillTimer(GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown + PeaceDove.reloadCooldown);
+            }
+            else if (Jackal.jackal.PlayerId == p.PlayerId || Sidekick.sidekick.PlayerId == p.PlayerId)
+            {
+                Jackal.cooldown += PeaceDove.reloadCooldown;
+                Sidekick.cooldown += PeaceDove.reloadCooldown;
+            }
+             if(PeaceDove.reloadSkills == true)
+            {
+                float pc = PeaceDove.reloadCooldown;
+                Janitor.cooldown  += pc;
+                Morphling.cooldown += pc;
+                Camouflager.cooldown += pc;
+                Vampire.cooldown += pc;
+                Jackal.createSidekickCooldown += pc;
+                Sidekick.cooldown += pc;
+                Eraser.cooldown += pc;
+                Trickster.placeBoxCooldown += pc;
+                Trickster.lightsOutCooldown += pc;
+                Cleaner.cooldown += pc;
+                Warlock.cooldown += pc;
+                Bomber.bombCooldown += pc;
+                Yoyo.markCooldown += pc;
+                Yoyo.adminCooldown += pc;
+                Fraudster.cooldown += pc;
+                Devil.blindCooldown += pc;
+            }
+            if (Helpers.shouldShowGhostInfo() &&(p.Data.Role.IsImpostor || p.PlayerId == Jackal.jackal.PlayerId || p.PlayerId == Sidekick.sidekick.PlayerId))
+            {
+                Helpers.showFlash(PeaceDove.color, 0.5f, "peacedoveReloadText".Translate());
+            }
+        }
+    }
     public static void deputyUsedHandcuffs(byte targetId)
     {
         Deputy.remainingHandcuffs--;
@@ -884,6 +931,7 @@ public static class RPCProcedure
         if (player == Medium.medium) Medium.clearAndReload();
         if (player == Trapper.trapper) Trapper.clearAndReload();
         if(player == Prophet.prophet) Prophet.clearAndReload();
+        if (player == PeaceDove.peacedove) PeaceDove.clearAndReload();
 
         // Impostor roles
         if (player == Morphling.morphling) Morphling.clearAndReload();
@@ -1901,7 +1949,9 @@ internal class RPCHandlerPatch
             case (byte)CustomRPC.ProphetExamine:
                 RPCProcedure.prophetExamine(reader.ReadByte());
                 break;
-
+            case (byte)CustomRPC.ReloadCooldowns:
+                RPCProcedure.reloadCooldowns();
+                break;
             // Game mode
             case (byte)CustomRPC.SetGuesserGm:
                 var guesserGm = reader.ReadByte();

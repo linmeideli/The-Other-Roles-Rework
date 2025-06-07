@@ -69,7 +69,40 @@ public static class Helpers
 
         return null;
     }
+    public static Sprite LoadPngAsSprite(string filePath)
+    {
+        // 检查文件是否存在
+        if (!File.Exists(filePath))
+        {
+            Debug.LogError($"文件 {filePath} 不存在。");
+            return null;
+        }
 
+        // 使用Helpers类的loadTextureFromDisk方法加载纹理
+        Texture2D texture = Helpers.loadTextureFromDisk(filePath);
+        if (texture == null)
+        {
+            Debug.LogError($"无法加载纹理: {filePath}");
+            return null;
+        }
+
+        // 创建Sprite对象
+        Sprite sprite = Sprite.Create(texture,
+            new Rect(0, 0, texture.width, texture.height),
+            new Vector2(0.53f, 0.575f),
+            texture.width * 0.375f);
+
+        if (sprite == null)
+        {
+            Debug.LogError($"无法创建Sprite: {filePath}");
+        }
+
+        // 设置隐藏标志
+        texture.hideFlags |= HideFlags.HideAndDontSave | HideFlags.DontUnloadUnusedAsset;
+        sprite.hideFlags |= HideFlags.HideAndDontSave | HideFlags.DontUnloadUnusedAsset;
+
+        return sprite;
+    }
     public static unsafe Texture2D loadTextureFromResources(string path)
     {
         try

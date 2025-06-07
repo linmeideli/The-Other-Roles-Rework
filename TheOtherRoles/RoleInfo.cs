@@ -118,6 +118,8 @@ public class RoleInfo
 
     public static RoleInfo prophet = new("prophet", Prophet.color, RoleId.Prophet);
 
+    public static RoleInfo peacedove = new("peacedove", PeaceDove.color, RoleId.PeaceDove);
+
     public static RoleInfo crewmate = new("crewmate", Color.white, RoleId.Crewmate);
 
     public static RoleInfo hunted = new("hunted", Color.white, RoleId.Crewmate);
@@ -205,6 +207,8 @@ public class RoleInfo
         bait,
         medium,
         trapper,
+        prophet,
+        peacedove,
         bloody,
         antiTeleport,
         tiebreaker,
@@ -345,6 +349,7 @@ public class RoleInfo
         if (p == Pursuer.pursuer) infos.Add(pursuer);
         if (p == Thief.thief) infos.Add(thief);
         if (p == Prophet.prophet) infos.Add(prophet);
+        if (p == PeaceDove.peacedove) infos.Add(peacedove);
 
         // Default roles (just impostor, just crewmate, or hunter / hunted for hide n seek, prop hunt prop ...
         if (infos.Count == count)

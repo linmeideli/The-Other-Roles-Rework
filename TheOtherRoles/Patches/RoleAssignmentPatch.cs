@@ -178,6 +178,7 @@ internal class RoleManagerSelectRolesPatch
         crewSettings.Add((byte)RoleId.Medium, CustomOptionHolder.mediumSpawnRate.getSelection());
         crewSettings.Add((byte)RoleId.Trapper, CustomOptionHolder.trapperSpawnRate.getSelection());
         crewSettings.Add((byte)RoleId.Prophet, CustomOptionHolder.prophetSpawnRate.getSelection());
+        crewSettings.Add((byte)RoleId.PeaceDove, CustomOptionHolder.peaceDoveSpawnRate.getSelection());
         if (impostors.Count > 1)
             // Only add Spy if more than 1 impostor as the spy role is otherwise useless
             crewSettings.Add((byte)RoleId.Spy, CustomOptionHolder.spySpawnRate.getSelection());

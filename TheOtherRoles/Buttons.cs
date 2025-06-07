@@ -22,14 +22,14 @@ internal static class HudManagerStartPatch
     private static bool initialized;
 
     private static CustomButton engineerRepairButton;
-    private static CustomButton janitorCleanButton;
+    public static CustomButton janitorCleanButton;//
     public static CustomButton sheriffKillButton;
     private static CustomButton deputyHandcuffButton;
     private static CustomButton timeMasterShieldButton;
     private static CustomButton medicShieldButton;
     private static CustomButton shifterShiftButton;
-    private static CustomButton morphlingButton;
-    private static CustomButton camouflagerButton;
+    public static CustomButton morphlingButton;//
+    public static CustomButton camouflagerButton;//
     private static CustomButton portalmakerPlacePortalButton;
     private static CustomButton usePortalButton;
     private static CustomButton portalmakerMoveToPortalButton;
@@ -38,17 +38,17 @@ internal static class HudManagerStartPatch
     public static CustomButton hackerAdminTableButton;
     private static CustomButton trackerTrackPlayerButton;
     private static CustomButton trackerTrackCorpsesButton;
-    public static CustomButton vampireKillButton;
+    public static CustomButton vampireKillButton;//
     public static CustomButton garlicButton;
-    public static CustomButton jackalKillButton;
-    public static CustomButton sidekickKillButton;
-    private static CustomButton jackalSidekickButton;
-    public static CustomButton jackalAndSidekickSabotageLightsButton;
-    private static CustomButton eraserButton;
-    private static CustomButton placeJackInTheBoxButton;
-    private static CustomButton lightsOutButton;
-    public static CustomButton cleanerCleanButton;
-    public static CustomButton warlockCurseButton;
+    public static CustomButton jackalKillButton;//
+    public static CustomButton sidekickKillButton;//
+    public static CustomButton jackalSidekickButton;//
+    public static CustomButton jackalAndSidekickSabotageLightsButton;//
+    public static CustomButton eraserButton;//
+    public static CustomButton placeJackInTheBoxButton;//
+    public static CustomButton lightsOutButton;//
+    public static CustomButton cleanerCleanButton;//
+    public static CustomButton warlockCurseButton;//
     public static CustomButton securityGuardButton;
     public static CustomButton securityGuardCamButton;
     public static CustomButton arsonistButton;
@@ -60,12 +60,13 @@ internal static class HudManagerStartPatch
     public static CustomButton mayorMeetingButton;
     public static CustomButton thiefKillButton;
     public static CustomButton trapperButton;
-    public static CustomButton bomberButton;
-    public static CustomButton yoyoButton;
+    public static CustomButton bomberButton;//
+    public static CustomButton yoyoButton;//
     public static CustomButton yoyoAdminTableButton;
-    public static CustomButton fraudsterButton;
-    public static CustomButton devilButton;
+    public static CustomButton fraudsterButton;//
+    public static CustomButton devilButton;//
     public static CustomButton prophetButton;
+    public static CustomButton peacedoveButton;
     public static CustomButton defuseButton;
     public static CustomButton zoomOutButton;
     private static CustomButton hunterLighterButton;
@@ -1512,6 +1513,31 @@ internal static class HudManagerStartPatch
             __instance,
             KeyCode.F,
             buttonText: "devilButtonBlind"
+        );
+
+        peacedoveButton = new CustomButton(
+            () =>
+            {
+                var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                    (byte)CustomRPC.ReloadCooldowns, SendOption.Reliable);
+                AmongUsClient.Instance.FinishRpcImmediately(writer);
+                RPCProcedure.reloadCooldowns();
+            },
+            () =>
+            {
+                return PeaceDove.peacedove != null && PeaceDove.peacedove == PlayerControl.LocalPlayer &&
+                       PeaceDove.reloadMaxNum > 0 && !PlayerControl.LocalPlayer.Data.IsDead;
+            },
+            () =>
+            {
+                return PeaceDove.reloadMaxNum > 0 && PlayerControl.LocalPlayer.CanMove;
+            },
+            () => {peacedoveButton.Timer = peacedoveButton.MaxTimer; },
+            PeaceDove.getButtonSprite(),
+            CustomButton.ButtonPositions.upperRowRight,
+            __instance,
+            KeyCode.F,
+            buttonText: "peacedoveButtonReload"
         );
         prophetButton = new CustomButton(
 

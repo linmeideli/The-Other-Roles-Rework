@@ -312,6 +312,11 @@ public class CustomOptionHolder
     public static CustomOption prophetIsRevealed;
     public static CustomOption prophetExaminesToBeRevealed;
 
+    public static CustomOption peaceDoveSpawnRate;
+    public static CustomOption peaceDoveCooldown;
+    public static CustomOption peaceDoveReloadMaxNum;
+    public static CustomOption peaceDoveReloadSkills;
+
 
     public static CustomOption modifiersAreHidden;
 
@@ -841,12 +846,17 @@ CustomOption.Create(Types.Crewmate, "deputyCanStopGameEnd", true, deputySpawnRat
         trapperTrapDuration = CustomOption.Create(Types.Crewmate, "trapperTrapDuration", 5f, 1f, 15f, 1f, trapperSpawnRate);
 
         prophetSpawnRate = CustomOption.CreateRoleOption(Types.Crewmate, RoleId.Prophet ,rates, null, true);
-        prophetCooldown = CustomOption.Create(Types.Crewmate, "prophetCooldown", 30f, 5f, 60f, 1f, prophetSpawnRate);
+        prophetCooldown = CustomOption.Create(Types.Crewmate, "prophetCooldown", 30f, 5f, 60f, 5f, prophetSpawnRate);
         prophetNumExamines = CustomOption.Create( Types.Crewmate, "prophetNumExamines", 4f, 1f, 10f, 1f, prophetSpawnRate);
         prophetCanCallEmergency = CustomOption.Create(Types.Crewmate, "prophetCanCallEmergency", false, prophetSpawnRate);
         prophetIsRevealed = CustomOption.Create(Types.Crewmate, "prophetIsRevealed", true, prophetSpawnRate);
         prophetExaminesToBeRevealed = CustomOption.Create(Types.Crewmate, "prophetExaminesToBeRevealed", 3f, 1f, 10f, 1f, prophetIsRevealed);
         prophetAccuracy = CustomOption.Create(Types.Crewmate, "prophetAccuracy", 30f, 0f, 100f, 10f, prophetSpawnRate);
+
+        peaceDoveSpawnRate = CustomOption.CreateRoleOption(Types.Crewmate, RoleId.PeaceDove, rates, null, true);
+        peaceDoveCooldown = CustomOption.Create(Types.Crewmate, "peaceDoveCooldown", 30f, 5f, 60f, 5f, peaceDoveSpawnRate);
+        peaceDoveReloadMaxNum = CustomOption.Create(Types.Crewmate, "peaceDoveReloadMaxNum", 4f, 1f, 10f, 1f, peaceDoveSpawnRate);
+        peaceDoveReloadSkills = CustomOption.Create(Types.Crewmate, "peacedoveReloadSkills", false, peaceDoveSpawnRate);
         // Modifier (1000 - 1999)
         modifiersAreHidden = CustomOption.Create(Types.Modifier,
             cs(Color.yellow, "modifiersAreHidden"), true, null, true,

@@ -202,6 +202,7 @@ internal class VentButtonSetTargetPatch
 [HarmonyPatch(typeof(KillButton), nameof(KillButton.DoClick))]
 internal class KillButtonDoClickPatch
 {
+    public static KillButton instance { get;  set; }
     public static bool Prefix(KillButton __instance)
     {
         if (PropHunt.isPropHuntGM)
@@ -219,9 +220,9 @@ internal class KillButtonDoClickPatch
                 Deputy.setHandcuffedKnows();
                 return false;
             }
-            if(PlayerControl.LocalPlayer == Devil.devil && ShipStatus.Instance.Systems.ContainsKey(SystemTypes.Electrical)){
-                return false;
-            }
+            //if(PlayerControl.LocalPlayer == Devil.devil && ShipStatus.Instance.Systems.ContainsKey(SystemTypes.Electrical)){
+            //    return false;
+            //}
 
             // Use an unchecked kill command, to allow shorter kill cooldowns etc. without getting kicked
             var res = Helpers.checkMurderAttemptAndKill(PlayerControl.LocalPlayer, __instance.currentTarget);

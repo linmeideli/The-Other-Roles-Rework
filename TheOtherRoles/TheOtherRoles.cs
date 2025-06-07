@@ -237,6 +237,31 @@ public static class TheOtherRoles
         }
     }
 
+    public static class PeaceDove
+    {
+        public static PlayerControl peacedove;
+        public static Color color = new Color32(211, 211, 211, byte.MaxValue);
+        private static Sprite buttonSprite;
+
+        public static float reloadCooldown;
+        public static int reloadMaxNum = 1;
+        public static bool reloadSkills;
+        public static Sprite getButtonSprite()
+        {
+            if (buttonSprite) return buttonSprite;
+            buttonSprite = Helpers.loadSpriteFromResources("DoveButton.png", 115f);
+            return buttonSprite;
+        }
+
+        public static void clearAndReload()
+        {
+            peacedove = null;
+            reloadSkills = CustomOptionHolder.peaceDoveReloadSkills.getBool();
+            reloadCooldown = CustomOptionHolder.peaceDoveCooldown.getFloat();
+            reloadMaxNum = Mathf.RoundToInt(CustomOptionHolder.peaceDoveReloadMaxNum.getFloat());
+        }
+    }
+
     public static class Godfather
     {
         public static PlayerControl godfather;
