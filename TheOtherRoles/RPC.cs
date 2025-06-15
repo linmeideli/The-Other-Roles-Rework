@@ -800,6 +800,8 @@ public static class RPCProcedure
     public static void reloadCooldowns()
     {
         PeaceDove.reloadMaxNum--;
+        Cleaner.cleaner.SetKillTimer(114514f);
+        /*
         foreach(PlayerControl p in PlayerControl.AllPlayerControls)
         {
             if (p.Data.Role.IsImpostor)
@@ -836,7 +838,7 @@ public static class RPCProcedure
             {
                 Helpers.showFlash(PeaceDove.color, 0.5f, "peacedoveReloadText".Translate());
             }
-        }
+        }*/
     }
     public static void deputyUsedHandcuffs(byte targetId)
     {

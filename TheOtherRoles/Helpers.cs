@@ -269,10 +269,10 @@ public static class Helpers
         if (roleInfo.roleId == RoleId.Invert)
             return cs(roleInfo.color, $"{roleInfo.name}: {roleInfo.shortDescription} ({Invert.meetings})");
 
-        if (PlayerControl.LocalPlayer.Data.Role.IsImpostor && PlayerControl.AllPlayerControls.ToArray().Where(x => !x.Data.IsDead).ToList().Count - ExileController.Instance.initData.remainingImpostorCount <= 1)
-        {
-            return cs(roleInfo.color, $"{roleInfo.name}: {roleInfo.shortDescription}\n{ModTranslation.GetString("ImpGetEmergencyCooldown")} {GameManager.Instance.LogicOptions.GetEmergencyCooldown()}");
-        }
+        //if (PlayerControl.LocalPlayer.Data.Role.IsImpostor && PlayerControl.AllPlayerControls.ToArray().Where(x => !x.Data.IsDead).ToList().Count - ExileController.Instance.initData.remainingImpostorCount <= 1)
+        //{
+        //    return cs(roleInfo.color, $"{roleInfo.name}: {roleInfo.shortDescription}\n{ModTranslation.GetString("ImpGetEmergencyCooldown")} {GameManager.Instance.LogicOptions.GetEmergencyCooldown()}");
+        //}
 
         return cs(roleInfo.color, $"{roleInfo.name}: {roleInfo.shortDescription}");
     }

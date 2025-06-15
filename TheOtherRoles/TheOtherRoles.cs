@@ -244,7 +244,7 @@ public static class TheOtherRoles
         private static Sprite buttonSprite;
 
         public static float reloadCooldown;
-        public static int reloadMaxNum = 1;
+        public static int reloadMaxNum;
         public static bool reloadSkills;
         public static Sprite getButtonSprite()
         {
@@ -323,6 +323,7 @@ public static class TheOtherRoles
         public static PlayerControl formerDeputy; // Needed for keeping handcuffs + shifting
         public static PlayerControl formerSheriff; // When deputy gets promoted...
 
+        private static Sprite buttonSprite;
         public static void replaceCurrentSheriff(PlayerControl deputy)
         {
             if (!formerSheriff) formerSheriff = sheriff;
@@ -330,7 +331,12 @@ public static class TheOtherRoles
             currentTarget = null;
             cooldown = CustomOptionHolder.sheriffCooldown.getFloat();
         }
-
+        public static Sprite getButtonSprite()
+        {
+            if (buttonSprite) return buttonSprite;
+            buttonSprite = Helpers.loadSpriteFromResources("SheriffKillButton.png", 115f);
+            return buttonSprite;
+        }
         public static void clearAndReload()
         {
             sheriff = null;

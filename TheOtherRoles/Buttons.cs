@@ -520,9 +520,10 @@ internal static class HudManagerStartPatch
             () => { return Sheriff.currentTarget && PlayerControl.LocalPlayer.CanMove; },
             () => { sheriffKillButton.Timer = sheriffKillButton.MaxTimer; },
             Helpers.loadSpriteFromResources("SheriffKillButton.png", 115f),
-            CustomButton.ButtonPositions.upperRowCenter,
+            CustomButton.ButtonPositions.lowerRowRight,
             __instance,
-            KeyCode.Q
+            KeyCode.Q,
+            buttonText: "Kill"
         );
 
         // Deputy Handcuff
@@ -1530,7 +1531,7 @@ internal static class HudManagerStartPatch
             },
             () =>
             {
-                return PeaceDove.reloadMaxNum > 0 && PlayerControl.LocalPlayer.CanMove;
+                return PlayerControl.LocalPlayer.CanMove;
             },
             () => {peacedoveButton.Timer = peacedoveButton.MaxTimer; },
             PeaceDove.getButtonSprite(),
@@ -1539,13 +1540,14 @@ internal static class HudManagerStartPatch
             KeyCode.F,
             buttonText: "peacedoveButtonReload"
         );
+
+
         prophetButton = new CustomButton(
 
             () =>
             {
                 if (Prophet.currentTarget != null)
                 {
-
                     MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.ProphetExamine, Hazel.SendOption.Reliable, -1);
                     writer.Write(Prophet.currentTarget.PlayerId);
                     AmongUsClient.Instance.FinishRpcImmediately(writer);
@@ -1565,7 +1567,7 @@ internal static class HudManagerStartPatch
                __instance,
                KeyCode.F,
                buttonText: "ProphetText"
-           );
+        );
 
         placeJackInTheBoxButton = new CustomButton(
             () =>
