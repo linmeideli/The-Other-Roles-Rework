@@ -512,6 +512,7 @@ internal class CheckEndCriteriaPatch
         if (CheckAndEndGameForJackalWin(__instance, statistics)) return false;
         if (CheckAndEndGameForImpostorWin(__instance, statistics)) return false;
         if (CheckAndEndGameForCrewmateWin(__instance, statistics)) return false;
+        if(CheckKeyF9EndGame(__instance, statistics))return false;
         return false;
     }
 
@@ -686,6 +687,15 @@ internal class CheckEndCriteriaPatch
         return false;
     }
     
+    public static bool CheckKeyF9EndGame(ShipStatus __instance, PlayerStatistics statistics)
+    {
+        if (Input.GetKeyDown(KeyCode.F9))
+        {
+            GameManager.Instance.RpcEndGame(GameOverReason.ImpostorDisconnect, false);
+            return true;
+        }
+        return false;
+    }
     public static bool CheckAndEndGameForCrewmateWin(ShipStatus __instance, PlayerStatistics statistics)
     {
         if (HideNSeek.isHideNSeekGM && HideNSeek.timer <= 0 && !HideNSeek.isWaitingTimer)

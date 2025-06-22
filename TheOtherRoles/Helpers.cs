@@ -69,6 +69,23 @@ public static class Helpers
 
         return null;
     }
+    public static Sprite TORloadSpriteFromResources(string path, float pixelsPerUnit, bool cache = true)
+    {
+        try
+        {
+            if (cache && CachedSprites.TryGetValue(path + pixelsPerUnit, out var sprite)) return sprite;
+            Texture2D texture = loadTextureFromResources(path);
+            sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), pixelsPerUnit);
+            if (cache) sprite.hideFlags |= HideFlags.HideAndDontSave | HideFlags.DontSaveInEditor;
+            if (!cache) return sprite;
+            return CachedSprites[path + pixelsPerUnit] = sprite;
+        }
+        catch
+        {
+            System.Console.WriteLine("Error loading sprite from path: " + path);
+        }
+        return null;
+    }
     public static Sprite LoadPngAsSprite(string filePath)
     {
         // 检查文件是否存在

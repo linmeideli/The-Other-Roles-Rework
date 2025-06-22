@@ -19,6 +19,7 @@ using static TheOtherRoles.CustomOption;
 using Object = UnityEngine.Object;
 using TheOtherRoles.Modules;
 using Reactor.Localization.Utilities;
+using UnityEngine.Networking.Types;
 
 namespace TheOtherRoles;
 
@@ -47,6 +48,7 @@ public class CustomOption
 
     public int id;
     public int id2;
+    public Color color;
     public bool invertedParent;
     public bool isHeader;
     public string name;
@@ -59,11 +61,12 @@ public class CustomOption
 
     // Option creation
 
-    public CustomOption(int id, CustomOptionType type, string name, object[] selections, object defaultValue,
+    public CustomOption(int id, CustomOptionType type, Color color , string name, object[] selections, object defaultValue,
         CustomOption parent, bool isHeader, Action onChange = null, string heading = "", bool invertedParent = false, int id2 = 0)
     {
         this.id = id;
         this.id2 = id2;
+        this.color = color;
         this.name = parent == null ? name : "- " + name;
         this.selections = selections;
         var index = Array.IndexOf(selections, defaultValue);
@@ -88,19 +91,19 @@ public class CustomOption
         CustomOption parent = null, bool isHeader = false, Action onChange = null, string heading = "",
         bool invertedParent = false, int id2 = 0)
     {
-        return new CustomOption(numId++, type, Helpers.cs(RoleInfo.roleInfoById[roleId].color, RoleInfo.roleInfoById[roleId].name), selections, "", parent, isHeader, onChange, heading, invertedParent, id2);
+        return new CustomOption(numId++, type, RoleInfo.roleInfoById[roleId].color, Helpers.cs(RoleInfo.roleInfoById[roleId].color, RoleInfo.roleInfoById[roleId].name), selections, "", parent, isHeader, onChange, heading, invertedParent, id2);
     }
     public static CustomOption CreateModifierOption(CustomOptionType type, RoleId roleId, string[] selections,
         CustomOption parent = null, bool isHeader = false, Action onChange = null, string heading = "",
         bool invertedParent = false, int id2 = 0)
     {
-        return new CustomOption(numId++, type, Helpers.cs(RoleInfo.roleInfoById[roleId].color, RoleInfo.roleInfoById[roleId].name), selections, "", parent, isHeader, onChange, heading, invertedParent, id2);
+        return new CustomOption(numId++, type, RoleInfo.roleInfoById[roleId].color, Helpers.cs(RoleInfo.roleInfoById[roleId].color, RoleInfo.roleInfoById[roleId].name), selections, "", parent, isHeader, onChange, heading, invertedParent, id2);
     }
-    public static CustomOption Create(CustomOptionType type, string name, string[] selections,
+    public static CustomOption Create(CustomOptionType type ,string name, string[] selections,
         CustomOption parent = null, bool isHeader = false, Action onChange = null, string heading = "",
         bool invertedParent = false, int id2 = 0)
     {
-        return new CustomOption(numId++, type, name, selections, "", parent, isHeader, onChange, heading, invertedParent, id2);
+        return new CustomOption(numId++, type, Color.gray, name, selections, "", parent, isHeader, onChange, heading, invertedParent, id2);
     }
 
     public static CustomOption Create(CustomOptionType type, string name, float defaultValue, float min,
@@ -110,7 +113,7 @@ public class CustomOption
         List<object> selections = new();
         for (var s = min; s <= max; s += step)
             selections.Add(s);
-        return new CustomOption(numId++, type, name, selections.ToArray(), defaultValue, parent, isHeader, onChange, heading,
+        return new CustomOption(numId++, type, Color.gray,name, selections.ToArray(), defaultValue, parent, isHeader, onChange, heading,
             invertedParent, id2);
     }
 
@@ -118,7 +121,7 @@ public class CustomOption
         CustomOption parent = null, bool isHeader = false, Action onChange = null, string heading = "",
         bool invertedParent = false, int id2 = 0)
     {
-        return new CustomOption(numId++, type, name, new[] { "<color=#696969>optionOff</color>".Translate(), "<color=#00FFFF>optionOn</color>".Translate() }, defaultValue ? "<color=#00FFFF>optionOn</color>".Translate() : "<color=#696969>optionOff</color>".Translate(), parent, isHeader,
+        return new CustomOption(numId++, type,Color.gray, name, new[] { "<color=#696969>optionOff</color>".Translate(), "<color=#00FFFF>optionOn</color>".Translate() }, defaultValue ? "<color=#00FFFF>optionOn</color>".Translate() : "<color=#696969>optionOff</color>".Translate(), parent, isHeader,
             onChange, heading, invertedParent, id2);
     }
 
@@ -254,7 +257,10 @@ public class CustomOption
         if (heading == "") return "";
         return ModTranslation.GetString(heading);
     }
-
+    public Color getColor()
+    {
+        return color;
+    }
 
     public void updateSelection(int newSelection, bool notifyUsers = true)
     {
@@ -930,6 +936,8 @@ internal class GameOptionsMenuStartPatch
                 //categoryHeaderMasked.Title.outlineWidth = 0.2f;
                 categoryHeaderMasked.transform.localScale = Vector3.one * 0.63f;
                 categoryHeaderMasked.transform.localPosition = new Vector3(-0.903f, num, -2f);
+                //categoryHeaderMasked.Background.sprite = Helpers.loadSpriteFromResources("poolablesBackground.jpg", 100f);
+                categoryHeaderMasked.transform.GetChild(0).GetComponent<SpriteRenderer>().color = option.getColor();
                 num -= 0.63f;
             }
             else if (option.parent != null && ((option.parent.selection == 0 && !option.invertedParent) ||
