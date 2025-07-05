@@ -197,7 +197,7 @@ namespace TheOtherRoles.Modules
             //System.Random rnd = new System.Random();
             //int rndnum = rnd.Next(1,MainMenuImage.imgnum);
             //bgRenderer.sprite = Helpers.LoadSpriteFromDisk(@$"{MainMenuImage.FolderPath()}/image_{rndnum}.jpg",160f);
-            bgRenderer.sprite = Helpers.TORloadSpriteFromResources("TheOtherRoles.Resources.MainMenuBackground.jpg", 8f);
+            bgRenderer.sprite = Helpers.TORloadSpriteFromResources("TheOtherRoles.Resources.MainMenuBackground.jpg", 114514f);
             // bgRenderer.sprite = Helpers.LoadSpriteFromDisk("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Among Us\\Among Us TORR\\ACG\\image_8.jpg", 320f);
             //bgRenderer.sprite = Helpers.LoadPngAsSprite("C:/Users/ASUS/Desktop/MainMenuBackground.jpg");
             if (!(Ambience = GameObject.Find("Ambience"))) return;

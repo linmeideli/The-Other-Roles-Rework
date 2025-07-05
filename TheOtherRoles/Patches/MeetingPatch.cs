@@ -688,7 +688,7 @@ internal class MeetingHudPatch
         {
             var spriteRenderer = Object.Instantiate(__instance.PlayerVotePrefab);
             var showVoteColors = !GameManager.Instance.LogicOptions.GetAnonymousVotes() ||
-                                 (PlayerControl.LocalPlayer.Data.IsDead && ghostsSeeVotes) ||
+                                 (PlayerControl.LocalPlayer.Data.IsDead && ghostsSeeInformation) ||
                                  (Mayor.mayor != null && Mayor.mayor == PlayerControl.LocalPlayer &&
                                   Mayor.canSeeVoteColors &&
                                   TasksHandler.taskInfo(PlayerControl.LocalPlayer.Data).Item1 >=

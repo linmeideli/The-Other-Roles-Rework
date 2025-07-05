@@ -61,11 +61,14 @@ internal class ExileControllerBeginPatch
 
         Eraser.futureErased = new List<PlayerControl>();
 
-        if (Devil.devil != null && AmongUsClient.Instance.AmHost &&
-           Devil.futureBlinded !=
-           null) // We need to send the RPC from the host here, to make sure that the order of shifting and erasing is correct (for that reason the futureShifted and futureErased are being synced)
-
-        Devil.futureBlinded = new List<PlayerControl>();
+        if (Devil.devil != null && AmongUsClient.Instance.AmHost && Devil.futureBlinded != null)
+        {
+            foreach(PlayerControl p in Devil.futureBlinded)
+            {
+                Devil.visionOfPlayersShouldBeChanged.Add(p);
+            }
+            Devil.futureBlinded = new List<PlayerControl>();
+        }
 
         // Trickster boxes
         if (Trickster.trickster != null && JackInTheBox.hasJackInTheBoxLimitReached()) JackInTheBox.convertToVents();

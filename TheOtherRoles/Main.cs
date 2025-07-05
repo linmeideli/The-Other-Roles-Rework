@@ -57,14 +57,10 @@ public class TheOtherRolesPlugin : BasePlugin
 
     public static ConfigEntry<string> DebugMode { get; private set; }
     public static ConfigEntry<bool> GhostsSeeInformation { get; set; }
-    public static ConfigEntry<bool> GhostsSeeRoles { get; set; }
-    public static ConfigEntry<bool> GhostsSeeModifier { get; set; }
-    public static ConfigEntry<bool> GhostsSeeVotes { get; set; }
     public static ConfigEntry<bool> ShowRoleSummary { get; set; }
-    public static ConfigEntry<bool> ShowLighterDarker { get; set; }
+    public static ConfigEntry<bool> InsteadDarkMode { get; set; }
     public static ConfigEntry<bool> EnableSoundEffects { get; set; }
     public static ConfigEntry<bool> EnableHorseMode { get; set; }
-    public static ConfigEntry<bool> ShowVentsOnMap { get; set; }
     public static ConfigEntry<bool> ShowChatNotifications { get; set; }
     public static ConfigEntry<string> Ip { get; set; }
     public static ConfigEntry<ushort> Port { get; set; }
@@ -116,15 +112,11 @@ public class TheOtherRolesPlugin : BasePlugin
 
         DebugMode = Config.Bind("Custom", "Enable Debug Mode", "false");
         GhostsSeeInformation = Config.Bind("Custom", "Ghosts See Remaining Tasks", true);
-        GhostsSeeRoles = Config.Bind("Custom", "Ghosts See Roles", true);
-        GhostsSeeModifier = Config.Bind("Custom", "Ghosts See Modifier", true);
-        GhostsSeeVotes = Config.Bind("Custom", "Ghosts See Votes", true);
         ShowRoleSummary = Config.Bind("Custom", "Show Role Summary", true);
-        ShowLighterDarker = Config.Bind("Custom", "Show Lighter / Darker", true);
+        InsteadDarkMode = Config.Bind("Custom", "Instead Dark Mod Of Role Color", false);
         EnableSoundEffects = Config.Bind("Custom", "Enable Sound Effects", true);
         EnableHorseMode = Config.Bind("Custom", "Enable Horse Mode", false);
         ShowPopUpVersion = Config.Bind("Custom", "Show PopUp", "0");
-        ShowVentsOnMap = Config.Bind("Custom", "Show vent positions on minimap", false);
         ShowChatNotifications = Config.Bind("Custom", "Show Chat Notifications", true);
         ShowFPS = Config.Bind("Custom", "Show FPS", true);
 
@@ -157,7 +149,7 @@ public class TheOtherRolesPlugin : BasePlugin
         MainMenuPatch.addSceneChangeCallbacks();
         _ = RoleInfo.loadReadme();
         AddToKillDistanceSetting.addKillDistance();
-        Logger.LogInfo("Loading TOR completed!");
+        Logger.LogInfo("Loading TORR completed!");
     }
 }
 

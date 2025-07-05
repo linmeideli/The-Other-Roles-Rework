@@ -800,45 +800,13 @@ public static class RPCProcedure
     public static void reloadCooldowns()
     {
         PeaceDove.reloadMaxNum--;
-        Cleaner.cleaner.SetKillTimer(114514f);
-        /*
         foreach(PlayerControl p in PlayerControl.AllPlayerControls)
         {
-            if (p.Data.Role.IsImpostor)
+            if(p.Data.Role.IsImpostor || p.PlayerId == Jackal.jackal.PlayerId || p.PlayerId == Thief.thief.PlayerId)
             {
-                if (Mini.mini.Data.Role.IsImpostor && !Mini.isGrownUp()) Mini.mini.SetKillTimer(GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown * 2 + PeaceDove.reloadCooldown);
-                p.SetKillTimer(GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown + PeaceDove.reloadCooldown);
+                p.SetKillTimer(PeaceDove.reloadCooldown);
             }
-            else if (Jackal.jackal.PlayerId == p.PlayerId || Sidekick.sidekick.PlayerId == p.PlayerId)
-            {
-                Jackal.cooldown += PeaceDove.reloadCooldown;
-                Sidekick.cooldown += PeaceDove.reloadCooldown;
-            }
-             if(PeaceDove.reloadSkills == true)
-            {
-                float pc = PeaceDove.reloadCooldown;
-                Janitor.cooldown  += pc;
-                Morphling.cooldown += pc;
-                Camouflager.cooldown += pc;
-                Vampire.cooldown += pc;
-                Jackal.createSidekickCooldown += pc;
-                Sidekick.cooldown += pc;
-                Eraser.cooldown += pc;
-                Trickster.placeBoxCooldown += pc;
-                Trickster.lightsOutCooldown += pc;
-                Cleaner.cooldown += pc;
-                Warlock.cooldown += pc;
-                Bomber.bombCooldown += pc;
-                Yoyo.markCooldown += pc;
-                Yoyo.adminCooldown += pc;
-                Fraudster.cooldown += pc;
-                Devil.blindCooldown += pc;
-            }
-            if (Helpers.shouldShowGhostInfo() &&(p.Data.Role.IsImpostor || p.PlayerId == Jackal.jackal.PlayerId || p.PlayerId == Sidekick.sidekick.PlayerId))
-            {
-                Helpers.showFlash(PeaceDove.color, 0.5f, "peacedoveReloadText".Translate());
-            }
-        }*/
+        }
     }
     public static void deputyUsedHandcuffs(byte targetId)
     {
@@ -1031,7 +999,7 @@ public static class RPCProcedure
         if (Devil.futureBlinded == null)
             Devil.futureBlinded = new System.Collections.Generic.List<PlayerControl>();
         if(Devil.visionOfPlayersShouldBeChanged == null)
-            Devil.visionOfPlayersShouldBeChanged = new System.Collections.Generic.List<PlayerControl>();
+           Devil.visionOfPlayersShouldBeChanged = new System.Collections.Generic.List<PlayerControl>();
 
         if (player != null) 
         {

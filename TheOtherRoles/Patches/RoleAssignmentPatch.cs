@@ -12,7 +12,7 @@ using static TheOtherRoles.TheOtherRoles;
 
 namespace TheOtherRoles.Patches;
 
-[HarmonyPatch(typeof(RoleOptionsCollectionV08), nameof(RoleOptionsCollectionV08.GetNumPerGame))]
+[HarmonyPatch(typeof(RoleOptionsCollectionV09), nameof(RoleOptionsCollectionV09.GetNumPerGame))]
 internal class RoleOptionsDataGetNumPerGamePatch
 {
     public static void Postfix(ref int __result)

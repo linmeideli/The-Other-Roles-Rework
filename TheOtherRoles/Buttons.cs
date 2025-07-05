@@ -10,6 +10,8 @@ using TheOtherRoles.Patches;
 using TheOtherRoles.Utilities;
 using TMPro;
 using UnityEngine;
+using static MS.Internal.Xml.XPath.QueryBuilder;
+using static TheOtherRoles.Objects.Prop;
 using static TheOtherRoles.TheOtherRoles;
 using Object = UnityEngine.Object;
 using Random = System.Random;
@@ -97,7 +99,9 @@ internal static class HudManagerStartPatch
     public static TMP_Text portalmakerButtonText1;
     public static TMP_Text portalmakerButtonText2;
     public static TMP_Text huntedShieldCountText;
+    public static TMP_Text prophetButtonText;
 
+    public static Prop.Proptip JackalSidekickPropTip;
     public static void setCustomButtonCooldowns()
     {
         if (!initialized)
@@ -1379,6 +1383,10 @@ internal static class HudManagerStartPatch
             },
             () =>
             {
+                if (JackalSidekickPropTip != null)
+                {
+                    JackalSidekickPropTip.ProptipText = "µã»÷´´½¨¸ú°à";
+                }
                 return Jackal.canCreateSidekick && Jackal.currentTarget != null && PlayerControl.LocalPlayer.CanMove;
             },
             () => { jackalSidekickButton.Timer = jackalSidekickButton.MaxTimer; },
@@ -1388,6 +1396,7 @@ internal static class HudManagerStartPatch
             KeyCode.F,
             buttonText: "jackalSidekick"
         );
+        JackalSidekickPropTip = jackalSidekickButton.actionButtonGameObject.AddComponent<Prop.Proptip>();
 
         // Jackal Kill
         jackalKillButton = new CustomButton(
@@ -1523,6 +1532,8 @@ internal static class HudManagerStartPatch
                     (byte)CustomRPC.ReloadCooldowns, SendOption.Reliable);
                 AmongUsClient.Instance.FinishRpcImmediately(writer);
                 RPCProcedure.reloadCooldowns();
+
+                setCustomButtonCooldowns();
             },
             () =>
             {
@@ -1545,20 +1556,28 @@ internal static class HudManagerStartPatch
         prophetButton = new CustomButton(
 
             () =>
-            {
-                if (Prophet.currentTarget != null)
-                {
-                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.ProphetExamine, Hazel.SendOption.Reliable, -1);
-                    writer.Write(Prophet.currentTarget.PlayerId);
-                    AmongUsClient.Instance.FinishRpcImmediately(writer);
-                    RPCProcedure.prophetExamine(Prophet.currentTarget.PlayerId);
-
-                    prophetButton.Timer = prophetButton.MaxTimer;
-                }
-            },
+               {
+                   if (Prophet.currentTarget != null)
+                   {
+                      
+                       MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.ProphetExamine, Hazel.SendOption.Reliable, -1);
+                       writer.Write(Prophet.currentTarget.PlayerId);
+                       AmongUsClient.Instance.FinishRpcImmediately(writer);
+                       RPCProcedure.prophetExamine(Prophet.currentTarget.PlayerId);
+                      
+                       prophetButton.Timer = prophetButton.MaxTimer;
+                   }
+               },
                () => { return Prophet.prophet != null && PlayerControl.LocalPlayer == Prophet.prophet && !PlayerControl.LocalPlayer.Data.IsDead && Prophet.examinesLeft > 0; },
                () =>
                {
+                   if (prophetButtonText != null)
+                   {
+                       if (Prophet.examinesLeft > 0)
+                           prophetButtonText.text = $"{Prophet.examinesLeft}";
+                       else
+                           prophetButtonText.text = "";
+                   }
                    return Prophet.currentTarget != null && PlayerControl.LocalPlayer.CanMove;
                },
                () => { prophetButton.Timer = prophetButton.MaxTimer; },
@@ -1567,7 +1586,12 @@ internal static class HudManagerStartPatch
                __instance,
                KeyCode.F,
                buttonText: "ProphetText"
-        );
+           );
+        prophetButtonText = UnityEngine.Object.Instantiate(prophetButton.actionButton.cooldownTimerText, prophetButton.actionButton.cooldownTimerText.transform.parent);
+        prophetButtonText.text = "";
+        prophetButtonText.enableWordWrapping = false;
+        prophetButtonText.transform.localScale = Vector3.one * 0.5f;
+        prophetButtonText.transform.localPosition += new Vector3(-0.05f, 0.55f, -1f);
 
         placeJackInTheBoxButton = new CustomButton(
             () =>

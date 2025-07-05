@@ -2,7 +2,7 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <Version>2.0.0</Version>
-        <Description>TheOtherRoles-Rework</Description>
+        <Description>TheOtherRolesRework</Description>
         <Authors>ELinmei</Authors>
         <DebugType>embedded</DebugType>
         <LangVersion>latest</LangVersion>

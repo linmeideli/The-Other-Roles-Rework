@@ -39,7 +39,8 @@ public enum CustomGamemodes
     Classic,
     Guesser,
     HideNSeek,
-    PropHunt
+    PropHunt,
+    TemporKillers
 }
 
 public static class Helpers
@@ -948,6 +949,22 @@ public static class Helpers
                     $"Beta will remain runnable for {TheOtherRolesPlugin.betaDays - (now - compileTime)?.TotalDays} days!");
             }
         }
+    }
+    public static Color ToMarkingColor(this Color color, bool bright = true)
+    {
+        Color.RGBToHSV(color, out var h, out _, out var v);
+        var markingColor = Color.HSVToRGB(h, 1f, bright ? 1f : v).SetAlpha(0.2f);
+        return markingColor;
+    }
+    /// <summary>
+    /// 判断颜色是否为深色（考虑Alpha通道的预乘处理）
+    /// </summary>
+    /// <param name="color">目标颜色（含RGBA）</param>
+    /// <returns>true表示深色，false表示浅色</returns>
+    public static bool IsDarkColor(Color color)
+    {
+        if(color.g + color.r + color.b >= 450) return false;
+        return true;
     }
     public static bool CheckDebug()
     {

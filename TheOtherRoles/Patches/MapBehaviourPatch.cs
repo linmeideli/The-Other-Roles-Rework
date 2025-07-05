@@ -148,16 +148,12 @@ internal static class MapBehaviourPatch
                                                        PlayerControl.LocalPlayer.Data.IsDead))
                 continue; //for trickster vents
 
-            if (!TheOtherRolesPlugin.ShowVentsOnMap.Value)
-            {
                 if (mapIcons.Count > 0)
                 {
                     mapIcons.Values.Do(x => x.Destroy());
                     mapIcons.Clear();
                 }
 
-                break;
-            }
 
             var Instance = DestroyableSingleton<MapTaskOverlay>.Instance;
             var task = PlayerControl.LocalPlayer.myTasks.ToArray()

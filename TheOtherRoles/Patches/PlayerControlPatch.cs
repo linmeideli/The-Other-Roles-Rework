@@ -704,7 +704,7 @@ public static class PlayerControlFixedUpdatePatch
 
                 var (tasksCompleted, tasksTotal) = TasksHandler.taskInfo(p.Data);
                 var roleNames = RoleInfo.GetRolesString(p, true, false);
-                var roleText = RoleInfo.GetRolesString(p, true, TORMapOptions.ghostsSeeModifier);
+                var roleText = RoleInfo.GetRolesString(p, true, TORMapOptions.ghostsSeeInformation);
                 var taskInfo = tasksTotal > 0 ? $"<color=#FAD934FF>({tasksCompleted}/{tasksTotal})</color>" : "";
 
                 var playerInfoText = "";
@@ -724,7 +724,7 @@ public static class PlayerControlFixedUpdatePatch
 
                     meetingInfoText = $"{roleNames} {taskInfo}".Trim();
                 }
-                else if (TORMapOptions.ghostsSeeRoles && TORMapOptions.ghostsSeeInformation)
+                else if (TORMapOptions.ghostsSeeInformation && TORMapOptions.ghostsSeeInformation)
                 {
                     playerInfoText = $"{roleText} {taskInfo}".Trim();
                     meetingInfoText = playerInfoText;
@@ -734,7 +734,7 @@ public static class PlayerControlFixedUpdatePatch
                     playerInfoText = $"{taskInfo}".Trim();
                     meetingInfoText = playerInfoText;
                 }
-                else if (TORMapOptions.ghostsSeeRoles || (Lawyer.lawyerKnowsRole &&
+                else if (TORMapOptions.ghostsSeeInformation || (Lawyer.lawyerKnowsRole &&
                                                           PlayerControl.LocalPlayer == Lawyer.lawyer &&
                                                           p == Lawyer.target))
                 {

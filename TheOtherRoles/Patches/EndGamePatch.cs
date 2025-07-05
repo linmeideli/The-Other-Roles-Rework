@@ -700,7 +700,7 @@ internal class CheckEndCriteriaPatch
     {
         if (HideNSeek.isHideNSeekGM && HideNSeek.timer <= 0 && !HideNSeek.isWaitingTimer)
         {
-            //__instance.enabled = false;bool enable = CustomOptionHolder.enableNoEndGame.getBool();
+            __instance.enabled = false;
             if (!Helpers.CheckDebug())GameManager.Instance.RpcEndGame(GameOverReason.CrewmatesByVote, false);
             return true;
         }
