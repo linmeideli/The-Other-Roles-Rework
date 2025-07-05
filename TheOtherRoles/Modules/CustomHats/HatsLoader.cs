@@ -30,10 +30,7 @@ public class HatsLoader : MonoBehaviour
         www.downloadHandler = new DownloadHandlerBuffer();
         var operation = www.SendWebRequest();
 
-        while (!operation.isDone)
-        {
-            yield return new WaitForEndOfFrame();
-        }
+        while (!operation.isDone) yield return new WaitForEndOfFrame();
 
         if (www.isNetworkError || www.isHttpError)
         {
@@ -52,14 +49,11 @@ public class HatsLoader : MonoBehaviour
 
         UnregisteredHats.AddRange(SanitizeHats(response));
         var toDownload = GenerateDownloadList(UnregisteredHats);
-        if (EventUtility.isEnabled) UnregisteredHats.AddRange(CustomHatManager.loadHorseHats());
+        if (EventUtility.isEnabled) UnregisteredHats.AddRange(loadHorseHats());
 
         TheOtherRolesPlugin.Logger.LogMessage($"I'll download {toDownload.Count} hat files");
 
-        foreach (var fileName in toDownload)
-        {
-            yield return CoDownloadHatAsset(fileName);
-        }
+        foreach (var fileName in toDownload) yield return CoDownloadHatAsset(fileName);
 
         isRunning = false;
     }
@@ -74,10 +68,7 @@ public class HatsLoader : MonoBehaviour
         www.downloadHandler = new DownloadHandlerBuffer();
         var operation = www.SendWebRequest();
 
-        while (!operation.isDone)
-        {
-            yield return new WaitForEndOfFrame();
-        }
+        while (!operation.isDone) yield return new WaitForEndOfFrame();
 
         if (www.isNetworkError || www.isHttpError)
         {

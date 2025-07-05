@@ -1,0 +1,3404 @@
+{
+    "optionOff": {
+        "0": "Off",
+        "13": "关闭"
+    },
+    "optionOn": {
+        "0": "On",
+        "13": "开启"
+    },
+    "pastingVanillaFailed": {
+        "0": "Host Info: Pasting vanilla settings failed, TORR Options applied!",
+        "13": "房主信息: 粘贴原版设置失败，模组设置已更改!"
+    },
+    "pastingInvalidSettings": {
+        "0": "Host Info: You tried to paste invalid settings: \"{0}...\"",
+        "13": "房主信息: 你尝试粘贴无效设置: \"{0}...\""
+    },
+    "emptyClipboard": {
+        "0": "(empty clipboard) ",
+        "13": "(剪切板空) "
+    },
+    "categoryHeaderMaskedImp": {
+        "0": "Impostor Roles",
+        "13": "内鬼职业"
+    },
+    "categoryHeaderMaskedNeut": {
+        "0": "Neutral Roles",
+        "13": "中立职业"
+    },
+    "categoryHeaderMaskedCrew": {
+        "0": "Crewmate Roles",
+        "13": "船员职业"
+    },
+    "categoryHeaderMaskedMod": {
+        "0": "Modifiers",
+        "13": "附加职业"
+    },
+    "spawnChance": {
+        "0": "Spawn Chance",
+        "13": "出现概率"
+    },
+    "specialOptionsViewCrew": {
+        "0": "Fill: ",
+        "13": "填充: "
+    },
+    "TORSettings": {
+        "0": "TORR Settings",
+        "13": "模组设置"
+    },
+    "RoleOverview": {
+        "0": "Role Overview",
+        "13": "职业总览"
+    },
+    "HideNSeekMain": {
+        "0": "Hide 'N' Seek",
+        "13": "捉迷藏设置"
+    },
+    "HideNSeekRoles": {
+        "0": "Hide 'N' Seek Roles",
+        "13": "捉迷藏职业"
+    },
+    "PropHuntSetting": {
+        "0": "Prop Hunt",
+        "13": "变形狩猎设置"
+    },
+    "GuesserSettingsText": {
+        "0": "Guesser Settings",
+        "13": "赌怪模式设置"
+    },
+    "ImpostorSettingsText": {
+        "0": "Impostor Roles",
+        "13": "内鬼职业设置"
+    },
+    "NeutralSettingsText": {
+        "0": "Neural Roles",
+        "13": "中立职业设置"
+    },
+    "CrewmateSettingsText": {
+        "0": "Crewmate Roles",
+        "13": "船员职业设置"
+    },
+    "ModifierSettingsText": {
+        "0": "Modifiers",
+        "13": "附加职业设置"
+    },
+    "buildModifierExtras": {
+        "0": "Evil:",
+        "13": "邪恶概率:"
+    },
+    "pressTabForMore": {
+        "0": "\n Press TAB or Page Number for more... ({0}/{1})",
+        "13": "\n 按Tab键查看更多... ({0}/{1})"
+    },
+    "page1": {
+        "0": "Page 1: Vanilla Settings \n\n",
+        "13": "第一页：原版设置 \n\n"
+    },
+    "page2": {
+        "0": "Page 2: The Other Role Rework Settings \n",
+        "13": "第二页：超多职业重制版设置 \n"
+    },
+    "page3": {
+        "0": "Page 3: Role and Modifier Rates \n",
+        "13": "第三页：职业与附加职业概率 \n"
+    },
+    "page4": {
+        "0": "Page 4: Impostor Role Settings \n",
+        "13": "第四页：内鬼职业设置 \n"
+    },
+    "page5": {
+        "0": "Page 5: Neutral Role Settings \n",
+        "13": "第五页：中立职业设置 \n"
+    },
+    "page6": {
+        "0": "Page 6: Crewmate Role Settings \n",
+        "13": "第六页：船员职业设置 \n"
+    },
+    "page7": {
+        "0": "Page 7: Modifier Settings \n",
+        "13": "第七页：附加职业设置 \n"
+    },
+    "hideNSeekPage1": {
+        "0": "Page 1: Hide N Seek Settings \n\n",
+        "13": "第一页：捉迷藏设置 \n\n"
+    },
+    "hideNSeekPage2": {
+        "0": "Page 2: Hide N Seek Role Settings \n\n",
+        "13": "第二页：捉迷藏职业设置 \n\n"
+    },
+    "propHunt1": {
+        "0": "Page 1: Prop Hunt Settings \n\n"
+    },
+    "useScrollWheel": {
+        "0": "(Use scroll wheel if necessary)",
+        "13": "(如有必要请使用滚轮)"
+    },
+    "killDistancesVS": {
+        "0": "Very Short",
+        "13": "非常短"
+    },
+    "killDistancesS": {
+        "0": "Short",
+        "13": "短"
+    },
+    "killDistancesM": {
+        "0": "Medium",
+        "13": "中等"
+    },
+    "killDistancesL": {
+        "0": "Long",
+        "13": "长"
+    },
+    "presetSelectionText": {
+        "0": "Preset",
+        "13": "预设"
+    },
+    "presetSelectionText1": {
+        "0": "Preset 1",
+        "13": "预设 1"
+    },
+    "presetSelectionText2": {
+        "0": "Preset 2",
+        "13": "预设 2"
+    },
+    "presetSelectionText3": {
+        "0": "Random Preset Skeld",
+        "13": "随机Skeld预设"
+    },
+    "presetSelectionText4": {
+        "0": "Random Preset Mira HQ",
+        "13": "随机Mira HQ预设"
+    },
+    "presetSelectionText5": {
+        "0": "Random Preset Polus",
+        "13": "随机Polus预设"
+    },
+    "presetSelectionText6": {
+        "0": "Random Preset Airship",
+        "13": "随机Airship预设"
+    },
+    "presetSelectionText7": {
+        "0": "Random Preset Fungle",
+        "13": "随机Fungle预设"
+    },
+    "presetSelectionText8": {
+        "0": "Random Preset Submerged",
+        "13": "随机Submerged预设"
+    },
+    "enableEventMode": {
+        "0": "Enable Special Mode",
+        "13": "启用愚人节恶搞模式"
+    },
+    "headingRoleDraft": {
+        "0": "Role Draft",
+        "13": "轮抽选角"
+    },
+    "enableDraftMode": {
+        "0": "Enable Role Draft",
+        "13": "开启轮抽选角模式"
+    },
+    "draftModeCanChat": {
+        "0": "Can Use Chat",
+        "13": "可以使用聊天框"
+    },
+    "draftModeAmountOfChoices": {
+        "0": "Max Amount Of Roles\nTo Choose From",
+        "13": "最大可选择职业数量"
+    },
+    "draftModeTimeToChoose": {
+        "0": "Time For Selection",
+        "13": "选择职业持续时间"
+    },
+    "draftModeShowRoles": {
+        "0": "Show Picked Roles",
+        "13": "显示被选择的职业"
+    },
+    "draftModeHideCrewRoles": {
+        "0": "Hide Crewmate Roles",
+        "13": "隐藏已选择的船员职业"
+    },
+    "draftModeHideImpRoles": {
+        "0": "Hide Impostor Roles",
+        "13": "隐藏已选择的内鬼职业"
+    },
+    "draftModeHideNeutralRoles": {
+        "0": "Hide Neutral Roles",
+        "13": "隐藏已选择的中立职业"
+    },
+    "crewmateRolesCountMinHeading": {
+        "0": "Min/Max Roles",
+        "13": "最大/小职业数设置"
+    },
+    "crewmateRolesCountMin": {
+        "0": "Minimum Crewmate Roles",
+        "13": "最小船员职业数量"
+    },
+    "crewmateRolesCountMax": {
+        "0": "Maximum Crewmate Roles",
+        "13": "最大船员职业数量"
+    },
+    "neutralRolesCountMin": {
+        "0": "Minimum Neutral Roles",
+        "13": "最小中立职业数量"
+    },
+    "neutralRolesCountMax": {
+        "0": "Maximum Neutral Roles",
+        "13": "最大中立职业数量"
+    },
+    "impostorRolesCountMin": {
+        "0": "Minimum Impostor Roles",
+        "13": "最小内鬼职业数量"
+    },
+    "impostorRolesCountMax": {
+        "0": "Maximum Impostor Roles",
+        "13": "最大内鬼职业数量"
+    },
+    "modifiersCountMin": {
+        "0": "Minimum Modifiers",
+        "13": "最小附加职业数量"
+    },
+    "modifiersCountMax": {
+        "0": "Maximum Modifiers",
+        "13": "最大附加职业数量"
+    },
+    "crewmateRolesFill": {
+        "0": "Fill Crewmate Roles\n(Ignores Min/Max)",
+        "13": "填充船员职业数\n(无视大小职业限制)"
+    },
+    "mafia": {
+        "0": "Mafia",
+        "13": "黑手党"
+    },
+    "godfather": {
+        "0": "Godfather",
+        "13": "教父"
+    },
+    "godfatherIntroDesc": {
+        "0": "Kill all Crewmates",
+        "13": "杀死所有人"
+    },
+    "godfatherShortDesc": {
+        "0": "Kill all Crewmates",
+        "13": "杀死所有人"
+    },
+    "mafioso": {
+        "0": "Mafioso",
+        "13": "小弟"
+    },
+    "mafiosoIntroDesc": {
+        "0": "Work with the <color=#FF1919FF>Mafia</color> to kill the Crewmates",
+        "13": "协助<color=#FF1919FF>教父</color> 杀死所有人"
+    },
+    "mafiosoShortDesc": {
+        "0": "Kill all Crewmates",
+        "13": "杀死所有人"
+    },
+    "janitor": {
+        "0": "Ianitor",
+        "13": "清洁工"
+    },
+    "janitorIntroDesc": {
+        "0": "Work with the <color=#FF1919FF>Mafia</color> by hiding dead bodies",
+        "13": "协助<color=#FF1919FF>教父</color>清理尸体"
+    },
+    "janitorShortDesc": {
+        "0": "Hide dead bodies",
+        "13": "清理尸体"
+    },
+    "janitorCooldown": {
+        "0": "Janitor Cooldown",
+        "13": "清洁工技能冷却"
+    },
+    "morphling": {
+        "0": "Morphling",
+        "13": "化形者"
+    },
+    "morphlingIntroDesc": {
+        "0": "Change your look to not get caught",
+        "13": "变换外形逃避抓捕"
+    },
+    "morphlingShortDesc": {
+        "0": "Change your look",
+        "13": "变换你的外形"
+    },
+    "morphlingCooldown": {
+        "0": "Morphling Cooldown",
+        "13": "化形冷却时间"
+    },
+    "morphlingDuration": {
+        "0": "Morph Duration",
+        "13": "化形持续时间"
+    },
+    "camouflager": {
+        "0": "Camouflager",
+        "13": "隐蔽者"
+    },
+    "camouflagerIntroDesc": {
+        "0": "Camouflage and kill the Crewmates",
+        "13": "在隐蔽下杀害船员"
+    },
+    "camouflagerShortDesc": {
+        "0": "Hide among others",
+        "13": "隐匿于人群之中"
+    },
+    "camouflagerCooldown": {
+        "0": "Camouflager Cooldown",
+        "13": "隐蔽状态冷却"
+    },
+    "camouflagerDuration": {
+        "0": "Camo Duration",
+        "13": "隐蔽状态持续时间"
+    },
+    "vampire": {
+        "0": "Vampire",
+        "13": "吸血鬼"
+    },
+    "vampireIntroDesc": {
+        "0": "Kill the Crewmates with your bites",
+        "13": "以吸血的方式杀害船员"
+    },
+    "vampireShortDesc": {
+        "0": "Bite your enemies",
+        "13": "吸干他们的血"
+    },
+    "vampireKillDelay": {
+        "0": "Vampire Kill Delay",
+        "13": "从吸血到击杀所需时间"
+    },
+    "vampireCooldown": {
+        "0": "Vampire Cooldown",
+        "13": "吸血技能冷却时间"
+    },
+    "vampireCanKillNearGarlics": {
+        "0": "Vampire Can Kill Near Garlics",
+        "13": "可在大蒜附近击杀"
+    },
+    "eraser": {
+        "0": "Eraser",
+        "13": "抹除者"
+    },
+    "eraserIntroDesc": {
+        "0": "Kill the Crewmates and erase their roles",
+        "13": "杀害船员，抹消他们的能力"
+    },
+    "eraserShortDesc": {
+        "0": "Erase the roles of your enemies",
+        "13": "抹去敌人的身份"
+    },
+    "eraserCooldown": {
+        "0": "Eraser Cooldown",
+        "13": "抹除技能冷却时间"
+    },
+    "eraserCanEraseAnyone": {
+        "0": "Eraser Can Erase Anyone",
+        "13": "可抹除任何人"
+    },
+    "trickster": {
+        "0": "Trickster",
+        "13": "骗术师"
+    },
+    "tricksterIntroDesc": {
+        "0": "Use your jack-in-the-boxes to surprise others",
+        "13": "用你的惊喜盒子为他人带来惊喜"
+    },
+    "tricksterShortDesc": {
+        "0": "Surprise your enemies",
+        "13": "惊吓你的敌人"
+    },
+    "tricksterPlaceBoxCooldown": {
+        "0": "Trickster Box Cooldown",
+        "13": "放置惊吓盒冷却"
+    },
+    "tricksterLightsOutCooldown": {
+        "0": "Trickster Lights Out Cooldown",
+        "13": "熄灯冷却时间"
+    },
+    "tricksterLightsOutDuration": {
+        "0": "Trickster Lights Out Duration",
+        "13": "熄灯持续时间"
+    },
+    "cleaner": {
+        "0": "Cleaner",
+        "13": "清理者"
+    },
+    "cleanerIntroDesc": {
+        "0": "Kill everyone and leave no traces",
+        "13": "杀人不留痕迹"
+    },
+    "cleanerShortDesc": {
+        "0": "Clean up dead bodies",
+        "13": "清理死尸"
+    },
+    "cleanerCooldown": {
+        "0": "Cleaner Cooldown",
+        "13": "清理技能冷却时间"
+    },
+    "warlock": {
+        "0": "Warlock",
+        "13": "术士"
+    },
+    "warlockIntroDesc": {
+        "0": "Curse other players and kill everyone",
+        "13": "诅咒其他玩家，杀死所有人"
+    },
+    "warlockShortDesc": {
+        "0": "Curse and kill everyone",
+        "13": "用你的诅咒杀死所有人"
+    },
+    "warlockCooldown": {
+        "0": "Warlock Cooldown",
+        "13": "诅咒技能冷却时间"
+    },
+    "warlockRootTime": {
+        "0": "Warlock Root Time",
+        "13": "诅咒后定身时间"
+    },
+    "bountyHunter": {
+        "0": "Bounty Hunter",
+        "13": "赏金猎人"
+    },
+    "bountyHunterIntroDesc": {
+        "0": "Hunt your bounty down",
+        "13": "猎杀你的悬赏目标"
+    },
+    "bountyHunterShortDesc": {
+        "0": "Hunt your bounty down",
+        "13": "猎杀你的悬赏目标"
+    },
+    "bountyHunterBountyDuration": {
+        "0": "Duration After Which Bounty Changes",
+        "13": "赏金目标更换间隔"
+    },
+    "bountyHunterReducedCooldown": {
+        "0": "Cooldown After Killing Bounty",
+        "13": "击杀目标后的奖励冷却"
+    },
+    "bountyHunterPunishmentTime": {
+        "0": "Additional Cooldown After Killing Others",
+        "13": "击杀非目标后叠加的惩罚冷却"
+    },
+    "bountyHunterShowArrow": {
+        "0": "Show Arrow Pointing Towards The Bounty",
+        "13": "显示指向悬赏目标的箭头"
+    },
+    "bountyHunterArrowUpdateIntervall": {
+        "0": "Arrow Update Intervall",
+        "13": "箭头更新间隔"
+    },
+    "witch": {
+        "0": "Witch",
+        "13": "女巫"
+    },
+    "witchIntroDesc": {
+        "0": "Cast a spell upon your foes",
+        "13": "给你的敌人下咒"
+    },
+    "witchShortDesc": {
+        "0": "Cast a spell upon your foes",
+        "13": "给你的敌人下咒"
+    },
+    "witchCooldown": {
+        "0": "Witch Spell Casting Cooldown",
+        "13": "诅咒技能冷却时间"
+    },
+    "witchAdditionalCooldown": {
+        "0": "Witch Additional Cooldown",
+        "13": "诅咒技能冷却递增"
+    },
+    "witchCanSpellAnyone": {
+        "0": "Witch Can Spell Anyone",
+        "13": "可以诅咒任何人"
+    },
+    "witchSpellCastingDuration": {
+        "0": "Spell Casting Duration",
+        "13": "贴身诅咒所需时间"
+    },
+    "witchTriggerBothCooldowns": {
+        "0": "Trigger Both Cooldowns",
+        "13": "诅咒与击杀共享冷却"
+    },
+    "witchVoteSavesTargets": {
+        "0": "Voting The Witch Saves All The Targets",
+        "13": "驱逐女巫可拯救被诅咒者"
+    },
+    "ninja": {
+        "0": "Ninja",
+        "13": "忍者"
+    },
+    "ninjaIntroDesc": {
+        "0": "Surprise and assassinate your foes",
+        "13": "刺杀你的敌人"
+    },
+    "ninjaShortDesc": {
+        "0": "Surprise and assassinate your foes",
+        "13": "刺杀你的敌人"
+    },
+    "ninjaCooldown": {
+        "0": "Ninja Mark Cooldown",
+        "13": "标记技能冷却时间"
+    },
+    "ninjaKnowsTargetLocation": {
+        "0": "Ninja Knows Location Of Target",
+        "13": "显示指向刺杀对象的箭头"
+    },
+    "ninjaTraceTime": {
+        "0": "Trace Duration",
+        "13": "刺杀后树叶痕迹持续时间"
+    },
+    "ninjaTraceColorTime": {
+        "0": "Time Till Trace Color Has Faded",
+        "13": "刺杀后痕迹褪色所需时间"
+    },
+    "ninjaInvisibleDuration": {
+        "0": "Time The Ninja Is Invisible",
+        "13": "刺杀后隐身持续时间"
+    },
+    "bomber": {
+        "0": "Bomber",
+        "13": "炸弹狂"
+    },
+    "bomberIntroDesc": {
+        "0": "Bomb all Crewmates",
+        "13": "炸死船员"
+    },
+    "bomberShortDesc": {
+        "0": "Bomb all Crewmates",
+        "13": "炸死船员"
+    },
+    "bomberBombDestructionTime": {
+        "0": "Bomb Destruction Time",
+        "13": "炸弹引爆时间"
+    },
+    "bomberBombDestructionRange": {
+        "0": "Bomb Destruction Range",
+        "13": "炸弹爆炸范围"
+    },
+    "bomberBombHearRange": {
+        "0": "Bomb Hear Range",
+        "13": "爆炸前预警范围\n声音传播距离"
+    },
+    "bomberDefuseDuration": {
+        "0": "Bomb Defuse Duration",
+        "13": "拆除炸弹所需时间"
+    },
+    "bomberBombCooldown": {
+        "0": "Bomb Cooldown",
+        "13": "炸弹放置冷却"
+    },
+    "bomberBombActiveAfter": {
+        "0": "Bomb Is Active After",
+        "13": "炸弹激活时间"
+    },
+    "yoyo": {
+        "0": "Yo-Yo",
+        "13": "悠悠球"
+    },
+    "yoyoIntroDesc": {
+        "0": "Blink to a marked location and Back",
+        "13": "闪现至标记位置并返回"
+    },
+    "yoyoShortDesc": {
+        "0": "Blink to a location",
+        "13": "物换星移！"
+    },
+    "yoyoBlinkDuration": {
+        "0": "Blink Duration",
+        "13": "瞬移技能冷却时间"
+    },
+    "yoyoMarkCooldown": {
+        "0": "Mark Location Cooldown",
+        "13": "标记技能冷却时间"
+    },
+    "yoyoMarkStaysOverMeeting": {
+        "0": "Marked Location Stays After Meeting",
+        "13": "会议后不重置标记地点"
+    },
+    "yoyoHasAdminTable": {
+        "0": "Has Admin Table",
+        "13": "可随身查看管理室地图"
+    },
+    "yoyoAdminTableCooldown": {
+        "0": "Admin Table Cooldown",
+        "13": "查看管理室地图技能冷却"
+    },
+    "yoyoSilhouetteVisibility": {
+        "0": "Silhouette Visibility",
+        "13": "残影透明度"
+    },
+    "fraudster": {
+        "0": "Fraudster",
+        "13": "伪证师"
+    },
+    "fraudsterIntroDesc": {
+        "0": "Creating false death information to confuse the public",
+        "13": "制作虚假的死亡信息混淆视听"
+    },
+    "fraudsterShortDesc": {
+        "0": "Compel the crew",
+        "13": "蛊惑船员"
+    },
+    "fraudsterCooldown": {
+        "0": "Suicide Cooldown",
+        "13": "伪证师自杀冷却时间"
+    },
+    "fraudsterCooldownAsSheriff": {
+        "0": "Cooldown As Sheriff",
+        "13": "自杀冷却时间与警长同步"
+    },
+    "fraudsterAllowMeetingSuicide": {
+        "0": "Allow Suicide On Meeting",
+        "13": "允许会议自杀"
+    },
+    "devil": {
+        "0": "Devil",
+        "13": "厉鬼"
+    },
+    "devilIntroDesc": {
+        "0": "Blind your enemies.",
+        "13": "让你的敌人失明"
+    },
+    "devilShortDesc": {
+        "0": "Blind your enemies. Kill everyone.",
+        "13": "让你的敌人失明，杀死所有人"
+    },
+    "devilCooldown": {
+        "0": "Blind Cooldown",
+        "13": "致盲冷却时间"
+    },
+    "blinderBeReportFor": {
+        "0": "Blinder Will Be Report For",
+        "13": "谁会有被致盲的通报"
+    },
+    "jackal": {
+        "0": "Jackal",
+        "13": "豺狼"
+    },
+    "netural": {
+        "0": "netural",
+        "13": "中立"
+    },
+    "jackalImp": {
+        "0": "J & Imp",
+        "13": "豺狼与伪装者"
+    },
+    "neturalImp": {
+        "0": "N & Imp",
+        "13": "中立与伪装者"
+    },
+    "imponly": {
+        "0": "Only Imp",
+        "13": "仅伪装者"
+    },
+    "everyoneall": {
+        "0": "Everyone",
+        "13": "所有人"
+    },
+    "blindDuration": {
+        "0": "Duration Meetings",
+        "13": "几轮会议后解除致盲"
+    },
+    "guesser": {
+        "0": "Guesser",
+        "13": "赌怪"
+    },
+    "niceGuesser": {
+        "0": "Nice Guesser",
+        "13": "正义的赌怪"
+    },
+    "niceGuesserIntroDesc": {
+        "0": "Guess and shoot",
+        "13": "生命就是豪赌"
+    },
+    "niceGuesserShortDesc": {
+        "0": "Guess and shoot",
+        "13": "生命就是豪赌"
+    },
+    "evilGuesser": {
+        "0": "Evil Guesser",
+        "13": "邪恶的赌怪"
+    },
+    "evilGuesserIntroDesc": {
+        "0": "Guess and shoot",
+        "13": "生命就是豪赌"
+    },
+    "evilGuesserShortDesc": {
+        "0": "Guess and shoot",
+        "13": "生命就是豪赌"
+    },
+    "guesserIsImpGuesserRate": {
+        "0": "Chance That The Guesser Is An Impostor",
+        "13": "赌怪是内鬼的概率"
+    },
+    "guesserNumberOfShots": {
+        "0": "Guesser Number Of Shots",
+        "13": "猜测次数"
+    },
+    "guesserHasMultipleShotsPerMeeting": {
+        "0": "Guesser Can Shoot Multiple Times Per Meeting",
+        "13": "每次会议可以不止猜测一次"
+    },
+    "guesserKillsThroughShield": {
+        "0": "Guesses Ignore The Medic Shield",
+        "13": "猜测忽略医生护盾"
+    },
+    "guesserEvilCanKillSpy": {
+        "0": "Evil Guesser Can Guess The Spy",
+        "13": "邪恶的赌怪可以猜测卧底"
+    },
+    "guesserSpawnBothRate": {
+        "0": "Both Guesser Spawn Rate",
+        "13": "同时生成正义与邪恶赌怪的概率"
+    },
+    "guesserCantGuessSnitchIfTaksDone": {
+        "0": "Guesser Can't Guess Snitch When Tasks Completed",
+        "13": "无法猜测完成任务后告密者"
+    },
+    "jester": {
+        "0": "Jester",
+        "13": "小丑"
+    },
+    "jesterIntroDesc": {
+        "0": "Get voted out",
+        "13": "想办法被投出去"
+    },
+    "jesterShortDesc": {
+        "0": "Get voted out",
+        "13": "想办法被投出去"
+    },
+    "jesterCanCallEmergency": {
+        "0": "Jester Can Call Emergency Meeting",
+        "13": "可以召开紧急会议"
+    },
+    "jesterHasImpostorVision": {
+        "0": "Jester Has Impostor Vision",
+        "13": "拥有内鬼视野"
+    },
+    "arsonist": {
+        "0": "Arsonist",
+        "13": "纵火犯"
+    },
+    "arsonistIntroDesc": {
+        "0": "Let them burn",
+        "13": "用火焰净化一切"
+    },
+    "arsonistShortDesc": {
+        "0": "Let them burn",
+        "13": "燃烧吧"
+    },
+    "arsonistCooldown": {
+        "0": "Arsonist Cooldown",
+        "13": "浇油冷却时间"
+    },
+    "arsonistDuration": {
+        "0": "Arsonist Douse Duration",
+        "13": "浇油持续时间"
+    },
+    "jackalIntroDesc": {
+        "0": "Kill all Crewmates and <color=#FF1919FF>Impostors</color> to win",
+        "13": "击杀所有船员和<color=#FF1919FF>内鬼</color>"
+    },
+    "jackalShortDesc": {
+        "0": "Kill everyone",
+        "13": "击杀所有人"
+    },
+    "sidekick": {
+        "0": "Sidekick",
+        "13": "跟班"
+    },
+    "sidekickIntroDesc": {
+        "0": "Help your Jackal to kill everyone",
+        "13": "帮助豺狼"
+    },
+    "sidekickShortDesc": {
+        "0": "Help your Jackal to kill everyone",
+        "13": "帮助豺狼"
+    },
+    "jackalKillCooldown": {
+        "0": "Jackal/Sidekick Kill Cooldown",
+        "13": "击杀冷却时间"
+    },
+    "jackalCreateSidekickCooldown": {
+        "0": "Jackal Create Sidekick Cooldown",
+        "13": "招募跟班冷却时间"
+    },
+    "jackalCanUseVents": {
+        "0": "Jackal Can Use Vents",
+        "13": "可以使用通风管"
+    },
+    "jackalCanSabotageLights": {
+        "0": "Jackal Can Sabotage Lights",
+        "13": "豺狼可以破坏灯光"
+    },
+    "jackalCanCreateSidekick": {
+        "0": "Jackal Can Create A Sidekick",
+        "13": "可以招募跟班"
+    },
+    "sidekickPromotesToJackal": {
+        "0": "Sidekick Gets Promoted To Jackal On Jackal Death",
+        "13": "豺狼死后跟班可以晋升为豺狼"
+    },
+    "sidekickCanKill": {
+        "0": "Sidekick Can Kill",
+        "13": "跟班可以击杀"
+    },
+    "sidekickCanUseVents": {
+        "0": "Sidekick Can Use Vents",
+        "13": "跟班可以使用通风管"
+    },
+    "sidekickCanSabotageLights": {
+        "0": "Sidekick Can Sabotage Lights",
+        "13": "跟班可以破坏灯光"
+    },
+    "jackalPromotedFromSidekickCanCreateSidekick": {
+        "0": "Jackals Promoted From Sidekick Can Create A Sidekick",
+        "13": "跟班上位后，可以再招募跟班"
+    },
+    "jackalCanCreateSidekickFromImpostor": {
+        "0": "Jackals Can Make An Impostor To His Sidekick",
+        "13": "可以招募内鬼成为跟班"
+    },
+    "jackalAndSidekickHaveImpostorVision": {
+        "0": "Jackal And Sidekick Have Impostor Vision",
+        "13": "豺狼和跟班拥有伪装者视野"
+    },
+    "vulture": {
+        "0": "Vulture",
+        "13": "秃鹫"
+    },
+    "vultureIntroDesc": {
+        "0": "Eat corpses to win",
+        "13": "吞噬尸体来获得胜利"
+    },
+    "vultureShortDesc": {
+        "0": "Eat dead bodies",
+        "13": "吞噬尸体"
+    },
+    "vultureCooldown": {
+        "0": "Vulture Cooldown",
+        "13": "秃鹫吞噬冷却"
+    },
+    "vultureNumberToWin": {
+        "0": "Number Of Corpses Needed To Be Eaten",
+        "13": "秃鹫需要吞噬的尸体数"
+    },
+    "vultureCanUseVents": {
+        "0": "Vulture Can Use Vents",
+        "13": "秃鹫可以使用管道"
+    },
+    "vultureShowArrows": {
+        "0": "Show Arrows Pointing Towards The Corpses",
+        "13": "秃鹫可见指向尸体的箭头"
+    },
+    "lawyer": {
+        "0": "Lawyer",
+        "13": "律师"
+    },
+    "lawyerIntroDesc": {
+        "0": "Defend your client",
+        "13": "为你的客户辩解"
+    },
+    "lawyerShortDesc": {
+        "0": "Defend your client",
+        "13": "为你的客户辩解"
+    },
+    "prosecutor": {
+        "0": "Prosecutor",
+        "13": "检察官"
+    },
+    "prosecutorIntroDesc": {
+        "0": "Vote out your target",
+        "13": "投出你的目标"
+    },
+    "prosecutorShortDesc": {
+        "0": "Vote out your target",
+        "13": "投出你的目标"
+    },
+    "pursuer": {
+        "0": "Pursuer",
+        "13": "起诉人"
+    },
+    "pursuerIntroDesc": {
+        "0": "Blank the Impostors",
+        "13": "给你的对手塞空包弹"
+    },
+    "pursuerShortDesc": {
+        "0": "Blank the Impostors",
+        "13": "给你的对手塞空包弹"
+    },
+    "lawyerIsProsecutorChance": {
+        "0": "Chance That The Lawyer Is Prosecutor",
+        "13": "律师成为检察官的概率"
+    },
+    "lawyerVision": {
+        "0": "Vision",
+        "13": "视野"
+    },
+    "lawyerKnowsRole": {
+        "0": "Lawyer/Prosecutor Knows Target Role",
+        "13": "律师/检察官知道客户的职业"
+    },
+    "lawyerCanCallEmergency": {
+        "0": "Lawyer/Prosecutor Can Call Emergency Meeting",
+        "13": "律师/检察官可以召开紧急会议"
+    },
+    "lawyerTargetCanBeJester": {
+        "0": "Lawyer Target Can Be The Jester",
+        "13": "律师目标可以是小丑"
+    },
+    "pursuerCooldown": {
+        "0": "Pursuer Blank Cooldown",
+        "13": "空包弹冷却时间"
+    },
+    "pursuerBlanksNumber": {
+        "0": "Pursuer Number Of Blanks",
+        "13": "空包弹数量"
+    },
+    "thief": {
+        "0": "Thief",
+        "13": "身份窃贼"
+    },
+    "thiefIntroDesc": {
+        "0": "Steal a killers role by killing them",
+        "13": "偷窃执刃者的身份"
+    },
+    "thiefShortDesc": {
+        "0": "Steal a killers role",
+        "13": "偷窃执刃者的身份"
+    },
+    "thiefCooldown": {
+        "0": "Thief Cooldown",
+        "13": "身份窃贼击杀冷却"
+    },
+    "thiefCanKillSheriff": {
+        "0": "Thief Can Kill Sheriff",
+        "13": "身份窃贼可以击杀警长"
+    },
+    "thiefHasImpVision": {
+        "0": "Thief Has Impostor Vision",
+        "13": "身份窃贼拥有内鬼视野"
+    },
+    "thiefCanUseVents": {
+        "0": "Thief Can Use Vents",
+        "13": "可以使用管道"
+    },
+    "thiefCanStealWithGuess": {
+        "0": "Thief Can Guess To Steal A Role (If Guesser)",
+        "13": "可以通过猜测偷窃职业"
+    },
+    "mayor": {
+        "0": "Mayor",
+        "13": "市长"
+    },
+    "mayorIntroDesc": {
+        "0": "Your vote counts twice",
+        "13": "你的投票更有分量"
+    },
+    "mayorShortDesc": {
+        "0": "Your vote counts twice",
+        "13": "你的投票更有分量"
+    },
+    "mayorCanSeeVoteColors": {
+        "0": "Mayor Can See Vote Colors",
+        "13": "市长无视匿名投票"
+    },
+    "mayorTasksNeededToSeeVoteColors": {
+        "0": "Completed Tasks Needed To See Vote Colors",
+        "13": "需要完成任务以无视匿名投票"
+    },
+    "mayorMeetingButton": {
+        "0": "Emergency",
+        "13": "紧急会议"
+    },
+    "mayorMaxRemoteMeetings": {
+        "0": "Number Of Remote Meetings",
+        "13": "远程紧急按钮次数"
+    },
+    "mayorChooseSingleVote": {
+        "0": "Mayor Can Choose Single Vote",
+        "13": "市长可以选择投出两票"
+    },
+    "mayorChooseSingleVote1": {
+        "0": "Off",
+        "13": "关"
+    },
+    "mayorChooseSingleVote2": {
+        "0": "On (Before Voting)",
+        "13": "开（投票前）"
+    },
+    "mayorChooseSingleVote3": {
+        "0": "On (Until Meeting Ends)",
+        "13": "关（直到会议结束）"
+    },
+    "engineer": {
+        "0": "Engineer",
+        "13": "工程师"
+    },
+    "engineerIntroDesc": {
+        "0": "Maintain important systems on the ship",
+        "13": "维修飞船上的重要设备"
+    },
+    "engineerShortDesc": {
+        "0": "Repair the ship",
+        "13": "维修飞船"
+    },
+    "engineerNumberOfFixes": {
+        "0": "Number Of Sabotage Fixes",
+        "13": "维修次数"
+    },
+    "engineerHighlightForImpostors": {
+        "0": "Impostors See Vents Highlighted",
+        "13": "内鬼看到通风口的标记"
+    },
+    "engineerHighlightForTeamJackal": {
+        "0": "Jackal and Sidekick See Vents Highlighted",
+        "13": "豺狼和跟班看到通风口的标记"
+    },
+    "sheriff": {
+        "0": "Sheriff",
+        "13": "警长"
+    },
+    "sheriffIntroDesc": {
+        "0": "Shoot the <color=#FF1919FF>Impostors</color>",
+        "13": "枪毙<color=#FF1919FF>内鬼</color>"
+    },
+    "sheriffShortDesc": {
+        "0": "Shoot the Impostors",
+        "13": "枪毙内鬼"
+    },
+    "sheriffCooldown": {
+        "0": "Sheriff Cooldown",
+        "13": "击杀冷却"
+    },
+    "sheriffCanKillNeutrals": {
+        "0": "Sheriff Can Kill Neutrals",
+        "13": "警长可以击杀中立"
+    },
+    "sheriffCanStopGameEnd": {
+        "0": "Sheriff Can Stop Game End",
+        "13": "警长可以阻止游戏结束"
+    },
+    "deputy": {
+        "0": "Deputy",
+        "13": "捕快"
+    },
+    "deputyIntroDesc": {
+        "0": "Handcuff the <color=#FF1919FF>Impostors</color>",
+        "13": "用手铐铐住<color=#FF1919FF>内鬼</color>"
+    },
+    "deputyShortDesc": {
+        "0": "Handcuff the Impostors",
+        "13": "给内鬼带上手铐"
+    },
+    "deputySpawnRate": {
+        "0": "Sheriff Has A Deputy",
+        "13": "警长拥有捕快"
+    },
+    "deputyNumberOfHandcuffs": {
+        "0": "Deputy Number Of Handcuffs",
+        "13": "捕快手铐次数"
+    },
+    "deputyHandcuffCooldown": {
+        "0": "Handcuff Cooldown",
+        "13": "手铐持续时间"
+    },
+    "deputyHandcuffDuration": {
+        "0": "Handcuff Duration",
+        "13": "手铐冷却时间"
+    },
+    "deputyKnowsSheriff": {
+        "0": "Sheriff And Deputy Know Each Other",
+        "13": "警长和捕快互相认识"
+    },
+    "deputyGetsPromoted": {
+        "0": "Deputy Gets Promoted To Sheriff",
+        "13": "捕快可以上位"
+    },
+    "deputyGetsPromoted1": {
+        "0": "Off",
+        "13": "关闭"
+    },
+    "deputyGetsPromoted2": {
+        "0": "On (Immediately)",
+        "13": "开启（立即）"
+    },
+    "deputyGetsPromoted3": {
+        "0": "On (After Meeting)",
+        "13": "开启（会议后）"
+    },
+    "deputyKeepsHandcuffs": {
+        "0": "Deputy Keeps Handcuffs When Promoted",
+        "13": "捕快上位时保留手铐"
+    },
+    "deputyCanStopGameEnd": {
+        "0": "Deputy Can Stop Game End",
+        "13": "捕快可以阻止游戏结束"
+    },
+    "lighter": {
+        "0": "Lighter",
+        "13": "执灯人"
+    },
+    "lighterIntroDesc": {
+        "0": "Your light never goes out",
+        "13": "你的光芒永不熄灭"
+    },
+    "lighterShortDesc": {
+        "0": "Your light never goes out",
+        "13": "你的光芒永不熄灭"
+    },
+    "lighterModeLightsOnVision": {
+        "0": "Vision On Lights On",
+        "13": "灯光正常时执灯人视野"
+    },
+    "lighterModeLightsOffVision": {
+        "0": "Vision On Lights Off",
+        "13": "灯光熄灭时执灯人视野"
+    },
+    "lighterFlashlightWidth": {
+        "0": "Flashlight Width",
+        "13": "手电筒宽度"
+    },
+    "detective": {
+        "0": "Detective",
+        "13": "侦探"
+    },
+    "detectiveIntroDesc": {
+        "0": "Find the <color=#FF1919FF>Impostors</color> by examining footprints",
+        "13": "追寻脚印发现<color=#FF1919FF>内鬼</color>"
+    },
+    "detectiveShortDesc": {
+        "0": "Examine footprints",
+        "13": "追寻脚印"
+    },
+    "detectiveAnonymousFootprints": {
+        "0": "Anonymous Footprints",
+        "13": "脚印颜色匿名"
+    },
+    "detectiveFootprintIntervall": {
+        "0": "Footprint Intervall",
+        "13": "脚印生成间隔时间"
+    },
+    "detectiveFootprintDuration": {
+        "0": "Footprint Duration",
+        "13": "脚印持续时间"
+    },
+    "detectiveReportNameDuration": {
+        "0": "Time Where Detective Reports Will Have Name",
+        "13": "在以下时间内报告可以得知凶手姓名"
+    },
+    "detectiveReportColorDuration": {
+        "0": "Time Where Detective Reports Will Have Color Type",
+        "13": "在以下时间内报告可以得知凶手颜色类型"
+    },
+    "timeMaster": {
+        "0": "Time Master",
+        "13": "时间之主"
+    },
+    "timeMasterIntroDesc": {
+        "0": "Save yourself with your time shield",
+        "13": "用你的时间之盾保护自己"
+    },
+    "timeMasterShortDesc": {
+        "0": "Use your time shield",
+        "13": "用时间之盾"
+    },
+    "timeMasterCooldown": {
+        "0": "Time Master Cooldown",
+        "13": "时间之盾冷却时间"
+    },
+    "timeMasterRewindTime": {
+        "0": "Rewind Time",
+        "13": "时光之盾回溯时长"
+    },
+    "timeMasterShieldDuration": {
+        "0": "Time Master Shield Duration",
+        "13": "时间之盾持续时间"
+    },
+    "medic": {
+        "0": "Medic",
+        "13": "医生"
+    },
+    "medicIntroDesc": {
+        "0": "Protect someone with your shield",
+        "13": "用你的医术保护某人"
+    },
+    "medicShortDesc": {
+        "0": "Protect other players",
+        "13": "保护其他玩家"
+    },
+    "medicShowShielded": {
+        "0": "Show Shielded Player",
+        "13": "可见医生护盾的玩家"
+    },
+    "medicShowShielded1": {
+        "0": "Everyone",
+        "13": "所有人"
+    },
+    "medicShowShielded2": {
+        "0": "Shielded + Medic",
+        "13": "被保护者与医生"
+    },
+    "medicShowShielded3": {
+        "0": "Medic",
+        "13": "医生"
+    },
+    "medicShowAttemptToShielded": {
+        "0": "Shielded Player Sees Murder Attempt",
+        "13": "被保护者会看到谋杀企图"
+    },
+    "medicSetOrShowShieldAfterMeeting": {
+        "0": "Shield Will Be Activated",
+        "13": "护盾将会生效"
+    },
+    "medicSetOrShowShieldAfterMeeting1": {
+        "0": "Instantly",
+        "13": "立即生效"
+    },
+    "medicSetOrShowShieldAfterMeeting2": {
+        "0": "Instantly, Visible\nAfter Meeting",
+        "13": "立即生效\n，会议后显示"
+    },
+    "medicSetOrShowShieldAfterMeeting3": {
+        "0": "After Meeting",
+        "13": "会议后生效"
+    },
+    "medicShowAttemptToMedic": {
+        "0": "Medic Sees Murder Attempt On Shielded Player",
+        "13": "医生可以看到有人企图谋杀被保护者"
+    },
+    "swapper": {
+        "0": "Swapper",
+        "13": "正义的换票师"
+    },
+    "swapperIntroDesc": {
+        "0": "Swap votes to exile the <color=#FF1919FF>Impostors</color>",
+        "13": "通过换票投出<color=#FF1919FF>内鬼</color>"
+    },
+    "swapperShortDesc": {
+        "0": "Swap votes",
+        "13": "通过换票投出内鬼"
+    },
+    "swapperCanCallEmergency": {
+        "0": "Swapper Can Call Emergency Meeting",
+        "13": "可以召开紧急会议"
+    },
+    "swapperCanOnlySwapOthers": {
+        "0": "Swapper Can Only Swap Others",
+        "13": "只能交换其他人"
+    },
+    "swapperSwapsNumber": {
+        "0": "Initial Swap Charges",
+        "13": "换票师初始换票次数"
+    },
+    "swapperRechargeTasksNumber": {
+        "0": "Number Of Tasks Needed For Recharging",
+        "13": "换票师充能所需任务数"
+    },
+    "seer": {
+        "0": "Seer",
+        "13": "灵媒"
+    },
+    "seerIntroDesc": {
+        "0": "You will see players die",
+        "13": "你能感知死亡"
+    },
+    "seerShortDesc": {
+        "0": "You will see players die",
+        "13": "你能感知死亡"
+    },
+    "seerMode": {
+        "0": "Seer Mode",
+        "13": "模式"
+    },
+    "seerMode1": {
+        "0": "Show Death Flash + Souls",
+        "13": "显示灵魂"
+    },
+    "seerMode2": {
+        "0": "Show Death Flash",
+        "13": "显示死亡闪光"
+    },
+    "seerMode3": {
+        "0": "Show Souls",
+        "13": "显示死亡闪光 + 灵魂"
+    },
+    "seerLimitSoulDuration": {
+        "0": "Seer Limit Soul Duration",
+        "13": "限制灵魂持续时间"
+    },
+    "seerSoulDuration": {
+        "0": "Seer Soul Duration",
+        "13": "灵魂持续时间"
+    },
+    "hacker": {
+        "0": "Hacker",
+        "13": "黑客"
+    },
+    "hackerIntroDesc": {
+        "0": "Hack systems to find the <color=#FF1919FF>Impostors</color>",
+        "13": "黑入飞船系统以发现<color=#FF1919FF>内鬼</color>"
+    },
+    "hackerShortDesc": {
+        "0": "Hack to find the Impostors",
+        "13": "黑入系统寻找内鬼"
+    },
+    "hackerCooldown": {
+        "0": "Hacker Cooldown",
+        "13": "黑客技能冷却时间"
+    },
+    "hackerHackeringDuration": {
+        "0": "Hacker Duration",
+        "13": "黑客技能可持续时间"
+    },
+    "hackerOnlyColorType": {
+        "0": "Hacker Only Sees Color Type",
+        "13": "黑客黑入地图只能看到颜色类型"
+    },
+    "hackerToolsNumber": {
+        "0": "Max Mobile Gadget Charges",
+        "13": "黑客移动设备最大能量"
+    },
+    "hackerRechargeTasksNumber": {
+        "0": "Number Of Tasks Needed For Recharging",
+        "13": "黑客充能需要完成的任务数"
+    },
+    "hackerNoMove": {
+        "0": "Cant Move During Mobile Gadget Duration",
+        "13": "黑客不可以在使用移动设备时移动"
+    },
+    "tracker": {
+        "0": "Tracker",
+        "13": "追踪者"
+    },
+    "trackerIntroDesc": {
+        "0": "Track the <color=#FF1919FF>Impostors</color> down",
+        "13": "追踪<color=#FF1919FF>内鬼</color>"
+    },
+    "trackerShortDesc": {
+        "0": "Track the Impostors down",
+        "13": "追踪内鬼"
+    },
+    "trackerUpdateIntervall": {
+        "0": "Tracker Update Intervall",
+        "13": "追踪者箭头更新间隔时间"
+    },
+    "trackerResetTargetAfterMeeting": {
+        "0": "Tracker Reset Target After Meeting",
+        "13": "会议后重置追踪目标"
+    },
+    "trackerCanTrackCorpses": {
+        "0": "Tracker Can Track Corpses",
+        "13": "追踪者可以追踪尸体"
+    },
+    "trackerCorpsesTrackingCooldown": {
+        "0": "Corpses Tracking Cooldown",
+        "13": "追踪者追踪尸体冷却时间"
+    },
+    "trackerCorpsesTrackingDuration": {
+        "0": "Corpses Tracking Duration",
+        "13": "追踪者追踪尸体持续时间"
+    },
+    "trackerTrackingMethod": {
+        "0": "How Tracker Gets Target Location",
+        "13": "追踪者如何获取目标位置"
+    },
+    "trackerTrackingMethod1": {
+        "0": "Arrow Only",
+        "13": "只显示箭头"
+    },
+    "trackerTrackingMethod2": {
+        "0": "Proximity Dectector Only",
+        "13": "只显示危险指示器"
+    },
+    "trackerTrackingMethod3": {
+        "0": "Arrow + Proximity",
+        "13": "箭头与危险指示器"
+    },
+    "snitch": {
+        "0": "Snitch",
+        "13": "告密者"
+    },
+    "snitchIntroDesc": {
+        "0": "Finish your tasks to find the <color=#FF1919FF>Impostors</color>",
+        "13": "完成任务以发现<color=#FF1919FF>内鬼</color>"
+    },
+    "snitchShortDesc": {
+        "0": "Finish your tasks",
+        "13": "完成任务"
+    },
+    "snitchLeftTasksForReveal": {
+        "0": "Task Count Where The Snitch Will Be Revealed",
+        "13": "告密者剩余多少任务会被发现"
+    },
+    "snitchMode": {
+        "0": "Information Mode",
+        "13": "给予信息方式"
+    },
+    "snitchMode1": {
+        "0": "Chat",
+        "13": "聊天信息"
+    },
+    "snitchMode2": {
+        "0": "Map",
+        "13": "地图"
+    },
+    "snitchMode3": {
+        "0": "Chat & Map",
+        "13": "聊天信息与地图"
+    },
+    "snitchTargets": {
+        "0": "Targets",
+        "13": "做完任务所显示目标"
+    },
+    "snitchTargets1": {
+        "0": "All Evil Players",
+        "13": "所有邪恶玩家"
+    },
+    "snitchTargets2": {
+        "0": "Killing Players",
+        "13": "所有带刀职业"
+    },
+    "spy": {
+        "0": "Spy",
+        "13": "卧底"
+    },
+    "spyIntroDesc": {
+        "0": "Confuse the <color=#FF1919FF>Impostors</color>",
+        "13": "混入<color=#FF1919FF>内鬼</color>之中"
+    },
+    "spyShortDesc": {
+        "0": "Confuse the Impostors",
+        "13": "混入内鬼之中"
+    },
+    "spyCanDieToSheriff": {
+        "0": "Spy Can Die To Sheriff",
+        "13": "卧底可被警长击杀"
+    },
+    "spyImpostorsCanKillAnyone": {
+        "0": "Impostors Can Kill Anyone If There Is A Spy",
+        "13": "卧底存在时内鬼可以击杀任何人"
+    },
+    "spyCanEnterVents": {
+        "0": "Spy Can Enter Vents",
+        "13": "卧底可以进入管道"
+    },
+    "spyHasImpostorVision": {
+        "0": "Spy Has Impostor Vision",
+        "13": "卧底拥有内鬼视野"
+    },
+    "portalmaker": {
+        "0": "Portalmaker",
+        "13": "守门人"
+    },
+    "portalmakerIntroDesc": {
+        "0": "You can create portals",
+        "13": "你可以放置传送门"
+    },
+    "portalmakerShortDesc": {
+        "0": "You can create portals",
+        "13": "你可以放置传送门"
+    },
+    "portalmakerCooldown": {
+        "0": "Portalmaker Cooldown",
+        "13": "守门人冷却"
+    },
+    "portalmakerUsePortalCooldown": {
+        "0": "Use Portal Cooldown",
+        "13": "使用传送门冷却"
+    },
+    "portalmakerLogOnlyColorType": {
+        "0": "Portalmaker Log Only Shows Color Type",
+        "13": "守门人只会收到颜色深浅信息"
+    },
+    "portalmakerLogHasTime": {
+        "0": "Log Shows Time",
+        "13": "守门人会收到时间线索"
+    },
+    "portalmakerCanPortalFromAnywhere": {
+        "0": "Can Port To Portal From Everywhere",
+        "13": "可以从任意地点传送至传送门"
+    },
+    "securityGuard": {
+        "0": "Security Guard",
+        "13": "保安"
+    },
+    "securityGuardIntroDesc": {
+        "0": "Seal vents and place cameras",
+        "13": "封锁管道并放置摄像头"
+    },
+    "securityGuardShortDesc": {
+        "0": "Seal vents and place cameras",
+        "13": "封锁管道并放置摄像头"
+    },
+    "securityGuardCooldown": {
+        "0": "Security Guard Cooldown",
+        "13": "保安技能冷却时间"
+    },
+    "securityGuardTotalScrews": {
+        "0": "Security Guard Number Of Screws",
+        "13": "保安可使用的螺丝总数"
+    },
+    "securityGuardCamPrice": {
+        "0": "Number Of Screws Per Cam",
+        "13": "保安安装摄像头需要的螺丝数"
+    },
+    "securityGuardVentPrice": {
+        "0": "Number Of Screws Per Vent",
+        "13": "保安封锁管道需要的螺丝数"
+    },
+    "securityGuardCamDuration": {
+        "0": "Security Guard Duration",
+        "13": "保安观察监控可持续时间"
+    },
+    "securityGuardCamMaxCharges": {
+        "0": "Gadget Max Charges",
+        "13": "保安移动摄像头最大能量"
+    },
+    "securityGuardCamRechargeTasksNumber": {
+        "0": "Number Of Tasks Needed For Recharging",
+        "13": "保安充能需要完成的任务数"
+    },
+    "securityGuardNoMove": {
+        "0": "Cant Move During Cam Duration",
+        "13": "保安不可以在使用移动设备时移动"
+    },
+    "medium": {
+        "0": "Medium",
+        "13": "通灵师"
+    },
+    "mediumIntroDesc": {
+        "0": "Question the souls of the dead to gain information",
+        "13": "对死者的灵魂通灵来获取信息"
+    },
+    "mediumShortDesc": {
+        "0": "Question the souls",
+        "13": "对灵魂通灵"
+    },
+    "mediumCooldown": {
+        "0": "Medium Questioning Cooldown",
+        "13": "通灵师通灵冷却时间"
+    },
+    "mediumDuration": {
+        "0": "Medium Questioning Duration",
+        "13": "通灵师通灵所需时间"
+    },
+    "mediumOneTimeUse": {
+        "0": "Each Soul Can Only Be Questioned Once",
+        "13": "每个灵魂只可被通灵一次"
+    },
+    "mediumChanceAdditionalInfo": {
+        "0": "Chance That The Answer Contains \n Additional Information",
+        "13": "询问时包含额外信息的概率"
+    },
+    "trapper": {
+        "0": "Trapper",
+        "13": "陷阱师"
+    },
+    "trapperIntroDesc": {
+        "0": "Place traps to find the Impostors",
+        "13": "放置陷阱以找出伪装者"
+    },
+    "trapperShortDesc": {
+        "0": "Place traps",
+        "13": "放置陷阱"
+    },
+    "trapperCooldown": {
+        "0": "Trapper Cooldown",
+        "13": "陷阱冷却时间"
+    },
+    "trapperMaxCharges": {
+        "0": "Max Traps Charges",
+        "13": "最大陷阱数"
+    },
+    "trapperRechargeTasksNumber": {
+        "0": "Number Of Tasks Needed For Recharging",
+        "13": "陷阱师充能所需完成任务数"
+    },
+    "trapperTrapNeededTriggerToReveal": {
+        "0": "Trap Needed Trigger To Reveal",
+        "13": "陷阱触发提示所需人数"
+    },
+    "trapperAnonymousMap": {
+        "0": "Show Anonymous Map",
+        "13": "显示匿名地图"
+    },
+    "trapperInfoType": {
+        "0": "Trap Information Type",
+        "13": "陷阱信息类型"
+    },
+    "trapperInfoType1": {
+        "0": "Role",
+        "13": "职业"
+    },
+    "trapperInfoType2": {
+        "0": "Good/Evil Role",
+        "13": "正义/邪恶职业"
+    },
+    "trapperInfoType3": {
+        "0": "Name",
+        "13": "名称"
+    },
+    "trapperTrapDuration": {
+        "0": "Trap Duration",
+        "13": "放置陷阱所需时间"
+    },
+    "modifiersAreHidden": {
+        "0": "VIP, Bait & Bloody Are Hidden",
+        "13": "隐藏VIP，诱饵，溅血者"
+    },
+    "modifiersAreHiddenHeading": {
+        "0": "Hide After Death Modifiers",
+        "13": "隐藏死后发挥效果的副职业"
+    },
+    "modifierBloody": {
+        "0": "Bloody",
+        "13": "溅血者"
+    },
+    "modifierBloodyIntroDesc": {
+        "0": "Your killer leaves a bloody trail",
+        "13": "用你的血启示后人"
+    },
+    "modifierBloodyShortDesc": {
+        "0": "Your killer leaves a bloody trail",
+        "13": "你的凶手会留下血迹斑斑的轨迹"
+    },
+    "modifierBloodyQuantity": {
+        "0": "Bloody Quantity",
+        "13": "溅血者副职业数量"
+    },
+    "modifierBloodyDuration": {
+        "0": "Trail Duration",
+        "13": "血迹持续时间"
+    },
+    "modifierAntiTeleport": {
+        "0": "Anti Teleport",
+        "13": "通讯兵"
+    },
+    "modifierAntiTeleportIntroDesc": {
+        "0": "You will not get teleported",
+        "13": "你无需回到会议桌"
+    },
+    "modifierAntiTeleportShortDesc": {
+        "0": "You will not get teleported",
+        "13": "你不会被传送至会议桌"
+    },
+    "modifierAntiTeleportQuantity": {
+        "0": "Anti Teleport Quantity",
+        "13": "通讯兵副职业数量"
+    },
+    "modifierTieBreaker": {
+        "0": "Tie Breaker",
+        "13": "破平者"
+    },
+    "modifierTiebreakerIntroDesc": {
+        "0": "Break the tie",
+        "13": "打破平局"
+    },
+    "modifierTiebreakerShortDesc": {
+        "0": "Break the tie",
+        "13": "打破平局"
+    },
+    "modifierBait": {
+        "0": "Bait",
+        "13": "诱饵"
+    },
+    "modifierBaitIntroDesc": {
+        "0": "Bait your enemies",
+        "13": "诱骗你的敌人"
+    },
+    "modifierBaitShortDesc": {
+        "0": "Bait your enemies",
+        "13": "诱骗你的敌人"
+    },
+    "modifierBaitQuantity": {
+        "0": "Bait Quantity",
+        "13": "诱饵副职业数量"
+    },
+    "modifierBaitReportDelayMin": {
+        "0": "Bait Report Delay Min",
+        "13": "最小报告延迟"
+    },
+    "modifierBaitReportDelayMax": {
+        "0": "Bait Report Delay Max",
+        "13": "最大报告延迟"
+    },
+    "modifierBaitShowKillFlash": {
+        "0": "Warn The Killer With A Flash",
+        "13": "用闪光警告即将报告的玩家"
+    },
+    "modifierLover": {
+        "0": "Lovers",
+        "13": "恋人"
+    },
+    "modifierLoverIntroDesc": {
+        "0": "You are in love",
+        "13": "你坠入了爱河"
+    },
+    "modifierLoverShortDesc": {
+        "0": "You are in love",
+        "13": "♥你与{0}坠入了爱河♥"
+    },
+    "modifierLoverImpLoverRate": {
+        "0": "Chance That One Lover Is Impostor",
+        "13": "恋人是内鬼的概率"
+    },
+    "modifierLoverBothDie": {
+        "0": "Both Lovers Die",
+        "13": "恋人共生死"
+    },
+    "modifierLoverEnableChat": {
+        "0": "Enable Lover Chat",
+        "13": "启用恋人私密聊天"
+    },
+    "modifierSunglasses": {
+        "0": "Sunglasses",
+        "13": "失明者"
+    },
+    "modifierSunglassesIntroDesc": {
+        "0": "You got the sunglasses",
+        "13": "你带上了太阳镜"
+    },
+    "modifierSunglassesShortDesc": {
+        "0": "Your vision is reduced",
+        "13": "你带上了太阳镜"
+    },
+    "modifierSunglassesQuantity": {
+        "0": "Sunglasses Quantity",
+        "13": "失明者副职业数量"
+    },
+    "modifierSunglassesVision": {
+        "0": "Vision With Sunglasses",
+        "13": "失明者视野"
+    },
+    "modifierMini": {
+        "0": "Mini",
+        "13": "迷你船员"
+    },
+    "modifierMiniIntroDesc": {
+        "0": "No one will harm you until you grow up",
+        "13": "长大前没人能伤害你"
+    },
+    "modifierMiniShortDesc": {
+        "0": "No one will harm you",
+        "13": "没人能伤害你"
+    },
+    "modifierMiniGrowingUpDuration": {
+        "0": "Mini Growing Up Duration",
+        "13": "迷你船员成长所需时间"
+    },
+    "modifierMiniGrowingUpInMeeting": {
+        "0": "Mini Grows Up In Meeting",
+        "13": "迷你船员在会议上成长"
+    },
+    "eventKicksPerRound": {
+        "0": "Maximum Kicks Mini Suffers",
+        "13": "迷你船员允许被踢最大次数"
+    },
+    "eventHeavyAge": {
+        "0": "Age At Which Mini Is Heavy",
+        "13": "迷你船员变得沉重的年龄"
+    },
+    "eventReallyNoMini": {
+        "0": "Really No Mini :(",
+        "13": "禁用迷你船员"
+    },
+    "modifierVip": {
+        "0": "VIP",
+        "13": "VIP"
+    },
+    "modifierVipIntroDesc": {
+        "0": "You are the VIP",
+        "13": "你是VIP"
+    },
+    "modifierVipShortDesc": {
+        "0": "Everyone is notified when you die",
+        "13": "所有人都会知道你的死讯"
+    },
+    "modifierVipQuantity": {
+        "0": "VIP Quantity",
+        "13": "VIP副职业数量"
+    },
+    "modifierVipShowColor": {
+        "0": "Show Team Color",
+        "13": "显示阵营颜色"
+    },
+    "modifierInvert": {
+        "0": "Invert",
+        "13": "醉鬼"
+    },
+    "modifierInvertIntroDesc": {
+        "0": "Your movement is inverted",
+        "13": "你的动作是相反的"
+    },
+    "modifierInvertShortDesc": {
+        "0": "Your movement is inverted",
+        "13": "你的动作是相反的"
+    },
+    "modifierInvertQuantity": {
+        "0": "Modifier Quantity",
+        "13": "醉鬼副职业数量"
+    },
+    "modifierInvertDuration": {
+        "0": "Number Of Meetings Inverted",
+        "13": "移动相反的会议数量"
+    },
+    "modifierChameleon": {
+        "0": "Chameleon",
+        "13": "变色龙"
+    },
+    "modifierChameleonIntroDesc": {
+        "0": "You're hard to see when not moving",
+        "13": "你在一动不动时很难被发现"
+    },
+    "modifierChameleonShortDesc": {
+        "0": "You're hard to see when not moving",
+        "13": "你在一动不动时很难被发现"
+    },
+    "modifierChameleonQuantity": {
+        "0": "Chameleon Quantity",
+        "13": "变色龙副职业数量"
+    },
+    "modifierChameleonHoldDuration": {
+        "0": "Time Until Fading Starts",
+        "13": "隐身开始所需时间"
+    },
+    "modifierChameleonFadeDuration": {
+        "0": "Fade Duration",
+        "13": "隐身所需时间"
+    },
+    "modifierChameleonMinVisibility": {
+        "0": "Minimum Visibility",
+        "13": "最小隐身可见度"
+    },
+    "modifierArmored": {
+        "0": "Armored",
+        "13": "装甲兵"
+    },
+    "modifierArmoredIntroDesc": {
+        "0": "You are protected from one murder attempt",
+        "13": "你受到保护，免遭一次谋杀企图"
+    },
+    "modifierArmoredShortDesc": {
+        "0": "You are protected from one murder attempt",
+        "13": "你有一次免死机会"
+    },
+    "modifierShifter": {
+        "0": "Shifter",
+        "13": "交换师"
+    },
+    "modifierShifterIntroDesc": {
+        "0": "Shift your role",
+        "13": "交换职业"
+    },
+    "modifierShifterShortDesc": {
+        "0": "Shift your role",
+        "13": "交换职业"
+    },
+    "modifierShifterShiftsMedicShield": {
+        "0": "Can Shift Medic Shield",
+        "13": "可以交换医生的护盾"
+    },
+    "guesserGamemodeCrewNumberHeading": {
+        "0": "Amount of Guessers",
+        "13": "赌怪数量设置"
+    },
+    "guesserGamemodeCrewNumber": {
+        "0": "Number of Crew Guessers",
+        "13": "船员阵营赌怪数量"
+    },
+    "guesserGamemodeNeutralNumber": {
+        "0": "Number of Neutral Guessers",
+        "13": "中立阵营赌怪数量"
+    },
+    "guesserGamemodeImpNumber": {
+        "0": "Number of Impostor Guessers",
+        "13": "伪装者阵营赌怪数量"
+    },
+    "guesserForceJackalGuesserHeading": {
+        "0": "Force Guessers",
+        "13": "强制赌怪设置"
+    },
+    "guesserForceJackalGuesser": {
+        "0": "Force Jackal Guesser",
+        "13": "豺狼永远为赌怪"
+    },
+    "guesserGamemodeSidekickIsAlwaysGuesser": {
+        "0": "Sidekick Is Always Guesser",
+        "13": "跟班永远成为赌怪"
+    },
+    "guesserForceThiefGuesser": {
+        "0": "Force Thief Guesser",
+        "13": "指定身份窃贼成为赌怪"
+    },
+    "guesserGamemodeHaveModifierHeading": {
+        "0": "General Guesser Settings",
+        "13": "常规赌怪设置"
+    },
+    "guesserGamemodeHaveModifier": {
+        "0": "Guessers Can Have A Modifier",
+        "13": "赌怪可以拥有一个附加职业"
+    },
+    "guesserGamemodeNumberOfShots": {
+        "0": "Guesser Number Of Shots",
+        "13": "赌怪可猜测次数"
+    },
+    "guesserGamemodeHasMultipleShotsPerMeeting": {
+        "0": "Guesser Can Shoot Multiple Times Per Meeting",
+        "13": "赌怪可以在一轮会议中多次猜测"
+    },
+    "guesserGamemodeCrewGuesserNumberOfTasks": {
+        "0": "Number Of Tasks Needed To Unlock Shooting\nFor Crew Guesser",
+        "13": "船员赌怪解锁猜测技能所需完成任务数"
+    },
+    "guesserGamemodeKillsThroughShield": {
+        "0": "Guesses Ignore The Medic Shield",
+        "13": "赌怪猜测无视医生护盾"
+    },
+    "guesserGamemodeEvilCanKillSpy": {
+        "0": "Evil Guesser Can Guess The Spy",
+        "13": "邪恶的赌怪可以猜测卧底"
+    },
+    "guesserGamemodeCantGuessSnitchIfTaksDone": {
+        "0": "Guesser Can't Guess Snitch When Tasks Completed",
+        "13": "赌怪无法猜测完成任务的告密者"
+    },
+    "hunter": {
+        "0": "Hunter",
+        "13": "抓捕者"
+    },
+    "hunterIntroDesc": {
+        "0": "<color=#FF1919FF>Seek and kill everyone</color>",
+        "13": "<color=#FF1919FF>寻找并杀死所有人</color>"
+    },
+    "hunterShortDesc": {
+        "0": "Seek and kill everyone",
+        "13": "寻找并杀死所有人"
+    },
+    "hunted": {
+        "0": "Hunted",
+        "13": "躲藏者"
+    },
+    "huntedIntroDesc": {
+        "0": "Hide",
+        "13": "藏！"
+    },
+    "huntedShortDesc": {
+        "0": "Hide",
+        "13": "藏！"
+    },
+    "hideNSeekMap": {
+        "0": "Map",
+        "13": "地图"
+    },
+    "hideNSeekHunterCount": {
+        "0": "Number Of Hunters",
+        "13": "抓捕者数量"
+    },
+    "hideNSeekKillCooldown": {
+        "0": "Kill Cooldown",
+        "13": "击杀冷却"
+    },
+    "hideNSeekHunterVision": {
+        "0": "Hunter Vision",
+        "13": "抓捕者视野"
+    },
+    "hideNSeekHuntedVision": {
+        "0": "Hunted Vision",
+        "13": "躲藏者视野"
+    },
+    "hideNSeekCommonTasks": {
+        "0": "Common Tasks",
+        "13": "普通任务数量"
+    },
+    "hideNSeekShortTasks": {
+        "0": "Short Tasks",
+        "13": "短任务数"
+    },
+    "hideNSeekLongTasks": {
+        "0": "Long Tasks",
+        "13": "长任务数"
+    },
+    "hideNSeekTimer": {
+        "0": "Timer In Min",
+        "13": "最少躲藏时间"
+    },
+    "hideNSeekTaskWin": {
+        "0": "Task Win Is Possible",
+        "13": "可以任务获胜"
+    },
+    "hideNSeekTaskPunish": {
+        "0": "Finish Tasks Punish In Sec",
+        "13": "完成任务所减少的躲藏时间"
+    },
+    "hideNSeekCanSabotage": {
+        "0": "Enable Sabotages",
+        "13": "允许破坏"
+    },
+    "hideNSeekHunterWaiting": {
+        "0": "Time The Hunter Needs To Wait",
+        "13": "开局抓捕者立正等待时间"
+    },
+    "hunterLightCooldownHeading": {
+        "0": "Hunter Lights Settings",
+        "13": "抓捕者灯光设置"
+    },
+    "hunterLightCooldown": {
+        "0": "Hunter Light Cooldown",
+        "13": "抓捕者照明冷却时间"
+    },
+    "hunterLightDuration": {
+        "0": "Hunter Light Duration",
+        "13": "抓捕者照明持续时间"
+    },
+    "hunterLightVision": {
+        "0": "Hunter Light Vision",
+        "13": "抓捕者技能视野范围"
+    },
+    "hunterLightPunish": {
+        "0": "Hunter Light Punish In Sec",
+        "13": "使用照明所减少的躲藏时间"
+    },
+    "hunterAdminCooldown": {
+        "0": "Hunter Admin Cooldown",
+        "13": "抓捕者管理地图技能冷却"
+    },
+    "hunterAdminDuration": {
+        "0": "Hunter Admin Duration",
+        "13": "抓捕者管理地图持续时间"
+    },
+    "hunterAdminPunish": {
+        "0": "Hunter Admin Punish In Sec",
+        "13": "管理地图所减少的躲藏时间"
+    },
+    "hunterArrowCooldown": {
+        "0": "Hunter Arrow Cooldown",
+        "13": "抓捕者追踪冷却时间"
+    },
+    "hunterArrowDuration": {
+        "0": "Hunter Arrow Duration",
+        "13": "抓捕者追踪持续时间"
+    },
+    "hunterArrowPunish": {
+        "0": "Hunter Arrow Punish In Sec",
+        "13": "使用追踪所减少的躲藏时间"
+    },
+    "huntedShieldCooldownHeading": {
+        "0": "Hunter Shields Settings",
+        "13": "躲藏者护盾设置"
+    },
+    "huntedShieldCooldown": {
+        "0": "Hunted Shield Cooldown",
+        "13": "躲藏者时间之盾冷却时间"
+    },
+    "huntedShieldDuration": {
+        "0": "Hunted Shield Duration",
+        "13": "躲藏者时间之盾持续时间"
+    },
+    "huntedShieldRewindTime": {
+        "0": "Hunted Rewind Time",
+        "13": "躲藏者时间回溯时长"
+    },
+    "huntedShieldNumber": {
+        "0": "Hunted Shield Number",
+        "13": "躲藏者时间之盾数量"
+    },
+    "prop": {
+        "0": "Prop",
+        "13": "道具"
+    },
+    "propIntroDesc": {
+        "0": "Disguise As An Object and Survive",
+        "13": "变成飞船上的装饰品并藏起来"
+    },
+    "propShortDesc": {
+        "0": "Disguise As An Object",
+        "13": "变成飞船上的装饰品并藏起来"
+    },
+    "propHuntTimerHeading": {
+        "0": "General PropHunt Settings",
+        "13": "变形狩猎常规设置"
+    },
+    "propHuntTimer": {
+        "0": "Timer In Min (Prop Hunt)",
+        "13": "最少躲藏时间"
+    },
+    "propHuntUnstuckCooldown": {
+        "0": "Unstuck Cooldown",
+        "13": "穿墙冷却时间"
+    },
+    "propHuntUnstuckDuration": {
+        "0": "Unstuck Duration",
+        "13": "穿墙持续时间"
+    },
+    "propHunterVision": {
+        "0": "Hunter Vision (Prop Hunt)",
+        "13": "抓捕者视野"
+    },
+    "propVision": {
+        "0": "Prop Vision",
+        "13": "道具视野"
+    },
+    "propHuntNumberOfHunters": {
+        "0": "Number Of Hunters (Prop Hunt)",
+        "13": "抓捕者设置"
+    },
+    "propHuntNumberOfHuntersHeading": {
+        "0": "Hunter Settings (Prop Hunt)",
+        "13": "抓捕者数量"
+    },
+    "hunterInitialBlackoutTime": {
+        "0": "Hunter Initial Blackout Duration",
+        "13": "开局抓捕者等待时间"
+    },
+    "hunterMissCooldown": {
+        "0": "Kill Cooldown After Miss",
+        "13": "空过后击杀冷却时间"
+    },
+    "hunterHitCooldown": {
+        "0": "Kill Cooldown After Hit",
+        "13": "击中后击杀冷却时间"
+    },
+    "propHuntRevealCooldown": {
+        "0": "Reveal Prop Cooldown",
+        "13": "揭示道具冷却时间"
+    },
+    "propHuntRevealDuration": {
+        "0": "Reveal Prop Duration",
+        "13": "揭示道具持续时间"
+    },
+    "propHuntRevealPunish": {
+        "0": "Reveal Time Punish",
+        "13": "使用揭示所减少的躲藏时间"
+    },
+    "propHuntAdminCooldown": {
+        "0": "Hunter Admin Cooldown (Prop Hunt)",
+        "13": "抓捕者管理地图冷却时间"
+    },
+    "propHuntFindCooldown": {
+        "0": "Find Cooldown",
+        "13": "寻找冷却时间"
+    },
+    "propHuntFindDuration": {
+        "0": "Find Duration",
+        "13": "寻找持续时间"
+    },
+    "propBecomesHunterWhenFoundHeading": {
+        "0": "Prop Settings",
+        "13": "道具设置"
+    },
+    "propBecomesHunterWhenFound": {
+        "0": "Props Become Hunters When Found",
+        "13": "道具被击杀后变成抓捕者"
+    },
+    "propHuntInvisEnabled": {
+        "0": "Invisibility Enabled (Prop Hunt)",
+        "13": "道具拥有隐身技能"
+    },
+    "propHuntInvisCooldown": {
+        "0": "Invisibility Cooldown",
+        "13": "隐身冷却时间"
+    },
+    "propHuntInvisDuration": {
+        "0": "Invisibility Duration",
+        "13": "隐身持续时间"
+    },
+    "propHuntSpeedboostEnabled": {
+        "0": "Speedboost Enabled",
+        "13": "道具拥有冲刺技能"
+    },
+    "propHuntSpeedboostCooldown": {
+        "0": "Speedboost Cooldown",
+        "13": "冲刺冷却时间"
+    },
+    "propHuntSpeedboostDuration": {
+        "0": "Speedboost Duration",
+        "13": "冲刺持续时间"
+    },
+    "propHuntSpeedboostSpeed": {
+        "0": "Speedboost Ratio",
+        "13": "冲刺时速度提升倍数"
+    },
+    "maxNumberOfMeetingsHeading": {
+        "0": "Gameplay Settings",
+        "13": "基础模组设置"
+    },
+    "maxNumberOfMeetings": {
+        "0": "Number Of Meetings (excluding Mayor meeting)",
+        "13": "紧急会议总次数(不包括市长会议次数)"
+    },
+    "anyPlayerCanStopStart": {
+        "0": "Any Player Can Stop The Start",
+        "13": "任何玩家都可以停止游戏开始"
+    },
+    "blockSkippingInEmergencyMeetings": {
+        "0": "Block Skipping In Emergency Meetings",
+        "13": "会议中禁止跳过投票"
+    },
+    "noVoteIsSelfVote": {
+        "0": "No Vote Is Self Vote",
+        "13": "不投票视为投自己"
+    },
+    "hidePlayerNames": {
+        "0": "Hide Player Names",
+        "13": "隐藏玩家名称"
+    },
+    "allowParallelMedBayScans": {
+        "0": "Allow Parallel MedBay Scans",
+        "13": "允许多人同时进行体检"
+    },
+    "shieldFirstKill": {
+        "0": "Shield Last Game First Kill",
+        "13": "保护被首刀玩家"
+    },
+    "finishTasksBeforeHauntingOrZoomingOut": {
+        "0": "Finish Tasks Before Haunting Or Zooming Out",
+        "13": "未完成任务前不能使用跟随及千里眼"
+    },
+    "deadImpsBlockSabotage": {
+        "0": "Block Dead Impostor From Sabotaging",
+        "13": "伪装者死亡后不能进行破坏"
+    },
+    "camsNightVision": {
+        "0": "Cams Switch To Night Vision If Lights Are Off",
+        "13": "关灯后监控启动夜视模式"
+    },
+    "camsNightVisionHeading": {
+        "0": "Night Vision Cams",
+        "13": "夜视模式"
+    },
+    "camsNoNightVisionIfImpVision": {
+        "0": "Impostor Vision Ignores Night Vision Cams",
+        "13": "伪装者视野不受夜视摄像头影响"
+    },
+    "dynamicMapHeading": {
+        "0": "Random Maps",
+        "13": "随机地图"
+    },
+    "dynamicMap": {
+        "0": "Play On A Random Map",
+        "13": "在随机地图上游玩"
+    },
+    "dynamicMapSeparateSettings": {
+        "0": "Use Random Map Setting Presets",
+        "13": "使用随机地图预设"
+    },
+    "inGameSettings": {
+        "0": "In Game Settings",
+        "13": "游戏内设置"
+    },
+    "enableNoEndGame": {
+        "0": "Enable No End Game",
+        "13": "启用测试模式（永不结束）"
+    },
+    "impostor": {
+        "0": "Impostor",
+        "13": "伪装者"
+    },
+    "impostorIntroDesc": {
+        "0": "Sabotage and kill everyone",
+        "13": "击杀与破坏"
+    },
+    "impostorShortDesc": {
+        "0": "Sabotage and kill everyone",
+        "13": "击杀与破坏"
+    },
+    "crewmate": {
+        "0": "Crewmate",
+        "13": "船员"
+    },
+    "crewmateIntroDesc": {
+        "0": "Find the Impostors",
+        "13": "找出内鬼"
+    },
+    "crewmateShortDesc": {
+        "0": "Find the Impostors",
+        "13": "找出内鬼"
+    },
+    "prophet": {
+        "13": "预言家"
+    },
+    "prophetIntroDesc": {
+        "0": "Prophecy to Find Impostors",
+        "13": "通过预言找出<color=#ff1919>伪装者</color>"
+    },
+    "prophetShortDesc": {
+        "0": "Prophecy to Find Impostors",
+        "13": "通过预言找出伪装者，注意不要被发现..."
+    },
+    "prophetCooldown": {
+        "0": "Examination Cooldown",
+        "13": "预言冷却时间"
+    },
+    "prophetNumExamines": {
+        "0": "Number Of Examinations",
+        "13": "预言最大次数"
+    },
+    "prophetCanCallEmergency": {
+        "0": "Prophet Can Call Emergency Meeting",
+        "13": "预言家不可以开启紧急会议"
+    },
+    "prophetIsRevealed": {
+        "0": "Prophet Is Revealed To The Killers",
+        "13": "预言家可以被杀手发现"
+    },
+    "prophetExaminesToBeRevealed": {
+        "0": "Number Of Examinations Required To Be Revealed",
+        "13": "达到预言次数被杀手发现"
+    },
+    "prophetAccuracy": {
+        "0": "Examination Accuracy",
+        "13": "预言准确性"
+    },
+    "prophetBenignNeutralAsRed": {
+        "0": "Benign Neutral Shown As Red",
+        "13": "中立显示为红名"
+    },
+    "peacedove": {
+        "0": "PeaceDove",
+        "13": "和平之鸽"
+    },
+    "peacedoveIntroDesc": {
+        "0": "Reload The Cooldowns to Impostors",
+        "13": "宣传和平，抵制战争"
+    },
+    "peacedoveShortDesc": {
+        "0": "Reload The Cooldowns to Impostors",
+        "13": "重制杀手们的冷却时间"
+    },
+    "peaceDoveCooldown": {
+        "0": "Reload Cooldowns",
+        "13": "冷却时间为追加杀手冷却的"
+    },
+    "peaceDoveReloadMaxNum": {
+        "0": "Reload Max Num",
+        "13": "重制最大次数"
+    },
+    "peaceReloadSkills": {
+        "0": "Can Reload Skills",
+        "13": "可以重制技能冷却时间"
+    },
+    "bepinexUpdaterDownloading": {
+        "0": "Required BepInEx update is downloading, please wait...",
+        "13": "正在下载所需的BepInEx更新，请稍候……"
+    },
+    "shareGamemodeNoHost": {
+        "0": "Nice try, but you have to be the host to use this feature",
+        "13": "好好好，但你下次最好是房主"
+    },
+    "chatChangeColorNo": {
+        "0": "Unable to parse color id\nUsage: /color {id}",
+        "13": "无法解析颜色id \n用法：/color {id}"
+    },
+    "chatChangeColorYes": {
+        "0": "Changed color succesfully",
+        "13": "成功改变颜色"
+    },
+    "changeLobbySizeUsage": {
+        "0": "Invalid Size\nUsage: /size {amount}",
+        "13": "大小无效\n用法：/size {amount}"
+    },
+    "changeLobbySizeTo": {
+        "0": "Lobby Size changed to {0} players",
+        "13": "房间最大玩家数量改为 {0}"
+    },
+    "changeLobbySizeAl": {
+        "0": "Lobby Size is already {0}",
+        "13": "房间最大玩家数量已经是 {0} 了"
+    },
+    "jesterWin": {
+        "0": "Jester Wins",
+        "13": "垂死病中惊坐起\n小丑竟是我自己"
+    },
+    "arsonistWin": {
+        "0": "Arsonist Wins",
+        "13": "火焰净化了一切污秽"
+    },
+    "vultureWin": {
+        "0": "Vulture Wins",
+        "13": "多么丰盛的一顿晚餐"
+    },
+    "prosecutorWin": {
+        "0": "Prosecutor Wins",
+        "13": "从此你失去了最后的自由"
+    },
+    "loversTeamWin": {
+        "0": "Lovers And Crewmates Win",
+        "13": "多么令人羡慕的爱情"
+    },
+    "loversSoloWin": {
+        "0": "Lovers Win",
+        "13": "男女搭配干活不累"
+    },
+    "jackalWin": {
+        "0": "Team Jackal Wins",
+        "13": "子孙满堂"
+    },
+    "miniLose": {
+        "0": "Mini died",
+        "13": "你们怎么能对一个孩子痛下杀手"
+    },
+    "impostorDisconnect": {
+        "0": "Last Crewmate Disconnected",
+        "13": "最后一名船员断连"
+    },
+    "impostorsByKill": {
+        "0": "Impostors Win - By Kill",
+        "13": "内鬼阵营胜利 - 通过击杀"
+    },
+    "impostorsBySabotage": {
+        "0": "Impostors Win - By Sabotage",
+        "13": "内鬼阵营胜利 - 破坏胜利"
+    },
+    "impostorsByVote": {
+        "0": "Impostors Win - By Vote, Guess or DC",
+        "13": "内鬼阵营胜利 - 通过驱逐船员,赌杀或船员断连"
+    },
+    "crewmatesByTask": {
+        "0": "Crew Wins - Taskwin",
+        "13": "船员阵营胜利 - 任务获胜"
+    },
+    "crewmateDisconnect": {
+        "0": "Crew Wins - No Evil Killers Left",
+        "13": "船员阵营胜利 - 最后邪恶职业断连"
+    },
+    "crewmatesByVote": {
+        "0": "Crew Wins - No Evil Killers Left",
+        "13": "船员阵营胜利 - 最后邪恶职业被驱逐"
+    },
+    "additionalLawyerBonusWin": {
+        "0": "The Lawyer wins with the client",
+        "13": "律师与客户共同胜利"
+    },
+    "additionalAlivePursuerWin": {
+        "0": "The Pursuer survived",
+        "13": "起诉人幸存"
+    },
+    "gameTimeText": {
+        "0": "Time:",
+        "13": "游戏时间:"
+    },
+    "endGameMainText": {
+        "0": "Players and roles at the end of the game:",
+        "13": "游戏结束时玩家职业:"
+    },
+    "endGameKills": {
+        "0": "Kills:",
+        "13": "击杀数:"
+    },
+    "gameStartTextDiferentVersion": {
+        "0": "<color=#FF0000FF>{0} has a different or no version of The Other Roles Rework\n</color>",
+        "13": "<color=#FF0000FF>{0} 使用了不同模组或版本不同的The Other Roles Rework\n</color>"
+    },
+    "gameStartTextOldVersion": {
+        "0": "<color=#FF0000FF>{0} has an older version of The Other Roles Rework (v{1})\n</color>",
+        "13": "<color=#FF0000FF>{0} 使用了旧版的The Other Roles Rework (v{1})\n</color>"
+    },
+    "gameStartTextNewVersion": {
+        "0": "<color=#FF0000FF>{0} has a newer version of The Other Roles Rework (v{1})\n</color>",
+        "13": "<color=#FF0000FF>{0} 使用了新版的The Other Roles Rework (v{1})\n</color>"
+    },
+    "gameStartTextModVersion": {
+        "0": "<color=#FF0000FF>{0} has a modified version of TORR v{1} <size=50%>(GUID:{2})</size>\n</color>",
+        "13": "<color=#FF0000FF>{0} 使用了不同构建批次的TORR v{1} <size=50%>(GUID:{2})</size>\n</color>"
+    },
+    "gameStartHasDifferentVersion": {
+        "0": "<color=#FF0000FF>The host has no or a different version of The Other Roles Rework\nYou will be kicked in {0}s</color>",
+        "13": "<color=#FF0000FF>房主没有或使用了不同版本的The Other Roles Rework\nYou will be kicked in {0}s</color>"
+    },
+    "gameStartDifferentVersionPlayer": {
+        "0": "<color=#FF0000FF>Players With Different Versions:\n</color>",
+        "13": "<color=#FF0000FF>Players With Different Versions:\n</color>"
+    },
+    "mianMenuManagerCreditsMenuText": {
+        "0": "<align=\"\"center\"\"><b>XtremeWave Team:</b>\nSlok   ELinmei   FangkuaiYa   Duye ...\n\n<b>[https://discord.gg/77RkMJHWsM]Discord[]</b>\nDraco Cordraconis    Streamblox (formerly)\nThanks to all our discord helpers!\n\nThanks to miniduikboot & GD for hosting modded servers (and so much more)\n<size=60%> <b>Other Credits & Resources:</b>\nOxygenFilter - For the versions v2.3.0 to v2.6.1, we were using the OxygenFilter for automatic deobfuscation\nReactor - The framework used for all versions before v2.0.0, and again since 4.2.0\nBepInEx - Used to hook game functions\nEssentials - Custom game options by DorCoMaNdO:\nBefore v1.6: We used the default Essentials release\nv1.6-v1.8: We slightly changed the default Essentials.\nv2.0.0 and later: As we were not using Reactor anymore, we are using our own implementation, inspired by the one from DorCoMaNdO\nJackal and Sidekick - Original idea for the Jackal and Sidekick came from Dhalucard\nAmong-Us-Love-Couple-Mod - Idea for the Lovers modifier comes from Woodi-dev\nJester - Idea for the Jester role came from Maartii\nExtraRolesAmongUs - Idea for the Engineer and Medic role came from NotHunter101. Also some code snippets from their implementation were used.\nAmong-Us-Sheriff-Mod - Idea for the Sheriff role came from Woodi-dev\nTooManyRolesMods - Idea for the Detective and Time Master roles comes from Hardel-DW. Also some code snippets from their implementation were used.\nTownOfUs - Idea for the Swapper, Shifter, Arsonist and a similar Mayor role came from Slushiegoose\nOttomated - Idea for the Morphling, Snitch and Camouflager role came from Ottomated\nCrowded-Mod - Our implementation for 10+ player lobbies was inspired by the one from the Crowded Mod Team\nGoose-Goose-Duck - Idea for the Vulture role came from Slushiegoose\nTheEpicRoles - Idea for the first kill shield (partly) and the (old) tabbed option menu (fully + some code), by LaicosVK DasMonschta Nova\nugackMiner53 - Idea and core code for the Prop Hunt game mode\nTheOtherRolesGMIA - Some code from Imp11\nRole Draft Music: [https://www.youtube.com/watch?v=9STiQ8cCIo0]Unreal Superhero 3 by Kenët & Rez[]\n\nLicense: TheOtherRoles-Rework is licensed under the [https://github.com/TheOtherRolesAU/TheOtherRoles?tab=GPL-3.0-1-ov-file#readme]GPLv3[]\n</size></align>",
+        "13": "<align=\"center\"><b>XtremeWave 团队:</b>\nSlok   ELinmei   FangkuaiYa   Duye ...\n\n<b>[https://qm.qq.com/q/oE3BmsFM9q]QQ[]</b>\n\n特别感谢 miniduikboot & GD 托管模组服务器（及其他支持）\n<size=60%> <b>其他致谢与资源:</b>\nOxygenFilter - v2.3.0 至 v2.6.1 版本使用其自动反混淆工具\nReactor - v2.0.0 之前及 4.2.0 之后版本使用的框架\nBepInEx - 用于挂钩游戏函数\nEssentials - 由 DorCoMaNdO 开发的定制游戏选项:\nv1.6 前: 使用标准 Essentials 版本\nv1.6-v1.8: 对 Essentials 进行微调\nv2.0.0 及后续: 基于 DorCoMaNdO 方案自主实现\nJackal 与 Sidekick - 角色概念源自 Dhalucard\nAmong-Us-Love-Couple-Mod - 恋人修饰器灵感来自 Woodi-dev\n小丑 - 角色概念源自 Maartii\nExtraRolesAmongUs - 工程师与医生角色灵感来自 NotHunter101，部分代码参考实现\nAmong-Us-Sheriff-Mod - 警长角色概念来自 Woodi-dev\nTooManyRolesMods - 侦探与时间大师角色灵感来自 Hardel-DW，部分代码参考实现\nTownOfUs - 换票师、转换者、纵火犯及类似市长角色概念来自 Slushiegoose\nOttomated - 变形者、告密者与伪装者角色概念来自 Ottomated\nCrowded-Mod - 10+ 玩家大厅实现参考其方案\nGoose-Goose-Duck - 秃鹫角色概念来自 Slushiegoose\nTheEpicRoles - 首杀护盾(部分) 和标签式选项菜单(完整+代码) 来自 LaicosVK DasMonschta Nova\nugackMiner53 - 道具猎杀模式核心代码与创意\nTheOtherRolesGMIA - 一些代码来自Imp11\n轮抽选角音乐:[https://www.youtube.com/watch?v=9STiQ8cCIo0]Unreal Superhero 3 by Kenët & Rez[]\n\n许可证: TheOtherRoles-Rework 采用 [https://github.com/TheOtherRolesAU/TheOtherRoles?tab=GPL-3.0-1-ov-file#readme]GPLv3[]\n</size></align>"
+    },
+    "creditsAnnouncementTittle": {
+        "0": "The Other Roles Rework\nCredits & Resources",
+        "13": "The Other Roles Rework\n贡献者和资源出处"
+    },
+    "creditsAnnouncementShortTittle": {
+        "0": "TORR Credits",
+        "13": "TORR贡献者"
+    },
+    "creditsAnnouncementSubTitle": {
+        "0": "TheOtherRoles-Rework Credits & Resources",
+        "13": "TheOtherRoles-Rework 贡献者和资源出处"
+    },
+    "guesserButtonText": {
+        "0": "TOR Guesser",
+        "13": "TOR 赌怪模式"
+    },
+    "guesserButtonTooltip": {
+        "0": "An extension to the Classic-Gamemode and gives you a multitude of new options for Guessers.",
+        "13": "经典游戏模式的扩展，为赌怪提供了众多新选项。"
+    },
+    "HideNSeekButtonText": {
+        "0": "TOR Hide N Seek",
+        "13": "TOR 捉迷藏"
+    },
+    "HideNSeekButtonTooltip": {
+        "0": "A standalone Gamemode where Hunter have to catch their prey (\"Hunted\" players).",
+        "13": "一个独立的游戏模式，抓捕者必须抓住他们的猎物（“猎物”职业）。"
+    },
+    "PropHuntButtonText": {
+        "0": "TOR Prop Hunt",
+        "13": "TOR 变形狩猎"
+    },
+    "PropHuntButtonTooltip": {
+        "0": "A standalone Gamemode where Hunters have to find the disguised players (\"Props\").",
+        "13": "一个独立的游戏模式，抓捕者必须找到伪装的玩家（“道具”）。"
+    },
+    "meetingFraudsterButtonLabel": {
+        "0": "Confirm Suicide",
+        "13": "确认自杀"
+    },
+    "meetingFraudsterButtonText": {
+        "0": "Suicide",
+        "13": "自杀"
+    },
+    "meetingSwapperButtonLabel": {
+        "0": "Confirm Swap",
+        "13": "确认换票"
+    },
+    "meetingSwappingText": {
+        "0": "Swapping!",
+        "13": "交换中！"
+    },
+    "meetingSwapsText": {
+        "0": "Swaps:",
+        "13": "剩余次数: {0}"
+    },
+    "mayorToggleVoteTwice": {
+        "0": "Double Vote:",
+        "13": "投两票："
+    },
+    "portalLogText": {
+        "0": "Portal Log:\n",
+        "13": "传送门日志:\n"
+    },
+    "portalLogTime": {
+        "0": "{0}s ago: ",
+        "13": "{0}秒前："
+    },
+    "portalLogTextName": {
+        "0": "{0} used the teleporter\n",
+        "13": "{0} 使用了传送门\n"
+    },
+    "trapLogsText": {
+        "0": "Trap Logs:",
+        "13": "陷阱日志："
+    },
+    "trapIdText": {
+        "0": "Trap {0}: \n",
+        "13": "陷阱{0}: \n"
+    },
+    "evilRole": {
+        "0": "Evil Role",
+        "13": "邪恶职业"
+    },
+    "goodRole": {
+        "0": "Good Role",
+        "13": "善良职业"
+    },
+    "snitchInfoBadAliveRoles": {
+        "0": "Bad alive roles in game: \n \n",
+        "13": "场上存活的邪恶职业: \n \n"
+    },
+    "snitchInfoRoomName": {
+        "0": "open fields",
+        "13": "开放场地"
+    },
+    "snitchInfoOutput": {
+        "0": "- {0}, was last seen {1}\n",
+        "13": "- {0}, 最后在 {1}\n"
+    },
+    "meetingHostNameText": {
+        "0": "Host:",
+        "13": "房主:"
+    },
+    "tabTaskText": {
+        "0": "Tasks",
+        "13": "任务数"
+    },
+    "snitchUpdateAliveText": {
+        "0": "Snitch is alive：",
+        "13": "告密者还活着："
+    },
+    "snitchUpdateDeadText": {
+        "0": "Snitch is dead!",
+        "13": "告密者被杀害！"
+    },
+    "medicReport": {
+        "0": "Body Report: Killed {0}s ago!",
+        "13": "尸体报告：{0}秒前被杀"
+    },
+    "detectiveReportName": {
+        "0": "Body Report: The killer appears to be {0}!",
+        "13": "尸检报告: 凶手似乎是{0}!"
+    },
+    "detectiveReportColor": {
+        "0": "Body Report: The killer appears to be a {0} color!",
+        "13": "尸检报告:凶手似乎是{0}色的!"
+    },
+    "detectiveReportNone": {
+        "0": "Body Report: The corpse is too old to gain information from!",
+        "13": "尸检报告: 尸体已经腐烂了!"
+    },
+    "colorLight": {
+        "0": "lighter",
+        "13": "浅色"
+    },
+    "colorDark": {
+        "0": "darker",
+        "13": "深色"
+    },
+    "colorLightMax": {
+        "0": "L",
+        "13": "浅"
+    },
+    "colorDarkMax": {
+        "0": "D",
+        "13": "深"
+    },
+    "seerInfoText": {
+        "0": "Seer Info: Someone Died",
+        "13": "灵媒信息：有玩家死亡"
+    },
+    "setNameTagsG": {
+        "0": " (G)",
+        "13": " (教父)"
+    },
+    "setNameTagsM": {
+        "0": " (M)",
+        "13": " (小弟)"
+    },
+    "setNameTagsJ": {
+        "0": " (J)",
+        "13": " (清洁工)"
+    },
+    "swapperCallMeetingText": {
+        "0": "The Swapper can't start an emergency meeting",
+        "13": "换票师不能开启紧急会议"
+    },
+    "jesterCallMeetingText": {
+        "0": "The Jester can't start an emergency meeting",
+        "13": "小丑不能开启紧急会议"
+    },
+    "lawyerCallMeetingText": {
+        "0": "The Lawyer can't start an emergency meeting",
+        "13": "律师不能开启紧急会议"
+    },
+    "prosecutorCallMeetingText": {
+        "0": "The Prosecutor can't start an emergency meeting",
+        "13": "检察官不能开启紧急会议"
+    },
+    "prophetMeetingText": {
+        "0": "The Prophet can't start an emergency meeting",
+        "13": "预言家不能开启紧急会议"
+    },
+    "modNumberText": {
+        "0": "{0} and the ship has {1}",
+        "13": "{0} 飞船剩余会议总次数 {1}"
+    },
+    "getSidekickText": {
+        "0": "and recruit a Sidekick",
+        "13": "并招募一个跟班"
+    },
+    "getJackalRoleString": {
+        "0": "{0}: Kill everyone {1}",
+        "13": "{0}: 杀死所有人{1}"
+    },
+    "roleInfoVulture": {
+        "0": " ({0} left)",
+        "13": " (剩余 {0})"
+    },
+    "roleInfoEraser": {
+        "0": " (erased) ",
+        "13": " (被抹除)"
+    },
+    "roleInfoVampire": {
+        "0": " (bitten {0}) ",
+        "13": " ({0} 被吸血)"
+    },
+    "roleInfoDeputy": {
+        "0": " (cuffed) ",
+        "13": " (被逮捕)"
+    },
+    "roleInfoWarlock": {
+        "0": " (cursed) ",
+        "13": " (被诅咒)"
+    },
+    "roleInfoNinja": {
+        "0": " (marked) ",
+        "13": " (被标记)"
+    },
+    "roleInfoPursuer": {
+        "0": " (blanked) ",
+        "13": " (空包弹)"
+    },
+    "roleInfoBountyHunter": {
+        "0": "(bounty) ",
+        "13": " (赏金目标)"
+    },
+    "roleInfoArsonist": {
+        "0": " ({0} left)",
+        "13": " (剩余 {0})"
+    },
+    "roleInfoJackal": {
+        "0": " (fake SK) ",
+        "13": " (假跟班) "
+    },
+    "roleSummaryDisconnected": {
+        "0": " - disconnected",
+        "13": " - 断开连接"
+    },
+    "roleSummaryKilled": {
+        "0": " - killed by {0}",
+        "13": " - 被{0}击杀"
+    },
+    "roleSummaryExiled": {
+        "0": " - voted out",
+        "13": " - 被驱逐"
+    },
+    "roleSummaryFailedGuess": {
+        "0": " - failed guess",
+        "13": " - 猜测错误"
+    },
+    "roleSummaryGuess": {
+        "0": " - guessed by {0}",
+        "13": " - 被{0}赌杀"
+    },
+    "roleSummaryShift": {
+        "0": "shifted",
+        "13": "被交换"
+    },
+    "roleSummarySpelled": {
+        "0": " - <color=#FF1919FF>witched</color> by {0}",
+        "13": " - 被{0}<color=#FF1919FF>咒杀</color> "
+    },
+    "roleSummaryLoverDied": {
+        "0": "lover died",
+        "13": "殉情"
+    },
+    "roleSummaryLawyerSuicide": {
+        "0": "bad Lawyer",
+        "13": "辩护失败"
+    },
+    "roleSummaryBombed": {
+        "0": " - bombed by {0}",
+        "13": " - 被{0}炸死"
+    },
+    "roleSummaryTorched": {
+        "0": " - burnt by {0}",
+        "13": " - 被{0}烧死"
+    },
+    "stopStartChatText": {
+        "0": "{0} stopped the game start!",
+        "13": "{0} 阻止了游戏开始！"
+    },
+    "peacedoveReloadText": {
+        "0": "Peacedove Reload Your Cooldown",
+        "13": "和平之鸽重置了你的冷却时间！"
+    },
+    "engineerUsedRepairText": {
+        "0": "Engineer Fix",
+        "13": "工程师修复破坏！"
+    },
+    "shieldedMurderAttemptText": {
+        "0": "Failed Murder Attempt on Shielded Player",
+        "13": "击杀装甲兵被拦截"
+    },
+    "lightsOutText": {
+        "0": "Lights are out",
+        "13": "关灯了！"
+    },
+    "guessedChatText": {
+        "0": "{0} guessed the role {1} for {2}!",
+        "13": "{0} 猜测 {2} 的职业是 {1}!"
+    },
+    "mediumSheriffSuicide": {
+        "0": "Yikes, that Sheriff shot backfired.",
+        "13": "啊呀！那个警长走火了！"
+    },
+    "mediumWarlockSuicide": {
+        "0": "MAYBE I cursed the person next to me and killed myself. Oops.",
+        "13": "我好像诅咒了我旁边的人然后把我杀了"
+    },
+    "mediumThiefSuicide": {
+        "0": "I tried to steal the gun from their pocket, but they were just happy to see me.",
+        "13": "我试图从他们的口袋里偷走手枪，但是他们很高兴见到我"
+    },
+    "mediumActiveLoverDies": {
+        "0": "I wanted to get out of this toxic relationship anyways.",
+        "13": "我早就想摆脱他的束缚了！"
+    },
+    "mediumPassiveLoverSuicide": {
+        "0": "The love of my life died, thus with a kiss I die.",
+        "13": "我一生最爱的人离开了我，因此我吻了我最爱的人后离开了人世"
+    },
+    "mediumLawyerKilledByClient": {
+        "0": "My client killed me. Do I still get paid?",
+        "13": "我的客户把我杀了，我还能得到报酬吗？"
+    },
+    "mediumJackalKillsSidekick": {
+        "0": "First they sidekicked me, then they killed me. At least I don't need to do tasks anymore.",
+        "13": "首先他们把我招募了，其次又把我杀了...至少我不用再做任务了"
+    },
+    "mediumImpostorTeamkill": {
+        "0": "I guess they confused me for the Spy, is there even one?",
+        "13": "他们好像把我当成卧底了...或许根本没有卧底"
+    },
+    "mediumBodyCleaned": {
+        "0": "Is my dead body some kind of art now or... aaand it's gone.",
+        "13": "我的尸体好像是一种艺术啊...不！它消失了！"
+    },
+    "mediumQuestion1": {
+        "0": "If my role hasn't been saved, there's no {0} in the game anymore.",
+        "13": "如果我没有存活，那么场上就不会再有{0}了"
+    },
+    "mediumQuestion2": {
+        "0": "I'm not sure, but I guess a {0} color killed me.",
+        "13": "我不太确定，但是我感觉一个{0}颜色击杀了我"
+    },
+    "mediumQuestion3": {
+        "0": "If I counted correctly, I died {0}s before the next meeting started.",
+        "13": "如果我没数错的话，那么我在会议前{0}秒死亡的"
+    },
+    "mediumQuestion4": {
+        "0": "It seems like my killer was the {0}.",
+        "13": "看样子我的凶手是{0}"
+    },
+    "mediumQuestion5": {
+        "0": "I was a {0} without another role.",
+        "13": "我是一个普通的{0}"
+    },
+    "mediumSoulPlayerPrefix": {
+        "0": "{0}'s Soul:\n",
+        "13": "{0}的灵魂：\n"
+    },
+    "mediumSoulPlayerLighter": {
+        "0": "lighter",
+        "13": "浅色"
+    },
+    "mediumSoulPlayerDarker": {
+        "0": "darker",
+        "13": "深色"
+    },
+    "mediumAskPrefix": {
+        "0": "When you asked, {0}",
+        "13": "当你询问的时候, {0}"
+    },
+    "mediumKiller": {
+        "0": "{0} killer",
+        "13": "{0}名带刀玩家"
+    },
+    "mediumKillerPlural": {
+        "0": "{0} killers",
+        "13": "{0}名带刀玩家"
+    },
+    "mediumPlayerUseVents": {
+        "0": "{0} player who can use vents",
+        "13": "{0}名可以使用通风管的玩家"
+    },
+    "mediumPlayerUseVentsPlural": {
+        "0": "{0} players who can use vents",
+        "13": "{0}名可以使用通风管的玩家"
+    },
+    "mediumPlayerNeutral": {
+        "0": "{0} player who is neutral but cannot kill",
+        "13": "{0}名不能使用击杀的中立玩家"
+    },
+    "mediumPlayerNeutralPlural": {
+        "0": "{0} players who are neutral but cannot kill",
+        "13": "{0}名不能使用击杀的中立玩家"
+    },
+    "mediumStillAlive": {
+        "0": "{0} was still alive",
+        "13": "{0}还存活"
+    },
+    "mediumStillAlivePlural": {
+        "0": "{0} were still alive",
+        "13": "{0}还存活"
+    },
+    "filterTextGhost": {
+        "0": " Ghost",
+        "13": " 灵魂"
+    },
+    "nameTextHunter": {
+        "0": " (Hunter)",
+        "13": " (抓捕者)"
+    },
+    "introNeutral": {
+        "0": "Neutral",
+        "13": "中立"
+    },
+    "loverRoleBlurbText": {
+        "0": "\n♥ You are in love with {0} ♥",
+        "13": "\n♥ 你与 {0} 坠入了爱河 ♥"
+    },
+    "sheriffRoleBlurbText": {
+        "0": "\nYour Deputy is {0}",
+        "13": "\n你的捕快是 {0}"
+    },
+    "deputyRoleBlurbText": {
+        "0": "\nYour Sheriff is {0}",
+        "13": "\n你的警长是 {0}"
+    },
+    "lobbyTextPrevText": {
+        "0": "Prev Lobby: {0}   [LShift]",
+        "13": "返回大厅: {0}   [左Shift]"
+    },
+    "lobbyTextClipboardText": {
+        "0": "\nClipboard: {0}  [RShift]",
+        "13": "\n粘贴板: {0}  [右Shift]"
+    },
+    "contributorsCredentials": {
+        "0": "<size=60%><color=#FCCE03FF>Special thanks to <color=#00FFFF>FangkuaiYa</color> & Imp11</color></size>",
+        "13": "<size=60%><color=#FCCE03FF>特别感谢 <color=#00FFFF>FangkuaiYa</color> & Imp11</color></size>"
+    },
+    "impostorShowTeamText": {
+        "0": "Remember your companions in case they go rogue.",
+        "13": "记住队友以防他们被招募"
+    },
+    "impGetEmergencyCooldown": {
+        "0": "The difference between the number of remaining Pretenders on the field and the number of remaining non-Pretenders is 1 person \n through emergency: sabotage, and victory is achieved before an emergency meeting is called! \n Current cooldown for convening an emergency meeting:",
+        "13": "场上剩余伪装者人数与剩余非伪装者人数相差1人\n通过紧急破坏，在召开紧急会议之前取得胜利！\n 当前召开紧急会议冷却时间："
+    },
+    "blindMessage": {
+        "0": "You are blinded and will not return to normal vision until you die.",
+        "13": "你失明了，除非你死亡，否则将不会恢复到正常视野"
+    },
+    "buttonLeftClick": {
+        "0": "Left Click: {0}",
+        "13": "左键: {0}"
+    },
+    "buttonsDescription": {
+        "0": "Action : {0}",
+        "13": "按下 : {0}"
+    },
+    "engineerRepair": {
+        "0": "Repair",
+        "13": "修理"
+    },
+    "cleanerClean": {
+        "0": "Clean",
+        "13": "清理"
+    },
+    "deputyHandcuff": {
+        "0": "Handcuff",
+        "13": "逮捕"
+    },
+    "timemasterShield": {
+        "0": "Time Shield",
+        "13": "时间之盾"
+    },
+    "medicShield": {
+        "0": "Shield",
+        "13": "护盾"
+    },
+    "shifterShift": {
+        "0": "Shift",
+        "13": "交换"
+    },
+    "morphlingMorph": {
+        "0": "Morph",
+        "13": "化形"
+    },
+    "morphlingSample": {
+        "0": "Sample",
+        "13": "取样"
+    },
+    "camouflagerCamo": {
+        "0": "Camo",
+        "13": "隐蔽"
+    },
+    "hackerHack": {
+        "0": "Hack",
+        "13": "黑入"
+    },
+    "trackerTrackPlayer": {
+        "0": "Track",
+        "13": "追踪"
+    },
+    "trackerTrackCorpses": {
+        "0": "Find",
+        "13": "寻找"
+    },
+    "vampireBite": {
+        "0": "Bite",
+        "13": "撕咬"
+    },
+    "planGarlic": {
+        "0": "Garlic",
+        "13": "大蒜"
+    },
+    "tricksterPlaceBox": {
+        "0": "Place",
+        "13": "放置"
+    },
+    "jackalSidekick": {
+        "0": "Sidekick",
+        "13": "招募"
+    },
+    "lightOutButton": {
+        "0": "Light",
+        "13": "关灯"
+    },
+    "eraserErase": {
+        "0": "Erase",
+        "13": "抹除"
+    },
+    "warlockCurse": {
+        "0": "Curse",
+        "13": "诅咒"
+    },
+    "securityGuardPlaceCam": {
+        "0": "Camera",
+        "13": "摄像头"
+    },
+    "securityGuardSealVent": {
+        "0": "Seal",
+        "13": "封锁"
+    },
+    "arsonistIgnite": {
+        "0": "Ignite",
+        "13": "点火"
+    },
+    "arsonistDouse": {
+        "0": "Douse",
+        "13": "浇油"
+    },
+    "vultureEat": {
+        "0": "Eat",
+        "13": "吞噬"
+    },
+    "mediumAsk": {
+        "0": "Ask",
+        "13": "询问"
+    },
+    "pursuerBlank": {
+        "0": "Blank",
+        "13": "空包弹"
+    },
+    "witchSpell": {
+        "0": "Spell",
+        "13": "下咒"
+    },
+    "ninjaAssassinateButton": {
+        "0": "Assassinate",
+        "13": "刺杀"
+    },
+    "ninjaMarkButton": {
+        "0": "Mark",
+        "13": "标记"
+    },
+    "trapperTrap": {
+        "0": "Trap",
+        "13": "陷阱"
+    },
+    "bomberPlantButton": {
+        "0": "Plant",
+        "13": "安装"
+    },
+    "defuseButtonText": {
+        "0": "Defuse",
+        "13": "拆除"
+    },
+    "yoyoButtonBlink": {
+        "0": "Blink",
+        "13": "转移"
+    },
+    "yoyoButtonBlinkReturning": {
+        "0": "Returning...",
+        "13": "即将返回……"
+    },
+    "yoyoButtonMark": {
+        "0": "Mark Location",
+        "13": "标记地点"
+    },
+    "lighterLightOn": {
+        "0": "Light",
+        "13": "点灯"
+    },
+    "propDisguiseButtonText": {
+        "0": "Disguise",
+        "13": "变形"
+    },
+    "propHuntUnstuckButtonText": {
+        "0": "Unstuck",
+        "13": "穿墙"
+    },
+    "propHuntRevealButtonText": {
+        "0": "Reveal",
+        "13": "揭示"
+    },
+    "propHuntInvisButtonText": {
+        "0": "Invis",
+        "13": "隐形"
+    },
+    "propHuntSpeedboostButtonText": {
+        "0": "Boost",
+        "13": "冲刺"
+    },
+    "eventKickButtonText": {
+        "0": "Kick",
+        "13": "踢出"
+    },
+    "fraudsterButtonSuicide": {
+        "0": "Suicide",
+        "13": "自杀"
+    },
+    "devilButtonBlind": {
+        "0": "Blind",
+        "13": "致盲"
+    },
+    "prophetButtonExamine": {
+        "0": "Examine",
+        "13": "预言"
+    },
+    "peacedoveButtonReload": {
+        "0": "Reload",
+        "13": "重制"
+    },
+    "updatingText": {
+        "0": "Updating <b>TheOtherRoles-Rework</b>\nPlease wait...",
+        "13": "正在更新<b>TheOtherRoles-Rework</b>\n请稍等..."
+    },
+    "downliadingText": {
+        "0": "Updating <b>TheOtherRoles-Rework</b>\nDownloading...\n{0}\nDownload speed: {1}",
+        "13": "正在更新<b>TheOtherRoles-Rework</b>\n正在下载更新...\n{0}\n下载速度: {1}"
+    },
+    "updateFailedText": {
+        "0": "Update wasn't successful\nTry again later,\nor update manually.",
+        "13": "更新失败 :(\n请稍后重新或手动更新"
+    },
+    "copyingFileText": {
+        "0": "Updating <b>TheOtherRoles-Rework</b>\nPlease wait...\n\nDownload complete\ncopying file...",
+        "13": "正在更新<b>TheOtherRoles-Rework</b>\n请稍等...\n\n下载成功！\n正在复制文件..."
+    },
+    "updateEndText": {
+        "0": "<b>TheOtherRoles-Rework</b>\nupdated successfully\nPlease restart the game.",
+        "13": "<b>TheOtherRoles-Rework</b>\n更新成功\n请重启游戏."
+    },
+    "announcementText": {
+        "0": "<size=150%>A new <b>TheOtherRoles-Rework</b> update to {0} is available</size>\n\n{1}",
+        "13": "<size=150%><b>TheOtherRoles-Rework</b> {0} 已经发布啦！</size>\n\n{1}"
+    },
+    "updateButtonText": {
+        "0": "Update TORR",
+        "13": "更新模组"
+    },
+    "colorSalmon": {
+        "0": "Salmon",
+        "13": "鲑鱼红"
+    },
+    "colorBordeaux": {
+        "0": "Bordeaux",
+        "13": "枣红"
+    },
+    "colorOlive": {
+        "0": "Olive",
+        "13": "橄榄色"
+    },
+    "colorTurquoise": {
+        "0": "Turquoise",
+        "13": "绿松石色"
+    },
+    "colorMint": {
+        "0": "Mint",
+        "13": "薄荷绿"
+    },
+    "colorLavender": {
+        "0": "Lavender",
+        "13": "薰衣紫"
+    },
+    "colorNougat": {
+        "0": "Nougat",
+        "13": "棕褐色"
+    },
+    "colorPeach": {
+        "0": "Peach",
+        "13": "桃红"
+    },
+    "colorWasabi": {
+        "0": "Wasabi",
+        "13": "芥末绿"
+    },
+    "colorHotPink": {
+        "0": "Hot Pink",
+        "13": "热粉色"
+    },
+    "colorPetrol": {
+        "0": "Petrol Blue",
+        "13": "油画蓝"
+    },
+    "colorLemon": {
+        "0": "Lemon",
+        "13": "柠檬黄"
+    },
+    "colorSignalOrange": {
+        "0": "Signal Orange",
+        "13": "信号橙"
+    },
+    "colorTeal": {
+        "0": "Teal",
+        "13": "蓝绿色"
+    },
+    "colorBlurple": {
+        "0": "Blurple",
+        "13": "蓝紫色"
+    },
+    "colorSunrise": {
+        "0": "Sunrise",
+        "13": "日出红"
+    },
+    "colorIce": {
+        "0": "Ice",
+        "13": "冰蓝色"
+    },
+    "colorFuchsia": {
+        "0": "Fuchsia",
+        "13": "紫红色"
+    },
+    "colorRoyalGreen": {
+        "0": "Royal Green",
+        "13": "皇家绿"
+    },
+    "colorSlime": {
+        "0": "Slime",
+        "13": "荧光绿"
+    },
+    "colorNavy": {
+        "0": "Navy",
+        "13": "藏蓝色"
+    },
+    "colorDarkness": {
+        "0": "Darkness",
+        "13": "暗黑色"
+    },
+    "colorOcean": {
+        "0": "Ocean",
+        "13": "海蓝色"
+    },
+    "colorSundown": {
+        "0": "Sundown",
+        "13": "日落黄"
+    },
+    "playerPicks": {
+        "0": "Player's Picks:",
+        "13": "玩家的选择："
+    },
+    "currentlyPicking": {
+        "0": "Currently Picking:",
+        "13": "当前玩家："
+    },
+    "youText": {
+        "0": "You",
+        "13": "你的回合"
+    },
+    "randomButtonText": {
+        "0": "Random",
+        "13": "随机"
+    },
+    "anonymousPlayer": {
+        "0": "Anonymous Player {0}",
+        "13": "匿名玩家{0}"
+    },
+    "welcomeText": {
+        "0": "Welcome to the Role Draft!",
+        "13": "欢迎来到轮抽选角！"
+    },
+    "untilYourTurnText": {
+        "0": "{0} rounds until your turn",
+        "13": "还有{0}名玩家到你的回合"
+    },
+    "randomSelectionText": {
+        "0": "Random Selection In... {0}",
+        "13": "在{0}秒后自动选择"
+    },
+    "roleDraftMusic": {
+        "0": "♫ Music: Ultimate Superhero 3 - Kenët & Rez ♫",
+        "13": "♫ 音乐: Ultimate Superhero 3 - Kenët & Rez ♫"
+    },
+    "roleDraftUnknowRole": {
+        "0": "Unknown Role",
+        "13": "未知职业"
+    },
+    "roleDraftImpRole": {
+        "0": "Impostor Role",
+        "13": "内鬼职业"
+    },
+    "roleDraftNeutRole": {
+        "0": "Neutral Role",
+        "13": "中立职业"
+    },
+    "roleDraftCrewRole": {
+        "0": "Crewmate Role",
+        "13": "船员职业"
+    },
+    "youText2": {
+        "0": "You",
+        "13": "你的选择"
+    },
+    "moder": {
+        "0": "Mod by ",
+        "13": "模组作者："
+    },
+    "baseOnModer": {
+        "0": "Base on ",
+        "13": "基于本家："
+    },
+    "modTranslators": {
+        "0": "Translate by ",
+        "13": "中文翻译："
+    },
+    "moreOptionsText": {
+        "0": "More Options...",
+        "13": "更多设置..."
+    },
+    "modOptionsText": {
+        "0": "Mod Options...",
+        "13": "模组设置..."
+    },
+    "ghostsSeeInformation": {
+        "0": "Ghosts See Tasks & Other Info",
+        "13": "灵魂可见任务和其他信息"
+    },
+    "ghostsSeeVotes": {
+        "0": "Ghosts Can See Votes",
+        "13": "灵魂可见投票结果"
+    },
+    "ghostsSeeRoles": {
+        "0": "Ghosts Can See Roles",
+        "13": "灵魂可见玩家职业"
+    },
+    "ghostsSeeModifier": {
+        "0": "Ghosts Can Additionally See Modifier",
+        "13": "灵魂可见附加职业"
+    },
+    "showRoleSummary": {
+        "0": "Show Role Summary",
+        "13": "显示职业总结"
+    },
+    "showLighterDarker": {
+        "0": "Show Lighter / Darker",
+        "13": "显示颜色深浅"
+    },
+    "enableSoundEffects": {
+        "0": "Enable Sound Effects",
+        "13": "启用模组音效"
+    },
+    "showVentsOnMap": {
+        "0": "Show Vents On Map",
+        "13": "在地图上显示管道位置"
+    },
+    "showChatNotifications": {
+        "0": "Show Chat Notifications",
+        "13": "显示聊天通知"
+    },
+    "showFPS": {
+        "0": "Show FPS",
+        "13": "显示帧率"
+    }
+}
