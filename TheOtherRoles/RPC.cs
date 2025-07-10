@@ -805,6 +805,7 @@ public static class RPCProcedure
             if(p.Data.Role.IsImpostor || p.PlayerId == Jackal.jackal.PlayerId || p.PlayerId == Thief.thief.PlayerId)
             {
                 p.SetKillTimer(PeaceDove.reloadCooldown);
+                setCustomButtonCooldowns();
             }
         }
     }
@@ -998,13 +999,10 @@ public static class RPCProcedure
 
         if (Devil.futureBlinded == null)
             Devil.futureBlinded = new System.Collections.Generic.List<PlayerControl>();
-        if(Devil.visionOfPlayersShouldBeChanged == null)
-           Devil.visionOfPlayersShouldBeChanged = new System.Collections.Generic.List<PlayerControl>();
 
         if (player != null) 
         {
             Devil.futureBlinded.Add(player);
-            Devil.visionOfPlayersShouldBeChanged.Add(player);
         }
     }
     public static void placeNinjaTrace(byte[] buff)

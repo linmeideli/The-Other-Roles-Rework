@@ -29,7 +29,7 @@ public static class DarkModePatches
                 __instance.TextArea.color = Helpers.IsDarkColor(color) ? Color.black : Color.white;
                 __instance.TextArea.outlineWidth = __instance.NameText.outlineWidth * 0.75f;
             }
-            else return;
+            else return; 
         }
     }
 
@@ -44,6 +44,10 @@ public static class DarkModePatches
             __instance.chatButton.activeSprites.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f);
             __instance.chatButton.selectedSprites.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f);
             __instance.chatButton.transform.FindChild("Background").GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f);
+            __instance.quickChatButton.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(0.3f, 0.3f, 0.3f);
+            __instance.banButton.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(0.3f, 0.3f, 0.3f);
+            __instance.openKeyboardButton.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(0.3f, 0.3f, 0.3f);
+            __instance.quickChatButton.OnDestroy();
         }
     }
 
@@ -107,6 +111,21 @@ public static class DarkModePatches
         {
             __instance.background.color = new Color(0.2f, 0.2f, 0.2f);
             __instance.chatText.color = Color.white;
+        }
+    }
+    [HarmonyPatch(typeof(ChatController), nameof(ChatController.Update))]
+    private static class ChatController_Update
+    {
+        private static void Postfix(ChatController __instance)
+        {
+            var BanButton = __instance.transform.GetChild(7);
+            BanButton.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(0.3f, 0.3f, 0.3f);
+
+            var QuickChatButton = __instance.transform.GetChild(5);
+            QuickChatButton.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(0.3f, 0.3f, 0.3f);
+
+            var OpenKeyBoardButton = __instance.transform.GetChild(6);
+            OpenKeyBoardButton.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(0.3f, 0.3f, 0.3f);
         }
     }
 }

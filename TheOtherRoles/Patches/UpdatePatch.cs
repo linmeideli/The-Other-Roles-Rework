@@ -228,13 +228,13 @@ internal class HudManagerUpdatePatch
         if (PlayerControl.LocalPlayer == Devil.devil &&PlayerControl.LocalPlayer != null && Devil.devil != null && !Devil.devil.Data.IsDead && Deputy.deputy != null)
         {
             foreach (PlayerControl player in Devil.visionOfPlayersShouldBeChanged)
-                player.cosmetics.nameText.text.Color(Color.gray);
+                player.cosmetics.nameText.color = new Color(122,128,144);
 
             if (MeetingHud.Instance != null)
                 foreach (PlayerVoteArea player in MeetingHud.Instance.playerStates)
                     foreach (PlayerControl vplayer in Devil.visionOfPlayersShouldBeChanged)
                         if (Devil.visionOfPlayersShouldBeChanged != null && vplayer.PlayerId == player.TargetPlayerId)
-                        player.NameText.text.Color(Color.gray);
+                        player.NameText.color = new Color(122, 128, 144);
         }
 
         // Lovers
